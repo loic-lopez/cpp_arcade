@@ -11,9 +11,9 @@
 #ifndef SFMLCONTROLLER_HPP__
 # define SFMLCONTROLLER_HPP__
 
-#include "interfaces/ISFMLController.hpp"
+#include "ISFMLViewController.hpp"
 
-class SFMLController : public ISFMLController
+class SFMLViewController : public ISFMLViewController
 {
 
 };

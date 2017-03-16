@@ -11,11 +11,11 @@
 #ifndef IQTCONTROLLER_HPP__
 # define IQTCONTROLLER_HPP__
 
-class IQtController
+class IQtViewController
 {
  public:
 
-  virtual ~IQtController() {}
+  virtual ~IQtViewController() {}
 };
 
 #endif /* IQTCONTROLLER_HPP__ */

@@ -8,14 +8,14 @@
 ** Last update jeu. mars 16 18:29:57 2017 Loïc Lopez
 */
 
-#ifndef ISFMLCONTROLLER_HPP__
-# define ISFMLCONTROLLER_HPP__
+#ifndef ISFMLVIEWCONTROLLER_HPP__
+# define ISFMLVIEWCONTROLLER_HPP__
 
-class ISFMLController
+class ISFMLViewController
 {
  public:
 
-  virtual ~ISFMLController() {}
+  virtual ~ISFMLViewController() {}
 };
 
-#endif /* ISFMLCONTROLLER_HPP__ */
+#endif /* ISFMLVIEWCONTROLLER_HPP__ */

@@ -8,14 +8,14 @@
 // Last update jeu. mars 16 15:05:35 2017 Loïc Lopez
 //
 
-#ifndef NCURSESCONTROLLER_HPP__
-# define NCURSESCONTROLLER_HPP__
+#ifndef NCURSESVIEWCONTROLLER_HPP__
+# define NCURSESVIEWCONTROLLER_HPP__
 
-#include "interfaces/INcursesController.hpp"
+#include "INcursesViewController.hpp"
 
-class NcursesController : public INcursesController
+class NcursesViewController : public INcursesViewController
 {
 
 };
 
-#endif /* NCURSESCONTROLLER_HPP__ */
+#endif /* NCURSESVIEWCONTROLLER_HPP__ */

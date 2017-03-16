@@ -8,14 +8,14 @@
 ** Last update jeu. mars 16 18:34:03 2017 Loïc Lopez
 */
 
-#ifndef INCURSESCONTROLLER_HPP__
-# define INCURSESCONTROLLER_HPP__
+#ifndef INCURSESVIEWCONTROLLER_HPP__
+# define INCURSESVIEWCONTROLLER_HPP__
 
-class INcursesController
+class INcursesViewController
 {
  public:
 
-  virtual ~INcursesController() {}
+  virtual ~INcursesViewController() {}
 };
 
-#endif /* INCURSESCONTROLLER_HPP__ */
+#endif /* INCURSESVIEWCONTROLLER_HPP__ */

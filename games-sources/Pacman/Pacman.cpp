@@ -7,3 +7,5 @@
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
 // Last update jeu. mars 16 14:55:07 2017 Loïc Lopez
 //
+
+#include "Pacman.hpp"
