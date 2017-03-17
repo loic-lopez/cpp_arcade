@@ -5,14 +5,22 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  Mon Mar  6 10:30:47 2017 Loic Lopez
-// Last update Mon Mar  6 10:30:52 2017 Loic Lopez
+// Last update Fri Mar 17 16:16:05 2017 Matthias Prost
 //
 
 #include "Arcade.hpp"
 
+void help()
+{
+  std::cerr << "USAGE: ./arcade ./lib/lib_arcade_XXX.so" << std::endl;
+}
+
 int	main(int ac, char **av)
 {
-  (void)ac;
-  (void)av;
-  std::cout << "salut" << std::endl;
+  if (ac != 2)
+  {
+    std::cerr << "ERROR: Invalid number of arguments" << std::endl;
+    help();
+    return (-1);
+  }
 }

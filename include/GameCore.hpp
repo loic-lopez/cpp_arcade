@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 18:01:13 2017 Loïc Lopez
-// Last update jeu. mars 16 18:01:13 2017 Loïc Lopez
+// Last update Fri Mar 17 15:45:47 2017 Matthias Prost
 //
 
 #include <iostream>
@@ -28,4 +28,4 @@ class GameCore : public IGameCore
   virtual void	GameLauncher();
 };
 
-#endif /* GAMECORE_HPP__ */
+#endif /* GAMECORE_HPP_ */
