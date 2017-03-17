@@ -36,12 +36,12 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -I../../games-include/SpaceFighter
+CXXFLAGS 	= -Wall -Wextra -Werror -I../../games-include/SpaceFighter -fPIC -shared
 
 all: $(SpaceFighter)
 
 $(SpaceFighter):	$(SpaceFighter_OBJS)
-	@$(CC) $(SpaceFighter_OBJS) -fPIC -shared -o $(SpaceFighter) && \
+	@$(CC) $(SpaceFighter_OBJS) $(CXXFLAGS) -o $(SpaceFighter) && \
         $(ECHO) $(GREEN) "[OK]"$(TEAL)"  BUILD : spacefighter.so" $(DEFAULT)  || \
         $(ECHO) $(RED) "[ERROR]" $(TEAL) $(SpaceFighter) $(DEFAULT)
 

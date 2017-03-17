@@ -9,3 +9,30 @@
 //
 
 #include "Snake.hpp"
+
+extern "C" IGameModel *Play(std::string const &libraryName)
+{
+  return (new Snake(libraryName));
+}
+
+Snake::Snake(std::string const &libraryName)
+{
+  this->libraryName = libraryName;
+}
+
+Snake &Snake::operator=(Snake const &snake)
+{
+  if (this != &snake)
+    this->libraryName = snake.libraryName;
+  return (*this);
+}
+
+Snake::~Snake()
+{
+}
+
+Snake::Snake(Snake const &snake)
+{
+  this->libraryName = snake.libraryName;
+}
+

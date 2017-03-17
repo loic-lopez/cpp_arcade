@@ -11,4 +11,21 @@
 #ifndef SPACEFIGHTER_HPP__
 # define SPACEFIGHTER_HPP__
 
+#include <iostream>
+#include "../interface/IGameModel.hpp"
+
+extern "C" IGameModel *Play(std::string const &libraryName);
+
+class SpaceFighter : public IGameModel
+{
+ private:
+  std::string	libraryName;
+
+ public:
+  SpaceFighter(std::string const &);
+  SpaceFighter(SpaceFighter const &);
+  SpaceFighter &operator=(SpaceFighter const &);
+  virtual ~SpaceFighter();
+};
+
 #endif /* SPACEFIGHTER_HPP__ */

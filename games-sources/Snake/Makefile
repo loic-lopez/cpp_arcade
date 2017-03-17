@@ -11,6 +11,8 @@
 
 Snake	=	../../games/snake.so
 
+CXXFLAGS	= -Wall -Wextra -Werror -I../../games-include/Snake -fPIC -shared
+
 
 ################# LIB SRCS ################
 
@@ -36,12 +38,11 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -I../../games-include/Snake
 
 all: $(Snake)
 
 $(Snake):	$(Snake_OBJS)
-	@$(CC) $(Snake_OBJS) -fPIC -shared -o $(Snake) && \
+	@$(CC) $(Snake_OBJS) $(CXXFLAGS) -o $(Snake) && \
         $(ECHO) $(GREEN) "[OK]"$(TEAL)"  BUILD : snake.so" $(DEFAULT)  || \
         $(ECHO) $(RED) "[ERROR]" $(TEAL) $(Snake) $(DEFAULT)
 

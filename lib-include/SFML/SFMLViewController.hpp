@@ -11,11 +11,11 @@
 #ifndef SFMLCONTROLLER_HPP__
 # define SFMLCONTROLLER_HPP__
 
-#include "ISFMLViewController.hpp"
+#include "../interface/ILibraryViewController.hpp"
 
-class SFMLViewController : public ISFMLViewController
+class SFMLViewController : public ILibraryViewController
 {
-
+  virtual ~SFMLViewController();
 };
 
 #endif /* SFMLCONTROLLER_HPP__ */

@@ -11,11 +11,15 @@
 #ifndef NCURSESVIEWCONTROLLER_HPP__
 # define NCURSESVIEWCONTROLLER_HPP__
 
-#include "INcursesViewController.hpp"
+#include "../interface/ILibraryViewController.hpp"
 
-class NcursesViewController : public INcursesViewController
+class NcursesViewController : public ILibraryViewController
 {
-
+ public:
+  virtual void drawMap(std::map<int, int> &);
+  virtual void drawCharacter(std::array<int, 2> &position);
+  virtual void drawMenu();
+  virtual ~NcursesViewController();
 };
 
 #endif /* NCURSESVIEWCONTROLLER_HPP__ */

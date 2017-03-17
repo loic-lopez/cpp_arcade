@@ -8,14 +8,14 @@
 // Last update jeu. mars 16 15:07:40 2017 Loïc Lopez
 //
 
-#include "IQtViewController.hpp"
-
 #ifndef QTCONTROLLER_HPP__
 # define QTCONTROLLER_HPP__
 
-class QtViewController : public IQtViewController
-{
+#include "../interface/ILibraryViewController.hpp"
 
+class QtViewController : public ILibraryViewController
+{
+  virtual ~QtViewController();
 };
 
 #endif /* QTCONTROLLER_HPP__ */
