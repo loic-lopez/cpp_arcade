@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  Mon Mar  6 10:30:47 2017 Loic Lopez
-// Last update Fri Mar 17 16:16:05 2017 Matthias Prost
+// Last update Fri Mar 17 17:36:09 2017 Matthias Prost
 //
 
 #include "Arcade.hpp"
@@ -22,5 +22,11 @@ int	main(int ac, char **av)
     std::cerr << "ERROR: Invalid number of arguments" << std::endl;
     help();
     return (-1);
+  }
+  else
+  {
+    IGameCore *GCore;
+    GCore = new GameCore(av[1]);
+    GCore->GameLauncher();
   }
 }

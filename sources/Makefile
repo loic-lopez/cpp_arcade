@@ -5,7 +5,7 @@
 ## Login   <loic.lopez@epitech.eu>
 ##
 ## Started on  Mon Mar  6 09:53:13 2017 Loic Lopez
-## Last update Mon Mar  6 10:31:07 2017 Loic Lopez
+## Last update Fri Mar 17 17:37:18 2017 Matthias Prost
 ##
 
 ECHO	=	/bin/echo -e
@@ -19,12 +19,13 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -I../include
+CXXFLAGS 	= -Wall -Wextra -Werror -ldl -I../include
 
 NAME            = ../arcade
 
 SRCS            = main.cpp \
-		 GameCore.cpp
+		 							GameCore.cpp \
+									Cencapsulation.cpp \
 
 OBJS            = $(SRCS:.cpp=.o)
 

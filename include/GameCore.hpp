@@ -5,14 +5,14 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 18:01:13 2017 Loïc Lopez
-// Last update Fri Mar 17 15:45:47 2017 Matthias Prost
+// Last update Fri Mar 17 17:27:24 2017 Matthias Prost
 //
-
-#include <iostream>
-#include "IGameCore.hpp"
 
 #ifndef GAMECORE_HPP__
 # define GAMECORE_HPP__
+
+#include <iostream>
+#include "IGameCore.hpp"
 
 class GameCore : public IGameCore
 {
@@ -22,7 +22,7 @@ class GameCore : public IGameCore
   GameCore(std::string const &);
   GameCore	&operator=(GameCore const &);
   GameCore(GameCore const &);
-  ~GameCore() {}
+  virtual ~GameCore() {}
 
   // methods
   virtual void	GameLauncher();

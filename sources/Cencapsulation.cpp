@@ -5,7 +5,7 @@
 // Login   <matthias.prost@epitech.eu@epitech.eu>
 //
 // Started on  Fri Mar 17 16:30:11 2017 Matthias Prost
-// Last update Fri Mar 17 16:35:45 2017 Matthias Prost
+// Last update Fri Mar 17 17:36:55 2017 Matthias Prost
 //
 
 #include "Cencapsulation.hpp"
@@ -22,7 +22,7 @@ std::string Cencapsulation::c_dlerror(void)
 
 void *Cencapsulation::c_dlsym(void *handle, const char *symbol)
 {
-  return (dlsym(handle, symbol))
+  return (dlsym(handle, symbol));
 }
 
 int Cencapsulation::c_dlclose(void *handle)
