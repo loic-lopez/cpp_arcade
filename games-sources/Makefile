@@ -10,16 +10,16 @@
 
 all:
 	@make --no-print-directory -C Snake
-	@make --no-print-directory -C Pacman
+	@make --no-print-directory -C SpaceFighter
 
 clean:
 	@make clean  --no-print-directory -C Snake
-	@make clean  --no-print-directory -C Pacman
+	@make clean  --no-print-directory -C SpaceFighter
 
 fclean:
 	@make fclean  --no-print-directory -C Snake
-	@make fclean  --no-print-directory -C Pacman
+	@make fclean  --no-print-directory -C SpaceFighter
 
 re:
 	@make re  --no-print-directory -C Snake
-	@make re  --no-print-directory -C Pacman
+	@make re  --no-print-directory -C SpaceFighter
