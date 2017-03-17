@@ -18,6 +18,8 @@ extern "C" IGameModel *Play(std::string const &libraryName)
 SpaceFighter::SpaceFighter(std::string const &libraryName)
 {
   this->libraryName = libraryName;
+  this->characterPosition = {3, 3};
+  this->map[0] = 0;
 }
 
 SpaceFighter::SpaceFighter(SpaceFighter const &spaceFighter)
@@ -35,4 +37,34 @@ SpaceFighter &SpaceFighter::operator=(SpaceFighter const &spaceFighter)
 SpaceFighter::~SpaceFighter()
 {
 
+}
+
+void	SpaceFighter::setCharacterPosition(std::array<int, 2> &position)
+{
+  (void)position;
+}
+
+std::array<int, 2> &SpaceFighter::getCharacterPosition()
+{
+  return (this->characterPosition);
+}
+
+void SpaceFighter::setMap(std::map<int, int> &map)
+{
+  (void)map;
+}
+
+std::map<int, int>	&SpaceFighter::getMap()
+{
+  return (this->mapm);
+}
+
+void SpaceFighter::getInputs()
+{
+
+}
+
+void SpaceFighter::changeLibrary(std::string const &libraryName)
+{
+  (void)libraryName;
 }

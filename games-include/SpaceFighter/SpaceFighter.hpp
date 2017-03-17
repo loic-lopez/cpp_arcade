@@ -20,12 +20,22 @@ class SpaceFighter : public IGameModel
 {
  private:
   std::string	libraryName;
+  std::array<int, 2>	characterPosition;
+  std::map<int, int>	map;
 
  public:
   SpaceFighter(std::string const &);
   SpaceFighter(SpaceFighter const &);
   SpaceFighter &operator=(SpaceFighter const &);
   virtual ~SpaceFighter();
+
+  // Methods
+  virtual void	setCharacterPosition(std::array<int, 2> &position);
+  virtual std::array<int, 2> &getCharacterPosition();
+  virtual void setMap(std::map<int, int> &);
+  virtual std::map<int, int>	&getMap();
+  virtual void getInputs();
+  virtual void changeLibrary(std::string const &);
 };
 
 #endif /* SPACEFIGHTER_HPP__ */

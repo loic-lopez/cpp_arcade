@@ -8,5 +8,23 @@
 // Last update jeu. mars 16 15:05:35 2017 Loïc Lopez
 //
 
-#include "../../lib-include/Ncurses/NcursesViewController.hpp"
+#include "NcursesViewController.hpp"
 
+NcursesViewController::~NcursesViewController()
+{
+
+}
+
+void	NcursesViewController::drawCharacter(std::array<int, 2> &position)
+{
+  (void)position;
+}
+
+void	NcursesViewController::drawMap(std::map<int, int> &map)
+{
+  (void)map;
+}
+
+void	NcursesViewController::drawMenu()
+{
+}

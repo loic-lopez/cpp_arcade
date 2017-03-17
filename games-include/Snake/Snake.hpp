@@ -20,12 +20,22 @@ class	Snake : public IGameModel
 {
  private:
   std::string libraryName;
+  std::array<int, 2>	characterPosition;
+  std::map<int, int>	map;
 
  public:
   Snake(std::string const &);
   Snake(Snake const &);
   Snake &operator=(Snake const &);
   virtual ~Snake();
+
+  // Methods
+  virtual void	setCharacterPosition(std::array<int, 2> &position);
+  virtual std::array<int, 2> &getCharacterPosition();
+  virtual void setMap(std::map<int, int> &);
+  virtual std::map<int, int>	&getMap();
+  virtual void getInputs();
+  virtual void changeLibrary(std::string const &);
 };
 
 #endif /* SNAKE_HPP__ */

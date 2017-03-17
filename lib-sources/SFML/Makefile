@@ -34,7 +34,7 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -I./lib-include/SFML
+CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/SFML -fPIC -shared
 
 all: $(SFML) 
 

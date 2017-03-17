@@ -35,7 +35,7 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/Qt
+CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/Qt -fPIC -shared
 
 all:  $(Qt)
 

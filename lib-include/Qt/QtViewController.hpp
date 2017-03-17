@@ -16,6 +16,11 @@
 class QtViewController : public ILibraryViewController
 {
   virtual ~QtViewController();
+
+  // Methods
+  virtual void drawMap(std::map<int, int> &);
+  virtual void drawCharacter(std::array<int, 2> &position);
+  virtual void drawMenu();
 };
 
 #endif /* QTCONTROLLER_HPP__ */
