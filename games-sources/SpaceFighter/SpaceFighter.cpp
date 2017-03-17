@@ -56,7 +56,7 @@ void SpaceFighter::setMap(std::map<int, int> &map)
 
 std::map<int, int>	&SpaceFighter::getMap()
 {
-  return (this->mapm);
+  return (this->map);
 }
 
 void SpaceFighter::getInputs()
