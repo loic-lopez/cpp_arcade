@@ -5,7 +5,7 @@
 ## Login   <loic.lopez@epitech.eu>
 ##
 ## Started on  Mon Mar  6 09:53:13 2017 Loic Lopez
-## Last update Fri Mar 17 17:37:18 2017 Matthias Prost
+## Last update Fri Mar 17 18:41:30 2017 Matthias Prost
 ##
 
 ECHO	=	/bin/echo -e
@@ -19,7 +19,7 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -ldl -I../include
+CXXFLAGS 	= -Wall -Wextra -Werror -ldl -I../include -I../lib-include -I../games-include/interface
 
 NAME            = ../arcade
 
