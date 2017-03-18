@@ -24,87 +24,44 @@ GameCore	&GameCore::operator=(GameCore const &controller)
   return (*this);
 }
 
-void	*GameCore::openLibrary(char const *libraryName)
-{
-  void	*file;
-
-  file = Cencapsulation::c_dlopen(libraryName, RTLD_LAZY);
-  if (!file)
-    {
-      std::cerr << Cencapsulation::c_dlerror() << std::endl;
-      exit(EXIT_FAILURE);
-    }
-  return (file);
-}
-
-load_library_function_type	GameCore::getLibrary(void *library)
-{
-  load_library_function_type	play_function;
-
-  play_function = reinterpret_cast<load_library_function_type>(Cencapsulation::c_dlsym(library, "loadLibrary"));
-  if (!play_function)
-    {
-      std::cerr << Cencapsulation::c_dlerror() << std::endl;
-      exit(EXIT_FAILURE);
-    }
-  return (play_function);
-}
-
-play_function_type	GameCore::getPlayFunction(void *game)
-{
-  play_function_type	play_function;
-
-  play_function = reinterpret_cast<play_function_type>(Cencapsulation::c_dlsym(game, "Play"));
-  if (!play_function)
-    {
-      std::cerr << Cencapsulation::c_dlerror() << std::endl;
-      exit(EXIT_FAILURE);
-    }
-  return (play_function);
-}
-
 void	GameCore::GameLauncher()
 {
   std::vector<std::string>	Games;
   std::vector<std::string>	Libs;
+  size_t	currentLib;
+  size_t	currentGame;
+  bool	exit;
   play_function_type	play_function;
   load_library_function_type	load_library_function;
   void	*game;
   void	*library;
+  IGameModel *GameInstance;
+  ILibraryViewController *libraryInstance;
 
-
-  Libs.push_back(this->library_name.c_str());
-  Games.push_back("./games/snake.so");
-  DIR   *dirp;
-  struct dirent *entry;
-
-  if ((dirp = Cencapsulation::c_opendir("./games")) == NULL)
+  this->fillVector(Games, "./games");
+  this->fillVector(Libs, "./lib");
+  currentLib = this->getCurrentLibrary(Libs);
+  currentGame = 0;
+  exit = false;
+  while (!exit)
     {
-      std::cerr << "[ERROR] : opendir problem\n" << std::endl;
-      exit(EXIT_FAILURE);
+      if (currentGame + 1 == Games.size())
+	currentGame = 0;
+      if (currentLib + 1 == Libs.size())
+	currentLib = 0;
+      game = this->openLibrary(Games.at(currentGame).c_str());
+      library = this->openLibrary(Libs.at(currentLib).c_str());
+      play_function = this->getPlayFunction(game);
+      load_library_function = this->getLibrary(library);
+      GameInstance = play_function(this->library_name.c_str());
+      libraryInstance = load_library_function();
+      exit = true;
     }
-  while ((entry = Cencapsulation::c_readdir(dirp)) != NULL)
-    {
-      if (entry == NULL)
-	exit(EXIT_FAILURE);
-      if (entry->d_name[0] != '.' && Cencapsulation::c_strstr(entry->d_name, ".so") != NULL)
-	{
-	  // la il faut push dans les vectors
-	}
-    }
-  Cencapsulation::c_closedir(dirp);
-
-
-  play_function = this->getPlayFunction(Games.at(0));
-  load_library_function = this->getLibrary(Libs.at(0));
-
-  IGameModel *GameInstance = play_function(this->library_name.c_str());
-  ILibraryViewController *libraryInstance = load_library_function();
 
   GameInstance->getInputs();
   libraryInstance->drawMenu();
-  delete game;
-  delete library;
-  Cencapsulation::c_dlclose(Libs.at(0));
-  Cencapsulation::c_dlclose(Games.at(0));
+  delete GameInstance;
+  delete libraryInstance;
+  Cencapsulation::c_dlclose(game);
+  Cencapsulation::c_dlclose(library);
 }

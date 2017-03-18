@@ -15,6 +15,8 @@
 #include <vector>
 #include "IGameCore.hpp"
 
+#include <algorithm>
+
 class GameCore : public IGameCore
 {
  private:
@@ -22,6 +24,8 @@ class GameCore : public IGameCore
   virtual void  *openLibrary(char const *);
   virtual play_function_type getPlayFunction(void *);
   virtual load_library_function_type getLibrary(void *);
+  virtual void	fillVector(std::vector<std::string> &vector, char const *folder);
+  virtual size_t	getCurrentLibrary(std::vector<std::string> const &);
 
  public:
   GameCore(std::string const &);

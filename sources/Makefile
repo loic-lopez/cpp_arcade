@@ -25,8 +25,9 @@ CXXFLAGS 	+= -I../include -I../games-include/interface -I../lib-include/interfac
 NAME            = ../arcade
 
 SRCS            = main.cpp \
-		 							GameCore.cpp \
-									Cencapsulation.cpp \
+		 GameCore.cpp \
+		 Cencapsulation.cpp \
+		 GameCoreLibrary.cpp
 
 OBJS            = $(SRCS:.cpp=.o)
 
