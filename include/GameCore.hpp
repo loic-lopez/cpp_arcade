@@ -15,13 +15,13 @@
 #include <vector>
 #include "IGameCore.hpp"
 
-
 class GameCore : public IGameCore
 {
  private:
   const std::string	library_name;
   virtual void  *openLibrary(char const *);
   virtual play_function_type getPlayFunction(void *);
+  virtual load_library_function_type getLibrary(void *);
 
  public:
   GameCore(std::string const &);

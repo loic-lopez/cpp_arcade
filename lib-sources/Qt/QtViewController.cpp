@@ -10,6 +10,11 @@
 
 #include "QtViewController.hpp"
 
+extern "C" ILibraryViewController	*loadLibrary()
+{
+  return (new QtViewController());
+}
+
 QtViewController::~QtViewController()
 {
 
@@ -25,6 +30,9 @@ void	QtViewController::drawMap(std::map<int, int> &map)
   (void)map;
 }
 
+#include <iostream>
+
 void	QtViewController::drawMenu()
 {
+  std::cout << "Library LOADED" << std::endl;
 }

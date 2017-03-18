@@ -10,6 +10,11 @@
 
 #include "SFMLViewController.hpp"
 
+extern "C" ILibraryViewController	*loadLibrary()
+{
+  return new SFMLViewController();
+}
+
 SFMLViewController::~SFMLViewController()
 {
 

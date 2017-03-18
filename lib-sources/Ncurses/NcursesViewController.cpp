@@ -10,6 +10,11 @@
 
 #include "NcursesViewController.hpp"
 
+extern "C" ILibraryViewController	*loadLibrary()
+{
+  return (new NcursesViewController());
+}
+
 NcursesViewController::~NcursesViewController()
 {
 

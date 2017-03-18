@@ -13,6 +13,8 @@
 
 #include "../interface/ILibraryViewController.hpp"
 
+extern "C" ILibraryViewController	*loadLibrary();
+
 class SFMLViewController : public ILibraryViewController
 {
   virtual ~SFMLViewController();

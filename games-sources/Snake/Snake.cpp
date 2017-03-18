@@ -61,7 +61,6 @@ std::map<int, int>	&Snake::getMap()
 
 void Snake::getInputs()
 {
-
 }
 
 void Snake::changeLibrary(std::string const &libraryName)

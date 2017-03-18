@@ -19,7 +19,8 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -ldl -I../include -I../lib-include -I../games-include/interface
+CXXFLAGS 	= -Wall -Wextra -Werror -ldl
+CXXFLAGS 	+= -I../include -I../games-include/interface -I../lib-include/interface
 
 NAME            = ../arcade
 

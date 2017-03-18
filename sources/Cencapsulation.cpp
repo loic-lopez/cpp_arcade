@@ -10,22 +10,42 @@
 
 #include "Cencapsulation.hpp"
 
-void  *Cencapsulation::c_dlopen(const char *filename, int flag)
+void	*Cencapsulation::c_dlopen(const char *filename, int flag)
 {
   return (dlopen(filename, flag));
 }
 
-std::string Cencapsulation::c_dlerror(void)
+std::string	Cencapsulation::c_dlerror(void)
 {
   return (dlerror());
 }
 
-void *Cencapsulation::c_dlsym(void *handle, const char *symbol)
+void	*Cencapsulation::c_dlsym(void *handle, const char *symbol)
 {
   return (dlsym(handle, symbol));
 }
 
-int Cencapsulation::c_dlclose(void *handle)
+int	Cencapsulation::c_dlclose(void *handle)
 {
   return(dlclose(handle));
+}
+
+DIR	*Cencapsulation::c_opendir(const char *name)
+{
+  return (opendir(name));
+}
+
+struct dirent	*Cencapsulation::c_readdir(DIR *dirp)
+{
+  return (readdir(dirp));
+}
+
+int	Cencapsulation::c_closedir(DIR *dirp)
+{
+  return (closedir(dirp));
+}
+
+char	*Cencapsulation::c_strstr(char* str, const char* target)
+{
+  return (strstr(str, target));
 }
