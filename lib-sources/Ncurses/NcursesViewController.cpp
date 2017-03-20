@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update jeu. mars 16 15:05:35 2017 Loïc Lopez
+// Last update Mon Mar 20 10:45:46 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -30,6 +30,7 @@ void	NcursesViewController::drawMap(std::map<int, int> &map)
   (void)map;
 }
 
-void	NcursesViewController::drawMenu()
+void	NcursesViewController::loadScreen()
 {
+
 }

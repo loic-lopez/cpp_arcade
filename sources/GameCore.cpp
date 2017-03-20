@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 18:01:13 2017 Loïc Lopez
-// Last update Fri Mar 17 18:47:35 2017 Matthias Prost
+// Last update Mon Mar 20 10:41:32 2017 Matthias Prost
 //
 
 #include "GameCore.hpp"
@@ -59,7 +59,7 @@ void	GameCore::GameLauncher()
     }
 
   GameInstance->getInputs();
-  libraryInstance->drawMenu();
+  libraryInstance->loadScreen();
   delete GameInstance;
   delete libraryInstance;
   Cencapsulation::c_dlclose(game);

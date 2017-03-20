@@ -5,7 +5,7 @@
 ## Login   <loic.lopez@epitech.eu>
 ##
 ## Started on  Mon Mar  6 09:53:13 2017 Loic Lopez
-## Last update Mon Mar  6 10:31:07 2017 Loic Lopez
+## Last update Mon Mar 20 10:49:17 2017 Matthias Prost
 ##
 
 
@@ -14,7 +14,8 @@ Ncurses	=	../../lib/lib_arcade_Ncurses.so
 
 ################# LIB SRCS ################
 
-Ncurses_SRCS	=	NcursesViewController.cpp
+Ncurses_SRCS	=	NcursesViewController.cpp \
+								NcursesEncap.cpp
 
 ###########################################
 
@@ -36,7 +37,7 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/Ncurses -fPIC -shared
+CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/Ncurses -fPIC -shared -lncruses
 
 all: $(Ncurses)
 
