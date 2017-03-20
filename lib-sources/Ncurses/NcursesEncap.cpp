@@ -5,27 +5,22 @@
 // Login   <matthias.prost@epitech.eu@epitech.eu>
 //
 // Started on  Mon Mar 20 10:25:11 2017 Matthias Prost
-// Last update Mon Mar 20 10:49:17 2017 Matthias Prost
+// Last update Mon Mar 20 11:07:41 2017 Matthias Prost
 //
 
 #include "NcursesEncap.hpp"
 
-NcursesEncap::NcursesEncap()
-{
-
-}
-
-NcursesEncap::~NcursesEncap()
-{
-
-}
-
-WINDOW *NcursesEncap::initscr(void)
+WINDOW *NcursesEncap::n_initscr(void)
 {
   return(initscr());
 }
 
-int endwin(void)
+int NcursesEncap::n_endwin(void)
 {
-  
+  return(endwin());
+}
+
+int NcursesEncap::n_refresh(void)
+{
+  return (refresh());
 }

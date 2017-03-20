@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update jeu. mars 16 15:07:40 2017 Loïc Lopez
+// Last update Mon Mar 20 10:57:14 2017 Matthias Prost
 //
 
 #include "QtViewController.hpp"
@@ -32,7 +32,7 @@ void	QtViewController::drawMap(std::map<int, int> &map)
 
 #include <iostream>
 
-void	QtViewController::drawMenu()
+void	QtViewController::loadScreen()
 {
   std::cout << "Library LOADED" << std::endl;
 }

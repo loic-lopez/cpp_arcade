@@ -5,7 +5,7 @@
 ## Login   <loic.lopez@epitech.eu>
 ##
 ## Started on  Mon Mar  6 09:53:13 2017 Loic Lopez
-## Last update Mon Mar 20 10:49:17 2017 Matthias Prost
+## Last update Mon Mar 20 11:21:22 2017 Matthias Prost
 ##
 
 
@@ -37,12 +37,12 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/Ncurses -fPIC -shared -lncruses
+CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/Ncurses -lncurses -fPIC -shared
 
 all: $(Ncurses)
 
 $(Ncurses):	$(Ncurses_OBJS)
-	@$(CC) $(Ncurses_OBJS) -fPIC -shared -o $(Ncurses) && \
+	@$(CC) $(Ncurses_OBJS) $(CXXFLAGS) -o $(Ncurses) && \
         $(ECHO) $(GREEN) "[OK]"$(TEAL)"  BUILD : lib_arcade_Ncurses.so" $(DEFAULT)  || \
         $(ECHO) $(RED) "[ERROR]" $(TEAL) $(Ncurses) $(DEFAULT)
 

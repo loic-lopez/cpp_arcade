@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update jeu. mars 16 15:07:20 2017 Loïc Lopez
+// Last update Mon Mar 20 10:56:14 2017 Matthias Prost
 //
 
 #ifndef SFMLCONTROLLER_HPP__
@@ -22,7 +22,7 @@ class SFMLViewController : public ILibraryViewController
   // Methods
   virtual void drawMap(std::map<int, int> &);
   virtual void drawCharacter(std::array<int, 2> &position);
-  virtual void drawMenu();
+  virtual void loadScreen();
 };
 
 #endif /* SFMLCONTROLLER_HPP__ */

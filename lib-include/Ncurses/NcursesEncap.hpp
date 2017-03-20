@@ -5,21 +5,20 @@
 // Login   <matthias.prost@epitech.eu@epitech.eu>
 //
 // Started on  Mon Mar 20 10:24:02 2017 Matthias Prost
-// Last update Mon Mar 20 10:49:17 2017 Matthias Prost
+// Last update Mon Mar 20 11:17:42 2017 Matthias Prost
 //
 
 #ifndef _NcursesEncap_H__
 #define _NcursesEncap_H__
 
-#include <ncurses.h>
+#include <curses.h>
 
 class   NcursesEncap
 {
 public:
-  NcursesEncap();
-  ~NcursesEncap();
-  WINDOW *initscr(void);
-  int endwin(void);
+  static WINDOW *n_initscr(void);
+  static int n_endwin(void);
+  static int n_refresh(void);
 };
 
 #endif

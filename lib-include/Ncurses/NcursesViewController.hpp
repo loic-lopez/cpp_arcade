@@ -5,13 +5,14 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Mon Mar 20 10:43:46 2017 Matthias Prost
+// Last update Mon Mar 20 11:05:00 2017 Matthias Prost
 //
 
 #ifndef NCURSESVIEWCONTROLLER_HPP__
 # define NCURSESVIEWCONTROLLER_HPP__
 
 #include "../interface/ILibraryViewController.hpp"
+#include "NcursesEncap.hpp"
 
 extern "C" ILibraryViewController	*loadLibrary();
 
