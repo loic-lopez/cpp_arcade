@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Mon Mar 20 14:43:47 2017 Matthias Prost
+// Last update Tue Mar 21 19:01:15 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -41,15 +41,18 @@ void	NcursesViewController::drawMap(std::map<int, int> &map)
 
 void	NcursesViewController::loadScreen()
 {
-  WINDOW  *window;
+  int     key;
 
 	NcursesEncap::n_newterm();
-  window = NcursesEncap::n_subwin(stdscr, 10, 45, 1, 94);
-  while(1)
+  NcursesEncap::n_curs_set();
+  NcursesEncap::n_noecho();
+  NcursesEncap::n_nodelay();
+  NcursesEncap::n_keypad();
+  while(key != 27)
   {
+    NcursesEncap::n_mvprintw(1, 1, "Ncurse");
     NcursesEncap::n_refresh();
-    NcursesEncap::n_box(window, ACS_VLINE, ACS_HLINE);
-    NcursesEncap::n_mvprintw(5, 5, "Test");
+    key = NcursesEncap::n_getch();
   }
 	NcursesEncap::n_endwin();
 }
