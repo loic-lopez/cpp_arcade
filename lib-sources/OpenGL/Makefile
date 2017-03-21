@@ -36,7 +36,9 @@ CC              = g++
 RM              = rm -f
 
 CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/OpenGL
-CXXFLAGS	+=  -fPIC -shared -lglfw3 -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -lpthread -ldl
+CXXFLAGS		+=  -fPIC -shared -L/usr/local/lib -lglfw3 -lrt -lm -ldl -lXrandr -lXinerama
+CXXFLAGS		+=  -lXxf86vm -lXext -lXcursor -lXrender -lXfixes -lX11 -lpthread -lxcb -lXau
+
 
 all:  $(OpenGL)
 

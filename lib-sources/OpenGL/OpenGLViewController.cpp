@@ -30,6 +30,14 @@ void	OpenGLViewController::drawMap(std::map<int, int> &map)
   (void)map;
 }
 
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+  (void)scancode;
+  (void)mods;
+  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    glfwSetWindowShouldClose(window, GLFW_TRUE);
+}
+
 void	OpenGLViewController::loadScreen()
 {
   GLFWwindow* window;
@@ -54,7 +62,7 @@ void	OpenGLViewController::loadScreen()
     {
       /* Render here */
       glClear(GL_COLOR_BUFFER_BIT);
-
+      glfwSetKeyCallback(window, key_callback);
       /* Swap front and back buffers */
       glfwSwapBuffers(window);
 
