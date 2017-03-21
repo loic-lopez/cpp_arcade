@@ -45,9 +45,9 @@ void	GameCore::GameLauncher()
   exit = false;
   while (!exit)
     {
-      if (currentGame + 1 == Games.size())
+      if (currentGame == Games.size())
 	currentGame = 0;
-      if (currentLib + 1 == Libs.size())
+      if (currentLib == Libs.size())
 	currentLib = 0;
       game = this->openLibrary(Games.at(currentGame).c_str());
       library = this->openLibrary(Libs.at(currentLib).c_str());
@@ -55,11 +55,11 @@ void	GameCore::GameLauncher()
       load_library_function = this->getLibrary(library);
       GameInstance = play_function(this->library_name.c_str());
       libraryInstance = load_library_function();
+      GameInstance->getInputs();
+      libraryInstance->loadScreen();
       exit = true;
     }
 
-  GameInstance->getInputs();
-  libraryInstance->loadScreen();
   delete GameInstance;
   delete libraryInstance;
   Cencapsulation::c_dlclose(game);
