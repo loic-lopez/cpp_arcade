@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Tue Mar 21 14:58:41 2017 Yassir Jabbari
+// Last update Tue Mar 21 17:50:44 2017 Yassir Jabbari
 //
 
 #include "SFMLViewController.hpp"
@@ -32,19 +32,23 @@ void	SFMLViewController::drawMap(std::map<int, int> &map)
 
 void	SFMLViewController::loadScreen()
 {
-   sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-   sf::CircleShape shape(100.f);
-   shape.setFillColor(sf::Color::Green);
-   while (window.isOpen())
-     {
-       sf::Event event;
-       while (window.pollEvent(event))
-	 {
-	   if (event.type == sf::Event::Closed)
-	     window.close();
-	 }
-       window.clear();
-       window.draw(shape);
-       window.display();
-     }
+  sf::RenderWindow window;
+
+  window.create(sf::VideoMode(800, 600), "Test");
+  while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+	  {
+	    if (event.type == sf::Event::KeyPressed)
+	      {
+		if (event.key.code == sf::Keyboard::Escape)
+		    window.close();
+	      }
+	    if (event.type == sf::Event::Closed)
+	      window.close();
+	    window.clear(sf::Color::Black);
+	    window.display();
+	  }
+    }
 }
