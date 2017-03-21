@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update jeu. mars 16 14:55:07 2017 Loïc Lopez
+// Last update Tue Mar 21 21:17:40 2017 Matthias Prost
 //
 
 #include <array>
@@ -70,7 +70,24 @@ void Snake::changeLibrary(std::string const &libraryName)
 bool	Snake::play(ILibraryViewController *libraryInstance,
 			       size_t &currentGame, size_t &currentLibrary)
 {
-  while(libraryInstance->n_check(27) == true)
-  libraryInstance->loadScreen();
+  int key = 0;
+
+  libraryInstance->initScreen();
+  while(libraryInstance->getEscapeKey(key) == true)
+    {
+      if (key == 1)
+        {
+          currentLibrary++;
+          break;
+        }
+      else if (key == 2)
+        {
+          currentLibrary--;
+          break;
+        }
+      libraryInstance->displayText("Snek");
+    }
+  libraryInstance->endScreen();
+  (void)currentGame;
   return (true);
 }

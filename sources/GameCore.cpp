@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 18:01:13 2017 Loïc Lopez
-// Last update Tue Mar 21 15:43:02 2017 Matthias Prost
+// Last update Tue Mar 21 21:22:11 2017 Matthias Prost
 //
 
 #include "GameCore.hpp"
@@ -50,6 +50,8 @@ void	GameCore::GameLauncher()
 	currentGame = 0;
       if (currentLib == Libs.size())
 	currentLib = 0;
+      if (currentLib > Libs.size())
+        currentLib = Libs.size() - 1;
       game = this->openLibrary(Games.at(currentGame).c_str());
       library = this->openLibrary(Libs.at(currentLib).c_str());
       play_function = this->getPlayFunction(game);
@@ -58,8 +60,6 @@ void	GameCore::GameLauncher()
 	GameInstance = play_function();
       libraryInstance = load_library_function();
       created = GameInstance->play(libraryInstance, currentGame, currentLib);
-      //libraryInstance->loadScreen();
-      exit = true;
     }
 
   delete GameInstance;

@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Tue Mar 21 17:50:44 2017 Yassir Jabbari
+// Last update Tue Mar 21 21:09:49 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -17,12 +17,10 @@ extern "C" ILibraryViewController	*loadLibrary()
 
 SFMLViewController::~SFMLViewController()
 {
-
 }
 
 SFMLViewController::SFMLViewController()
 {
-
 }
 
 void	SFMLViewController::drawMenu()
@@ -39,25 +37,36 @@ void	SFMLViewController::drawMap(std::map<int, int> &map)
   (void)map;
 }
 
-void	SFMLViewController::loadScreen()
+bool  SFMLViewController::getEscapeKey(int &i)
 {
-  sf::RenderWindow window;
+  sf::Event event;
 
-  window.create(sf::VideoMode(800, 600), "Test");
-  while (window.isOpen())
+  (void)i;
+  while (this->window.pollEvent(event))
     {
-        sf::Event event;
-        while (window.pollEvent(event))
-	  {
-	    if (event.type == sf::Event::KeyPressed)
-	      {
-		if (event.key.code == sf::Keyboard::Escape)
-		    window.close();
-	      }
-	    if (event.type == sf::Event::Closed)
-	      window.close();
-	    window.clear(sf::Color::Black);
-	    window.display();
-	  }
+      if (event.type == sf::Event::KeyPressed)
+        {
+          if (event.key.code == sf::Keyboard::Escape)
+            return (false);
+        }
     }
+  return (true);
+}
+
+// A changer pour les jeux et enlever la boucle
+void	SFMLViewController::initScreen()
+{
+  this->window.create(sf::VideoMode(800, 600), "Test");
+}
+
+void  SFMLViewController::displayText(std::string const &msg)
+{
+  (void)msg;
+  this->window.clear(sf::Color::Black);
+	this->window.display();
+}
+
+void  SFMLViewController::endScreen()
+{
+  this->window.close();
 }

@@ -5,13 +5,13 @@
 ## Login   <loic.lopez@epitech.eu>
 ##
 ## Started on  Mon Mar  6 09:53:13 2017 Loic Lopez
-## Last update Mon Mar  6 10:31:07 2017 Loic Lopez
+## Last update Tue Mar 21 20:44:29 2017 Matthias Prost
 ##
 
 
 Snake	=	../../games/snake.so
 
-CXXFLAGS	= -Wall -Wextra -Werror -I../../games-include/Snake -fPIC -shared
+CXXFLAGS	= -Wall -Wextra -Werror -I../../games-include/Snake -fPIC -shared 
 
 
 ################# LIB SRCS ################

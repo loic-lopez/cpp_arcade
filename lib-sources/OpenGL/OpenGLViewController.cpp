@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Mon Mar 20 10:57:14 2017 Matthias Prost
+// Last update Tue Mar 21 20:20:22 2017 Matthias Prost
 //
 
 #include "OpenGLViewController.hpp"
@@ -48,7 +48,8 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
     glfwSetWindowShouldClose(window, GLFW_TRUE);
 }
 
-void	OpenGLViewController::loadScreen()
+// Changer et enlever la boucle pour intégrer aux jeux
+void	OpenGLViewController::initScreen()
 {
   GLFWwindow* window;
 
