@@ -5,7 +5,7 @@
 ## Login   <loic.lopez@epitech.eu>
 ##
 ## Started on  Mon Mar  6 09:53:13 2017 Loic Lopez
-## Last update Mon Mar  6 10:31:07 2017 Loic Lopez
+## Last update Mon Mar 20 14:35:33 2017 Yassir Jabbari
 ##
 
 SFML	=	../../lib/lib_arcade_SFML.so
@@ -34,12 +34,12 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/SFML -fPIC -shared
+CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/SFML -fPIC -shared -lsfml-graphics -lsfml-window -lsfml-system
 
 all: $(SFML) 
 
 $(SFML):	$(SFML_OBJS)
-	@$(CC) $(SFML_OBJS) -fPIC -shared -o $(SFML) && \
+	@$(CC) $(SFML_OBJS) $(CXXFLAGS) -o $(SFML) && \
         $(ECHO) $(GREEN) "[OK]"$(TEAL)"  BUILD : lib_arcade_SFML.so" $(DEFAULT)  || \
         $(ECHO) $(RED) "[ERROR]" $(TEAL) $(SFML) $(DEFAULT)
 

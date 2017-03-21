@@ -5,12 +5,13 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Mon Mar 20 10:56:14 2017 Matthias Prost
+// Last update Tue Mar 21 14:50:42 2017 Yassir Jabbari
 //
 
 #ifndef SFMLCONTROLLER_HPP__
 # define SFMLCONTROLLER_HPP__
 
+#include <SFML/Graphics.hpp>
 #include "../interface/ILibraryViewController.hpp"
 
 extern "C" ILibraryViewController	*loadLibrary();
