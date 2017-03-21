@@ -20,6 +20,15 @@ SFMLViewController::~SFMLViewController()
 
 }
 
+SFMLViewController::SFMLViewController()
+{
+
+}
+
+void	SFMLViewController::drawMenu()
+{
+}
+
 void	SFMLViewController::drawCharacter(std::array<int, 2> &position)
 {
   (void)position;

@@ -15,9 +15,18 @@ extern "C" ILibraryViewController	*loadLibrary()
   return (new OpenGLViewController());
 }
 
+OpenGLViewController::OpenGLViewController()
+{
+
+}
+
 OpenGLViewController::~OpenGLViewController()
 {
 
+}
+
+void	OpenGLViewController::drawMenu()
+{
 }
 
 void	OpenGLViewController::drawCharacter(std::array<int, 2> &position)

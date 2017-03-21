@@ -15,9 +15,18 @@ extern "C" ILibraryViewController	*loadLibrary()
   return (new NcursesViewController());
 }
 
+NcursesViewController::NcursesViewController()
+{
+
+}
+
 NcursesViewController::~NcursesViewController()
 {
 
+}
+
+void NcursesViewController::drawMenu()
+{
 }
 
 void	NcursesViewController::drawCharacter(std::array<int, 2> &position)

@@ -20,6 +20,7 @@ class	ILibraryViewController
   virtual void drawMap(std::map<int, int> &) = 0;
   virtual void drawCharacter(std::array<int, 2> &position) = 0;
   virtual void loadScreen() = 0;
+  virtual void drawMenu() = 0;
 
 
   virtual ~ILibraryViewController() {}

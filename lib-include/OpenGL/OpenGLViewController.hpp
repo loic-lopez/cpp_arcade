@@ -19,12 +19,15 @@ extern "C" ILibraryViewController	*loadLibrary();
 
 class OpenGLViewController : public ILibraryViewController
 {
+ public:
+  OpenGLViewController();
   virtual ~OpenGLViewController();
 
   // Methods
   virtual void drawMap(std::map<int, int> &);
   virtual void drawCharacter(std::array<int, 2> &position);
   virtual void loadScreen();
+  virtual void drawMenu();
 };
 
 #endif /* OpenGLCONTROLLER_HPP__ */

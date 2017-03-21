@@ -18,12 +18,15 @@ extern "C" ILibraryViewController	*loadLibrary();
 
 class SFMLViewController : public ILibraryViewController
 {
+ public:
   virtual ~SFMLViewController();
+  SFMLViewController();
 
   // Methods
   virtual void drawMap(std::map<int, int> &);
   virtual void drawCharacter(std::array<int, 2> &position);
   virtual void loadScreen();
+  virtual void drawMenu();
 };
 
 #endif /* SFMLCONTROLLER_HPP__ */
