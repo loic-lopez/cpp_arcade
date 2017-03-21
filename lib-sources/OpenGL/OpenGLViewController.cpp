@@ -9,6 +9,7 @@
 //
 
 #include "OpenGLViewController.hpp"
+#include <GL/gl.h>
 
 extern "C" ILibraryViewController	*loadLibrary()
 {
@@ -63,7 +64,6 @@ void	OpenGLViewController::loadScreen()
       return;
     }
 
-  /* Make the window's context current */
   glfwMakeContextCurrent(window);
 
   /* Loop until the user closes the window */
