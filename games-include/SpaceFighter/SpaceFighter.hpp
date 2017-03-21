@@ -14,7 +14,7 @@
 #include <iostream>
 #include "../interface/IGameModel.hpp"
 
-extern "C" IGameModel *Play(std::string const &libraryName);
+extern "C" IGameModel *Play();
 
 class SpaceFighter : public IGameModel
 {
@@ -24,7 +24,7 @@ class SpaceFighter : public IGameModel
   std::map<int, int>	map;
 
  public:
-  SpaceFighter(std::string const &);
+  SpaceFighter();
   SpaceFighter(SpaceFighter const &);
   SpaceFighter &operator=(SpaceFighter const &);
   virtual ~SpaceFighter();
@@ -36,6 +36,7 @@ class SpaceFighter : public IGameModel
   virtual std::map<int, int>	&getMap();
   virtual void getInputs();
   virtual void changeLibrary(std::string const &);
+  virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary);
 };
 
 #endif /* SPACEFIGHTER_HPP__ */

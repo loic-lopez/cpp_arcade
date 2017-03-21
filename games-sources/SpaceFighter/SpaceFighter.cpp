@@ -10,14 +10,13 @@
 
 #include "SpaceFighter.hpp"
 
-extern "C" IGameModel *Play(std::string const &libraryName)
+extern "C" IGameModel *Play()
 {
-  return (new SpaceFighter(libraryName));
+  return (new SpaceFighter());
 }
 
-SpaceFighter::SpaceFighter(std::string const &libraryName)
+SpaceFighter::SpaceFighter()
 {
-  this->libraryName = libraryName;
   this->characterPosition = {3, 3};
   this->map[0] = 0;
 }
@@ -67,4 +66,14 @@ void SpaceFighter::getInputs()
 void SpaceFighter::changeLibrary(std::string const &libraryName)
 {
   (void)libraryName;
+}
+
+bool	SpaceFighter::play(ILibraryViewController *library,
+			       size_t &currentGame, size_t &currentLibrary)
+{
+
+  (void)library;
+  (void)currentGame;
+  (void)currentLibrary;
+  return (true);
 }

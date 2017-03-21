@@ -31,6 +31,7 @@ void	GameCore::GameLauncher()
   size_t	currentLib;
   size_t	currentGame;
   bool	exit;
+  bool	created;
   play_function_type	play_function;
   load_library_function_type	load_library_function;
   void	*game;
@@ -42,7 +43,7 @@ void	GameCore::GameLauncher()
   this->fillVector(Libs, "./lib");
   currentLib = this->getCurrentLibrary(Libs);
   currentGame = 0;
-  exit = false;
+  exit = created = false;
   while (!exit)
     {
       if (currentGame == Games.size())
@@ -53,10 +54,11 @@ void	GameCore::GameLauncher()
       library = this->openLibrary(Libs.at(currentLib).c_str());
       play_function = this->getPlayFunction(game);
       load_library_function = this->getLibrary(library);
-      GameInstance = play_function(this->library_name.c_str());
+      if (!created)
+	GameInstance = play_function();
       libraryInstance = load_library_function();
-      GameInstance->getInputs();
-      libraryInstance->loadScreen();
+      created = GameInstance->play(libraryInstance, currentGame, currentLib);
+      //libraryInstance->loadScreen();
       exit = true;
     }
 

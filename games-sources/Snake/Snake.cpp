@@ -11,14 +11,13 @@
 #include <array>
 #include "Snake.hpp"
 
-extern "C" IGameModel *Play(std::string const &libraryName)
+extern "C" IGameModel *Play()
 {
-  return (new Snake(libraryName));
+  return (new Snake());
 }
 
-Snake::Snake(std::string const &libraryName)
+Snake::Snake()
 {
-  this->libraryName = libraryName;
   this->characterPosition = {3, 3};
   this->map[0] = 0;
 }
@@ -68,3 +67,10 @@ void Snake::changeLibrary(std::string const &libraryName)
   (void)libraryName;
 }
 
+bool	Snake::play(ILibraryViewController *libraryInstance,
+			       size_t &currentGame, size_t &currentLibrary)
+{
+  while(libraryInstance->n_check(27) == true)
+  libraryInstance->loadScreen();
+  return (true);
+}

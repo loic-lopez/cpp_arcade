@@ -14,7 +14,7 @@
 #include <iostream>
 #include "../interface/IGameModel.hpp"
 
-extern "C" IGameModel *Play(std::string const &libraryName);
+extern "C" IGameModel *Play();
 
 class	Snake : public IGameModel
 {
@@ -24,7 +24,7 @@ class	Snake : public IGameModel
   std::map<int, int>	map;
 
  public:
-  Snake(std::string const &);
+  Snake();
   Snake(Snake const &);
   Snake &operator=(Snake const &);
   virtual ~Snake();
@@ -36,6 +36,7 @@ class	Snake : public IGameModel
   virtual std::map<int, int>	&getMap();
   virtual void getInputs();
   virtual void changeLibrary(std::string const &);
+  virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary);
 };
 
 #endif /* SNAKE_HPP__ */

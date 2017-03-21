@@ -14,6 +14,7 @@
 #include <array>
 #include <map>
 #include <string>
+#include "../../lib-include/interface/ILibraryViewController.hpp"
 
 class	IGameModel
 {
@@ -24,6 +25,7 @@ class	IGameModel
   virtual std::map<int, int>	&getMap() = 0;
   virtual void getInputs() = 0;
   virtual void changeLibrary(std::string const &) = 0;
+  virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary) = 0;
 
   virtual ~IGameModel() {}
 };
