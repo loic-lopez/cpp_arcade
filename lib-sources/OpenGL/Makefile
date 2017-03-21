@@ -35,12 +35,13 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/OpenGL -fPIC -shared
+CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/OpenGL
+CXXFLAGS	+=  -fPIC -shared -lglfw3 -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -lpthread -ldl
 
 all:  $(OpenGL)
 
 $(OpenGL):		$(OpenGL_OBJS)
-	@$(CC) $(OpenGL_OBJS) -fPIC -shared -o $(OpenGL) && \
+	@$(CC) $(OpenGL_OBJS) $(CXXFLAGS) -o $(OpenGL) && \
         $(ECHO) $(GREEN) "[OK]"$(TEAL)"  BUILD : lib_arcade_OpenGL.so" $(DEFAULT)  || \
         $(ECHO) $(RED) "[ERROR]" $(TEAL) $(OpenGL) $(DEFAULT)
 

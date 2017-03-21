@@ -11,6 +11,8 @@
 #ifndef OpenGLCONTROLLER_HPP__
 # define OpenGLCONTROLLER_HPP__
 
+#include <GLFW/glfw3.h>
+
 #include "../interface/ILibraryViewController.hpp"
 
 extern "C" ILibraryViewController	*loadLibrary();
