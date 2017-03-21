@@ -10,20 +10,20 @@
 
 all:
 	@make --no-print-directory -C Ncurses
-	@make --no-print-directory -C Qt
+	@make --no-print-directory -C OpenGL
 	@make --no-print-directory -C SFML
 
 clean:
 	@make clean  --no-print-directory -C Ncurses
-	@make clean  --no-print-directory -C Qt
+	@make clean  --no-print-directory -C OpenGL
 	@make clean  --no-print-directory -C SFML
 
 fclean:
 	@make fclean  --no-print-directory -C Ncurses
-	@make fclean  --no-print-directory -C Qt
+	@make fclean  --no-print-directory -C OpenGL
 	@make fclean  --no-print-directory -C SFML
 
 re:
 	@make re  --no-print-directory -C Ncurses
-	@make re  --no-print-directory -C Qt
+	@make re  --no-print-directory -C OpenGL
 	@make re  --no-print-directory -C SFML

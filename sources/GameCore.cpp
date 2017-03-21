@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 18:01:13 2017 Loïc Lopez
-// Last update Mon Mar 20 10:41:32 2017 Matthias Prost
+// Last update Tue Mar 21 15:43:02 2017 Matthias Prost
 //
 
 #include "GameCore.hpp"
