@@ -68,12 +68,14 @@ void SpaceFighter::changeLibrary(std::string const &libraryName)
   (void)libraryName;
 }
 
-bool	SpaceFighter::play(ILibraryViewController *library,
-			       size_t &currentGame, size_t &currentLibrary)
+bool	SpaceFighter::play(ILibraryViewController *libraryInstance,
+			       size_t &currentGame, size_t & currentLibrary,
+			       bool &exit)
 {
 
-  (void)library;
+  (void)libraryInstance;
   (void)currentGame;
   (void)currentLibrary;
+  (void)exit;
   return (true);
 }

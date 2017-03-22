@@ -37,17 +37,20 @@ void	SFMLViewController::drawMap(std::map<int, int> &map)
   (void)map;
 }
 
-bool  SFMLViewController::getEscapeKey(int &i)
+bool  SFMLViewController::getEscapeKey(int &key, bool &exit)
 {
   sf::Event event;
 
-  (void)i;
+  (void)key;
   while (this->window.pollEvent(event))
     {
       if (event.type == sf::Event::KeyPressed)
         {
           if (event.key.code == sf::Keyboard::Escape)
-            return (false);
+	    {
+	      exit = true;
+	      return (false);
+	    }
         }
     }
   return (true);

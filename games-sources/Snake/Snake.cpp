@@ -68,12 +68,13 @@ void Snake::changeLibrary(std::string const &libraryName)
 }
 
 bool	Snake::play(ILibraryViewController *libraryInstance,
-			       size_t &currentGame, size_t &currentLibrary)
+			size_t &currentGame, size_t &currentLibrary,
+			bool &exit)
 {
   int key = 0;
 
   libraryInstance->initScreen();
-  while(libraryInstance->getEscapeKey(key) == true)
+  while(libraryInstance->getEscapeKey(key, exit))
     {
       if (key == 1)
         {

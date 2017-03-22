@@ -36,7 +36,7 @@ class SpaceFighter : public IGameModel
   virtual std::map<int, int>	&getMap();
   virtual void getInputs();
   virtual void changeLibrary(std::string const &);
-  virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary);
+  virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &);
 };
 
 #endif /* SPACEFIGHTER_HPP__ */

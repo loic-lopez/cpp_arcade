@@ -59,11 +59,11 @@ void	GameCore::GameLauncher()
       if (!created)
 	GameInstance = play_function();
       libraryInstance = load_library_function();
-      created = GameInstance->play(libraryInstance, currentGame, currentLib);
+      created = GameInstance->play(libraryInstance, currentGame, currentLib, exit);
+      delete libraryInstance;
+      Cencapsulation::c_dlclose(library);
     }
 
   delete GameInstance;
-  delete libraryInstance;
   Cencapsulation::c_dlclose(game);
-  Cencapsulation::c_dlclose(library);
 }

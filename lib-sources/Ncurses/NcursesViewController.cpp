@@ -41,11 +41,14 @@ void	NcursesViewController::drawMap(std::map<int, int> &map)
 
 #include <iostream>
 
-bool  NcursesViewController::getEscapeKey(int &key)
+bool  NcursesViewController::getEscapeKey(int &key, bool &exit)
 {
   key = NcursesEncap::n_getch();
   if (key == 27)
-    return (false);
+    {
+      exit = true;
+      return (false);
+    }
   if (key == KEY_UP)
     key = 1;
   if (key == KEY_DOWN)

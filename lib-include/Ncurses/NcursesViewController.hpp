@@ -26,7 +26,7 @@ class NcursesViewController : public ILibraryViewController
   virtual void drawMap(std::map<int, int> &);
   virtual void drawCharacter(std::array<int, 2> &position);
   virtual void drawMenu();
-  virtual bool getEscapeKey(int &);
+  virtual bool getEscapeKey(int &, bool &);
   virtual void initScreen();
   virtual void displayText(std::string const &);
   virtual void endScreen();
