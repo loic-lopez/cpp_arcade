@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Tue Mar 21 21:09:49 2017 Matthias Prost
+// Last update Wed Mar 22 13:15:52 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -41,16 +41,19 @@ bool  SFMLViewController::getEscapeKey(int &key, bool &exit)
 {
   sf::Event event;
 
-  (void)key;
   while (this->window.pollEvent(event))
     {
       if (event.type == sf::Event::KeyPressed)
         {
           if (event.key.code == sf::Keyboard::Escape)
-	    {
-	      exit = true;
-	      return (false);
-	    }
+	         {
+      	     exit = true;
+      	     return (false);
+      	   }
+          if (event.key.code == sf::Keyboard::Up)
+            key = 1;
+          if (event.key.code == sf::Keyboard::Down)
+            key = 2;
         }
     }
   return (true);
