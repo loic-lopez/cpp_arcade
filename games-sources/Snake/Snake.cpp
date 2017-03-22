@@ -1,5 +1,5 @@
 //
-// pacman.cpp for cpp_arcade in /home/lopez_i/cpp_arcade/pacman.cpp
+// Snake.cpp for cpp_arcade in /home/lopez_i/cpp_arcade/Snake.cpp
 //
 // Made by Loïc Lopez
 // Login   <loic.lopez@epitech.eu>
