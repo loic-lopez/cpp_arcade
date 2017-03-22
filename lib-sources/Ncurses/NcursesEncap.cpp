@@ -5,7 +5,7 @@
 // Login   <matthias.prost@epitech.eu@epitech.eu>
 //
 // Started on  Mon Mar 20 10:25:11 2017 Matthias Prost
-// Last update Tue Mar 21 19:01:42 2017 Matthias Prost
+// Last update Wed Mar 22 14:45:21 2017 Matthias Prost
 //
 
 #include "NcursesEncap.hpp"
@@ -73,4 +73,14 @@ void  NcursesEncap::n_nodelay()
 void NcursesEncap::n_keypad()
 {
   keypad(stdscr, TRUE);
+}
+
+void NcursesEncap::n_start_color()
+{
+  start_color();
+}
+
+void  NcursesEncap::n_init_pair(short a, short b, short c)
+{
+  init_pair(a, b, c);
 }

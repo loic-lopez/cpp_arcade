@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Wed Mar 22 13:36:35 2017 Matthias Prost
+// Last update Wed Mar 22 14:46:40 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -63,6 +63,7 @@ void  NcursesViewController::initScreen()
   NcursesEncap::n_noecho();
   NcursesEncap::n_nodelay();
   NcursesEncap::n_keypad();
+  NcursesEncap::n_start_color();
 }
 
 void	NcursesViewController::displayText(std::string const &msg)
