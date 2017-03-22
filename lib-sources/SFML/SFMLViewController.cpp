@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Wed Mar 22 13:38:39 2017 Matthias Prost
+// Last update Wed Mar 22 18:07:22 2017 Loic Lopez
 //
 
 #include "SFMLViewController.hpp"
@@ -62,7 +62,7 @@ bool  SFMLViewController::getEscapeKey(int &key, bool &exit)
 // A changer pour les jeux et enlever la boucle
 void	SFMLViewController::initScreen()
 {
-  this->window.create(sf::VideoMode::GetMode(0), "SFML Window", sf::Style::Fullscreen);
+  this->window.create(sf::VideoMode::getDesktopMode(), "SFML Window", sf::Style::Fullscreen);
 }
 
 void  SFMLViewController::displayText(std::string const &msg)
