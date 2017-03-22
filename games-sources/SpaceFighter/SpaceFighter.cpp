@@ -63,11 +63,6 @@ void SpaceFighter::getInputs()
 
 }
 
-void SpaceFighter::changeLibrary(std::string const &libraryName)
-{
-  (void)libraryName;
-}
-
 bool	SpaceFighter::play(ILibraryViewController *libraryInstance,
 			       size_t &currentGame, size_t & currentLibrary,
 			       bool &exit)

@@ -24,7 +24,6 @@ class	IGameModel
   virtual void setMap(std::map<int, int> &) = 0;
   virtual std::map<int, int>	&getMap() = 0;
   virtual void getInputs() = 0;
-  virtual void changeLibrary(std::string const &) = 0;
   virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &) = 0;
 
   virtual ~IGameModel() {}

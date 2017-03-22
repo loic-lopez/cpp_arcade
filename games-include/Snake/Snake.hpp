@@ -35,7 +35,6 @@ class	Snake : public IGameModel
   virtual void setMap(std::map<int, int> &);
   virtual std::map<int, int>	&getMap();
   virtual void getInputs();
-  virtual void changeLibrary(std::string const &);
   virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &);
 };
 

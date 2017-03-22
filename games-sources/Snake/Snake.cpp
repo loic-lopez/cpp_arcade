@@ -62,11 +62,6 @@ void Snake::getInputs()
 {
 }
 
-void Snake::changeLibrary(std::string const &libraryName)
-{
-  (void)libraryName;
-}
-
 bool	Snake::play(ILibraryViewController *libraryInstance,
 			size_t &currentGame, size_t &currentLibrary,
 			bool &exit)
