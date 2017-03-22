@@ -62,7 +62,7 @@ bool  SFMLViewController::getEscapeKey(int &key, bool &exit)
 // A changer pour les jeux et enlever la boucle
 void	SFMLViewController::initScreen()
 {
-  this->window.create(sf::VideoMode(800, 600), "Test");
+  this->window.create(sf::VideoMode(800, 600, 32), "SFML Window", sf::Style::Fullscreen);
 }
 
 void  SFMLViewController::displayText(std::string const &msg)
