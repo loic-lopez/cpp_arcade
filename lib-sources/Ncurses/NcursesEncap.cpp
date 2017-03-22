@@ -5,7 +5,7 @@
 // Login   <matthias.prost@epitech.eu@epitech.eu>
 //
 // Started on  Mon Mar 20 10:25:11 2017 Matthias Prost
-// Last update Wed Mar 22 14:45:21 2017 Matthias Prost
+// Last update Wed Mar 22 20:27:03 2017 Matthias Prost
 //
 
 #include "NcursesEncap.hpp"
@@ -83,4 +83,20 @@ void NcursesEncap::n_start_color()
 void  NcursesEncap::n_init_pair(short a, short b, short c)
 {
   init_pair(a, b, c);
+}
+
+int   NcursesEncap::n_attron(int attrs)
+{
+  return (attron(attrs));
+}
+
+int   NcursesEncap::n_attroff(int attrs)
+{
+    return (attroff(attrs));
+}
+
+void  NcursesEncap::n_getmaxyx(WINDOW *win, int *y, int *x)
+{
+  getmaxyx(win, *y, *x);
+  (void)y;
 }
