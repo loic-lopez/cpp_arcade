@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Wed Mar 22 13:15:52 2017 Matthias Prost
+// Last update Wed Mar 22 13:38:39 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -50,9 +50,9 @@ bool  SFMLViewController::getEscapeKey(int &key, bool &exit)
       	     exit = true;
       	     return (false);
       	   }
-          if (event.key.code == sf::Keyboard::Up)
+          if (event.key.code == sf::Keyboard::Num3)
             key = 1;
-          if (event.key.code == sf::Keyboard::Down)
+          if (event.key.code == sf::Keyboard::Num2)
             key = 2;
         }
     }

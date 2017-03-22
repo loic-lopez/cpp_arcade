@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Tue Mar 21 21:16:49 2017 Matthias Prost
+// Last update Wed Mar 22 13:36:35 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -49,9 +49,9 @@ bool  NcursesViewController::getEscapeKey(int &key, bool &exit)
       exit = true;
       return (false);
     }
-  if (key == KEY_UP)
+  if (key == '3')
     key = 1;
-  if (key == KEY_DOWN)
+  if (key == '2')
     key = 2;
   return (true);
 }
