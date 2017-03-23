@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 14:23:43 2017 Matthias Prost
+// Last update Thu Mar 23 14:30:59 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -25,8 +25,6 @@ NcursesViewController::~NcursesViewController()
 
 }
 
-#include <unistd.h>
-
 void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
 {
   int x;
@@ -38,7 +36,6 @@ void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
   this->mapsize_y = mapsize_y;
   while (++y != mapsize_y)
     {
-      printf("%d:%d; ", y, x);
       while (++x != mapsize_x)
       {
         if (x == 0 || x == 1 || y == 0 || x == mapsize_x - 1 || x == mapsize_x - 2
@@ -61,11 +58,11 @@ void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
     }
 }
 
-void  NcursesViewController::initScore()
-{
-  this->score = 0;
-  NcursesEncap::n_mvprintw(y + this->mapsize);
-}
+// void  NcursesViewController::initScore()
+// {
+//   this->score = 0;
+//   NcursesEncap::n_mvprintw(y + this->mapsize);
+// }
 
 void  NcursesViewController::drawMenu()
 {
