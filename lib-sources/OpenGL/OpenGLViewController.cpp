@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Thu Mar 23 20:04:47 2017 Matthias Prost
+// Last update Thu Mar 23 20:42:57 2017 Matthias Prost
 //
 
 #include "OpenGLViewController.hpp"
@@ -41,9 +41,6 @@ void	OpenGLViewController::drawMenu()
 
 bool	OpenGLViewController::getKey(Key &action, bool &exit)
 {
-  (void)action;
-  (void)exit;
-
   if (glfwWindowShouldClose(this->window)
       || glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {

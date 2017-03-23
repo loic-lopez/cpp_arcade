@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Thu Mar 23 19:58:56 2017 Matthias Prost
+// Last update Thu Mar 23 20:39:29 2017 Matthias Prost
 //
 
 #include <array>
@@ -65,7 +65,7 @@ void  Snake::wait_second()
 
   ticks1 = clock();
   ticks2 = ticks1;
-  while ((ticks2 / CLOCKS_PER_SEC - ticks1 / CLOCKS_PER_SEC) < 1)
+  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1 / (CLOCKS_PER_SEC / 1000)) < 300)
     ticks2 = clock();
 }
 
