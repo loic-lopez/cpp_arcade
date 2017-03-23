@@ -65,7 +65,7 @@ bool	OpenGLViewController::getKey(Key &action, bool &exit)
 }
 
 // Changer et enlever la boucle pour intégrer aux jeux
-void	OpenGLViewController::initScreen()
+void	OpenGLViewController::initScreen(std::string const &name)
 {
   const GLFWvidmode	*mode;
 
@@ -76,7 +76,7 @@ void	OpenGLViewController::initScreen()
   mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
   /* Create a windowed mode window and its OpenGL context */
-  if (!(this->window = glfwCreateWindow(mode->width, mode->height, "Hello World", NULL, NULL)))
+  if (!(this->window = glfwCreateWindow(mode->width, mode->height, name.c_str(), NULL, NULL)))
       return (this->endScreen());
 
   glfwMakeContextCurrent(this->window);

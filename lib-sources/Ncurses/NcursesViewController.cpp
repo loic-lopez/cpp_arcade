@@ -105,12 +105,14 @@ int  NcursesViewController::getScore()
   return (this->score);
 }
 
-void  NcursesViewController::initScreen()
+void  NcursesViewController::initScreen(std::string const &name)
 {
   int height, width;
+  std::string	changeTerminalName = "echo -n \"\033]0;" + name + " \007\"";
 
   height = 0;
   width = 0;
+  system(changeTerminalName.c_str());
   NcursesEncap::n_newterm();
   NcursesEncap::n_curs_set();
   NcursesEncap::n_noecho();

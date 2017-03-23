@@ -69,3 +69,8 @@ bool	SpaceFighter::play(ILibraryViewController *libraryInstance,
   (void)exit;
   return (true);
 }
+
+std::string	SpaceFighter::getGameName()
+{
+  return ("SpaceFighter");
+}

@@ -23,6 +23,7 @@ class	IGameModel
   virtual std::array<int, 2> &getCharacterPosition() = 0;
   virtual void setMap() = 0;
   virtual void getInputs() = 0;
+  virtual std::string getGameName() = 0;
   virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &) = 0;
 
   virtual ~IGameModel() {}

@@ -32,7 +32,7 @@ private:
   virtual void drawCharacter(std::array<int, 2> &position);
   virtual void drawMenu();
   virtual bool getKey(Key &action, bool &exit);
-  virtual void initScreen();
+  virtual void initScreen(std::string const &name);
   virtual void displayText(std::string const &);
   virtual void endScreen();
   virtual void setScore(int);

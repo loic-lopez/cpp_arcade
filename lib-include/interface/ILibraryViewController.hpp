@@ -35,7 +35,7 @@ class	ILibraryViewController
   virtual void drawCharacter(std::array<int, 2> &position) = 0;
   virtual void drawMenu() = 0;
   virtual bool getKey(Key &action, bool &exit) = 0;
-  virtual void initScreen() = 0;
+  virtual void initScreen(std::string const &name) = 0;
   virtual void displayText(std::string const &) = 0;
   virtual void endScreen() = 0;
   virtual void setScore(int) = 0;

@@ -73,7 +73,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 {
   ILibraryViewController::Key	action = ILibraryViewController::Key::STANDBY;
 
-  libraryInstance->initScreen();
+  libraryInstance->initScreen(this->getGameName());
   setMap();
   libraryInstance->setUserXY(this->pos_x, this->pos_y);
   while(libraryInstance->getKey(action, exit))
@@ -113,4 +113,9 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
   libraryInstance->endScreen();
   (void)currentGame;
   return (true);
+}
+
+std::string Snake::getGameName()
+{
+  return ("Snake");
 }

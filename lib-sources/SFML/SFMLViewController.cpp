@@ -70,9 +70,9 @@ bool  SFMLViewController::getKey(Key &action, bool &exit)
 }
 
 // A changer pour les jeux et enlever la boucle
-void	SFMLViewController::initScreen()
+void	SFMLViewController::initScreen(std::string const &name)
 {
-  this->window.create(sf::VideoMode::getDesktopMode(), "SFML Window");
+  this->window.create(sf::VideoMode::getDesktopMode(), name.c_str());
 }
 
 void  SFMLViewController::displayText(std::string const &msg)
