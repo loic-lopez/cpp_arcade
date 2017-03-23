@@ -19,6 +19,8 @@ extern "C" ILibraryViewController	*loadLibrary();
 
 class OpenGLViewController : public ILibraryViewController
 {
+ private:
+  GLFWwindow	*window;
  public:
   OpenGLViewController();
   virtual ~OpenGLViewController();
