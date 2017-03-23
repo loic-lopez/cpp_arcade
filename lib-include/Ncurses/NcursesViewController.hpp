@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 16:42:21 2017 Matthias Prost
+// Last update Thu Mar 23 16:55:41 2017 Matthias Prost
 //
 
 #ifndef NCURSESVIEWCONTROLLER_HPP__
@@ -24,6 +24,8 @@ class NcursesViewController : public ILibraryViewController
     int   mapsize_x;
     int   mapsize_y;
     int   score;
+    int   user_x;
+    int   user_y;
  public:
   virtual ~NcursesViewController();
   NcursesViewController();
@@ -39,6 +41,9 @@ class NcursesViewController : public ILibraryViewController
   virtual void setScore(int);
   virtual int  getScore();
   virtual void refresh();
+  virtual void setUserXY(int, int);
+  virtual int  getUserX();
+  virtual int  getUserY();
 };
 
 #endif /* NCURSESVIEWCONTROLLER_HPP__ */

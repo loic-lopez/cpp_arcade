@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Thu Mar 23 16:42:01 2017 Matthias Prost
+// Last update Thu Mar 23 16:57:52 2017 Matthias Prost
 //
 
 #include "OpenGLViewController.hpp"
@@ -87,6 +87,22 @@ void	OpenGLViewController::displayText(std::string const &str)
   glfwPollEvents();
 }
 
+void  OpenGLViewController::setUserXY(int x, int y)
+{
+  this->user_x = x;
+  this->user_y = y;
+}
+
+int  OpenGLViewController::getUserX()
+{
+  return (this->user_x);
+}
+
+int  OpenGLViewController::getUserY()
+{
+  return (this->user_y);
+}
+
 void	OpenGLViewController::endScreen()
 {
   glfwTerminate();
@@ -94,5 +110,5 @@ void	OpenGLViewController::endScreen()
 
 void  OpenGLViewController::refresh()
 {
-  
+
 }

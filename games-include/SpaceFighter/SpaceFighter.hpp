@@ -14,7 +14,7 @@
 #include <iostream>
 #include "../interface/IGameModel.hpp"
 
-extern "C" IGameModel *Play();
+extern "C" IGameModel *createInstanceGame();
 
 class SpaceFighter : public IGameModel
 {

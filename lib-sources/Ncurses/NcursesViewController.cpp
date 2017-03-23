@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 16:51:18 2017 Matthias Prost
+// Last update Thu Mar 23 17:04:03 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -115,6 +115,7 @@ void  NcursesViewController::initScreen()
   NcursesEncap::n_init_pair(1, COLOR_BLUE, COLOR_BLUE);
   NcursesEncap::n_init_pair(2, COLOR_BLACK, COLOR_BLACK);
   NcursesEncap::n_init_pair(3, COLOR_BLUE, COLOR_BLACK);
+  NcursesEncap::n_init_pair(4, COLOR_RED, COLOR_RED);
   this->drawMap(70, 50);
   NcursesEncap::n_mvprintw(this->windowsize_y/20,
     this->windowsize_x/1.5 - this->mapsize_x - 9, "Snek");
@@ -136,6 +137,28 @@ void	NcursesViewController::displayText(std::string const &msg)
 {
     NcursesEncap::n_mvprintw(2, 2, msg.c_str());
     NcursesEncap::n_refresh();
+}
+
+void  NcursesViewController::setUserXY(int x, int y)
+{
+  this->user_x = x;
+  this->user_y = y;
+  NcursesEncap::n_attron(COLOR_PAIR(4));
+  NcursesEncap::n_mvprintw(y + this->windowsize_y/20 + 1,
+    x + this->windowsize_x/1.5 - this->mapsize_x + 2, "*");
+  NcursesEncap::n_mvprintw(y + this->windowsize_y/20 + 1,
+    x + this->windowsize_x/1.5 - this->mapsize_x + 3, "*");
+  NcursesEncap::n_attroff(COLOR_PAIR(4));
+}
+
+int  NcursesViewController::getUserX()
+{
+  return (this->user_x);
+}
+
+int  NcursesViewController::getUserY()
+{
+  return (this->user_y);
 }
 
 void  NcursesViewController::endScreen()

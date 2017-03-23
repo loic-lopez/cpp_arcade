@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Thu Mar 23 16:42:14 2017 Matthias Prost
+// Last update Thu Mar 23 16:58:01 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -88,7 +88,23 @@ void	SFMLViewController::drawMap(int mapsize_x, int mapsize_y)
   (void)mapsize_y;
 }
 
+void  SFMLViewController::setUserXY(int x, int y)
+{
+  this->user_x = x;
+  this->user_y = y;
+}
+
+int  SFMLViewController::getUserX()
+{
+  return (this->user_x);
+}
+
+int  SFMLViewController::getUserY()
+{
+  return (this->user_y);
+}
+
 void  SFMLViewController::refresh()
 {
-  
+
 }

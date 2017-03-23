@@ -54,7 +54,7 @@ void	GameCore::GameLauncher()
         currentLib = Libs.size() - 1;
       game = this->openLibrary(Games.at(currentGame).c_str());
       library = this->openLibrary(Libs.at(currentLib).c_str());
-      play_function = this->getPlayFunction(game);
+      play_function = this->getcreateInstanceGameFunction(game);
       load_library_function = this->getLibrary(library);
       if (!created)
 	GameInstance = play_function();

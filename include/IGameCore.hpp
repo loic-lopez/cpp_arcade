@@ -23,7 +23,7 @@ class IGameCore
 {
 private:
   virtual void  *openLibrary(char const *) = 0;
-  virtual play_function_type getPlayFunction(void *) = 0;
+  virtual play_function_type getcreateInstanceGameFunction(void *) = 0;
   virtual load_library_function_type getLibrary(void *) = 0;
   virtual void	fillVector(std::vector<std::string> &vector, char const *folder) = 0;
   virtual size_t	getCurrentLibrary(std::vector<std::string> const &) = 0;

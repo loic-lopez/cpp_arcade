@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Thu Mar 23 16:41:36 2017 Matthias Prost
+// Last update Thu Mar 23 16:57:29 2017 Matthias Prost
 //
 
 #ifndef SFMLCONTROLLER_HPP__
@@ -21,6 +21,8 @@ class SFMLViewController : public ILibraryViewController
 private:
   sf::RenderWindow window;
   int   score;
+  int   user_x;
+  int   user_y;
  public:
   virtual ~SFMLViewController();
   SFMLViewController();
@@ -36,6 +38,9 @@ private:
   virtual void setScore(int);
   virtual int  getScore();
   virtual void refresh();
+  virtual void setUserXY(int, int);
+  virtual int  getUserX();
+  virtual int  getUserY();
 };
 
 #endif /* SFMLCONTROLLER_HPP__ */

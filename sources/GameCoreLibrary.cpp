@@ -36,11 +36,11 @@ load_library_function_type	GameCore::getLibrary(void *library)
   return (play_function);
 }
 
-play_function_type	GameCore::getPlayFunction(void *game)
+play_function_type	GameCore::getcreateInstanceGameFunction(void *game)
 {
   play_function_type	play_function;
 
-  play_function = reinterpret_cast<play_function_type>(Cencapsulation::c_dlsym(game, "Play"));
+  play_function = reinterpret_cast<play_function_type>(Cencapsulation::c_dlsym(game, "createInstanceGame"));
   if (!play_function)
     {
       std::cerr << Cencapsulation::c_dlerror() << std::endl;

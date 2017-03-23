@@ -10,7 +10,7 @@
 
 #include "SpaceFighter.hpp"
 
-extern "C" IGameModel *Play()
+extern "C" IGameModel *createInstanceGame()
 {
   return (new SpaceFighter());
 }

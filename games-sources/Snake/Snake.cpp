@@ -5,13 +5,13 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Thu Mar 23 16:51:34 2017 Matthias Prost
+// Last update Thu Mar 23 17:07:12 2017 Matthias Prost
 //
 
 #include <array>
 #include "Snake.hpp"
 
-extern "C" IGameModel *Play()
+extern "C" IGameModel *createInstanceGame()
 {
   return (new Snake());
 }
@@ -73,6 +73,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 
   libraryInstance->initScreen();
   setMap();
+  libraryInstance->setUserXY(1, 1);
   while(libraryInstance->getKey(action, exit))
     {
       if (action == ILibraryViewController::Key::NEXT_GAME)

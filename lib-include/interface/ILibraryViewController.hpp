@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. mars 17 15:03:52 2017 Loïc Lopez
-** Last update Thu Mar 23 16:40:11 2017 Matthias Prost
+** Last update Thu Mar 23 16:56:31 2017 Matthias Prost
 */
 
 #ifndef ILIBRAYVIEWCONTROLLER_HPP__
@@ -37,6 +37,9 @@ class	ILibraryViewController
   virtual void setScore(int) = 0;
   virtual int  getScore() = 0;
   virtual void refresh() = 0;
+  virtual void setUserXY(int, int) = 0;
+  virtual int  getUserX() = 0;
+  virtual int  getUserY() = 0;
 
   virtual ~ILibraryViewController() {}
 };
