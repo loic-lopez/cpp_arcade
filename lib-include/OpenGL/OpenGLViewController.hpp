@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Thu Mar 23 10:59:50 2017 Matthias Prost
+// Last update Thu Mar 23 11:23:25 2017 Matthias Prost
 //
 
 #ifndef OpenGLCONTROLLER_HPP__
@@ -26,13 +26,29 @@ class OpenGLViewController : public ILibraryViewController
   virtual ~OpenGLViewController();
 
   // Methods
-  virtual void drawMap(int mapsize_x, int mapsize_y);
+  virtual void drawMap(int mapsize_x, int mapsize_y)
+  {
+    (void)mapsize_x;
+    (void)mapsize_y;
+  }
   virtual void drawCharacter(std::array<int, 2> &position);
   virtual void drawMenu();
-  virtual bool getKey(int &, bool &);
+  virtual bool getKey(int key, Key &action, bool &exit)
+  {
+    (void)key;
+    (void)action;
+    (void)exit;
+    return (true);
+  }
   virtual void initScreen();
-  virtual void displayText(std::string const &);
-  virtual void endScreen();
+  virtual void displayText(std::string const &str)
+  {
+    (void)str;
+  }
+  virtual void endScreen()
+  {
+    
+  }
 };
 
 #endif /* OpenGLCONTROLLER_HPP__ */

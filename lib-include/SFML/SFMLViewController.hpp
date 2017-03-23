@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Thu Mar 23 10:59:56 2017 Matthias Prost
+// Last update Thu Mar 23 11:11:17 2017 Matthias Prost
 //
 
 #ifndef SFMLCONTROLLER_HPP__
@@ -28,7 +28,7 @@ private:
   virtual void drawMap(int mapsize_x, int mapsize_y);
   virtual void drawCharacter(std::array<int, 2> &position);
   virtual void drawMenu();
-  virtual bool getKey(int &, bool &);
+  virtual bool getKey(int key, Key &action, bool &exit);
   virtual void initScreen();
   virtual void displayText(std::string const &);
   virtual void endScreen();

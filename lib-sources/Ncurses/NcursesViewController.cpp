@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 11:00:20 2017 Matthias Prost
+// Last update Thu Mar 23 11:19:29 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -43,12 +43,17 @@ void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
     }
 }
 
+void  NcursesViewController::drawMenu()
+{
+  
+}
+
 void	NcursesViewController::drawCharacter(std::array<int, 2> &position)
 {
   (void)position;
 }
 
-bool  NcursesViewController::getKey(int &key, bool &exit)
+bool  NcursesViewController::getKey(int key, Key &action, bool &exit)
 {
   key = NcursesEncap::n_getch();
   if (key == 27)
@@ -57,9 +62,9 @@ bool  NcursesViewController::getKey(int &key, bool &exit)
       return (false);
     }
   if (key == '3')
-    key = 1;
+    action = ILibraryViewController::Key::NEXT_GAME;
   if (key == '2')
-    key = 2;
+    action = ILibraryViewController::Key::PREV_GAME;
   return (true);
 }
 

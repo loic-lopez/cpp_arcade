@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Thu Mar 23 11:00:38 2017 Matthias Prost
+// Last update Thu Mar 23 11:17:53 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -32,10 +32,11 @@ void	SFMLViewController::drawCharacter(std::array<int, 2> &position)
   (void)position;
 }
 
-bool  SFMLViewController::getKey(int &key, bool &exit)
+bool  SFMLViewController::getKey(int key, Key &action, bool &exit)
 {
   sf::Event event;
 
+  (void)key;
   while (this->window.pollEvent(event))
     {
       if (event.type == sf::Event::KeyPressed)
@@ -46,9 +47,9 @@ bool  SFMLViewController::getKey(int &key, bool &exit)
       	     return (false);
       	   }
           if (event.key.code == sf::Keyboard::Num3)
-            key = 1;
+            action = ILibraryViewController::Key::NEXT_GAME;
           if (event.key.code == sf::Keyboard::Num2)
-            key = 2;
+            action = ILibraryViewController::Key::PREV_GAME;
         }
     }
   return (true);

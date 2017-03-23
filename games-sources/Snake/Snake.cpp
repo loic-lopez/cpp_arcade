@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Thu Mar 23 11:01:12 2017 Matthias Prost
+// Last update Thu Mar 23 11:16:52 2017 Matthias Prost
 //
 
 #include <array>
@@ -66,17 +66,18 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 			size_t &currentGame, size_t &currentLibrary,
 			bool &exit)
 {
+  ILibraryViewController::Key action;
   int key = 0;
 
   libraryInstance->initScreen();
-  while(libraryInstance->getKey(key, exit))
+  while(libraryInstance->getKey(key, action, exit))
     {
-      if (key == 1)
+      if (action == ILibraryViewController::Key::NEXT_GAME)
         {
           currentLibrary++;
           break;
         }
-      else if (key == 2)
+      else if (action == ILibraryViewController::Key::PREV_GAME)
         {
           currentLibrary--;
           break;
