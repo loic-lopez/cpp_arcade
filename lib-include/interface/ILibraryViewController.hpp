@@ -18,11 +18,12 @@
 class	ILibraryViewController
 {
  public:
-   enum class Key : int
+   enum class 		Key :	int
    {
-     NEXT_GAME,
-     PREV_GAME,
-     ESCAPE,
+     STANDBY		=	0,
+     NEXT_GAME		=	1,
+     PREV_GAME 		=	2,
+     ESCAPE		=	3
    };
 
 

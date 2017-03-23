@@ -66,8 +66,8 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 			size_t &currentGame, size_t &currentLibrary,
 			bool &exit)
 {
-  ILibraryViewController::Key action;
-  int key = 0;
+  ILibraryViewController::Key	action = ILibraryViewController::Key::STANDBY;
+  int	key = 0;
 
   libraryInstance->initScreen();
   while(libraryInstance->getKey(key, action, exit))

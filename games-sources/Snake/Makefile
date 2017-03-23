@@ -11,7 +11,7 @@
 
 Snake	=	../../games/snake.so
 
-CXXFLAGS	= -Wall -Wextra -Werror -I../../games-include/Snake -fPIC -shared 
+CXXFLAGS	= -Wall -Wextra -Werror -I../../games-include/Snake -fPIC -shared
 
 
 ################# LIB SRCS ################

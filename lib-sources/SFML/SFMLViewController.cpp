@@ -42,10 +42,10 @@ bool  SFMLViewController::getKey(int key, Key &action, bool &exit)
       if (event.type == sf::Event::KeyPressed)
         {
           if (event.key.code == sf::Keyboard::Escape)
-	         {
-      	     exit = true;
-      	     return (false);
-      	   }
+	    {
+      	     	exit = true;
+      	     	return (false);
+	    }
           if (event.key.code == sf::Keyboard::Num3)
             action = ILibraryViewController::Key::NEXT_GAME;
           if (event.key.code == sf::Keyboard::Num2)
@@ -71,4 +71,10 @@ void  SFMLViewController::displayText(std::string const &msg)
 void  SFMLViewController::endScreen()
 {
   this->window.close();
+}
+
+void	SFMLViewController::drawMap(int mapsize_x, int mapsize_y)
+{
+  (void)mapsize_x;
+  (void)mapsize_y;
 }
