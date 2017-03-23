@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Thu Mar 23 14:46:51 2017 Matthias Prost
+// Last update Thu Mar 23 16:41:36 2017 Matthias Prost
 //
 
 #ifndef SFMLCONTROLLER_HPP__
@@ -35,6 +35,7 @@ private:
   virtual void endScreen();
   virtual void setScore(int);
   virtual int  getScore();
+  virtual void refresh();
 };
 
 #endif /* SFMLCONTROLLER_HPP__ */

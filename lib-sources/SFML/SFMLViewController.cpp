@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Thu Mar 23 14:47:18 2017 Matthias Prost
+// Last update Thu Mar 23 16:42:14 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -86,4 +86,9 @@ void	SFMLViewController::drawMap(int mapsize_x, int mapsize_y)
 {
   (void)mapsize_x;
   (void)mapsize_y;
+}
+
+void  SFMLViewController::refresh()
+{
+  
 }

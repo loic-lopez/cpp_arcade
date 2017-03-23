@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:02:17 2017 Loïc Lopez
-** Last update jeu. mars 16 16:02:17 2017 Loïc Lopez
+** Last update Thu Mar 23 16:02:50 2017 Matthias Prost
 */
 
 #ifndef SPACEFIGHTER_HPP__
@@ -32,8 +32,7 @@ class SpaceFighter : public IGameModel
   // Methods
   virtual void	setCharacterPosition(std::array<int, 2> &position);
   virtual std::array<int, 2> &getCharacterPosition();
-  virtual void setMap(std::map<int, int> &);
-  virtual std::map<int, int>	&getMap();
+  virtual void setMap();
   virtual void getInputs();
   virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &);
 };

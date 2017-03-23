@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Thu Mar 23 14:47:11 2017 Matthias Prost
+// Last update Thu Mar 23 16:42:01 2017 Matthias Prost
 //
 
 #include "OpenGLViewController.hpp"
@@ -90,4 +90,9 @@ void	OpenGLViewController::displayText(std::string const &str)
 void	OpenGLViewController::endScreen()
 {
   glfwTerminate();
+}
+
+void  OpenGLViewController::refresh()
+{
+  
 }

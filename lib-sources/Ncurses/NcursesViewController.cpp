@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 14:45:44 2017 Matthias Prost
+// Last update Thu Mar 23 16:51:18 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -17,7 +17,7 @@ extern "C" ILibraryViewController	*loadLibrary()
 
 NcursesViewController::NcursesViewController()
 {
-
+  this->score = 0;
 }
 
 NcursesViewController::~NcursesViewController()
@@ -88,6 +88,8 @@ bool  NcursesViewController::getKey(Key &action, bool &exit)
 void  NcursesViewController::setScore(int score)
 {
   this->score = score;
+  NcursesEncap::n_mvprintw(this->windowsize_y/20,
+    this->windowsize_x/1.5 + 9, std::to_string(this->score).c_str());
 }
 
 int  NcursesViewController::getScore()
@@ -120,9 +122,14 @@ void  NcursesViewController::initScreen()
     this->windowsize_x/1.5 - this->mapsize_x - 9, "Ncurses");
   NcursesEncap::n_mvprintw(this->windowsize_y/20,
     this->windowsize_x/1.5 + 2, "Score: ");
-  this->score = 0;
   NcursesEncap::n_mvprintw(this->windowsize_y/20,
     this->windowsize_x/1.5 + 9, std::to_string(this->score).c_str());
+}
+
+void  NcursesViewController::refresh()
+{
+  NcursesEncap::n_wrefresh(stdscr);
+  NcursesEncap::n_refresh();
 }
 
 void	NcursesViewController::displayText(std::string const &msg)

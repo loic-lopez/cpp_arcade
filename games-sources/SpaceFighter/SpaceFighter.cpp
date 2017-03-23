@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update jeu. mars 16 14:52:43 2017 Loïc Lopez
+// Last update Thu Mar 23 16:27:53 2017 Matthias Prost
 //
 
 #include "SpaceFighter.hpp"
@@ -48,14 +48,9 @@ std::array<int, 2> &SpaceFighter::getCharacterPosition()
   return (this->characterPosition);
 }
 
-void SpaceFighter::setMap(std::map<int, int> &map)
+void SpaceFighter::setMap()
 {
   (void)map;
-}
-
-std::map<int, int>	&SpaceFighter::getMap()
-{
-  return (this->map);
 }
 
 void SpaceFighter::getInputs()

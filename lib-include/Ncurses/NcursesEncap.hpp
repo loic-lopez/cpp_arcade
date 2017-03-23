@@ -5,7 +5,7 @@
 // Login   <matthias.prost@epitech.eu@epitech.eu>
 //
 // Started on  Mon Mar 20 10:24:02 2017 Matthias Prost
-// Last update Wed Mar 22 20:26:20 2017 Matthias Prost
+// Last update Thu Mar 23 16:34:31 2017 Matthias Prost
 //
 
 #ifndef _NcursesEncap_H__

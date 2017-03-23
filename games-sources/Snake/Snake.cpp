@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Thu Mar 23 14:11:13 2017 Matthias Prost
+// Last update Thu Mar 23 16:51:34 2017 Matthias Prost
 //
 
 #include <array>
@@ -19,7 +19,6 @@ extern "C" IGameModel *Play()
 Snake::Snake()
 {
   this->characterPosition = {3, 3};
-  this->map[0] = 0;
 }
 
 Snake &Snake::operator=(Snake const &snake)
@@ -48,14 +47,18 @@ std::array<int, 2> &Snake::getCharacterPosition()
   return (this->characterPosition);
 };
 
-void Snake::setMap(std::map<int, int> &map)
+void Snake::setMap()
 {
-  (void)map;
-}
+  int   y, x;
 
-std::map<int, int>	&Snake::getMap()
-{
-  return (this->map);
+  x = -1;
+  y = -1;
+  while (++y != 70)
+  {
+    while (++x != 50)
+      this->map[y][x] = 0;
+    x = -1;
+  }
 }
 
 void Snake::getInputs()
@@ -69,6 +72,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
   ILibraryViewController::Key	action = ILibraryViewController::Key::STANDBY;
 
   libraryInstance->initScreen();
+  setMap();
   while(libraryInstance->getKey(action, exit))
     {
       if (action == ILibraryViewController::Key::NEXT_GAME)
@@ -81,6 +85,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
           currentLibrary--;
           break;
         }
+      libraryInstance->refresh();
     }
   libraryInstance->endScreen();
   (void)currentGame;
