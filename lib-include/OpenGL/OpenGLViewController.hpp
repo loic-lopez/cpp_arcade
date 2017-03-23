@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Thu Mar 23 11:23:25 2017 Matthias Prost
+// Last update Thu Mar 23 14:46:45 2017 Matthias Prost
 //
 
 #ifndef OpenGLCONTROLLER_HPP__
@@ -21,6 +21,7 @@ class OpenGLViewController : public ILibraryViewController
 {
  private:
   GLFWwindow	*window;
+  int   score;
 
  public:
   OpenGLViewController();
@@ -38,6 +39,8 @@ class OpenGLViewController : public ILibraryViewController
   virtual void initScreen();
   virtual void displayText(std::string const &str);
   virtual void endScreen();
+  virtual void setScore(int);
+  virtual int  getScore();
 };
 
 #endif /* OpenGLCONTROLLER_HPP__ */

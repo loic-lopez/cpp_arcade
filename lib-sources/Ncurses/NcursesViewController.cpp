@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 14:30:59 2017 Matthias Prost
+// Last update Thu Mar 23 14:45:44 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -58,12 +58,6 @@ void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
     }
 }
 
-// void  NcursesViewController::initScore()
-// {
-//   this->score = 0;
-//   NcursesEncap::n_mvprintw(y + this->mapsize);
-// }
-
 void  NcursesViewController::drawMenu()
 {
 
@@ -91,6 +85,16 @@ bool  NcursesViewController::getKey(Key &action, bool &exit)
   return (true);
 }
 
+void  NcursesViewController::setScore(int score)
+{
+  this->score = score;
+}
+
+int  NcursesViewController::getScore()
+{
+  return (this->score);
+}
+
 void  NcursesViewController::initScreen()
 {
   int height, width;
@@ -116,8 +120,9 @@ void  NcursesViewController::initScreen()
     this->windowsize_x/1.5 - this->mapsize_x - 9, "Ncurses");
   NcursesEncap::n_mvprintw(this->windowsize_y/20,
     this->windowsize_x/1.5 + 2, "Score: ");
+  this->score = 0;
   NcursesEncap::n_mvprintw(this->windowsize_y/20,
-    this->windowsize_x/1.5 + 9, "0");
+    this->windowsize_x/1.5 + 9, std::to_string(this->score).c_str());
 }
 
 void	NcursesViewController::displayText(std::string const &msg)

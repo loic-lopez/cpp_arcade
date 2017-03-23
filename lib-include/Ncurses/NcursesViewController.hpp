@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 14:04:30 2017 Matthias Prost
+// Last update Thu Mar 23 14:44:39 2017 Matthias Prost
 //
 
 #ifndef NCURSESVIEWCONTROLLER_HPP__
@@ -36,6 +36,8 @@ class NcursesViewController : public ILibraryViewController
   virtual void initScreen();
   virtual void displayText(std::string const &);
   virtual void endScreen();
+  virtual void setScore(int);
+  virtual int  getScore();
 };
 
 #endif /* NCURSESVIEWCONTROLLER_HPP__ */
