@@ -9,7 +9,6 @@
 //
 
 #include "OpenGLViewController.hpp"
-#include <GL/gl.h>
 
 extern "C" ILibraryViewController	*loadLibrary()
 {
@@ -18,7 +17,7 @@ extern "C" ILibraryViewController	*loadLibrary()
 
 OpenGLViewController::OpenGLViewController()
 {
-
+  this->score = 0;
 }
 
 OpenGLViewController::~OpenGLViewController()
@@ -110,4 +109,10 @@ void  OpenGLViewController::refresh()
   glfwSwapBuffers(this->window);
   /* Poll for and process events */
   glfwPollEvents();
+}
+
+void	OpenGLViewController::drawMap(int mapsize_x, int mapsize_y)
+{
+  (void)mapsize_x;
+  (void)mapsize_y;
 }

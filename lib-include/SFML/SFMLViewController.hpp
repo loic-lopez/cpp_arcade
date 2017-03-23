@@ -27,7 +27,7 @@ private:
   int   score;
   int   user_x;
   int   user_y;
-  virtual void  wait_second();
+
  public:
   virtual ~SFMLViewController();
   SFMLViewController();

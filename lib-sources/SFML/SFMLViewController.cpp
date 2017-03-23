@@ -12,11 +12,12 @@
 
 extern "C" ILibraryViewController	*loadLibrary()
 {
-  return new SFMLViewController();
+  return (new SFMLViewController());
 }
 
 SFMLViewController::~SFMLViewController()
 {
+  this->score = 0;
 }
 
 SFMLViewController::SFMLViewController()
