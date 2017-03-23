@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 11:19:29 2017 Matthias Prost
+// Last update Thu Mar 23 12:09:44 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -35,9 +35,18 @@ void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
     {
       while (++x != mapsize_x)
       {
-        NcursesEncap::n_attron(COLOR_PAIR(1));
-        NcursesEncap::n_mvprintw(y, x, "*");
-        NcursesEncap::n_attroff(COLOR_PAIR(1));
+        if (x == 0 || y == 0 || x == mapsize_x - 1 || y == mapsize_y - 1)
+        {
+          NcursesEncap::n_attron(COLOR_PAIR(1));
+          NcursesEncap::n_mvprintw(y + this->mapsize_y/20, x + this->mapsize_x, "*");
+          NcursesEncap::n_attroff(COLOR_PAIR(1));
+        }
+        else
+        {
+          NcursesEncap::n_attron(COLOR_PAIR(2));
+          NcursesEncap::n_mvprintw(y + this->mapsize_y/20, x + this->mapsize_x, "*");
+          NcursesEncap::n_attroff(COLOR_PAIR(2));
+        }
       }
       x = -1;
     }
@@ -45,7 +54,7 @@ void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
 
 void  NcursesViewController::drawMenu()
 {
-  
+
 }
 
 void	NcursesViewController::drawCharacter(std::array<int, 2> &position)
@@ -83,6 +92,8 @@ void  NcursesViewController::initScreen()
   this->h_size = height;
   this->v_size = width;
   NcursesEncap::n_init_pair(1, COLOR_BLUE, COLOR_BLUE);
+  NcursesEncap::n_init_pair(2, COLOR_BLACK, COLOR_BLACK);
+  this->drawMap(70, 50);
 }
 
 void	NcursesViewController::displayText(std::string const &msg)
