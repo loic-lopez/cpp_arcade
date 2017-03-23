@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Tue Mar 21 20:20:22 2017 Matthias Prost
+// Last update Thu Mar 23 10:50:27 2017 Matthias Prost
 //
 
 #include "OpenGLViewController.hpp"
@@ -33,11 +33,6 @@ void	OpenGLViewController::drawMenu()
 void	OpenGLViewController::drawCharacter(std::array<int, 2> &position)
 {
   (void)position;
-}
-
-void	OpenGLViewController::drawMap(std::map<int, int> &map)
-{
-  (void)map;
 }
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)

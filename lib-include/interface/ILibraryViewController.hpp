@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. mars 17 15:03:52 2017 Loïc Lopez
-** Last update Thu Mar 23 10:57:47 2017 Matthias Prost
+** Last update Thu Mar 23 10:59:38 2017 Matthias Prost
 */
 
 #ifndef ILIBRAYVIEWCONTROLLER_HPP__
@@ -20,7 +20,7 @@ class	ILibraryViewController
   virtual void drawMap(int, int) = 0;
   virtual void drawCharacter(std::array<int, 2> &position) = 0;
   virtual void drawMenu() = 0;
-  virtual bool getEscapeKey(int &, bool &) = 0;
+  virtual bool getKey(int &, bool &) = 0;
   virtual void initScreen() = 0;
   virtual void displayText(std::string const &) = 0;
   virtual void endScreen() = 0;

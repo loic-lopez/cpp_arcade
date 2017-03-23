@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Tue Mar 21 21:17:40 2017 Matthias Prost
+// Last update Thu Mar 23 11:01:12 2017 Matthias Prost
 //
 
 #include <array>
@@ -69,7 +69,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
   int key = 0;
 
   libraryInstance->initScreen();
-  while(libraryInstance->getEscapeKey(key, exit))
+  while(libraryInstance->getKey(key, exit))
     {
       if (key == 1)
         {

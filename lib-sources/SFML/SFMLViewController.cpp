@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Wed Mar 22 18:07:22 2017 Loic Lopez
+// Last update Thu Mar 23 11:00:38 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -32,12 +32,7 @@ void	SFMLViewController::drawCharacter(std::array<int, 2> &position)
   (void)position;
 }
 
-void	SFMLViewController::drawMap(std::map<int, int> &map)
-{
-  (void)map;
-}
-
-bool  SFMLViewController::getEscapeKey(int &key, bool &exit)
+bool  SFMLViewController::getKey(int &key, bool &exit)
 {
   sf::Event event;
 
