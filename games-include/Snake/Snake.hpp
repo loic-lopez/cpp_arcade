@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:01:26 2017 Loïc Lopez
-** Last update Thu Mar 23 16:26:41 2017 Matthias Prost
+** Last update Thu Mar 23 17:34:04 2017 Matthias Prost
 */
 
 #ifndef SNAKE_HPP__
@@ -22,6 +22,8 @@ class	Snake : public IGameModel
   std::string libraryName;
   std::array<int, 2>	characterPosition;
   int	  map[70][50];
+  int   pos_x;
+  int   pos_y;
 
  public:
   Snake();

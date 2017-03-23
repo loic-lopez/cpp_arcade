@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 17:04:03 2017 Matthias Prost
+// Last update Thu Mar 23 17:43:04 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -41,17 +41,17 @@ void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
         if (x == 0 || x == 1 || y == 0 || x == mapsize_x - 1 || x == mapsize_x - 2
           || y == mapsize_y - 1)
         {
-          NcursesEncap::n_attron(COLOR_PAIR(1));
+          NcursesEncap::n_attron(COLOR_PAIR(5));
           NcursesEncap::n_mvprintw(y + this->windowsize_y/20,
             x + this->windowsize_x/1.5 - this->mapsize_x, "*");
-          NcursesEncap::n_attroff(COLOR_PAIR(1));
+          NcursesEncap::n_attroff(COLOR_PAIR(5));
         }
         else
         {
-          NcursesEncap::n_attron(COLOR_PAIR(2));
+          NcursesEncap::n_attron(COLOR_PAIR(3));
           NcursesEncap::n_mvprintw(y + this->windowsize_y/20,
             x + this->windowsize_x/1.5 - this->mapsize_x, "*");
-          NcursesEncap::n_attroff(COLOR_PAIR(2));
+          NcursesEncap::n_attroff(COLOR_PAIR(3));
         }
       }
       x = -1;
@@ -80,8 +80,16 @@ bool  NcursesViewController::getKey(Key &action, bool &exit)
     }
   if (key == '3')
     action = ILibraryViewController::Key::NEXT_GAME;
-  if (key == '2')
+  else if (key == '2')
     action = ILibraryViewController::Key::PREV_GAME;
+  else if (key == KEY_UP)
+    action = ILibraryViewController::Key::UP;
+  else if (key == KEY_DOWN)
+    action = ILibraryViewController::Key::DOWN;
+  else if (key == KEY_LEFT)
+    action = ILibraryViewController::Key::LEFT;
+  else if (key == KEY_RIGHT)
+    action = ILibraryViewController::Key::RIGHT;
   return (true);
 }
 
@@ -116,6 +124,7 @@ void  NcursesViewController::initScreen()
   NcursesEncap::n_init_pair(2, COLOR_BLACK, COLOR_BLACK);
   NcursesEncap::n_init_pair(3, COLOR_BLUE, COLOR_BLACK);
   NcursesEncap::n_init_pair(4, COLOR_RED, COLOR_RED);
+  NcursesEncap::n_init_pair(5, COLOR_BLACK, COLOR_BLUE);
   this->drawMap(70, 50);
   NcursesEncap::n_mvprintw(this->windowsize_y/20,
     this->windowsize_x/1.5 - this->mapsize_x - 9, "Snek");
@@ -141,13 +150,13 @@ void	NcursesViewController::displayText(std::string const &msg)
 
 void  NcursesViewController::setUserXY(int x, int y)
 {
-  this->user_x = x;
+  this->user_x = x + 1;
   this->user_y = y;
   NcursesEncap::n_attron(COLOR_PAIR(4));
-  NcursesEncap::n_mvprintw(y + this->windowsize_y/20 + 1,
-    x + this->windowsize_x/1.5 - this->mapsize_x + 2, "*");
-  NcursesEncap::n_mvprintw(y + this->windowsize_y/20 + 1,
-    x + this->windowsize_x/1.5 - this->mapsize_x + 3, "*");
+  NcursesEncap::n_mvprintw(this->user_y + this->windowsize_y/20 + 1,
+    this->user_x + this->windowsize_x/1.5 - this->mapsize_x + 1, "*");
+  NcursesEncap::n_mvprintw(this->user_y + this->windowsize_y/20 + 1,
+    this->user_x + this->windowsize_x/1.5 - this->mapsize_x + 2, "*");
   NcursesEncap::n_attroff(COLOR_PAIR(4));
 }
 

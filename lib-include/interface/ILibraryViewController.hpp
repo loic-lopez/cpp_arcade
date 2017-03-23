@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. mars 17 15:03:52 2017 Loïc Lopez
-** Last update Thu Mar 23 16:56:31 2017 Matthias Prost
+** Last update Thu Mar 23 17:40:47 2017 Matthias Prost
 */
 
 #ifndef ILIBRAYVIEWCONTROLLER_HPP__
@@ -23,7 +23,11 @@ class	ILibraryViewController
      STANDBY		=	0,
      NEXT_GAME		=	1,
      PREV_GAME 		=	2,
-     ESCAPE		=	3
+     ESCAPE		=	3,
+     UP   = 4,
+     DOWN   = 5,
+     LEFT   = 6,
+     RIGHT  = 7,
    };
 
 

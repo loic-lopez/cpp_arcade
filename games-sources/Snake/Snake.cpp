@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Thu Mar 23 17:07:12 2017 Matthias Prost
+// Last update Thu Mar 23 17:41:24 2017 Matthias Prost
 //
 
 #include <array>
@@ -19,6 +19,8 @@ extern "C" IGameModel *createInstanceGame()
 Snake::Snake()
 {
   this->characterPosition = {3, 3};
+  this->pos_x = 35;
+  this->pos_y = 25;
 }
 
 Snake &Snake::operator=(Snake const &snake)
@@ -73,7 +75,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 
   libraryInstance->initScreen();
   setMap();
-  libraryInstance->setUserXY(1, 1);
+  libraryInstance->setUserXY(this->pos_x, this->pos_y);
   while(libraryInstance->getKey(action, exit))
     {
       if (action == ILibraryViewController::Key::NEXT_GAME)
@@ -86,6 +88,26 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
           currentLibrary--;
           break;
         }
+      else if (action == ILibraryViewController::Key::UP)
+      {
+        libraryInstance->setUserXY(this->pos_x, this->pos_y + 1);
+        this->pos_y++;
+      }
+      else if (action == ILibraryViewController::Key::DOWN)
+      {
+        libraryInstance->setUserXY(this->pos_x, this->pos_y - 1);
+        this->pos_y--;
+      }
+      else if (action == ILibraryViewController::Key::LEFT)
+      {
+        libraryInstance->setUserXY(this->pos_x - 1, this->pos_y);
+        this->pos_x--;
+      }
+      else if (action == ILibraryViewController::Key::RIGHT)
+      {
+        libraryInstance->setUserXY(this->pos_x + 1, this->pos_y);
+        this->pos_x++;
+      }
       libraryInstance->refresh();
     }
   libraryInstance->endScreen();
