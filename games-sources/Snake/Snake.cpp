@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Thu Mar 23 11:16:52 2017 Matthias Prost
+// Last update Thu Mar 23 14:11:13 2017 Matthias Prost
 //
 
 #include <array>
@@ -82,7 +82,6 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
           currentLibrary--;
           break;
         }
-      libraryInstance->displayText("Snek");
     }
   libraryInstance->endScreen();
   (void)currentGame;

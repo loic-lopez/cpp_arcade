@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 11:11:17 2017 Matthias Prost
+// Last update Thu Mar 23 14:04:30 2017 Matthias Prost
 //
 
 #ifndef NCURSESVIEWCONTROLLER_HPP__
@@ -19,10 +19,11 @@ extern "C" ILibraryViewController	*loadLibrary();
 class NcursesViewController : public ILibraryViewController
 {
   private:
-    int   h_size;
-    int   v_size;
+    int   windowsize_x;
+    int   windowsize_y;
     int   mapsize_x;
     int   mapsize_y;
+    int   score;
  public:
   virtual ~NcursesViewController();
   NcursesViewController();

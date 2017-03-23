@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 12:09:44 2017 Matthias Prost
+// Last update Thu Mar 23 14:23:43 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -25,31 +25,46 @@ NcursesViewController::~NcursesViewController()
 
 }
 
+#include <unistd.h>
+
 void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
 {
-  int x, y = -1;
+  int x;
+  int y;
 
+  x = -1;
+  y = -1;
   this->mapsize_x = mapsize_x;
   this->mapsize_y = mapsize_y;
   while (++y != mapsize_y)
     {
+      printf("%d:%d; ", y, x);
       while (++x != mapsize_x)
       {
-        if (x == 0 || y == 0 || x == mapsize_x - 1 || y == mapsize_y - 1)
+        if (x == 0 || x == 1 || y == 0 || x == mapsize_x - 1 || x == mapsize_x - 2
+          || y == mapsize_y - 1)
         {
           NcursesEncap::n_attron(COLOR_PAIR(1));
-          NcursesEncap::n_mvprintw(y + this->mapsize_y/20, x + this->mapsize_x, "*");
+          NcursesEncap::n_mvprintw(y + this->windowsize_y/20,
+            x + this->windowsize_x/1.5 - this->mapsize_x, "*");
           NcursesEncap::n_attroff(COLOR_PAIR(1));
         }
         else
         {
           NcursesEncap::n_attron(COLOR_PAIR(2));
-          NcursesEncap::n_mvprintw(y + this->mapsize_y/20, x + this->mapsize_x, "*");
+          NcursesEncap::n_mvprintw(y + this->windowsize_y/20,
+            x + this->windowsize_x/1.5 - this->mapsize_x, "*");
           NcursesEncap::n_attroff(COLOR_PAIR(2));
         }
       }
       x = -1;
     }
+}
+
+void  NcursesViewController::initScore()
+{
+  this->score = 0;
+  NcursesEncap::n_mvprintw(y + this->mapsize)
 }
 
 void  NcursesViewController::drawMenu()
@@ -81,7 +96,8 @@ void  NcursesViewController::initScreen()
 {
   int height, width;
 
-  height = width = 0;
+  height = 0;
+  width = 0;
   NcursesEncap::n_newterm();
   NcursesEncap::n_curs_set();
   NcursesEncap::n_noecho();
@@ -89,11 +105,20 @@ void  NcursesViewController::initScreen()
   NcursesEncap::n_keypad();
   NcursesEncap::n_start_color();
   NcursesEncap::n_getmaxyx(stdscr, &height, &width);
-  this->h_size = height;
-  this->v_size = width;
+  this->windowsize_x = width;
+  this->windowsize_y = height;
   NcursesEncap::n_init_pair(1, COLOR_BLUE, COLOR_BLUE);
   NcursesEncap::n_init_pair(2, COLOR_BLACK, COLOR_BLACK);
+  NcursesEncap::n_init_pair(3, COLOR_BLUE, COLOR_BLACK);
   this->drawMap(70, 50);
+  NcursesEncap::n_mvprintw(this->windowsize_y/20,
+    this->windowsize_x/1.5 - this->mapsize_x - 9, "Snek");
+  NcursesEncap::n_mvprintw(this->windowsize_y/20 + 2,
+    this->windowsize_x/1.5 - this->mapsize_x - 9, "Ncurses");
+  NcursesEncap::n_mvprintw(this->windowsize_y/20,
+    this->windowsize_x/1.5 + 2, "Score: ");
+  NcursesEncap::n_mvprintw(this->windowsize_y/20,
+    this->windowsize_x/1.5 + 9, "0");
 }
 
 void	NcursesViewController::displayText(std::string const &msg)
