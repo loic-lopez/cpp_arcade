@@ -32,11 +32,10 @@ void	SFMLViewController::drawCharacter(std::array<int, 2> &position)
   (void)position;
 }
 
-bool  SFMLViewController::getKey(int key, Key &action, bool &exit)
+bool  SFMLViewController::getKey(Key &action, bool &exit)
 {
   sf::Event event;
 
-  (void)key;
   while (this->window.pollEvent(event))
     {
       if (event.type == sf::Event::KeyPressed)

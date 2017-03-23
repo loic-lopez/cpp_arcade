@@ -64,7 +64,7 @@ void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
 void  NcursesViewController::initScore()
 {
   this->score = 0;
-  NcursesEncap::n_mvprintw(y + this->mapsize)
+  NcursesEncap::n_mvprintw(y + this->mapsize);
 }
 
 void  NcursesViewController::drawMenu()
@@ -77,8 +77,10 @@ void	NcursesViewController::drawCharacter(std::array<int, 2> &position)
   (void)position;
 }
 
-bool  NcursesViewController::getKey(int key, Key &action, bool &exit)
+bool  NcursesViewController::getKey(Key &action, bool &exit)
 {
+  int key;
+
   key = NcursesEncap::n_getch();
   if (key == 27)
     {

@@ -35,45 +35,51 @@ void	OpenGLViewController::drawCharacter(std::array<int, 2> &position)
   (void)position;
 }
 
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+bool	OpenGLViewController::getKey(Key &action, bool &exit)
 {
-  (void)scancode;
-  (void)mods;
-  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-    glfwSetWindowShouldClose(window, GLFW_TRUE);
+  if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    {
+      exit = true;
+      return (false);
+    }
+  else if (glfwGetKey(this->window, GLFW_KEY_3) == GLFW_PRESS)
+      action = ILibraryViewController::Key::NEXT_GAME;
+  else if (glfwGetKey(this->window, GLFW_KEY_2) == GLFW_PRESS)
+      action = ILibraryViewController::Key::PREV_GAME;
+  return (true);
 }
 
 // Changer et enlever la boucle pour intégrer aux jeux
 void	OpenGLViewController::initScreen()
 {
-  GLFWwindow* window;
-
   /* Initialize the library */
+
   if (!glfwInit())
     return;
+  const GLFWvidmode	*mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+
 
   /* Create a windowed mode window and its OpenGL context */
-  window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-  if (!window)
-    {
-      glfwTerminate();
-      return;
-    }
+  if (!(this->window = glfwCreateWindow(mode->width, mode->height, "Hello World", NULL, NULL)))
+      return (this->endScreen());
 
-  glfwMakeContextCurrent(window);
+  glfwMakeContextCurrent(this->window);
+  this->endScreen();
+}
 
-  /* Loop until the user closes the window */
-  while (!glfwWindowShouldClose(window))
-    {
-      /* Render here */
-      glClear(GL_COLOR_BUFFER_BIT);
-      glfwSetKeyCallback(window, key_callback);
-      /* Swap front and back buffers */
-      glfwSwapBuffers(window);
+void	OpenGLViewController::displayText(std::string const &str)
+{
+  (void)str;
+  /* Render here */
+  glClear(GL_COLOR_BUFFER_BIT);
+  /* Swap front and back buffers */
+  glfwSwapBuffers(window);
+  /* Poll for and process events */
+  glfwPollEvents();
+}
 
-      /* Poll for and process events */
-      glfwPollEvents();
-    }
-
+void	OpenGLViewController::endScreen()
+{
   glfwTerminate();
 }

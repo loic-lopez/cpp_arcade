@@ -67,10 +67,9 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 			bool &exit)
 {
   ILibraryViewController::Key	action = ILibraryViewController::Key::STANDBY;
-  int	key = 0;
 
   libraryInstance->initScreen();
-  while(libraryInstance->getKey(key, action, exit))
+  while(libraryInstance->getKey(action, exit))
     {
       if (action == ILibraryViewController::Key::NEXT_GAME)
         {
