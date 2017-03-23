@@ -95,3 +95,8 @@ void  NcursesViewController::endScreen()
 {
     NcursesEncap::n_endwin();
 }
+
+void	NcursesViewController::drawMenu()
+{
+
+}
