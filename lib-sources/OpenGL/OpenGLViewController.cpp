@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Thu Mar 23 16:57:52 2017 Matthias Prost
+// Last update Thu Mar 23 20:04:47 2017 Matthias Prost
 //
 
 #include "OpenGLViewController.hpp"
@@ -38,11 +38,6 @@ int  OpenGLViewController::getScore()
 
 void	OpenGLViewController::drawMenu()
 {
-}
-
-void	OpenGLViewController::drawCharacter(std::array<int, 2> &position)
-{
-  (void)position;
 }
 
 bool	OpenGLViewController::getKey(Key &action, bool &exit)

@@ -5,22 +5,22 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Thu Mar 23 17:41:24 2017 Matthias Prost
+// Last update Thu Mar 23 19:58:56 2017 Matthias Prost
 //
 
 #include <array>
 #include "Snake.hpp"
 
-extern "C" IGameModel *createInstanceGame()
+extern "C" IGameModel *createInstanceGame(std::string const &libname)
 {
-  return (new Snake());
+  return (new Snake(libname));
 }
 
-Snake::Snake()
+Snake::Snake(std::string const &libname)
 {
-  this->characterPosition = {3, 3};
   this->pos_x = 35;
   this->pos_y = 25;
+  this->libraryName = libname;
 }
 
 Snake &Snake::operator=(Snake const &snake)
@@ -39,16 +39,6 @@ Snake::Snake(Snake const &snake)
   this->libraryName = snake.libraryName;
 }
 
-void	Snake::setCharacterPosition(std::array<int, 2> &position)
-{
-  (void)position;
-}
-
-std::array<int, 2> &Snake::getCharacterPosition()
-{
-  return (this->characterPosition);
-};
-
 void Snake::setMap()
 {
   int   y, x;
@@ -65,6 +55,18 @@ void Snake::setMap()
 
 void Snake::getInputs()
 {
+}
+
+#include <time.h>
+
+void  Snake::wait_second()
+{
+  clock_t   ticks1, ticks2;
+
+  ticks1 = clock();
+  ticks2 = ticks1;
+  while ((ticks2 / CLOCKS_PER_SEC - ticks1 / CLOCKS_PER_SEC) < 1)
+    ticks2 = clock();
 }
 
 bool	Snake::play(ILibraryViewController *libraryInstance,
@@ -91,12 +93,12 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
       else if (action == ILibraryViewController::Key::UP)
       {
         libraryInstance->setUserXY(this->pos_x, this->pos_y + 1);
-        this->pos_y++;
+        this->pos_y--;
       }
       else if (action == ILibraryViewController::Key::DOWN)
       {
         libraryInstance->setUserXY(this->pos_x, this->pos_y - 1);
-        this->pos_y--;
+        this->pos_y++;
       }
       else if (action == ILibraryViewController::Key::LEFT)
       {
@@ -109,6 +111,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
         this->pos_x++;
       }
       libraryInstance->refresh();
+      this->wait_second();
     }
   libraryInstance->endScreen();
   (void)currentGame;

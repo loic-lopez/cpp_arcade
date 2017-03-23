@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 16:55:41 2017 Matthias Prost
+// Last update Thu Mar 23 20:04:35 2017 Matthias Prost
 //
 
 #ifndef NCURSESVIEWCONTROLLER_HPP__
@@ -26,13 +26,13 @@ class NcursesViewController : public ILibraryViewController
     int   score;
     int   user_x;
     int   user_y;
+    virtual void  wait_second();
  public:
   virtual ~NcursesViewController();
   NcursesViewController();
 
   // Methods
   virtual void drawMap(int mapsize_x, int mapsize_y);
-  virtual void drawCharacter(std::array<int, 2> &position);
   virtual void drawMenu();
   virtual bool getKey(Key &action, bool &exit);
   virtual void initScreen(std::string const &name);

@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 17:56:32 2017 Loïc Lopez
-// Last update Fri Mar 17 18:37:02 2017 Matthias Prost
+// Last update Thu Mar 23 19:44:56 2017 Matthias Prost
 //
 
 #ifndef IGAMECORE_HPP__
@@ -16,7 +16,7 @@
 #include "IGameModel.hpp"
 #include "ILibraryViewController.hpp"
 
-typedef IGameModel *(*play_function_type)();
+typedef IGameModel *(*play_function_type)(std::string const &);
 typedef ILibraryViewController *(*load_library_function_type)(void);
 
 class IGameCore

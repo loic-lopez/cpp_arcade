@@ -5,20 +5,19 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Thu Mar 23 16:27:53 2017 Matthias Prost
+// Last update Thu Mar 23 19:59:13 2017 Matthias Prost
 //
 
 #include "SpaceFighter.hpp"
 
-extern "C" IGameModel *createInstanceGame()
+extern "C" IGameModel *createInstanceGame(std::string const &libname)
 {
-  return (new SpaceFighter());
+  return (new SpaceFighter(libname));
 }
 
-SpaceFighter::SpaceFighter()
+SpaceFighter::SpaceFighter(std::string const &libname)
 {
-  this->characterPosition = {3, 3};
-  this->map[0] = 0;
+  this->libraryName = libname;
 }
 
 SpaceFighter::SpaceFighter(SpaceFighter const &spaceFighter)
@@ -38,19 +37,18 @@ SpaceFighter::~SpaceFighter()
 
 }
 
-void	SpaceFighter::setCharacterPosition(std::array<int, 2> &position)
+void  SpaceFighter::wait_second()
 {
-  (void)position;
-}
+  clock_t   ticks1, ticks2;
 
-std::array<int, 2> &SpaceFighter::getCharacterPosition()
-{
-  return (this->characterPosition);
+  ticks1 = clock();
+  ticks2 = ticks1;
+  while ((ticks2 / CLOCKS_PER_SEC - ticks1 / CLOCKS_PER_SEC) < 1)
+    ticks2 = clock();
 }
 
 void SpaceFighter::setMap()
 {
-  (void)map;
 }
 
 void SpaceFighter::getInputs()

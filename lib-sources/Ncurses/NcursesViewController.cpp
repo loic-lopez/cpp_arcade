@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 17:43:04 2017 Matthias Prost
+// Last update Thu Mar 23 19:52:34 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -61,11 +61,6 @@ void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
 void  NcursesViewController::drawMenu()
 {
 
-}
-
-void	NcursesViewController::drawCharacter(std::array<int, 2> &position)
-{
-  (void)position;
 }
 
 bool  NcursesViewController::getKey(Key &action, bool &exit)

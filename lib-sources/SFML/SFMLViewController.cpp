@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Thu Mar 23 16:58:01 2017 Matthias Prost
+// Last update Thu Mar 23 19:58:24 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -25,11 +25,6 @@ SFMLViewController::SFMLViewController()
 
 void	SFMLViewController::drawMenu()
 {
-}
-
-void	SFMLViewController::drawCharacter(std::array<int, 2> &position)
-{
-  (void)position;
 }
 
 void  SFMLViewController::setScore(int score)

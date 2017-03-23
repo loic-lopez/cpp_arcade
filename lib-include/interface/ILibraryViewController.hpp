@@ -5,19 +5,17 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. mars 17 15:03:52 2017 Loïc Lopez
-** Last update Thu Mar 23 17:40:47 2017 Matthias Prost
+** Last update Thu Mar 23 20:02:46 2017 Matthias Prost
 */
 
 #ifndef ILIBRAYVIEWCONTROLLER_HPP__
 # define ILIBRAYVIEWCONTROLLER_HPP__
 
-#include <map>
-#include <array>
-
+#include <string>
 
 class	ILibraryViewController
 {
- public:
+  public:
    enum class 		Key :	int
    {
      STANDBY		=	0,
@@ -30,9 +28,7 @@ class	ILibraryViewController
      RIGHT  = 7,
    };
 
-
   virtual void drawMap(int, int) = 0;
-  virtual void drawCharacter(std::array<int, 2> &position) = 0;
   virtual void drawMenu() = 0;
   virtual bool getKey(Key &action, bool &exit) = 0;
   virtual void initScreen(std::string const &name) = 0;

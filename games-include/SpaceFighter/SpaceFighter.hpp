@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:02:17 2017 Loïc Lopez
-** Last update Thu Mar 23 16:02:50 2017 Matthias Prost
+** Last update Thu Mar 23 19:38:54 2017 Matthias Prost
 */
 
 #ifndef SPACEFIGHTER_HPP__
@@ -14,24 +14,23 @@
 #include <iostream>
 #include "../interface/IGameModel.hpp"
 
-extern "C" IGameModel *createInstanceGame();
+extern "C" IGameModel *createInstanceGame(std::string const &);
 
 class SpaceFighter : public IGameModel
 {
  private:
   std::string	libraryName;
-  std::array<int, 2>	characterPosition;
-  std::map<int, int>	map;
+  int   pos_x;
+  int   pos_y;
+  virtual void  wait_second();
 
  public:
-  SpaceFighter();
+  SpaceFighter(std::string const &);
   SpaceFighter(SpaceFighter const &);
   SpaceFighter &operator=(SpaceFighter const &);
   virtual ~SpaceFighter();
 
   // Methods
-  virtual void	setCharacterPosition(std::array<int, 2> &position);
-  virtual std::array<int, 2> &getCharacterPosition();
   virtual void setMap();
   virtual void getInputs();
   virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &);
