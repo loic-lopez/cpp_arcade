@@ -52,29 +52,27 @@ bool	OpenGLViewController::getKey(Key &action, bool &exit)
 // Changer et enlever la boucle pour intégrer aux jeux
 void	OpenGLViewController::initScreen()
 {
-  /* Initialize the library */
+  const GLFWvidmode	*mode;
 
+  /* Initialize the library */
   if (!glfwInit())
     return;
-  const GLFWvidmode	*mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-
+  // get size of screen;
+  mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
   /* Create a windowed mode window and its OpenGL context */
   if (!(this->window = glfwCreateWindow(mode->width, mode->height, "Hello World", NULL, NULL)))
       return (this->endScreen());
 
   glfwMakeContextCurrent(this->window);
-  this->endScreen();
 }
 
 void	OpenGLViewController::displayText(std::string const &str)
 {
   (void)str;
-  /* Render here */
   glClear(GL_COLOR_BUFFER_BIT);
   /* Swap front and back buffers */
-  glfwSwapBuffers(window);
+  glfwSwapBuffers(this->window);
   /* Poll for and process events */
   glfwPollEvents();
 }
