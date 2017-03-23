@@ -48,12 +48,17 @@ bool  SFMLViewController::getKey(Key &action, bool &exit)
 
   while (this->window.pollEvent(event))
     {
+      if (event.type == sf::Event::Closed)
+	{
+	  exit = true;
+	  return (false);
+	}
       if (event.type == sf::Event::KeyPressed)
         {
           if (event.key.code == sf::Keyboard::Escape)
 	    {
-      	     	exit = true;
-      	     	return (false);
+	      exit = true;
+	      return (false);
 	    }
           if (event.key.code == sf::Keyboard::Num3)
             action = ILibraryViewController::Key::NEXT_GAME;
@@ -73,8 +78,6 @@ void	SFMLViewController::initScreen()
 void  SFMLViewController::displayText(std::string const &msg)
 {
   (void)msg;
-  this->window.clear(sf::Color::Black);
-	this->window.display();
 }
 
 void  SFMLViewController::endScreen()
@@ -106,5 +109,6 @@ int  SFMLViewController::getUserY()
 
 void  SFMLViewController::refresh()
 {
-
+  this->window.clear();
+  this->window.display();
 }

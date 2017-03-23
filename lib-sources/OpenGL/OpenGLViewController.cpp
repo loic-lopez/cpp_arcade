@@ -47,7 +47,11 @@ void	OpenGLViewController::drawCharacter(std::array<int, 2> &position)
 
 bool	OpenGLViewController::getKey(Key &action, bool &exit)
 {
-  if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+  (void)action;
+  (void)exit;
+
+  if (glfwWindowShouldClose(this->window)
+      || glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
       exit = true;
       return (false);
@@ -56,6 +60,7 @@ bool	OpenGLViewController::getKey(Key &action, bool &exit)
       action = ILibraryViewController::Key::NEXT_GAME;
   else if (glfwGetKey(this->window, GLFW_KEY_2) == GLFW_PRESS)
       action = ILibraryViewController::Key::PREV_GAME;
+
   return (true);
 }
 
@@ -80,11 +85,6 @@ void	OpenGLViewController::initScreen()
 void	OpenGLViewController::displayText(std::string const &str)
 {
   (void)str;
-  glClear(GL_COLOR_BUFFER_BIT);
-  /* Swap front and back buffers */
-  glfwSwapBuffers(this->window);
-  /* Poll for and process events */
-  glfwPollEvents();
 }
 
 void  OpenGLViewController::setUserXY(int x, int y)
@@ -110,5 +110,9 @@ void	OpenGLViewController::endScreen()
 
 void  OpenGLViewController::refresh()
 {
-
+  glClear(GL_COLOR_BUFFER_BIT);
+  /* Swap front and back buffers */
+  glfwSwapBuffers(this->window);
+  /* Poll for and process events */
+  glfwPollEvents();
 }
