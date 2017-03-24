@@ -37,7 +37,7 @@ private:
   virtual void drawMenu();
   virtual bool getKey(Key &action, bool &exit);
   virtual void initScreen(std::string const &name);
-  virtual void displayText(std::string const &);
+  virtual void displayText(std::string const &, std::string const &) const;
   virtual void endScreen();
   virtual void setScore(int);
   virtual int  getScore();
@@ -45,6 +45,7 @@ private:
   virtual void setUserXY(int, int);
   virtual int  getUserX();
   virtual int  getUserY();
+  virtual std::string	getLibraryName();
 };
 
 #endif /* SFMLCONTROLLER_HPP__ */

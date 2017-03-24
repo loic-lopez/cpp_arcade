@@ -71,9 +71,10 @@ void	SFMLViewController::initScreen(std::string const &name)
   this->window.create(sf::VideoMode::getDesktopMode(), name.c_str());
 }
 
-void  SFMLViewController::displayText(std::string const &msg)
+void	SFMLViewController::displayText(std::string const &Game, std::string const &libraryName) const
 {
-  (void)msg;
+  (void)Game;
+  (void)libraryName;
 }
 
 void  SFMLViewController::endScreen()
@@ -107,4 +108,9 @@ void  SFMLViewController::refresh()
 {
   this->window.clear();
   this->window.display();
+}
+
+std::string	SFMLViewController::getLibraryName()
+{
+  return ("SFML");
 }

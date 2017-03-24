@@ -119,6 +119,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 	    break;
 	  this->_snake[0].first++;
       	}
+      libraryInstance->displayText(this->getGameName(), libraryInstance->getLibraryName());
       libraryInstance->refresh();
       this->wait_second();
     }

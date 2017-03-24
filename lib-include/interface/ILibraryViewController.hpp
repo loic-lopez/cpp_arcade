@@ -31,7 +31,7 @@ class	ILibraryViewController
   virtual void drawMenu() = 0;
   virtual bool getKey(Key &action, bool &exit) = 0;
   virtual void initScreen(std::string const &name) = 0;
-  virtual void displayText(std::string const &) = 0;
+  virtual void displayText(std::string const &, std::string const &) const = 0;
   virtual void endScreen() = 0;
   virtual void setScore(int) = 0;
   virtual int  getScore() = 0;
@@ -39,6 +39,7 @@ class	ILibraryViewController
   virtual void setUserXY(int, int) = 0;
   virtual int  getUserX() = 0;
   virtual int  getUserY() = 0;
+  virtual std::string	getLibraryName() = 0;
 
   virtual ~ILibraryViewController() {}
 };

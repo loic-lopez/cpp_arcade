@@ -73,9 +73,10 @@ void	OpenGLViewController::initScreen(std::string const &name)
   glfwMakeContextCurrent(this->window);
 }
 
-void	OpenGLViewController::displayText(std::string const &str)
+void	OpenGLViewController::displayText(std::string const &Game, std::string const &libraryName) const
 {
-  (void)str;
+  (void)Game;
+  (void)libraryName;
 }
 
 void  OpenGLViewController::setUserXY(int x, int y)
@@ -112,4 +113,9 @@ void	OpenGLViewController::drawMap(int mapsize_x, int mapsize_y)
 {
   (void)mapsize_x;
   (void)mapsize_y;
+}
+
+std::string	OpenGLViewController::getLibraryName()
+{
+  return ("OpenGL");
 }

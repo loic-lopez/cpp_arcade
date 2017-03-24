@@ -132,24 +132,23 @@ void  NcursesViewController::refresh()
   NcursesEncap::n_refresh();
 }
 
-void	NcursesViewController::displayText(std::string const &msg)
+void	NcursesViewController::displayText(std::string const &Game, std::string const &libraryName) const
 {
-    NcursesEncap::n_mvprintw(2, 2, msg.c_str());
-    NcursesEncap::n_refresh();
+  NcursesEncap::n_mvprintw(this->windowsize_y/20,
+			   this->windowsize_x/1.5 - this->mapsize_x - 9, Game.c_str());
+  NcursesEncap::n_mvprintw(this->windowsize_y/20 + 2,
+			   this->windowsize_x/1.5 - this->mapsize_x - 9, libraryName.c_str());
+  NcursesEncap::n_mvprintw(this->windowsize_y/20,
+			   this->windowsize_x/1.5 + 2, "Score: ");
+  NcursesEncap::n_mvprintw(this->windowsize_y/20,
+			   this->windowsize_x/1.5 + 9, std::to_string(this->score).c_str());
 }
 
 void  NcursesViewController::setUserXY(int x, int y)
 {
   this->user_x = x + 1;
   this->user_y = y;
-  NcursesEncap::n_mvprintw(this->windowsize_y/20,
-			   this->windowsize_x/1.5 - this->mapsize_x - 9, "Snek");
-  NcursesEncap::n_mvprintw(this->windowsize_y/20 + 2,
-			   this->windowsize_x/1.5 - this->mapsize_x - 9, "Ncurses");
-  NcursesEncap::n_mvprintw(this->windowsize_y/20,
-			   this->windowsize_x/1.5 + 2, "Score: ");
-  NcursesEncap::n_mvprintw(this->windowsize_y/20,
-			   this->windowsize_x/1.5 + 9, std::to_string(this->score).c_str());
+
   this->drawMap(70, 50);
   NcursesEncap::n_attron(COLOR_PAIR(4));
   NcursesEncap::n_mvprintw(this->user_y + this->windowsize_y/20 + 1,
@@ -172,4 +171,9 @@ int  NcursesViewController::getUserY()
 void  NcursesViewController::endScreen()
 {
     NcursesEncap::n_endwin();
+}
+
+std::string	NcursesViewController::getLibraryName()
+{
+  return ("Ncurses");
 }
