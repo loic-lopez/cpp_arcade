@@ -5,7 +5,7 @@
 // Login   <matthias.prost@epitech.eu@epitech.eu>
 //
 // Started on  Mon Mar 20 10:24:02 2017 Matthias Prost
-// Last update Thu Mar 23 16:34:31 2017 Matthias Prost
+// Last update Fri Mar 24 08:41:55 2017 Yassir Jabbari
 //
 
 #ifndef _NcursesEncap_H__
@@ -34,6 +34,7 @@ public:
   static int n_attron(int);
   static int n_attroff(int);
   static void n_getmaxyx(WINDOW *, int *, int *);
+  static void n_clear(void);
 };
 
 #endif

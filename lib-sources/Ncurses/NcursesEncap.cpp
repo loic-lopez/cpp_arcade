@@ -5,7 +5,7 @@
 // Login   <matthias.prost@epitech.eu@epitech.eu>
 //
 // Started on  Mon Mar 20 10:25:11 2017 Matthias Prost
-// Last update Thu Mar 23 16:34:13 2017 Matthias Prost
+// Last update Fri Mar 24 08:42:25 2017 Yassir Jabbari
 //
 
 #include "NcursesEncap.hpp"
@@ -99,4 +99,9 @@ void  NcursesEncap::n_getmaxyx(WINDOW *win, int *y, int *x)
 {
   getmaxyx(win, *y, *x);
   (void)y;
+}
+
+void NcursesEncap::n_clear()
+{
+  clear();
 }

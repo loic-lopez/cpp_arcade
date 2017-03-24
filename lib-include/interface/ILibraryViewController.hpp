@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. mars 17 15:03:52 2017 Loïc Lopez
-** Last update Thu Mar 23 20:02:46 2017 Matthias Prost
+// Last update Fri Mar 24 08:42:10 2017 Yassir Jabbari
 */
 
 #ifndef ILIBRAYVIEWCONTROLLER_HPP__
@@ -22,10 +22,10 @@ class	ILibraryViewController
      NEXT_GAME		=	1,
      PREV_GAME 		=	2,
      ESCAPE		=	3,
-     UP   = 4,
-     DOWN   = 5,
-     LEFT   = 6,
-     RIGHT  = 7,
+     UP   		= 	4,
+     DOWN   		=	5,
+     LEFT   		=	6,
+     RIGHT  		=	7,
    };
 
   virtual void drawMap(int, int) = 0;

@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Thu Mar 23 20:39:29 2017 Matthias Prost
+// Last update Fri Mar 24 08:41:38 2017 Yassir Jabbari
 //
 
 #include <array>
@@ -18,8 +18,8 @@ extern "C" IGameModel *createInstanceGame(std::string const &libname)
 
 Snake::Snake(std::string const &libname)
 {
-  this->pos_x = 35;
-  this->pos_y = 25;
+  this->_snake.push_back(std::make_pair(35, 25));
+  this->_snake.push_back(std::make_pair(20, 20));
   this->libraryName = libname;
 }
 
@@ -57,8 +57,6 @@ void Snake::getInputs()
 {
 }
 
-#include <time.h>
-
 void  Snake::wait_second()
 {
   clock_t   ticks1, ticks2;
@@ -77,7 +75,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 
   libraryInstance->initScreen(this->getGameName());
   setMap();
-  libraryInstance->setUserXY(this->pos_x, this->pos_y);
+  libraryInstance->setUserXY(this->_snake[0].first, this->_snake[0].second);
   while(libraryInstance->getKey(action, exit))
     {
       if (action == ILibraryViewController::Key::NEXT_GAME)
@@ -92,25 +90,35 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
         }
       else if (action == ILibraryViewController::Key::UP)
       {
-        libraryInstance->setUserXY(this->pos_x, this->pos_y + 1);
-        this->pos_y--;
+	      libraryInstance->setUserXY(this->_snake[0].first, this->_snake[0].second);
+	      if (this->_snake[0].second <= 0)
+		break;
+	      this->_snake[0].second--;
       }
       else if (action == ILibraryViewController::Key::DOWN)
       {
-        libraryInstance->setUserXY(this->pos_x, this->pos_y - 1);
-        this->pos_y++;
+	      libraryInstance->setUserXY(this->_snake[0].first,
+					 this->_snake[0].second);
+	      if (this->_snake[0].second >= 41)
+		break;
+	      this->_snake[0].second++;
       }
       else if (action == ILibraryViewController::Key::LEFT)
       {
-        libraryInstance->setUserXY(this->pos_x - 1, this->pos_y);
-        this->pos_x--;
+	      libraryInstance->setUserXY(this->_snake[0].first,
+					 this->_snake[0].second);
+	      if (this->_snake[0].first <= 0)
+		break;
+	      this->_snake[0].first--;
       }
       else if (action == ILibraryViewController::Key::RIGHT)
       {
-        libraryInstance->setUserXY(this->pos_x + 1, this->pos_y);
-        this->pos_x++;
+	      libraryInstance->setUserXY(this->_snake[0].first,
+					 this->_snake[0].second);
+	      if (this->_snake[0].first >= 64)
+		break;
+	      this->_snake[0].first++;
       }
-      libraryInstance->refresh();
       this->wait_second();
     }
   libraryInstance->endScreen();
