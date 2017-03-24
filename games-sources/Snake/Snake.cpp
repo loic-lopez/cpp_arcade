@@ -63,7 +63,7 @@ void  Snake::wait_second()
 
   ticks1 = clock();
   ticks2 = ticks1;
-  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1 / (CLOCKS_PER_SEC / 1000)) < 300)
+  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1 / (CLOCKS_PER_SEC / 1000)) < 125)
     ticks2 = clock();
 }
 
@@ -119,6 +119,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 		break;
 	      this->_snake[0].first++;
       }
+      libraryInstance->refresh();
       this->wait_second();
     }
   libraryInstance->endScreen();

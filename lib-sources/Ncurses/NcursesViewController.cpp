@@ -157,7 +157,6 @@ void  NcursesViewController::setUserXY(int x, int y)
   NcursesEncap::n_mvprintw(this->user_y + this->windowsize_y/20 + 1,
     this->user_x + this->windowsize_x/1.5 - this->mapsize_x + 2, "*");
   NcursesEncap::n_attroff(COLOR_PAIR(4));
-  NcursesEncap::n_refresh();
 }
 
 int  NcursesViewController::getUserX()
