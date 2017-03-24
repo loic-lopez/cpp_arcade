@@ -11,7 +11,12 @@
 #ifndef OpenGLCONTROLLER_HPP__
 # define OpenGLCONTROLLER_HPP__
 
+#define GLEW_STATIC
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <vector>
+#include <fstream>
 
 #include "../interface/ILibraryViewController.hpp"
 
@@ -21,6 +26,10 @@ class OpenGLViewController : public ILibraryViewController
 {
  private:
   GLFWwindow	*window;
+  GLuint	vertexbuffer;
+  GLuint	VertexArrayID;
+  GLuint 	programID;
+  const GLFWvidmode	*mode;
   int   score;
   int   user_x;
   int   user_y;
