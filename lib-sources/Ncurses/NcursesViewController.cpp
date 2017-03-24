@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 20:42:18 2017 Matthias Prost
+// Last update Fri Mar 24 08:42:33 2017 Yassir Jabbari
 //
 
 #include "NcursesViewController.hpp"
@@ -56,11 +56,11 @@ void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
       }
       x = -1;
     }
+  NcursesEncap::n_refresh();
 }
 
 void  NcursesViewController::drawMenu()
 {
-
 }
 
 bool  NcursesViewController::getKey(Key &action, bool &exit)
@@ -108,6 +108,7 @@ void  NcursesViewController::initScreen(std::string const &name)
   height = 0;
   width = 0;
   system(changeTerminalName.c_str());
+  NcursesEncap::n_clear();
   NcursesEncap::n_newterm();
   NcursesEncap::n_curs_set();
   NcursesEncap::n_noecho();
@@ -122,15 +123,7 @@ void  NcursesViewController::initScreen(std::string const &name)
   NcursesEncap::n_init_pair(3, COLOR_BLUE, COLOR_BLACK);
   NcursesEncap::n_init_pair(4, COLOR_RED, COLOR_RED);
   NcursesEncap::n_init_pair(5, COLOR_BLACK, COLOR_BLUE);
-  this->drawMap(70, 50);
-  NcursesEncap::n_mvprintw(this->windowsize_y/20,
-    this->windowsize_x/1.5 - this->mapsize_x - 9, "Snek");
-  NcursesEncap::n_mvprintw(this->windowsize_y/20 + 2,
-    this->windowsize_x/1.5 - this->mapsize_x - 9, "Ncurses");
-  NcursesEncap::n_mvprintw(this->windowsize_y/20,
-    this->windowsize_x/1.5 + 2, "Score: ");
-  NcursesEncap::n_mvprintw(this->windowsize_y/20,
-    this->windowsize_x/1.5 + 9, std::to_string(this->score).c_str());
+  NcursesEncap::n_refresh();
 }
 
 void  NcursesViewController::refresh()
@@ -149,12 +142,22 @@ void  NcursesViewController::setUserXY(int x, int y)
 {
   this->user_x = x + 1;
   this->user_y = y;
+  NcursesEncap::n_mvprintw(this->windowsize_y/20,
+			   this->windowsize_x/1.5 - this->mapsize_x - 9, "Snek");
+  NcursesEncap::n_mvprintw(this->windowsize_y/20 + 2,
+			   this->windowsize_x/1.5 - this->mapsize_x - 9, "Ncurses");
+  NcursesEncap::n_mvprintw(this->windowsize_y/20,
+			   this->windowsize_x/1.5 + 2, "Score: ");
+  NcursesEncap::n_mvprintw(this->windowsize_y/20,
+			   this->windowsize_x/1.5 + 9, std::to_string(this->score).c_str());
+  this->drawMap(70, 50);
   NcursesEncap::n_attron(COLOR_PAIR(4));
   NcursesEncap::n_mvprintw(this->user_y + this->windowsize_y/20 + 1,
     this->user_x + this->windowsize_x/1.5 - this->mapsize_x + 1, "*");
   NcursesEncap::n_mvprintw(this->user_y + this->windowsize_y/20 + 1,
     this->user_x + this->windowsize_x/1.5 - this->mapsize_x + 2, "*");
   NcursesEncap::n_attroff(COLOR_PAIR(4));
+  NcursesEncap::n_refresh();
 }
 
 int  NcursesViewController::getUserX()
