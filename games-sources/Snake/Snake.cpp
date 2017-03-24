@@ -89,36 +89,36 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
           break;
         }
       else if (action == ILibraryViewController::Key::UP)
-      {
-	      libraryInstance->setUserXY(this->_snake[0].first, this->_snake[0].second);
-	      if (this->_snake[0].second <= 0)
-		break;
-	      this->_snake[0].second--;
-      }
+	{
+	  libraryInstance->setUserXY(this->_snake[0].first, this->_snake[0].second);
+	  if (this->_snake[0].second <= 0)
+	    break;
+	  this->_snake[0].second--;
+      	}
       else if (action == ILibraryViewController::Key::DOWN)
-      {
-	      libraryInstance->setUserXY(this->_snake[0].first,
+	{
+	  libraryInstance->setUserXY(this->_snake[0].first,
 					 this->_snake[0].second);
-	      if (this->_snake[0].second >= 41)
-		break;
-	      this->_snake[0].second++;
-      }
+	  if (this->_snake[0].second >= 41)
+	    break;
+	  this->_snake[0].second++;
+      	}
       else if (action == ILibraryViewController::Key::LEFT)
-      {
-	      libraryInstance->setUserXY(this->_snake[0].first,
+      	{
+	  libraryInstance->setUserXY(this->_snake[0].first,
 					 this->_snake[0].second);
-	      if (this->_snake[0].first <= 0)
-		break;
-	      this->_snake[0].first--;
-      }
+	  if (this->_snake[0].first <= 0)
+	    break;
+	  this->_snake[0].first--;
+      	}
       else if (action == ILibraryViewController::Key::RIGHT)
-      {
-	      libraryInstance->setUserXY(this->_snake[0].first,
+      	{
+	  libraryInstance->setUserXY(this->_snake[0].first,
 					 this->_snake[0].second);
-	      if (this->_snake[0].first >= 64)
-		break;
-	      this->_snake[0].first++;
-      }
+	  if (this->_snake[0].first >= 64)
+	    break;
+	  this->_snake[0].first++;
+      	}
       libraryInstance->refresh();
       this->wait_second();
     }

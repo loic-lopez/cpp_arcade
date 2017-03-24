@@ -21,11 +21,10 @@ class	ILibraryViewController
      STANDBY		=	0,
      NEXT_GAME		=	1,
      PREV_GAME 		=	2,
-     ESCAPE		=	3,
-     UP   		= 	4,
-     DOWN   		=	5,
-     LEFT   		=	6,
-     RIGHT  		=	7,
+     UP   		= 	3,
+     DOWN   		=	4,
+     LEFT   		=	5,
+     RIGHT  		=	6,
    };
 
   virtual void drawMap(int, int) = 0;
