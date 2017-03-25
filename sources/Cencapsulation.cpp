@@ -27,7 +27,10 @@ void	*Cencapsulation::c_dlsym(void *handle, const char *symbol)
 
 int	Cencapsulation::c_dlclose(void *handle)
 {
-  return(dlclose(handle));
+  if (handle != NULL)
+    return(dlclose(handle));
+  else
+    return (0);
 }
 
 DIR	*Cencapsulation::c_opendir(const char *name)

@@ -28,22 +28,20 @@ void	GameCore::GameLauncher()
 {
   std::vector<std::string>	Games;
   std::vector<std::string>	Libs;
-  size_t	currentLib;
-  size_t	currentGame;
-  bool	exit;
-  bool	created;
-  play_function_type	play_function;
+  size_t			currentLib = 0;
+  size_t			currentGame = 0;
+  bool				exit = false;
+  bool				created = false;
+  play_function_type		play_function;
   load_library_function_type	load_library_function;
-  void	*game;
-  void	*library;
-  IGameModel *GameInstance;
-  ILibraryViewController *libraryInstance;
+  void				*game = NULL;
+  void				*library = NULL;
+  IGameModel			*GameInstance;
+  ILibraryViewController	*libraryInstance;
 
   this->fillVector(Games, "games");
   this->fillVector(Libs, "lib");
   currentLib = this->getCurrentLibrary(Libs);
-  currentGame = 0;
-  exit = created = false;
   while (!exit)
     {
       if (currentGame == Games.size())

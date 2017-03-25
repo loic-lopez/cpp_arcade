@@ -18,15 +18,16 @@ void help()
 int	main(int ac, char **av)
 {
   if (ac != 2)
-  {
-    std::cerr << "ERROR: Invalid number of arguments" << std::endl;
-    help();
-    return (-1);
-  }
+    {
+      std::cerr << "ERROR: Invalid number of arguments" << std::endl;
+      help();
+      return (-1);
+    }
   else
-  {
-    IGameCore *GCore;
-    GCore = new GameCore(av[1]);
-    GCore->GameLauncher();
-  }
+    {
+      IGameCore *GCore;
+      GCore = new GameCore(av[1]);
+      GCore->GameLauncher();
+      delete GCore;
+    }
 }

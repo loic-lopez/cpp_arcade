@@ -12,7 +12,7 @@
 
 void	*GameCore::openLibrary(char const *libraryName)
 {
-  void	*file;
+  void	*file = NULL;
 
   file = Cencapsulation::c_dlopen(libraryName, RTLD_LAZY);
   if (!file)
