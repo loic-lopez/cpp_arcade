@@ -39,8 +39,8 @@ void	GameCore::GameLauncher()
   IGameModel *GameInstance;
   ILibraryViewController *libraryInstance;
 
-  this->fillVector(Games, "./games");
-  this->fillVector(Libs, "./lib");
+  this->fillVector(Games, "games");
+  this->fillVector(Libs, "lib");
   currentLib = this->getCurrentLibrary(Libs);
   currentGame = 0;
   exit = created = false;
