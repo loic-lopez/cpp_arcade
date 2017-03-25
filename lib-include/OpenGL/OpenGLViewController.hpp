@@ -12,9 +12,11 @@
 # define OpenGLCONTROLLER_HPP__
 
 #define GLEW_STATIC
+#define GLM_FORCE_RADIANS
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <vector>
 #include <fstream>
 #include <iostream>
@@ -26,14 +28,26 @@ extern "C" ILibraryViewController	*loadLibrary();
 class OpenGLViewController : public ILibraryViewController
 {
  private:
-  GLFWwindow	*window;
-  GLuint	vertexbuffer;
-  GLuint	VertexArrayID;
-  GLuint 	programID;
+  GLFWwindow		*window;
+  GLuint			vertexbuffer;
+  GLuint			colorbuffer;
+  GLuint			VertexArrayID;
+  GLuint 		programID;
+  GLuint 		MatrixID;
   const GLFWvidmode	*mode;
-  int   score;
-  int   user_x;
-  int   user_y;
+  glm::mat4		View;
+  glm::mat4 		Projection;
+  glm::mat4		Model;
+  glm::mat4		MVP;
+  float 			horizontalAngle;
+  float 			verticalAngle;
+  float 			FoV;
+  float 			speed;
+  double 			lastTime;
+  glm::vec3 		camera;
+  int   			score;
+  int   			user_x;
+  int   			user_y;
 
  public:
   OpenGLViewController();
