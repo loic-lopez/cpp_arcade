@@ -13,9 +13,7 @@
 static std::string const removeSubstrs(std::string s, std::string const &p)
 {
   std::string::size_type n = p.length();
-  for (std::string::size_type i = s.find(p);
-       i != std::string::npos;
-       i = s.find(p))
+  for (std::string::size_type i = s.find(p); i != std::string::npos; i = s.find(p))
     s.erase(i, n);
   return (s);
 }
