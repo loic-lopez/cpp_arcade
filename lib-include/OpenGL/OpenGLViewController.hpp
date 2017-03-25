@@ -17,6 +17,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <fstream>
+#include <iostream>
 
 #include "../interface/ILibraryViewController.hpp"
 
@@ -53,5 +54,8 @@ class OpenGLViewController : public ILibraryViewController
   virtual int  getUserY();
   virtual std::string	getLibraryName();
 };
+
+// DEFINED IN /lib-sources/OpenGL/LoadShaders.cpp
+GLuint	LoadShaders(const char	*vertex_file_path, const char 	*fragment_file_path);
 
 #endif /* OpenGLCONTROLLER_HPP__ */

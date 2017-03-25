@@ -17,92 +17,6 @@ static const GLfloat g_vertex_buffer_data[] = {
  0.0f,  1.0f, 0.0f,
 };
 
-GLuint	LoadShaders(const char * vertex_file_path, const char * fragment_file_path)
-{
-  GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-  GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-  GLint Result = GL_FALSE;
-  int InfoLogLength;
-  std::string FragmentShaderCode;
-  std::ifstream FragmentShaderStream(fragment_file_path, std::ios::in);
-  std::string VertexShaderCode;
-  std::ifstream VertexShaderStream(vertex_file_path, std::ios::in);
-
-  if(VertexShaderStream.is_open())
-    {
-      std::string Line = "";
-      while(getline(VertexShaderStream, Line))
-	VertexShaderCode += "\n" + Line;
-      VertexShaderStream.close();
-    }
-  else
-      return 0;
-
-  // Read the Fragment Shader code from the file
-  if(FragmentShaderStream.is_open())
-    {
-      std::string Line = "";
-      while(std::getline(FragmentShaderStream, Line))
-	FragmentShaderCode += "\n" + Line;
-      FragmentShaderStream.close();
-    }
-
-
-  // Compile Vertex Shader
-  char const * VertexSourcePointer = VertexShaderCode.c_str();
-  glShaderSource(VertexShaderID, 1, &VertexSourcePointer , NULL);
-  glCompileShader(VertexShaderID);
-
-  // Check Vertex Shader
-  glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &Result);
-  glGetShaderiv(VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-
-  if (InfoLogLength <= 0)
-    {
-      std::vector<char> VertexShaderErrorMessage(InfoLogLength + 1);
-      glGetShaderInfoLog(VertexShaderID, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
-      std::cerr <<  &VertexShaderErrorMessage[0] << std::endl;
-    }
-  // Compile Fragment Shader
-  char const * FragmentSourcePointer = FragmentShaderCode.c_str();
-  glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer , NULL);
-  glCompileShader(FragmentShaderID);
-
-  // Check Fragment Shader
-  glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &Result);
-  glGetShaderiv(FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-  if (InfoLogLength <= 0)
-    {
-      std::vector<char> FragmentShaderErrorMessage(InfoLogLength+1);
-      glGetShaderInfoLog(FragmentShaderID, InfoLogLength, NULL, &FragmentShaderErrorMessage[0]);
-      std::cerr << &FragmentShaderErrorMessage[0] << std::endl;
-    }
-
-  // Link the program
-  GLuint ProgramID = glCreateProgram();
-  glAttachShader(ProgramID, VertexShaderID);
-  glAttachShader(ProgramID, FragmentShaderID);
-  glLinkProgram(ProgramID);
-
-  // Check the program
-  glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
-  glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-  if (InfoLogLength <= 0)
-    {
-      std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
-      glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
-      std::cerr << &ProgramErrorMessage[0] << std::endl;
-    }
-
-  glDetachShader(ProgramID, VertexShaderID);
-  glDetachShader(ProgramID, FragmentShaderID);
-
-  glDeleteShader(VertexShaderID);
-  glDeleteShader(FragmentShaderID);
-
-  return ProgramID;
-}
-
 
 extern "C" ILibraryViewController	*loadLibrary()
 {
@@ -183,11 +97,14 @@ void	OpenGLViewController::initScreen(std::string const &name)
 
 
   // Create and compile our GLSL program from the shaders
-  this->programID = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
+  this->programID =
+   LoadShaders("./lib-sources/OpenGL/OpenGL-Shaders/SimpleVertexShader.glsl",
+	       "./lib-sources/OpenGL/OpenGL-Shaders/SimpleFragmentShader.glsl");
 
   glGenBuffers(1, &this->vertexbuffer);
   glBindBuffer(GL_ARRAY_BUFFER, this->vertexbuffer);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data),
+	       g_vertex_buffer_data, GL_STATIC_DRAW);
 }
 
 void	OpenGLViewController::displayText(std::string const &Game, std::string const &libraryName) const
