@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  sam. mars 25 11:37:43 2017 Loïc Lopez
-** Last update sam. mars 25 11:37:43 2017 Loïc Lopez
+// Last update Sat Mar 25 14:52:57 2017 Matthias Prost
 */
 
 #include "OpenGLViewController.hpp"
@@ -32,7 +32,7 @@ void	compileShader(GLuint Shader, std::string const &ShaderCode, GLint &Result)
   glGetShaderiv(Shader, GL_COMPILE_STATUS, &Result);
   glGetShaderiv(Shader, GL_INFO_LOG_LENGTH, &InfoLogLength);
 
-  if (InfoLogLength <= 0)
+  if (InfoLogLength < 0)
     {
       std::vector<char> VertexShaderErrorMessage((unsigned long) (InfoLogLength + 1));
       glGetShaderInfoLog(Shader, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
@@ -80,7 +80,7 @@ GLuint	LoadShaders(const char	*vertex_file_path, const char 	*fragment_file_path
   // Check the program
   glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
   glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-  if (InfoLogLength <= 0)
+  if (InfoLogLength < 0)
     {
       std::vector<char> ProgramErrorMessage((unsigned long) (InfoLogLength + 1));
       glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
