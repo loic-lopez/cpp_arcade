@@ -121,7 +121,8 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
       	}
       libraryInstance->displayText(this->getGameName(), libraryInstance->getLibraryName());
       libraryInstance->refresh();
-      this->wait_second();
+      if (libraryInstance->getLibraryName() == "Ncurses")
+      	this->wait_second();
     }
   libraryInstance->endScreen();
   (void)currentGame;
