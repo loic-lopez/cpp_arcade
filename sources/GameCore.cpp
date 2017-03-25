@@ -10,7 +10,17 @@
 
 #include "GameCore.hpp"
 
-GameCore::GameCore(const std::string &library_name) : library_name(library_name)
+static std::string const removeSubstrs(std::string s, std::string const &p)
+{
+  std::string::size_type n = p.length();
+  for (std::string::size_type i = s.find(p);
+       i != std::string::npos;
+       i = s.find(p))
+    s.erase(i, n);
+  return (s);
+}
+
+GameCore::GameCore(const std::string &library_name) : library_name("./" + removeSubstrs(library_name, "./"))
 {
 }
 
@@ -39,8 +49,8 @@ void	GameCore::GameLauncher()
   IGameModel			*GameInstance;
   ILibraryViewController	*libraryInstance;
 
-  this->fillVector(Games, "games");
-  this->fillVector(Libs, "lib");
+  this->fillVector(Games, "./games");
+  this->fillVector(Libs, "./lib");
   currentLib = this->getCurrentLibrary(Libs);
   while (!exit)
     {
