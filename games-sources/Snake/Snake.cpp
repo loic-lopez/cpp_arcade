@@ -109,11 +109,20 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 			bool &exit)
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
+  size_t i = 0;
 
   libraryInstance->initScreen(this->getGameName());
   this->setMap();
-  while(libraryInstance->getKey(&this->Map->type, action, exit))
+  while (libraryInstance->getKey(&this->Map->type, action, exit))
     {
+      if (i == this->_snake.size())
+	i = 0;
+      if (this->Map->type != arcade::CommandType::PLAY)
+      	for (int j = _snake.size() - 1; j > 0 ; j--)
+	  {
+	    this->_snake.at(j).x = this->_snake.at(j - 1).x;
+	    this->_snake.at(j).y = this->_snake.at(j - 1).y;
+	  }
       if (action == ChangeCommandType::NEXT_LIBRARY)
         {
           currentLibrary++;
@@ -125,48 +134,19 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
           break;
         }
       else if (this->Map->type == arcade::CommandType::GO_UP)
-	{
-	  /*
-	  libraryInstance->setUserXY(this->_snake[0].first, this->_snake[0].second);
-	  if (this->_snake[0].second <= 0)
-	    break;
-	  this->_snake[0].second--;
-	   */
-      	}
+	  this->_snake.at(0).y--;
       else if (this->Map->type == arcade::CommandType::GO_DOWN)
-	{
-	  /*
-	  libraryInstance->setUserXY(this->_snake[0].first,
-					 this->_snake[0].second);
-	  if (this->_snake[0].second >= 41)
-	    break;
-	    */
-      	}
+	  this->_snake.at(0).y++;
       else if (this->Map->type == arcade::CommandType::GO_LEFT)
-      	{
-	  /*
-	  libraryInstance->setUserXY(this->_snake[0].first,
-					 this->_snake[0].second);
-	  if (this->_snake[0].first <= 0)
-	    break;
-	  this->_snake[0].first--;
-	  */
-      	}
+	  this->_snake.at(0).x--;
       else if (this->Map->type == arcade::CommandType::GO_RIGHT)
-      	{
-	  /*
-	  libraryInstance->setUserXY(this->_snake[0].first,
-					 this->_snake[0].second);
-	  if (this->_snake[0].first >= 64)
-	    break;
-	  this->_snake[0].first++;
-	  */
-      	}
+	  this->_snake.at(0).x++;
       this->drawMap(libraryInstance);
       libraryInstance->displayText(this->getGameName(), libraryInstance->getLibraryName());
       libraryInstance->refresh();
       if (libraryInstance->getLibraryName() == "Ncurses")
       	this->wait_second();
+      i++;
     }
   libraryInstance->endScreen();
   (void)currentGame;
