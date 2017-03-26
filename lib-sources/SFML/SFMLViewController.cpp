@@ -17,11 +17,11 @@ extern "C" ILibraryViewController	*loadLibrary()
 
 SFMLViewController::~SFMLViewController()
 {
-  this->score = 0;
 }
 
 SFMLViewController::SFMLViewController()
 {
+  this->score = 0;
 }
 
 void	SFMLViewController::drawMenu()
