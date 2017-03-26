@@ -109,14 +109,11 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 			bool &exit)
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
-  size_t i = 0;
 
   libraryInstance->initScreen(this->getGameName());
   this->setMap();
   while (libraryInstance->getKey(&this->Map->type, action, exit))
     {
-      if (i == this->_snake.size())
-	i = 0;
       if (this->Map->type != arcade::CommandType::PLAY)
       	for (int j = _snake.size() - 1; j > 0 ; j--)
 	  {
@@ -146,7 +143,6 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
       libraryInstance->refresh();
       if (libraryInstance->getLibraryName() == "Ncurses")
       	this->wait_second();
-      i++;
     }
   libraryInstance->endScreen();
   (void)currentGame;
