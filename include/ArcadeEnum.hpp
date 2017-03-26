@@ -14,7 +14,8 @@
 enum class 	Color : int
 {
   MAGENTA	= 	5,
-  YELLOW 	= 	3
+  YELLOW 	= 	3,
+  BLUE		=	4
 };
 
 enum class	ChangeCommandType : int
