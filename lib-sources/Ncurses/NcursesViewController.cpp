@@ -29,7 +29,7 @@ void	NcursesViewController::drawSquare(int x, int y, Color const &color)
 {
   NcursesEncap::n_attron(COLOR_PAIR((int)color));
   NcursesEncap::n_mvprintw(y + this->windowsize_y / 20,
-			   (int) (x + this->windowsize_x / 2.5), "*");
+			   (int) (x + this->windowsize_x / 2.5), " ");
   NcursesEncap::n_attroff(COLOR_PAIR((int)color));
 }
 
@@ -87,11 +87,12 @@ void  NcursesViewController::initScreen(std::string const &name)
   NcursesEncap::n_keypad();
   NcursesEncap::n_start_color();
   NcursesEncap::n_getmaxyx(stdscr, &this->windowsize_y, &this->windowsize_x);
-  NcursesEncap::n_init_pair(1, COLOR_BLUE, COLOR_BLUE);
-  NcursesEncap::n_init_pair(2, COLOR_BLACK, COLOR_BLACK);
-  NcursesEncap::n_init_pair(3, COLOR_BLUE, COLOR_BLACK);
-  NcursesEncap::n_init_pair(4, COLOR_RED, COLOR_RED);
-  NcursesEncap::n_init_pair(5, COLOR_BLACK, COLOR_BLUE);
+  NcursesEncap::n_init_color(0, 0, 0, 0);
+  NcursesEncap::n_init_pair(1, COLOR_RED, COLOR_RED);
+  NcursesEncap::n_init_pair(2, COLOR_GREEN, COLOR_GREEN);
+  NcursesEncap::n_init_pair(3, COLOR_YELLOW, COLOR_YELLOW);
+  NcursesEncap::n_init_pair(4, COLOR_BLUE, COLOR_BLUE);
+  NcursesEncap::n_init_pair(5, COLOR_MAGENTA, COLOR_MAGENTA);
   NcursesEncap::n_refresh();
 }
 

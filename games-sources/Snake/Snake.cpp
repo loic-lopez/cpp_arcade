@@ -21,22 +21,22 @@ Snake::Snake(std::string const &libname)
   this->libraryName =  libname;
   arcade::Position	pos;
 
-  if ((this->Map = (arcade::GetMap *)malloc(sizeof(arcade::GetMap) + (50 * 50 * sizeof(arcade::TileType))))== NULL)
+  if ((this->Map = (arcade::GetMap *)malloc(sizeof(arcade::GetMap) + (35 * 35 * sizeof(arcade::TileType))))== NULL)
     {
       std::cerr << "Error: can't allocate memory to create map" << std::endl;
       exit(EXIT_FAILURE);
     }
-  this->Map->height = 50;
-  this->Map->width = 50;
+  this->Map->height = 35;
+  this->Map->width = 35;
   this->Map->type = arcade::CommandType::PLAY;
   for (int i = 0; i < this->Map->height * this->Map->width; ++i)
       this->Map->tile[i] = arcade::TileType::EMPTY;
-  pos.x = 0;
-  pos.y = 0;
-  for (int i = 0; i < 3; ++i)
+  pos.x = this->Map->width / 2;
+  pos.y = this->Map->height / 2;
+  for (int i = 0; i < 4; ++i)
     {
       this->_snake.push_back(pos);
-      pos.x += 10;
+      pos.x += 1;
     }
 }
 
@@ -86,6 +86,8 @@ void			Snake::drawMap(ILibraryViewController *libraryInstance)
       else
 	libraryInstance->drawSquare(i % this->Map->width, i / this->Map->width, Color::YELLOW);
     }
+  for (size_t j = 0; j < this->_snake.size(); j++)
+    libraryInstance->drawSquare(this->_snake.at(j).x, this->_snake.at(j).y, Color::RED);
 }
 
 void Snake::getInputs()

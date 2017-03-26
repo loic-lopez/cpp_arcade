@@ -105,3 +105,8 @@ void NcursesEncap::n_clear()
 {
   clear();
 }
+
+int NcursesEncap::n_init_color(short color, short r, short g, short b)
+{
+  return (init_color(color, r, g, b));
+}

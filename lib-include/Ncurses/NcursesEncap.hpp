@@ -31,6 +31,7 @@ public:
   static void n_keypad();
   static void n_start_color();
   static void n_init_pair(short, short, short);
+  static int n_init_color(short color, short r, short g, short b);
   static int n_attron(int);
   static int n_attroff(int);
   static void n_getmaxyx(WINDOW *, int *, int *);

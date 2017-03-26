@@ -22,8 +22,8 @@ class	Snake : public IGameModel
  private:
   std::string				libraryName;
   arcade::GetMap			*Map;
-  std::vector<arcade::Position>	_snake;
-  virtual void  wait_second();
+  std::vector<arcade::Position>		_snake;
+  virtual void				wait_second();
 
  public:
   Snake(std::string const &);
