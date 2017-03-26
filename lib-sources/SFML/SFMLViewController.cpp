@@ -38,10 +38,11 @@ int  SFMLViewController::getScore()
   return (this->score);
 }
 
-bool  SFMLViewController::getKey(Key &action, bool &exit)
+bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
 {
   sf::Event event;
 
+  (void)commandType;
   while (this->window.pollEvent(event))
     {
       if (event.type == sf::Event::Closed)
@@ -57,9 +58,9 @@ bool  SFMLViewController::getKey(Key &action, bool &exit)
 	      return (false);
 	    }
           if (event.key.code == sf::Keyboard::Num3)
-            action = ILibraryViewController::Key::NEXT_GAME;
+            action = ChangeCommandType::NEXT_LIBRARY;
           if (event.key.code == sf::Keyboard::Num2)
-            action = ILibraryViewController::Key::PREV_GAME;
+            action = ChangeCommandType::PREV_LIBRARY;
         }
     }
   return (true);
@@ -82,12 +83,12 @@ void  SFMLViewController::endScreen()
   this->window.close();
 }
 
-void	SFMLViewController::drawMap(int mapsize_x, int mapsize_y)
+void	SFMLViewController::drawSquare(int x, int y, Color const &color)
 {
-  (void)mapsize_x;
-  (void)mapsize_y;
+  (void)x;
+  (void)y;
+  (void)color;
 }
-
 void  SFMLViewController::setUserXY(int x, int y)
 {
   this->user_x = x;

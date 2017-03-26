@@ -125,13 +125,14 @@ void	OpenGLViewController::drawMenu()
 {
 }
 
-bool	OpenGLViewController::getKey(Key &action, bool &exit)
+bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
 {
   if (this->lastTime == 0)
     this->lastTime = glfwGetTime();
   double currentTime = glfwGetTime();
   float deltaTime = float(currentTime - lastTime);
 
+  (void)commandType;
   // Compute new orientation
   horizontalAngle += 0 * deltaTime * (1024 / 2);
   verticalAngle   += 0 * deltaTime * (768 / 2);
@@ -154,9 +155,9 @@ bool	OpenGLViewController::getKey(Key &action, bool &exit)
       return (false);
     }
   else if (glfwGetKey(this->window, GLFW_KEY_3) == GLFW_PRESS)
-      action = ILibraryViewController::Key::NEXT_GAME;
+      action = ChangeCommandType::NEXT_LIBRARY;
   else if (glfwGetKey(this->window, GLFW_KEY_2) == GLFW_PRESS)
-      action = ILibraryViewController::Key::PREV_GAME;
+      action = ChangeCommandType::PREV_LIBRARY;
   if (glfwGetKey( window, GLFW_KEY_UP ) == GLFW_PRESS)
       this->camera += direction * deltaTime * speed;
   // Move backward
@@ -290,10 +291,11 @@ void  OpenGLViewController::refresh()
   glfwPollEvents();
 }
 
-void	OpenGLViewController::drawMap(int mapsize_x, int mapsize_y)
+void	OpenGLViewController::drawSquare(int x, int y, Color const &color)
 {
-  (void)mapsize_x;
-  (void)mapsize_y;
+  (void)x;
+  (void)y;
+  (void)color;
 }
 
 std::string	OpenGLViewController::getLibraryName()

@@ -12,24 +12,15 @@
 # define ILIBRAYVIEWCONTROLLER_HPP__
 
 #include <string>
+#include "../../include/Protocol.hh"
+#include "../../include/ArcadeEnum.hpp"
 
 class	ILibraryViewController
 {
   public:
-   enum class 		Key :	int
-   {
-     STANDBY		=	0,
-     NEXT_GAME		=	1,
-     PREV_GAME 		=	2,
-     UP   		= 	3,
-     DOWN   		=	4,
-     LEFT   		=	5,
-     RIGHT  		=	6,
-   };
-
-  virtual void drawMap(int, int) = 0;
+  virtual void drawSquare(int x, int y, Color const &) = 0;
   virtual void drawMenu() = 0;
-  virtual bool getKey(Key &action, bool &exit) = 0;
+  virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit) = 0;
   virtual void initScreen(std::string const &name) = 0;
   virtual void displayText(std::string const &, std::string const &) const = 0;
   virtual void endScreen() = 0;

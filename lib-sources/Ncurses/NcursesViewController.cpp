@@ -25,45 +25,19 @@ NcursesViewController::~NcursesViewController()
 
 }
 
-void NcursesViewController::drawMap(int mapsize_x, int mapsize_y)
+void	NcursesViewController::drawSquare(int x, int y, Color const &color)
 {
-  int x;
-  int y;
-
-  x = -1;
-  y = -1;
-  this->mapsize_x = mapsize_x;
-  this->mapsize_y = mapsize_y;
-  while (++y != mapsize_y)
-    {
-      while (++x != mapsize_x)
-      {
-        if (x == 0 || x == 1 || y == 0 || x == mapsize_x - 1 || x == mapsize_x - 2
-          || y == mapsize_y - 1)
-        {
-          NcursesEncap::n_attron(COLOR_PAIR(5));
-          NcursesEncap::n_mvprintw(y + this->windowsize_y/20,
-            x + this->windowsize_x/1.5 - this->mapsize_x, "*");
-          NcursesEncap::n_attroff(COLOR_PAIR(5));
-        }
-        else
-        {
-          NcursesEncap::n_attron(COLOR_PAIR(3));
-          NcursesEncap::n_mvprintw(y + this->windowsize_y/20,
-            x + this->windowsize_x/1.5 - this->mapsize_x, "*");
-          NcursesEncap::n_attroff(COLOR_PAIR(3));
-        }
-      }
-      x = -1;
-    }
-  NcursesEncap::n_refresh();
+  NcursesEncap::n_attron(COLOR_PAIR((int)color));
+  NcursesEncap::n_mvprintw(y + this->windowsize_y / 20,
+			   (int) (x + this->windowsize_x / 2.5), "*");
+  NcursesEncap::n_attroff(COLOR_PAIR((int)color));
 }
 
 void  NcursesViewController::drawMenu()
 {
 }
 
-bool  NcursesViewController::getKey(Key &action, bool &exit)
+bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
 {
   int key;
 
@@ -74,17 +48,17 @@ bool  NcursesViewController::getKey(Key &action, bool &exit)
       return (false);
     }
   if (key == '3')
-    action = ILibraryViewController::Key::NEXT_GAME;
+    action = ChangeCommandType::NEXT_LIBRARY;
   else if (key == '2')
-    action = ILibraryViewController::Key::PREV_GAME;
+    action = ChangeCommandType::PREV_LIBRARY;
   else if (key == KEY_UP)
-    action = ILibraryViewController::Key::UP;
+    *commandType = arcade::CommandType::GO_UP;
   else if (key == KEY_DOWN)
-    action = ILibraryViewController::Key::DOWN;
+    *commandType = arcade::CommandType::GO_DOWN;
   else if (key == KEY_LEFT)
-    action = ILibraryViewController::Key::LEFT;
+    *commandType = arcade::CommandType::GO_LEFT;
   else if (key == KEY_RIGHT)
-    action = ILibraryViewController::Key::RIGHT;
+    *commandType = arcade::CommandType::GO_RIGHT;
   return (true);
 }
 
@@ -102,11 +76,8 @@ int  NcursesViewController::getScore()
 
 void  NcursesViewController::initScreen(std::string const &name)
 {
-  int height, width;
   std::string	changeTerminalName = "echo -n \"\033]0;" + name + " \007\"";
 
-  height = 0;
-  width = 0;
   system(changeTerminalName.c_str());
   NcursesEncap::n_clear();
   NcursesEncap::n_newterm();
@@ -115,9 +86,7 @@ void  NcursesViewController::initScreen(std::string const &name)
   NcursesEncap::n_nodelay();
   NcursesEncap::n_keypad();
   NcursesEncap::n_start_color();
-  NcursesEncap::n_getmaxyx(stdscr, &height, &width);
-  this->windowsize_x = width;
-  this->windowsize_y = height;
+  NcursesEncap::n_getmaxyx(stdscr, &this->windowsize_y, &this->windowsize_x);
   NcursesEncap::n_init_pair(1, COLOR_BLUE, COLOR_BLUE);
   NcursesEncap::n_init_pair(2, COLOR_BLACK, COLOR_BLACK);
   NcursesEncap::n_init_pair(3, COLOR_BLUE, COLOR_BLACK);
@@ -134,14 +103,14 @@ void  NcursesViewController::refresh()
 
 void	NcursesViewController::displayText(std::string const &Game, std::string const &libraryName) const
 {
-  NcursesEncap::n_mvprintw(this->windowsize_y/20,
-			   this->windowsize_x/1.5 - this->mapsize_x - 9, Game.c_str());
-  NcursesEncap::n_mvprintw(this->windowsize_y/20 + 2,
-			   this->windowsize_x/1.5 - this->mapsize_x - 9, libraryName.c_str());
-  NcursesEncap::n_mvprintw(this->windowsize_y/20,
-			   this->windowsize_x/1.5 + 2, "Score: ");
-  NcursesEncap::n_mvprintw(this->windowsize_y/20,
-			   this->windowsize_x/1.5 + 9, std::to_string(this->score).c_str());
+  NcursesEncap::n_mvprintw(this->windowsize_y /20,
+			   this->windowsize_x / 1.5 - 9, Game.c_str());
+  NcursesEncap::n_mvprintw(this->windowsize_y /20 + 2,
+			   this->windowsize_x/ 1.5 - 9, libraryName.c_str());
+  NcursesEncap::n_mvprintw(this->windowsize_y / 20,
+			   this->windowsize_x/ 1.5 + 2, "Score: ");
+  NcursesEncap::n_mvprintw(this->windowsize_y / 20,
+			   this->windowsize_x / 1.5 + 9, std::to_string(this->score).c_str());
 }
 
 void  NcursesViewController::setUserXY(int x, int y)
@@ -149,12 +118,11 @@ void  NcursesViewController::setUserXY(int x, int y)
   this->user_x = x + 1;
   this->user_y = y;
 
-  this->drawMap(70, 50);
   NcursesEncap::n_attron(COLOR_PAIR(4));
   NcursesEncap::n_mvprintw(this->user_y + this->windowsize_y/20 + 1,
-    this->user_x + this->windowsize_x/1.5 - this->mapsize_x + 1, "*");
+    this->user_x + this->windowsize_x/1.5 - 50 + 1, "*");
   NcursesEncap::n_mvprintw(this->user_y + this->windowsize_y/20 + 1,
-    this->user_x + this->windowsize_x/1.5 - this->mapsize_x + 2, "*");
+    this->user_x + this->windowsize_x/1.5 - 50 + 2, "*");
   NcursesEncap::n_attroff(COLOR_PAIR(4));
 }
 

@@ -33,9 +33,9 @@ private:
   SFMLViewController();
 
   // Methods
-  virtual void drawMap(int, int);
+  virtual void drawSquare(int x, int y, Color const &color);
   virtual void drawMenu();
-  virtual bool getKey(Key &action, bool &exit);
+  virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit);
   virtual void initScreen(std::string const &name);
   virtual void displayText(std::string const &, std::string const &) const;
   virtual void endScreen();

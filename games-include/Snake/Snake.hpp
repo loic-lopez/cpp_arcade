@@ -20,9 +20,9 @@ extern "C" IGameModel *createInstanceGame(std::string const &);
 class	Snake : public IGameModel
 {
  private:
-  std::string libraryName;
-  int	  map[70][50];
-  std::vector<std::pair<int, int>> _snake;
+  std::string				libraryName;
+  arcade::GetMap			*Map;
+  std::vector<arcade::Position>	_snake;
   virtual void  wait_second();
 
  public:
@@ -32,6 +32,7 @@ class	Snake : public IGameModel
   virtual ~Snake();
 
   virtual void setMap();
+  virtual void drawMap(ILibraryViewController *libraryInstance);
   virtual void getInputs();
   virtual bool play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &);
   virtual std::string getGameName();

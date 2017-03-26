@@ -32,6 +32,7 @@ class SpaceFighter : public IGameModel
 
   // Methods
   virtual void setMap();
+  virtual void drawMap(ILibraryViewController *libraryInstance);
   virtual void getInputs();
   virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &);
   virtual std::string getGameName();
