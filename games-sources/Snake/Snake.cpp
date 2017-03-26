@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Fri Mar 24 08:41:38 2017 Yassir Jabbari
+// Last update Sun Mar 26 20:25:52 2017 Matthias Prost
 //
 
 #include <array>
@@ -108,8 +108,10 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 			size_t &currentGame, size_t &currentLibrary,
 			bool &exit)
 {
+  int   i;
   ChangeCommandType action = ChangeCommandType::STANDBY;
 
+  i = 0;
   libraryInstance->initScreen(this->getGameName());
   this->setMap();
   while (libraryInstance->getKey(&this->Map->type, action, exit))
@@ -130,14 +132,30 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
           currentLibrary--;
           break;
         }
-      else if (this->Map->type == arcade::CommandType::GO_UP)
-	  this->_snake.at(0).y--;
-      else if (this->Map->type == arcade::CommandType::GO_DOWN)
-	  this->_snake.at(0).y++;
-      else if (this->Map->type == arcade::CommandType::GO_LEFT)
-	  this->_snake.at(0).x--;
-      else if (this->Map->type == arcade::CommandType::GO_RIGHT)
-	  this->_snake.at(0).x++;
+      else if ((this->Map->type == arcade::CommandType::GO_UP && i != 2) ||
+      (this->Map->type == arcade::CommandType::GO_DOWN && i == 1))
+        {
+	        this->_snake.at(0).y--;
+          i = 1;
+        }
+      else if ((this->Map->type == arcade::CommandType::GO_DOWN && i != 1) ||
+      (this->Map->type == arcade::CommandType::GO_UP && i == 2))
+        {
+	        this->_snake.at(0).y++;
+          i = 2;
+        }
+      else if ((this->Map->type == arcade::CommandType::GO_LEFT && i != 4) ||
+      (this->Map->type == arcade::CommandType::GO_RIGHT && i == 3))
+        {
+	        this->_snake.at(0).x--;
+          i = 3;
+        }
+      else if ((this->Map->type == arcade::CommandType::GO_RIGHT && i != 3) ||
+      (this->Map->type == arcade::CommandType::GO_LEFT && i == 4))
+        {
+	        this->_snake.at(0).x++;
+          i = 4;
+        }
       this->drawMap(libraryInstance);
       libraryInstance->displayText(this->getGameName(), libraryInstance->getLibraryName());
       libraryInstance->refresh();
