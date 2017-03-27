@@ -118,13 +118,12 @@ static	bool headIsOnAWallOrSelf(arcade::GetMap *map, uint16_t head_x_pos, uint16
     }
   (void)snake;
   // a taf
-  /*
+
   for (size_t j = 1; j < snake.size(); ++j)
     {
-      if (head_x_pos == snake.at(j).x)
+      if (head_x_pos == snake.at(j).x && head_y_pos == snake.at(j).y)
 	return (true);
     }
-    */
   return (false);
 }
 
