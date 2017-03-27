@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Thu Mar 23 19:58:24 2017 Matthias Prost
+// Last update Mon Mar 27 18:56:01 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -44,7 +44,6 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
 {
   sf::Event event;
 
-  (void)commandType;
   while (this->window.pollEvent(event))
     {
       if (event.type == sf::Event::Closed)
@@ -61,8 +60,16 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
 	    }
           if (event.key.code == sf::Keyboard::Num3)
             action = ChangeCommandType::NEXT_LIBRARY;
-          if (event.key.code == sf::Keyboard::Num2)
+          else if (event.key.code == sf::Keyboard::Num2)
             action = ChangeCommandType::PREV_LIBRARY;
+          else if (event.key.code == sf::Keyboard::Up)
+            *commandType = arcade::CommandType::GO_UP;
+          else if (event.key.code == sf::Keyboard::Down)
+            *commandType = arcade::CommandType::GO_DOWN;
+          else if (event.key.code == sf::Keyboard::Left)
+            *commandType = arcade::CommandType::GO_LEFT;
+          else if (event.key.code == sf::Keyboard::Right)
+            *commandType = arcade::CommandType::GO_RIGHT;
         }
     }
   return (true);
@@ -76,6 +83,8 @@ void	SFMLViewController::initScreen(std::string const &name)
   sf::Vector2u size = this->window.getSize();
   this->mapsize_x = size.x;
   this->mapsize_y = size.y;
+  this->window.clear(sf::Color::Black);
+  this->rectangle.setSize(sf::Vector2f(20, 20));
 }
 
 void	SFMLViewController::displayScore(std::string const &Game, std::string const &libraryName) const
@@ -89,19 +98,32 @@ void  SFMLViewController::endScreen()
   this->window.close();
 }
 
+#include <iostream>
+
 void	SFMLViewController::drawSquare(int x, int y, Color const &color)
 {
-  (void)color;
-  (void)x;
-  (void)y;
-  this->rectangle.setSize(sf::Vector2f(20, 20));
-  this->window.clear();
+  if (color == Color::BLUE)
+    this->rectangle.setFillColor(sf::Color(33, 150, 243));
+  else if (color == Color::BLACK)
+    this->rectangle.setFillColor(sf::Color(0, 0, 0));
+  else if (color == Color::MAGENTA)
+    this->rectangle.setFillColor(sf::Color(233, 30, 99));
+  else if (color == Color::RED)
+    this->rectangle.setFillColor(sf::Color(244, 67, 54));
+  else if (color == Color::GREEN)
+    this->rectangle.setFillColor(sf::Color(76, 175, 80));
+  else if (color == Color::CYAN)
+    this->rectangle.setFillColor(sf::Color(0, 188, 212));
+  else if (color == Color::YELLOW)
+    this->rectangle.setFillColor(sf::Color(255, 193, 7));
+  this->rectangle.setPosition(x * 20 + 600, y * 20 + 100);
   this->window.draw(this->rectangle);
 }
 
 void  SFMLViewController::refresh()
 {
   this->window.display();
+  this->window.clear();
 }
 
 std::string	SFMLViewController::getLibraryName()

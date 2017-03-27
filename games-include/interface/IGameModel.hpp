@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. mars 17 13:55:07 2017 Loïc Lopez
-** Last update Thu Mar 23 19:46:57 2017 Matthias Prost
+** Last update Mon Mar 27 18:54:46 2017 Matthias Prost
 */
 
 #ifndef IGAMEMODEL_HPP__
@@ -19,6 +19,8 @@
 
 class	IGameModel
 {
+private:
+  virtual void  wait_second(int) = 0;
  public:
   virtual void setMap() = 0;
   virtual void drawMap(ILibraryViewController *libraryInstance) = 0;

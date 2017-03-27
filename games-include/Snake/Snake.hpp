@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:01:26 2017 Loïc Lopez
-// Last update Fri Mar 24 08:41:19 2017 Yassir Jabbari
+// Last update Mon Mar 27 18:53:59 2017 Matthias Prost
 */
 
 #ifndef SNAKE_HPP__
@@ -23,7 +23,7 @@ class	Snake : public IGameModel
   std::string				libraryName;
   arcade::GetMap			*Map;
   std::vector<arcade::Position>		_snake;
-  virtual void				wait_second();
+  virtual void				wait_second(int);
 
  public:
   Snake(std::string const &);

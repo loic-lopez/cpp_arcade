@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Thu Mar 23 19:59:13 2017 Matthias Prost
+// Last update Mon Mar 27 18:53:44 2017 Matthias Prost
 //
 
 #include "SpaceFighter.hpp"
@@ -37,13 +37,13 @@ SpaceFighter::~SpaceFighter()
 
 }
 
-void  SpaceFighter::wait_second()
+void  SpaceFighter::wait_second(int toSleep)
 {
   clock_t   ticks1, ticks2;
 
   ticks1 = clock();
   ticks2 = ticks1;
-  while ((ticks2 / CLOCKS_PER_SEC - ticks1 / CLOCKS_PER_SEC) < 1)
+  while ((ticks2 / CLOCKS_PER_SEC - ticks1 / CLOCKS_PER_SEC) < toSleep)
     ticks2 = clock();
 }
 

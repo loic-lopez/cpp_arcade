@@ -23,7 +23,8 @@ namespace		arcade
       GO_FORWARD	= 6,		// MOVE THE CHARACTER FORWARD (FOR SNAKE)
       SHOOT		= 7,		// SHOOT (FOR SOLAR FOX AND CENTIPEDE)
       ILLEGAL		= 8,		// THE INSTRUCTION WAS ILLEGAL
-      PLAY		= 9		// PLAY A ROUND
+      PLAY		= 9,		// PLAY A ROUND
+      STAND_BY = 10,
     };
   enum class		TileType : uint16_t
     {
@@ -59,4 +60,3 @@ namespace		arcade
 }
 
 #endif	//		__ARCADE_PROTOCOL_HPP__
-

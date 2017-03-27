@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:02:17 2017 Loïc Lopez
-** Last update Thu Mar 23 19:38:54 2017 Matthias Prost
+** Last update Mon Mar 27 18:54:07 2017 Matthias Prost
 */
 
 #ifndef SPACEFIGHTER_HPP__
@@ -22,7 +22,7 @@ class SpaceFighter : public IGameModel
   std::string	libraryName;
   int   pos_x;
   int   pos_y;
-  virtual void  wait_second();
+  virtual void  wait_second(int);
 
  public:
   SpaceFighter(std::string const &);

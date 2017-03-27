@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Mon Mar 27 16:15:30 2017 Matthias Prost
+// Last update Mon Mar 27 19:26:37 2017 Matthias Prost
 //
 
 #include <array>
@@ -92,17 +92,15 @@ void			Snake::drawMap(ILibraryViewController *libraryInstance)
   libraryInstance->drawSquare(this->_snake.at(0).x, this->_snake.at(0).y, Color::BLUE);
   for (size_t j = 1; j < this->_snake.size(); j++)
     libraryInstance->drawSquare(this->_snake.at(j).x, this->_snake.at(j).y, Color::RED);
-  if (libraryInstance->getLibraryName() == "Ncurses")
-    this->wait_second();
 }
 
-void  Snake::wait_second()
+void  Snake::wait_second(int toSleep)
 {
   clock_t   ticks1, ticks2;
 
   ticks1 = clock();
   ticks2 = ticks1;
-  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1 / (CLOCKS_PER_SEC / 1000)) < 85)
+  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1 / (CLOCKS_PER_SEC / 1000)) < toSleep)
     ticks2 = clock();
 }
 
@@ -112,6 +110,8 @@ static	bool headIsOnAWallOrSelf(arcade::GetMap *map, uint16_t head_x_pos, uint16
   int 			lenght = map->width * map->height;
 
   i = -1;
+  if (map->type == arcade::CommandType::PLAY)
+    return (false);
   while (++i < lenght)
     {
       if ((map->tile[i] == arcade::TileType::BLOCK && head_x_pos == 0) ||
@@ -120,9 +120,6 @@ static	bool headIsOnAWallOrSelf(arcade::GetMap *map, uint16_t head_x_pos, uint16
        (map->tile[i] == arcade::TileType::BLOCK && head_x_pos == map->width - 1))
 	return (true);
     }
-  (void)snake;
-  // a taf
-
   for (size_t j = 1; j < snake.size(); ++j)
     {
       if (head_x_pos == snake.at(j).x && head_y_pos == snake.at(j).y)
@@ -131,12 +128,11 @@ static	bool headIsOnAWallOrSelf(arcade::GetMap *map, uint16_t head_x_pos, uint16
   return (false);
 }
 
-static	void	setApple(ILibraryViewController *libraryInstance, arcade::GetMap *map, bool &popApple, int &applePosition)
+static	void	setApple(arcade::GetMap *map, bool &popApple, int &applePosition)
 {
   int   x;
   int   y;
 
-  (void)libraryInstance;
   if (!popApple)
     {
       x = rand() % map->width - 1;
@@ -174,6 +170,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 {
   int   i;
   ChangeCommandType action = ChangeCommandType::STANDBY;
+  this->Map->type = arcade::CommandType::PLAY;
   bool	popApple = false;
   int 	applePosition = -1;
 
@@ -182,14 +179,21 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
   this->setMap();
   while (libraryInstance->getKey(&this->Map->type, action, exit))
     {
-      setApple(libraryInstance, this->Map, popApple, applePosition);
+      if (libraryInstance->getLibraryName() == "Ncurses" )
+        this->wait_second(85);
+      else if (libraryInstance->getLibraryName() == "SFML")
+        this->wait_second(65);
+      if (this->Map->type != arcade::CommandType::PLAY)
+        setApple(this->Map, popApple, applePosition);
       this->drawMap(libraryInstance);
-      libraryInstance->drawSquare(applePosition % this->Map->width, applePosition / this->Map->width, Color::GREEN);
+      if (this->Map->type != arcade::CommandType::PLAY)
+        libraryInstance->drawSquare(applePosition % this->Map->width, applePosition / this->Map->width, Color::GREEN);
       eatApple(libraryInstance, this->Map, &this->_snake, popApple, applePosition);
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x, this->_snake.at(0).y, this->_snake))
 	{
 	  libraryInstance->endScreen();
 	  std::cout << "YOU LOOSE BITCH" << std::endl;
+    this->Map->type = arcade::CommandType::STAND_BY;
 	  return (false);
 	}
       if (this->Map->type != arcade::CommandType::PLAY)
