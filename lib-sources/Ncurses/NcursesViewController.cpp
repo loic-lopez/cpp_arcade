@@ -93,7 +93,8 @@ void  NcursesViewController::initScreen(std::string const &name)
   NcursesEncap::n_init_pair(3, COLOR_YELLOW, COLOR_YELLOW);
   NcursesEncap::n_init_pair(4, COLOR_BLUE, COLOR_BLUE);
   NcursesEncap::n_init_pair(5, COLOR_MAGENTA, COLOR_MAGENTA);
-  NcursesEncap::n_refresh();
+  NcursesEncap::n_init_pair(6, COLOR_CYAN, COLOR_CYAN);
+  srand(time(NULL));
 }
 
 void  NcursesViewController::refresh()

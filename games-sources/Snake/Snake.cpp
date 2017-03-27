@@ -83,13 +83,19 @@ void			Snake::drawMap(ILibraryViewController *libraryInstance)
       if (i % this->Map->width == 0 || i / this->Map->width == 0
 	  || i / this->Map->width == this->Map->width - 1
 	  || i % this->Map->width  == this->Map->width - 1)
-	libraryInstance->drawSquare(i % this->Map->width, i / this->Map->width, Color::MAGENTA);
+	libraryInstance->drawSquare(i % this->Map->width, i / this->Map->width, Color::CYAN);
       else
-	libraryInstance->drawSquare(i % this->Map->width, i / this->Map->width, Color::YELLOW);
+	{
+	  libraryInstance->drawSquare(i % this->Map->width, i / this->Map->width, Color::BLACK);
+	  if (this->Map->tile[i % this->Map->width + this->Map->width * i / this->Map->width] == arcade::TileType::POWERUP)
+	      libraryInstance->drawSquare(i % this->Map->width, i / this->Map->width, Color::GREEN);
+	}
     }
-  for (size_t j = 0; j < this->_snake.size(); j++)
+  libraryInstance->drawSquare(this->_snake.at(0).x, this->_snake.at(0).y, Color::BLUE);
+  for (size_t j = 1; j < this->_snake.size(); j++)
     libraryInstance->drawSquare(this->_snake.at(j).x, this->_snake.at(j).y, Color::RED);
-  libraryInstance->drawSquare(this->Apple.x, this->Apple.y, Color::BLUE);
+  if (libraryInstance->getLibraryName() == "Ncurses")
+    this->wait_second();
 }
 
 void  Snake::wait_second()
@@ -98,7 +104,7 @@ void  Snake::wait_second()
 
   ticks1 = clock();
   ticks2 = ticks1;
-  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1 / (CLOCKS_PER_SEC / 1000)) < 50)
+  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1 / (CLOCKS_PER_SEC / 1000)) < 65)
     ticks2 = clock();
 }
 
@@ -127,15 +133,29 @@ static	bool headIsOnAWallOrSelf(arcade::GetMap *map, uint16_t head_x_pos, uint16
   return (false);
 }
 
-arcade::Position	setApple(arcade::GetMap *map)
+static	void	setApple(arcade::GetMap *map, bool &popApple, int &applePosition)
 {
-  arcade::Position	posApple;
+  if (!popApple)
+    {
+      applePosition = (rand() % (map->width - 2) + 1) + map->width * (rand() % (map->height - 2) + 1);
+      map->tile[applePosition] = arcade::TileType::POWERUP;
+      popApple = true;
+    }
+}
 
-  srand(time(NULL));
-  posApple.x = rand() % (map->width - 2) + 1;
-  posApple.y = rand() % (map->height - 2) + 1;
-  map->tile[posApple.x + map->width * posApple.y] = arcade::TileType::POWERUP;
-  return (posApple);
+static	void 	eatApple(arcade::GetMap *map, std::vector<arcade::Position> snake, bool &popApple, int &applePosition)
+{
+  if (applePosition == (snake.at(0).x % map->width + map->width * snake.at(0).y))
+    {
+      arcade::Position	newNode;
+      map->tile[applePosition] = arcade::TileType::EMPTY;
+      newNode.x = snake.at(snake.size() - 1).x;
+      newNode.y = snake.at(snake.size() - 1).y;
+      snake.push_back(newNode);
+      popApple = false;
+    }
+  else
+    return;
 }
 
 bool	Snake::play(ILibraryViewController *libraryInstance,
@@ -144,15 +164,16 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 {
   int   i;
   ChangeCommandType action = ChangeCommandType::STANDBY;
+  bool	popApple = false;
+  int 	applePosition = -1;
 
   i = 0;
   libraryInstance->initScreen(this->getGameName());
   this->setMap();
-  this->Apple = setApple(this->Map);
   while (libraryInstance->getKey(&this->Map->type, action, exit))
     {
-      if (Apple.x == 0 && Apple.y == 0)
-	Apple = setApple(this->Map);
+      setApple(this->Map, popApple, applePosition);
+      eatApple(this->Map, this->_snake, popApple, applePosition);
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x, this->_snake.at(0).y, this->_snake))
 	{
 	  libraryInstance->endScreen();
@@ -202,8 +223,6 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
       this->drawMap(libraryInstance);
       libraryInstance->displayText(this->getGameName(), libraryInstance->getLibraryName());
       libraryInstance->refresh();
-      if (libraryInstance->getLibraryName() == "Ncurses")
-      	this->wait_second();
     }
   libraryInstance->endScreen();
   (void)currentGame;
