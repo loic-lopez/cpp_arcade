@@ -229,7 +229,7 @@ void	OpenGLViewController::initScreen(std::string const &name)
   glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
 }
 
-void	OpenGLViewController::displayText(std::string const &Game, std::string const &libraryName) const
+void	OpenGLViewController::displayScore(std::string const &Game, std::string const &libraryName) const
 {
   (void)Game;
   (void)libraryName;

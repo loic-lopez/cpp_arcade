@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. mars 17 15:03:52 2017 Loïc Lopez
-// Last update Fri Mar 24 08:42:10 2017 Yassir Jabbari
+// Last update Mon Mar 27 16:16:58 2017 Matthias Prost
 */
 
 #ifndef ILIBRAYVIEWCONTROLLER_HPP__
@@ -22,7 +22,7 @@ class	ILibraryViewController
   virtual void drawMenu() = 0;
   virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit) = 0;
   virtual void initScreen(std::string const &name) = 0;
-  virtual void displayText(std::string const &, std::string const &) const = 0;
+  virtual void displayScore(std::string const &, std::string const &) const = 0;
   virtual void endScreen() = 0;
   virtual void setScore(int) = 0;
   virtual int  getScore() = 0;

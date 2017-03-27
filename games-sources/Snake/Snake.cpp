@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Mon Mar 27 14:33:42 2017 Matthias Prost
+// Last update Mon Mar 27 16:15:30 2017 Matthias Prost
 //
 
 #include <array>
@@ -87,8 +87,6 @@ void			Snake::drawMap(ILibraryViewController *libraryInstance)
       else
 	{
 	  libraryInstance->drawSquare(i % this->Map->width, i / this->Map->width, Color::BLACK);
-	  if (this->Map->tile[i % this->Map->width + this->Map->width * i / this->Map->width] == arcade::TileType::POWERUP)
-	      libraryInstance->drawSquare(i % this->Map->width, i / this->Map->width, Color::GREEN);
 	}
     }
   libraryInstance->drawSquare(this->_snake.at(0).x, this->_snake.at(0).y, Color::BLUE);
@@ -133,25 +131,37 @@ static	bool headIsOnAWallOrSelf(arcade::GetMap *map, uint16_t head_x_pos, uint16
   return (false);
 }
 
-static	void	setApple(arcade::GetMap *map, bool &popApple, int &applePosition)
+static	void	setApple(ILibraryViewController *libraryInstance, arcade::GetMap *map, bool &popApple, int &applePosition)
 {
+  int   x;
+  int   y;
+
+  (void)libraryInstance;
   if (!popApple)
     {
-      applePosition = (rand() % (map->width - 2)) + map->width * (rand() % (map->height - 2));
+      x = rand() % map->width - 1;
+      y = rand() % map->height - 1;
+      while (x == 0 || x == map->width)
+        x = rand() % map->width - 1;
+      while (y == 0 || y == map->height)
+        y = rand() % map->height - 1;
+
+      applePosition = x + map->width * y;
       map->tile[applePosition] = arcade::TileType::POWERUP;
       popApple = true;
     }
 }
 
-static	void 	eatApple(arcade::GetMap *map, std::vector<arcade::Position> snake, bool &popApple, int &applePosition)
+static	void 	eatApple(ILibraryViewController *lib, arcade::GetMap *map, std::vector<arcade::Position> *snake, bool &popApple, int &applePosition)
 {
-  if (applePosition == (snake.at(0).x % map->width - 1 + map->width - 1 * snake.at(0).y))
+  if (applePosition == (snake->at(0).x + map->width * snake->at(0).y))
     {
+      lib->setScore(100);
       arcade::Position	newNode;
       map->tile[applePosition] = arcade::TileType::EMPTY;
-      newNode.x = snake.at(snake.size() - 1).x;
-      newNode.y = snake.at(snake.size() - 1).y;
-      snake.push_back(newNode);
+      newNode.x = snake->at(snake->size() - 1).x + 1;
+      newNode.y = snake->at(snake->size() - 1).y + 1;
+      snake->push_back(newNode);
       popApple = false;
     }
   else
@@ -172,8 +182,10 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
   this->setMap();
   while (libraryInstance->getKey(&this->Map->type, action, exit))
     {
-      setApple(this->Map, popApple, applePosition);
-      eatApple(this->Map, this->_snake, popApple, applePosition);
+      setApple(libraryInstance, this->Map, popApple, applePosition);
+      this->drawMap(libraryInstance);
+      libraryInstance->drawSquare(applePosition % this->Map->width, applePosition / this->Map->width, Color::GREEN);
+      eatApple(libraryInstance, this->Map, &this->_snake, popApple, applePosition);
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x, this->_snake.at(0).y, this->_snake))
 	{
 	  libraryInstance->endScreen();
@@ -220,8 +232,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 	  this->_snake.at(0).x++;
 	  i = 4;
         }
-      this->drawMap(libraryInstance);
-      libraryInstance->displayText(this->getGameName(), libraryInstance->getLibraryName());
+      libraryInstance->displayScore(this->getGameName(), libraryInstance->getLibraryName());
       libraryInstance->refresh();
     }
   libraryInstance->endScreen();

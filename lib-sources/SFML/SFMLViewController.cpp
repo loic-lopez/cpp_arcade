@@ -72,7 +72,7 @@ void	SFMLViewController::initScreen(std::string const &name)
   this->window.create(sf::VideoMode::getDesktopMode(), name.c_str());
 }
 
-void	SFMLViewController::displayText(std::string const &Game, std::string const &libraryName) const
+void	SFMLViewController::displayScore(std::string const &Game, std::string const &libraryName) const
 {
   (void)Game;
   (void)libraryName;

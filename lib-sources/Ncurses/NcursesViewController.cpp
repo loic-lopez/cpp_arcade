@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Fri Mar 24 08:42:33 2017 Yassir Jabbari
+// Last update Mon Mar 27 16:17:09 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -64,7 +64,7 @@ bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeComm
 
 void  NcursesViewController::setScore(int score)
 {
-  this->score = score;
+  this->score += score;
   NcursesEncap::n_mvprintw(this->windowsize_y/20,
     this->windowsize_x/1.5 + 9, std::to_string(this->score).c_str());
 }
@@ -103,7 +103,8 @@ void  NcursesViewController::refresh()
   NcursesEncap::n_refresh();
 }
 
-void	NcursesViewController::displayText(std::string const &Game, std::string const &libraryName) const
+
+void	NcursesViewController::displayScore(std::string const &Game, std::string const &libraryName) const
 {
   NcursesEncap::n_mvprintw(this->windowsize_y /20,
 			   this->windowsize_x / 1.5 - 9, Game.c_str());

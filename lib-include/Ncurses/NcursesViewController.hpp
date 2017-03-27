@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 23 20:04:35 2017 Matthias Prost
+// Last update Mon Mar 27 16:15:58 2017 Matthias Prost
 //
 
 #ifndef NCURSESVIEWCONTROLLER_HPP__
@@ -36,7 +36,7 @@ class NcursesViewController : public ILibraryViewController
   virtual void drawMenu();
   virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit);
   virtual void initScreen(std::string const &name);
-  virtual void displayText(std::string const &, std::string const &) const;
+  virtual void displayScore(std::string const &, std::string const &) const;
   virtual void endScreen();
   virtual void setScore(int);
   virtual int  getScore();
