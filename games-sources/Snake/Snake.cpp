@@ -141,9 +141,9 @@ static	void	setApple(ILibraryViewController *libraryInstance, arcade::GetMap *ma
     {
       x = rand() % map->width - 1;
       y = rand() % map->height - 1;
-      while (x == 0 || x == map->width)
+      while (x <= 0 || x == map->width)
         x = rand() % map->width - 1;
-      while (y == 0 || y == map->height)
+      while (y <= 0 || y == map->height)
         y = rand() % map->height - 1;
 
       applePosition = x + map->width * y;
