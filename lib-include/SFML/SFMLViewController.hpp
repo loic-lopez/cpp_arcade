@@ -20,6 +20,7 @@ class SFMLViewController : public ILibraryViewController
 {
 private:
   sf::RenderWindow window;
+  sf::RectangleShape rectangle;
   int   windowsize_x;
   int   windowsize_y;
   int   mapsize_x;

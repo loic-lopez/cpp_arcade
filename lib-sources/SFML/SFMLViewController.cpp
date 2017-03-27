@@ -38,6 +38,8 @@ int  SFMLViewController::getScore()
   return (this->score);
 }
 
+
+
 bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
 {
   sf::Event event;
@@ -67,9 +69,13 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
 }
 
 // A changer pour les jeux et enlever la boucle
+
 void	SFMLViewController::initScreen(std::string const &name)
 {
   this->window.create(sf::VideoMode::getDesktopMode(), name.c_str());
+  sf::Vector2u size = this->window.getSize();
+  this->mapsize_x = size.x;
+  this->mapsize_y = size.y;
 }
 
 void	SFMLViewController::displayScore(std::string const &Game, std::string const &libraryName) const
@@ -85,14 +91,16 @@ void  SFMLViewController::endScreen()
 
 void	SFMLViewController::drawSquare(int x, int y, Color const &color)
 {
+  (void)color;
   (void)x;
   (void)y;
-  (void)color;
+  this->rectangle.setSize(sf::Vector2f(20, 20));
+  this->window.clear();
+  this->window.draw(this->rectangle);
 }
 
 void  SFMLViewController::refresh()
 {
-  this->window.clear();
   this->window.display();
 }
 
