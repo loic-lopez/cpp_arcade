@@ -9,6 +9,7 @@
 //
 
 #include <array>
+#include <random>
 #include "Snake.hpp"
 
 extern "C" IGameModel *createInstanceGame(std::string const &libname)
@@ -74,7 +75,7 @@ void			Snake::setMap()
 void			Snake::drawMap(ILibraryViewController *libraryInstance)
 {
   int   			i;
-  int 			lenght = this->Map->width * this->Map->height;
+  int				lenght = this->Map->width * this->Map->height;
 
   i = -1;
   while (++i < lenght)
@@ -88,6 +89,7 @@ void			Snake::drawMap(ILibraryViewController *libraryInstance)
     }
   for (size_t j = 0; j < this->_snake.size(); j++)
     libraryInstance->drawSquare(this->_snake.at(j).x, this->_snake.at(j).y, Color::RED);
+  libraryInstance->drawSquare(this->Apple.x, this->Apple.y, Color::BLUE);
 }
 
 void Snake::getInputs()
@@ -130,6 +132,17 @@ static	bool headIsOnAWallOrSelf(arcade::GetMap *map, uint16_t head_x_pos, uint16
   return (false);
 }
 
+arcade::Position	setApple(arcade::GetMap *map)
+{
+  arcade::Position	posApple;
+
+  srand(time(NULL));
+  posApple.x = rand() % (map->width - 2) + 1;
+  posApple.y = rand() % (map->height - 2) + 1;
+  map->tile[posApple.x + map->width * posApple.y] = arcade::TileType::POWERUP;
+  return (posApple);
+}
+
 bool	Snake::play(ILibraryViewController *libraryInstance,
 			size_t &currentGame, size_t &currentLibrary,
 			bool &exit)
@@ -140,15 +153,17 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
   i = 0;
   libraryInstance->initScreen(this->getGameName());
   this->setMap();
+  this->Apple = setApple(this->Map);
   while (libraryInstance->getKey(&this->Map->type, action, exit))
     {
+      if (Apple.x == 0 && Apple.y == 0)
+	Apple = setApple(this->Map);
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x, this->_snake.at(0).y, this->_snake))
 	{
 	  libraryInstance->endScreen();
 	  std::cout << "YOU LOOSE BITCH" << std::endl;
 	  return (false);
 	}
-
       if (this->Map->type != arcade::CommandType::PLAY)
       	for (size_t j = _snake.size() - 1; j > 0 ; j--)
 	  {
