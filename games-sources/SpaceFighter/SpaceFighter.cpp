@@ -51,11 +51,6 @@ void SpaceFighter::setMap()
 {
 }
 
-void SpaceFighter::getInputs()
-{
-
-}
-
 bool	SpaceFighter::play(ILibraryViewController *libraryInstance,
 			       size_t &currentGame, size_t & currentLibrary,
 			       bool &exit)
