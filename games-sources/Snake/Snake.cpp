@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Sun Mar 26 20:25:52 2017 Matthias Prost
+// Last update Mon Mar 27 14:33:42 2017 Matthias Prost
 //
 
 #include <array>
@@ -104,7 +104,7 @@ void  Snake::wait_second()
 
   ticks1 = clock();
   ticks2 = ticks1;
-  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1 / (CLOCKS_PER_SEC / 1000)) < 65)
+  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1 / (CLOCKS_PER_SEC / 1000)) < 85)
     ticks2 = clock();
 }
 
@@ -137,7 +137,7 @@ static	void	setApple(arcade::GetMap *map, bool &popApple, int &applePosition)
 {
   if (!popApple)
     {
-      applePosition = (rand() % (map->width - 2) + 1) + map->width * (rand() % (map->height - 2) + 1);
+      applePosition = (rand() % (map->width - 2)) + map->width * (rand() % (map->height - 2));
       map->tile[applePosition] = arcade::TileType::POWERUP;
       popApple = true;
     }
@@ -145,7 +145,7 @@ static	void	setApple(arcade::GetMap *map, bool &popApple, int &applePosition)
 
 static	void 	eatApple(arcade::GetMap *map, std::vector<arcade::Position> snake, bool &popApple, int &applePosition)
 {
-  if (applePosition == (snake.at(0).x % map->width + map->width * snake.at(0).y))
+  if (applePosition == (snake.at(0).x % map->width - 1 + map->width - 1 * snake.at(0).y))
     {
       arcade::Position	newNode;
       map->tile[applePosition] = arcade::TileType::EMPTY;
@@ -167,7 +167,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
   bool	popApple = false;
   int 	applePosition = -1;
 
-  i = 0;
+  i = 3;
   libraryInstance->initScreen(this->getGameName());
   this->setMap();
   while (libraryInstance->getKey(&this->Map->type, action, exit))
