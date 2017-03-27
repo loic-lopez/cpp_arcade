@@ -89,21 +89,6 @@ void	SFMLViewController::drawSquare(int x, int y, Color const &color)
   (void)y;
   (void)color;
 }
-void  SFMLViewController::setUserXY(int x, int y)
-{
-  this->user_x = x;
-  this->user_y = y;
-}
-
-int  SFMLViewController::getUserX()
-{
-  return (this->user_x);
-}
-
-int  SFMLViewController::getUserY()
-{
-  return (this->user_y);
-}
 
 void  SFMLViewController::refresh()
 {

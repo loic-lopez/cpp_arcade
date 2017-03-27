@@ -27,9 +27,6 @@ class	ILibraryViewController
   virtual void setScore(int) = 0;
   virtual int  getScore() = 0;
   virtual void refresh() = 0;
-  virtual void setUserXY(int, int) = 0;
-  virtual int  getUserX() = 0;
-  virtual int  getUserY() = 0;
   virtual std::string	getLibraryName() = 0;
 
   virtual ~ILibraryViewController() {}

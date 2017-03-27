@@ -41,9 +41,6 @@ class NcursesViewController : public ILibraryViewController
   virtual void setScore(int);
   virtual int  getScore();
   virtual void refresh();
-  virtual void setUserXY(int, int);
-  virtual int  getUserX();
-  virtual int  getUserY();
   virtual std::string	getLibraryName();
 };
 

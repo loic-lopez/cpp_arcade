@@ -235,22 +235,6 @@ void	OpenGLViewController::displayText(std::string const &Game, std::string cons
   (void)libraryName;
 }
 
-void  OpenGLViewController::setUserXY(int x, int y)
-{
-  this->user_x = x;
-  this->user_y = y;
-}
-
-int  OpenGLViewController::getUserX()
-{
-  return (this->user_x);
-}
-
-int  OpenGLViewController::getUserY()
-{
-  return (this->user_y);
-}
-
 void	OpenGLViewController::endScreen()
 {
   glDeleteBuffers(1, &this->vertexbuffer);

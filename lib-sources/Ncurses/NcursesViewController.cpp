@@ -114,29 +114,6 @@ void	NcursesViewController::displayText(std::string const &Game, std::string con
 			   this->windowsize_x / 1.5 + 9, std::to_string(this->score).c_str());
 }
 
-void  NcursesViewController::setUserXY(int x, int y)
-{
-  this->user_x = x + 1;
-  this->user_y = y;
-
-  NcursesEncap::n_attron(COLOR_PAIR(4));
-  NcursesEncap::n_mvprintw(this->user_y + this->windowsize_y/20 + 1,
-    this->user_x + this->windowsize_x/1.5 - 50 + 1, "*");
-  NcursesEncap::n_mvprintw(this->user_y + this->windowsize_y/20 + 1,
-    this->user_x + this->windowsize_x/1.5 - 50 + 2, "*");
-  NcursesEncap::n_attroff(COLOR_PAIR(4));
-}
-
-int  NcursesViewController::getUserX()
-{
-  return (this->user_x);
-}
-
-int  NcursesViewController::getUserY()
-{
-  return (this->user_y);
-}
-
 void  NcursesViewController::endScreen()
 {
     NcursesEncap::n_endwin();
