@@ -23,6 +23,8 @@ class	Snake : public IGameModel
   std::string				libraryName;
   arcade::GetMap			*Map;
   std::vector<arcade::Position>		_snake;
+  int 					applePosition;
+  bool					popApple;
   virtual void				wait_second(int);
 
  public:

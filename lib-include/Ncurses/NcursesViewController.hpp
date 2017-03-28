@@ -21,11 +21,7 @@ class NcursesViewController : public ILibraryViewController
   private:
     int   windowsize_x;
     int   windowsize_y;
-    int   mapsize_x;
-    int   mapsize_y;
     int   score;
-    int   user_x;
-    int   user_y;
 
  public:
   virtual ~NcursesViewController();

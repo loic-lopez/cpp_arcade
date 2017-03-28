@@ -83,7 +83,6 @@ void	SFMLViewController::initScreen(std::string const &name)
   sf::Vector2u size = this->window.getSize();
   this->mapsize_x = size.x;
   this->mapsize_y = size.y;
-  this->window.clear(sf::Color::Black);
   this->rectangle.setSize(sf::Vector2f(20, 20));
 }
 
@@ -97,8 +96,6 @@ void  SFMLViewController::endScreen()
 {
   this->window.close();
 }
-
-#include <iostream>
 
 void	SFMLViewController::drawSquare(int x, int y, Color const &color)
 {
@@ -123,7 +120,7 @@ void	SFMLViewController::drawSquare(int x, int y, Color const &color)
 void  SFMLViewController::refresh()
 {
   this->window.display();
-  this->window.clear();
+  this->window.clear(sf::Color::Black);
 }
 
 std::string	SFMLViewController::getLibraryName()
