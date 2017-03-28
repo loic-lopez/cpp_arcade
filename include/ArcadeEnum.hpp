@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  dim. mars 26 16:54:00 2017 Loïc Lopez
-** Last update dim. mars 26 16:54:00 2017 Loïc Lopez
+** Last update Tue Mar 28 15:39:59 2017 Matthias Prost
 */
 
 #ifndef ARCADE_COLOR_HPP__
@@ -29,6 +29,14 @@ enum class	ChangeCommandType : int
   PREV_LIBRARY	=	2,
   NEXT_GAME	=	3,
   PREV_GAME	=	4
+};
+
+enum class  SaveCommand : int
+{
+  UP = 0,
+  DOWN = 1,
+  LEFT = 2,
+  RIGHT = 3,
 };
 
 #endif

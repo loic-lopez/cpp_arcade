@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:01:26 2017 Loïc Lopez
-// Last update Mon Mar 27 18:53:59 2017 Matthias Prost
+// Last update Tue Mar 28 15:42:34 2017 Matthias Prost
 */
 
 #ifndef SNAKE_HPP__
@@ -26,6 +26,7 @@ class	Snake : public IGameModel
   int 					applePosition;
   bool					popApple;
   virtual void				wait_second(int);
+  SaveCommand         last_key;
 
  public:
   Snake(std::string const &);

@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Mon Mar 27 19:26:37 2017 Matthias Prost
+// Last update Tue Mar 28 15:54:26 2017 Matthias Prost
 //
 
 #include <array>
@@ -31,6 +31,7 @@ Snake::~Snake()
 Snake::Snake(Snake const &snake)
 {
   this->libraryName = snake.libraryName;
+  this->last_key = SaveCommand::LEFT;
 }
 
 Snake::Snake(std::string const &libname)
@@ -57,6 +58,7 @@ Snake::Snake(std::string const &libname)
     }
   this->applePosition = -1;
   this->popApple = false;
+  this->last_key = SaveCommand::LEFT;
 }
 
 void			Snake::setMap()
@@ -118,7 +120,7 @@ void			Snake::drawMap(ILibraryViewController *libraryInstance)
   if (libraryInstance->getLibraryName() == "Ncurses")
     this->wait_second(75);
   else if (libraryInstance->getLibraryName() == "SFML")
-    this->wait_second(55);
+    this->wait_second(65);
 }
 
 void  Snake::wait_second(int toSleep)
@@ -183,11 +185,9 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 			size_t &currentGame, size_t &currentLibrary,
 			bool &exit)
 {
-  int   i;
   ChangeCommandType action = ChangeCommandType::STANDBY;
   this->Map->type = arcade::CommandType::PLAY;
 
-  i = 3;
   libraryInstance->initScreen(this->getGameName());
   this->setMap();
   while (libraryInstance->getKey(&this->Map->type, action, exit))
@@ -208,29 +208,29 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 	      this->_snake.at(j).x = this->_snake.at(j - 1).x;
 	      this->_snake.at(j).y = this->_snake.at(j - 1).y;
 	    }
-	  if ((this->Map->type == arcade::CommandType::GO_UP && i != 2) ||
-	       (this->Map->type == arcade::CommandType::GO_DOWN && i == 1))
+	  if ((this->Map->type == arcade::CommandType::GO_UP && this->last_key != SaveCommand::DOWN) ||
+	       (this->Map->type == arcade::CommandType::GO_DOWN && this->last_key == SaveCommand::UP))
 	    {
 	      this->_snake.at(0).y--;
-	      i = 1;
+	      this->last_key = SaveCommand::UP;
 	    }
-	  else if ((this->Map->type == arcade::CommandType::GO_DOWN && i != 1) ||
-		    (this->Map->type == arcade::CommandType::GO_UP && i == 2))
+	  else if ((this->Map->type == arcade::CommandType::GO_DOWN && this->last_key != SaveCommand::UP) ||
+		    (this->Map->type == arcade::CommandType::GO_UP && this->last_key == SaveCommand::DOWN))
 	    {
 	      this->_snake.at(0).y++;
-	      i = 2;
+	      this->last_key = SaveCommand::DOWN;
 	    }
-	  else if ((this->Map->type == arcade::CommandType::GO_LEFT && i != 4) ||
-		    (this->Map->type == arcade::CommandType::GO_RIGHT && i == 3))
+	  else if ((this->Map->type == arcade::CommandType::GO_LEFT && this->last_key != SaveCommand::RIGHT) ||
+		    (this->Map->type == arcade::CommandType::GO_RIGHT && this->last_key == SaveCommand::LEFT))
 	    {
 	      this->_snake.at(0).x--;
-	      i = 3;
+	      this->last_key = SaveCommand::LEFT;
 	    }
-	  else if ((this->Map->type == arcade::CommandType::GO_RIGHT && i != 3) ||
-		    (this->Map->type == arcade::CommandType::GO_LEFT && i == 4))
+	  else if ((this->Map->type == arcade::CommandType::GO_RIGHT && this->last_key != SaveCommand::LEFT) ||
+		    (this->Map->type == arcade::CommandType::GO_LEFT && this->last_key == SaveCommand::RIGHT))
 	    {
 	      this->_snake.at(0).x++;
-	      i = 4;
+	      this->last_key = SaveCommand::RIGHT;
 	    }
 	}
       if (action == ChangeCommandType::NEXT_LIBRARY)
