@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:01:26 2017 Loïc Lopez
-// Last update Tue Mar 28 15:42:34 2017 Matthias Prost
+// Last update Tue Mar 28 17:55:25 2017 Matthias Prost
 */
 
 #ifndef SNAKE_HPP__
@@ -23,10 +23,11 @@ class	Snake : public IGameModel
   std::string				libraryName;
   arcade::GetMap			*Map;
   std::vector<arcade::Position>		_snake;
-  int 					applePosition;
-  bool					popApple;
+  int 					      applePosition;
+  bool					      popApple;
   virtual void				wait_second(int);
   SaveCommand         last_key;
+  int                 score;
 
  public:
   Snake(std::string const &);
@@ -37,6 +38,8 @@ class	Snake : public IGameModel
   virtual void setMap();
   virtual void drawMap(ILibraryViewController *libraryInstance);
   virtual bool play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &);
+  virtual int  getScore();
+  virtual void setScore(int);
   virtual std::string getGameName();
 };
 

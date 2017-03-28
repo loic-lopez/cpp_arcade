@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Mon Mar 27 18:56:01 2017 Matthias Prost
+// Last update Tue Mar 28 17:49:53 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -21,24 +21,13 @@ SFMLViewController::~SFMLViewController()
 
 SFMLViewController::SFMLViewController()
 {
-  this->score = 0;
+  this->windowsize_x = sf::VideoMode::getDesktopMode().width;
+  this->windowsize_y = sf::VideoMode::getDesktopMode().height;
 }
 
 void	SFMLViewController::drawMenu()
 {
 }
-
-void  SFMLViewController::setScore(int score)
-{
-  this->score = score;
-}
-
-int  SFMLViewController::getScore()
-{
-  return (this->score);
-}
-
-
 
 bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
 {
@@ -86,10 +75,37 @@ void	SFMLViewController::initScreen(std::string const &name)
   this->rectangle.setSize(sf::Vector2f(20, 20));
 }
 
-void	SFMLViewController::displayScore(std::string const &Game, std::string const &libraryName) const
+void	SFMLViewController::displayScore(std::string const &Game, std::string const &libraryName, int score)
 {
-  (void)Game;
-  (void)libraryName;
+  sf::Font      font;
+  sf::Text      _game;
+  sf::Text      _library;
+  sf::Text      _score;
+
+  if (!font.loadFromFile("lib-sources/SFML/Fonts/Roboto-Regular.ttf"))
+      std::cout << "ERROR: cannot found Roboto-Regular.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
+
+  _game.setFont(font);
+  _game.setString(Game);
+  _game.setCharacterSize(24);
+  _game.setFillColor(sf::Color::White);
+  _game.setPosition(24 + (this->windowsize_x + (35 * 20) + 75) / 2, 24 + (this->windowsize_y / 9));
+
+  _library.setFont(font);
+  _library.setString(libraryName);
+  _library.setCharacterSize(24);
+  _library.setFillColor(sf::Color::White);
+  _library.setPosition(24 + (this->windowsize_x + (35 * 20) + 75) / 2, 24 + (this->windowsize_y / 6));
+
+  _score.setFont(font);
+  _score.setString("Score: " + std::to_string(score));
+  _score.setCharacterSize(24);
+  _score.setFillColor(sf::Color::White);
+  _score.setPosition(24 + (this->windowsize_x + (35 * 20) + 375) / 2, 24 + (this->windowsize_y / 9));
+
+  this->window.draw(_game);
+  this->window.draw(_library);
+  this->window.draw(_score);
 }
 
 void  SFMLViewController::endScreen()
@@ -113,7 +129,7 @@ void	SFMLViewController::drawSquare(int x, int y, Color const &color)
     this->rectangle.setFillColor(sf::Color(0, 188, 212));
   else if (color == Color::YELLOW)
     this->rectangle.setFillColor(sf::Color(255, 193, 7));
-  this->rectangle.setPosition(x * 20 + 600, y * 20 + 100);
+  this->rectangle.setPosition((x * 20) + (this->windowsize_x - (35 * 20)) / 2, (y * 20) + (this->windowsize_y / 7));
   this->window.draw(this->rectangle);
 }
 

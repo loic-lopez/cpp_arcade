@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Mon Mar 27 16:16:39 2017 Matthias Prost
+// Last update Tue Mar 28 17:49:12 2017 Matthias Prost
 //
 
 #ifndef SFMLCONTROLLER_HPP__
@@ -13,6 +13,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "../interface/ILibraryViewController.hpp"
+#include <iostream>
 
 extern "C" ILibraryViewController	*loadLibrary();
 
@@ -25,7 +26,6 @@ private:
   int   windowsize_y;
   int   mapsize_x;
   int   mapsize_y;
-  int   score;
   int   user_x;
   int   user_y;
 
@@ -38,10 +38,8 @@ private:
   virtual void drawMenu();
   virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit);
   virtual void initScreen(std::string const &name);
-  virtual void displayScore(std::string const &, std::string const &) const;
+  virtual void displayScore(std::string const &, std::string const &, int);
   virtual void endScreen();
-  virtual void setScore(int);
-  virtual int  getScore();
   virtual void refresh();
   virtual std::string	getLibraryName();
 };

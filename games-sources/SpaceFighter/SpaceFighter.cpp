@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Mon Mar 27 18:53:44 2017 Matthias Prost
+// Last update Tue Mar 28 18:02:00 2017 Matthias Prost
 //
 
 #include "SpaceFighter.hpp"
@@ -50,6 +50,17 @@ void  SpaceFighter::wait_second(int toSleep)
 void SpaceFighter::setMap()
 {
 }
+
+int         SpaceFighter::getScore()
+{
+  return (this->score);
+}
+
+void         SpaceFighter::setScore(int value)
+{
+  this->score =+ value;
+}
+
 
 bool	SpaceFighter::play(ILibraryViewController *libraryInstance,
 			       size_t &currentGame, size_t & currentLibrary,

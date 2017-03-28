@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Tue Mar 28 15:54:26 2017 Matthias Prost
+// Last update Tue Mar 28 18:02:53 2017 Matthias Prost
 //
 
 #include <array>
@@ -32,6 +32,7 @@ Snake::Snake(Snake const &snake)
 {
   this->libraryName = snake.libraryName;
   this->last_key = SaveCommand::LEFT;
+  this->score = 0;
 }
 
 Snake::Snake(std::string const &libname)
@@ -59,6 +60,7 @@ Snake::Snake(std::string const &libname)
   this->applePosition = -1;
   this->popApple = false;
   this->last_key = SaveCommand::LEFT;
+  this->score = 0;
 }
 
 void			Snake::setMap()
@@ -120,7 +122,7 @@ void			Snake::drawMap(ILibraryViewController *libraryInstance)
   if (libraryInstance->getLibraryName() == "Ncurses")
     this->wait_second(75);
   else if (libraryInstance->getLibraryName() == "SFML")
-    this->wait_second(65);
+    this->wait_second(67);
 }
 
 void  Snake::wait_second(int toSleep)
@@ -149,27 +151,31 @@ static	bool	headIsOnAWallOrSelf(arcade::GetMap *map, uint16_t head_x_pos,
        (map->tile[i] == arcade::TileType::BLOCK && head_y_pos == 0) ||
        (map->tile[i] == arcade::TileType::BLOCK && head_y_pos == map->height - 1) ||
        (map->tile[i] == arcade::TileType::BLOCK && head_x_pos == map->width - 1))
-	{
-	  std::cout << "toto" << std::endl;
-	  return (true);
-	}
+	      return (true);
     }
   for (size_t j = 1; j < snake.size(); ++j)
     {
       if (head_x_pos == snake.at(j).x && head_y_pos == snake.at(j).y)
-	{
-	  std::cout << "toto 2" << std::endl;
-	  return (true);
-	}
+	     return (true);
     }
   return (false);
 }
 
-static	void 	eatApple(ILibraryViewController *lib, arcade::GetMap *map, std::vector<arcade::Position> *snake, bool &popApple, int &applePosition)
+int          Snake::getScore()
+{
+  return (this->score);
+}
+
+void         Snake::setScore(int value)
+{
+  this->score += value;
+}
+
+static	void 	eatApple(IGameModel *game, arcade::GetMap *map, std::vector<arcade::Position> *snake, bool &popApple, int &applePosition)
 {
   if (applePosition == (snake->at(0).x + map->width * snake->at(0).y))
     {
-      lib->setScore(100);
+      game->setScore(100);
       arcade::Position	newNode;
       map->tile[applePosition] = arcade::TileType::EMPTY;
       newNode.x = (uint16_t) (snake->at(snake->size() - 1).x + 1);
@@ -193,7 +199,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
   while (libraryInstance->getKey(&this->Map->type, action, exit))
     {
       this->drawMap(libraryInstance);
-      eatApple(libraryInstance, this->Map, &this->_snake, this->popApple, this->applePosition);
+      eatApple(this, this->Map, &this->_snake, this->popApple, this->applePosition);
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x, this->_snake.at(0).y, this->_snake))
 	{
 	  libraryInstance->endScreen();
@@ -244,7 +250,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
           break;
         }
 
-      libraryInstance->displayScore(this->getGameName(), libraryInstance->getLibraryName());
+      libraryInstance->displayScore(this->getGameName(), libraryInstance->getLibraryName(), this->score);
       libraryInstance->refresh();
     }
   libraryInstance->endScreen();

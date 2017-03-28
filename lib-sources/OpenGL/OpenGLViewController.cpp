@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Thu Mar 23 20:42:57 2017 Matthias Prost
+// Last update Tue Mar 28 17:49:34 2017 Matthias Prost
 //
 
 #include <iostream>
@@ -97,7 +97,6 @@ extern "C" ILibraryViewController	*loadLibrary()
 
 OpenGLViewController::OpenGLViewController()
 {
-  this->score = 0;
   this->camera = glm::vec3(0, -5, 10);
   this->horizontalAngle = 3.14f;
   this->verticalAngle = 0.5f;
@@ -109,16 +108,6 @@ OpenGLViewController::OpenGLViewController()
 OpenGLViewController::~OpenGLViewController()
 {
 
-}
-
-void  OpenGLViewController::setScore(int score)
-{
-  this->score = score;
-}
-
-int  OpenGLViewController::getScore()
-{
-  return (this->score);
 }
 
 void	OpenGLViewController::drawMenu()
@@ -229,10 +218,11 @@ void	OpenGLViewController::initScreen(std::string const &name)
   glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
 }
 
-void	OpenGLViewController::displayScore(std::string const &Game, std::string const &libraryName) const
+void	OpenGLViewController::displayScore(std::string const &Game, std::string const &libraryName, int score)
 {
   (void)Game;
   (void)libraryName;
+  (void)score;
 }
 
 void	OpenGLViewController::endScreen()

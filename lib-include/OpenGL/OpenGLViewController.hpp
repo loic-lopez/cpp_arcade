@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Mon Mar 27 16:16:31 2017 Matthias Prost
+// Last update Tue Mar 28 17:48:59 2017 Matthias Prost
 //
 
 #ifndef OpenGLCONTROLLER_HPP__
@@ -45,7 +45,6 @@ class OpenGLViewController : public ILibraryViewController
   float 			speed;
   double 			lastTime;
   glm::vec3 		camera;
-  int   			score;
   int   			user_x;
   int   			user_y;
 
@@ -58,10 +57,8 @@ class OpenGLViewController : public ILibraryViewController
   virtual void drawMenu();
   virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit);
   virtual void initScreen(std::string const &name);
-  virtual void displayScore(std::string const &, std::string const &) const;
+  virtual void displayScore(std::string const &, std::string const &, int);
   virtual void endScreen();
-  virtual void setScore(int);
-  virtual int  getScore();
   virtual void refresh();
   virtual std::string	getLibraryName();
 };

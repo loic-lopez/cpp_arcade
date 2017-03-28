@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:02:17 2017 Loïc Lopez
-** Last update Mon Mar 27 18:54:07 2017 Matthias Prost
+** Last update Tue Mar 28 17:55:33 2017 Matthias Prost
 */
 
 #ifndef SPACEFIGHTER_HPP__
@@ -22,6 +22,7 @@ class SpaceFighter : public IGameModel
   std::string	libraryName;
   int   pos_x;
   int   pos_y;
+  int   score;
   virtual void  wait_second(int);
 
  public:
@@ -34,6 +35,8 @@ class SpaceFighter : public IGameModel
   virtual void setMap();
   virtual void drawMap(ILibraryViewController *libraryInstance);
   virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &);
+  virtual int  getScore();
+  virtual void setScore(int);
   virtual std::string getGameName();
 };
 

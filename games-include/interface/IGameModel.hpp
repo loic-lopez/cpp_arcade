@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. mars 17 13:55:07 2017 Loïc Lopez
-** Last update Mon Mar 27 18:54:46 2017 Matthias Prost
+** Last update Tue Mar 28 17:55:40 2017 Matthias Prost
 */
 
 #ifndef IGAMEMODEL_HPP__
@@ -25,6 +25,8 @@ private:
   virtual void setMap() = 0;
   virtual void drawMap(ILibraryViewController *libraryInstance) = 0;
   virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &) = 0;
+  virtual int  getScore() = 0;
+  virtual void setScore(int) = 0;
   virtual std::string getGameName() = 0;
 
   virtual ~IGameModel() {}

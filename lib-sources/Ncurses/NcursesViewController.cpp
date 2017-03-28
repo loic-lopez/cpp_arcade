@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Mon Mar 27 16:17:09 2017 Matthias Prost
+// Last update Tue Mar 28 17:48:26 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -17,7 +17,7 @@ extern "C" ILibraryViewController	*loadLibrary()
 
 NcursesViewController::NcursesViewController()
 {
-  this->score = 0;
+
 }
 
 NcursesViewController::~NcursesViewController()
@@ -62,18 +62,6 @@ bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeComm
   return (true);
 }
 
-void  NcursesViewController::setScore(int score)
-{
-  this->score += score;
-  NcursesEncap::n_mvprintw(this->windowsize_y/20,
-    this->windowsize_x/1.5 + 9, std::to_string(this->score).c_str());
-}
-
-int  NcursesViewController::getScore()
-{
-  return (this->score);
-}
-
 void  NcursesViewController::initScreen(std::string const &name)
 {
   std::string	changeTerminalName = "echo -n \"\033]0;" + name + " \007\"";
@@ -104,7 +92,7 @@ void  NcursesViewController::refresh()
 }
 
 
-void	NcursesViewController::displayScore(std::string const &Game, std::string const &libraryName) const
+void	NcursesViewController::displayScore(std::string const &Game, std::string const &libraryName, int score)
 {
   NcursesEncap::n_mvprintw(this->windowsize_y /20,
 			   this->windowsize_x / 1.5 - 9, Game.c_str());
@@ -113,7 +101,7 @@ void	NcursesViewController::displayScore(std::string const &Game, std::string co
   NcursesEncap::n_mvprintw(this->windowsize_y / 20,
 			   this->windowsize_x/ 1.5 + 2, "Score: ");
   NcursesEncap::n_mvprintw(this->windowsize_y / 20,
-			   this->windowsize_x / 1.5 + 9, std::to_string(this->score).c_str());
+			   this->windowsize_x / 1.5 + 9, std::to_string(score).c_str());
 }
 
 void  NcursesViewController::endScreen()
