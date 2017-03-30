@@ -36,6 +36,8 @@ public:
   static int n_attroff(int);
   static void n_getmaxyx(WINDOW *, int *, int *);
   static void n_clear(void);
+  static int  n_cbreak(void);
+  static int n_nocbreak(void);
 };
 
 #endif

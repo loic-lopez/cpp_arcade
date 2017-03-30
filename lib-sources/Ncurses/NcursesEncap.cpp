@@ -110,3 +110,13 @@ int NcursesEncap::n_init_color(short color, short r, short g, short b)
 {
   return (init_color(color, r, g, b));
 }
+
+int	NcursesEncap::n_cbreak(void)
+{
+  return (cbreak());
+}
+
+int	NcursesEncap::n_nocbreak(void)
+{
+  return (nocbreak());
+}

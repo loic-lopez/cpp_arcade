@@ -73,7 +73,7 @@ void  NcursesViewController::initScreen(std::string const &name)
   NcursesEncap::n_noecho();
   NcursesEncap::n_nodelay();
   NcursesEncap::n_keypad();
-  //  cbreak(); // TOTO
+  NcursesEncap::n_cbreak();
   NcursesEncap::n_start_color();
   NcursesEncap::n_getmaxyx(stdscr, &this->windowsize_y, &this->windowsize_x);
   NcursesEncap::n_init_color(0, 0, 0, 0);
@@ -107,7 +107,8 @@ void	NcursesViewController::displayScore(std::string const &Game, std::string co
 
 void  NcursesViewController::endScreen()
 {
-    NcursesEncap::n_endwin();
+  NcursesEncap::n_nocbreak();
+  NcursesEncap::n_endwin();
 }
 
 std::string	NcursesViewController::getLibraryName()
