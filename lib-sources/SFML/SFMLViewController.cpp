@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Thu Mar 30 17:30:15 2017 Matthias Prost
+// Last update Thu Mar 30 18:15:29 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -52,9 +52,9 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
           else if (event.key.code == sf::Keyboard::Num2)
             action = ChangeCommandType::PREV_LIBRARY;
           else if (event.key.code == sf::Keyboard::Num4)
-            action = ChangeCommandType::PREV_LIBRARY;
+            action = ChangeCommandType::PREV_GAME;
           else if (event.key.code == sf::Keyboard::Num5)
-            action = ChangeCommandType::NEXT_LIBRARY;
+            action = ChangeCommandType::NEXT_GAME;
           else if (event.key.code == sf::Keyboard::Up)
             *commandType = arcade::CommandType::GO_UP;
           else if (event.key.code == sf::Keyboard::Down)
