@@ -15,7 +15,7 @@ GREEN	=	"\033[0;32m"
 TEAL	=	"\033[1;36m"
 RED	=	"\033[5;31m"
 
-CC              = g++ -g
+CC              = g++
 
 RM              = rm -f
 
