@@ -73,6 +73,7 @@ void  NcursesViewController::initScreen(std::string const &name)
   NcursesEncap::n_noecho();
   NcursesEncap::n_nodelay();
   NcursesEncap::n_keypad();
+  //  cbreak(); // TOTO
   NcursesEncap::n_start_color();
   NcursesEncap::n_getmaxyx(stdscr, &this->windowsize_y, &this->windowsize_x);
   NcursesEncap::n_init_color(0, 0, 0, 0);
