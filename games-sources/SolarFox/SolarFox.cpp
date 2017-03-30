@@ -8,36 +8,36 @@
 // Last update Tue Mar 28 18:02:00 2017 Matthias Prost
 //
 
-#include "SpaceFighter.hpp"
+#include "SolarFox.hpp"
 
 extern "C" IGameModel *createInstanceGame(std::string const &libname)
 {
-  return (new SpaceFighter(libname));
+  return (new SolarFox(libname));
 }
 
-SpaceFighter::SpaceFighter(std::string const &libname)
+SolarFox::SolarFox(std::string const &libname)
 {
   this->libraryName = libname;
 }
 
-SpaceFighter::SpaceFighter(SpaceFighter const &spaceFighter)
+SolarFox::SolarFox(SolarFox const &SolarFox)
 {
-  this->libraryName = spaceFighter.libraryName;
+  this->libraryName = SolarFox.libraryName;
 }
 
-SpaceFighter &SpaceFighter::operator=(SpaceFighter const &spaceFighter)
+SolarFox &SolarFox::operator=(SolarFox const &SolarFox)
 {
-  if (this != &spaceFighter)
-    this->libraryName = spaceFighter.libraryName;
+  if (this != &SolarFox)
+    this->libraryName = SolarFox.libraryName;
   return (*this);
 }
 
-SpaceFighter::~SpaceFighter()
+SolarFox::~SolarFox()
 {
 
 }
 
-void  SpaceFighter::wait_second(int toSleep)
+void  SolarFox::wait_second(int toSleep)
 {
   clock_t   ticks1, ticks2;
 
@@ -47,22 +47,22 @@ void  SpaceFighter::wait_second(int toSleep)
     ticks2 = clock();
 }
 
-void SpaceFighter::setMap()
+void SolarFox::setMap()
 {
 }
 
-int         SpaceFighter::getScore()
+int         SolarFox::getScore()
 {
   return (this->score);
 }
 
-void         SpaceFighter::setScore(int value)
+void         SolarFox::setScore(int value)
 {
   this->score =+ value;
 }
 
 
-bool	SpaceFighter::play(ILibraryViewController *libraryInstance,
+bool	SolarFox::play(ILibraryViewController *libraryInstance,
 			       size_t &currentGame, size_t & currentLibrary,
 			       bool &exit)
 {
@@ -74,7 +74,7 @@ bool	SpaceFighter::play(ILibraryViewController *libraryInstance,
   return (true);
 }
 
-std::string	SpaceFighter::getGameName()
+std::string	SolarFox::getGameName()
 {
-  return ("SpaceFighter");
+  return ("SolarFox");
 }

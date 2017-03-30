@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 18:01:13 2017 Loïc Lopez
-// Last update Thu Mar 23 19:48:21 2017 Matthias Prost
+// Last update Thu Mar 30 17:46:28 2017 Matthias Prost
 //
 
 #include "GameCore.hpp"
@@ -52,12 +52,6 @@ void	GameCore::GameLauncher()
   currentLib = this->getCurrentLibrary(Libs);
   while (!exit)
     {
-      if (currentGame == Games.size())
-	currentGame = 0;
-      if (currentLib == Libs.size())
-	currentLib = 0;
-      if (currentLib > Libs.size())
-        currentLib = Libs.size() - 1;
       game = this->openLibrary(Games.at(currentGame).c_str());
       library = this->openLibrary(Libs.at(currentLib).c_str());
       play_function = this->getcreateInstanceGameFunction(game);
@@ -67,6 +61,19 @@ void	GameCore::GameLauncher()
       libraryInstance = load_library_function();
       created = GameInstance->play(libraryInstance, currentGame, currentLib, exit);
       delete libraryInstance;
+      if (currentGame == Games.size())
+        currentGame = 0;
+      if (currentLib == Libs.size())
+        currentLib = 0;
+      if (currentLib > Libs.size())
+        currentLib = Libs.size() - 1;
+      if (currentGame > Games.size())
+        currentGame = Games.size() - 1;
+      if (Games.at(currentGame).find(GameInstance->getGameName()) != std::string::npos)
+        {
+          delete GameInstance;
+          Cencapsulation::c_dlclose(game);
+        }
       Cencapsulation::c_dlclose(library);
     }
 

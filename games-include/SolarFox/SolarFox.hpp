@@ -1,22 +1,22 @@
 /*
-** SpaceFighter.hpp for cpp_arcade in /home/lopez_i/cpp_arcade/SpaceFighter.hpp.hpp
+** SolarFox.hpp for cpp_arcade in /home/lopez_i/cpp_arcade/SolarFox.hpp.hpp
 **
 ** Made by Loïc Lopez
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:02:17 2017 Loïc Lopez
-** Last update Tue Mar 28 17:55:33 2017 Matthias Prost
+** Last update Thu Mar 30 17:12:30 2017 Matthias Prost
 */
 
-#ifndef SPACEFIGHTER_HPP__
-# define SPACEFIGHTER_HPP__
+#ifndef SolarFox_HPP__
+# define SolarFox_HPP__
 
 #include <iostream>
 #include "../interface/IGameModel.hpp"
 
 extern "C" IGameModel *createInstanceGame(std::string const &);
 
-class SpaceFighter : public IGameModel
+class SolarFox : public IGameModel
 {
  private:
   std::string	libraryName;
@@ -26,10 +26,10 @@ class SpaceFighter : public IGameModel
   virtual void  wait_second(int);
 
  public:
-  SpaceFighter(std::string const &);
-  SpaceFighter(SpaceFighter const &);
-  SpaceFighter &operator=(SpaceFighter const &);
-  virtual ~SpaceFighter();
+  SolarFox(std::string const &);
+  SolarFox(SolarFox const &);
+  SolarFox &operator=(SolarFox const &);
+  virtual ~SolarFox();
 
   // Methods
   virtual void setMap();
@@ -40,4 +40,4 @@ class SpaceFighter : public IGameModel
   virtual std::string getGameName();
 };
 
-#endif /* SPACEFIGHTER_HPP__ */
+#endif /* SolarFox_HPP__ */

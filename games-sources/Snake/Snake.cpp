@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Thu Mar 30 16:15:35 2017 Matthias Prost
+// Last update Thu Mar 30 17:47:29 2017 Matthias Prost
 //
 
 #include <array>
@@ -212,7 +212,6 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
       libraryInstance->clear();
       libraryInstance->endScreen();
       this->Map->type = arcade::CommandType::STAND_BY;
-      return false;
 	}
       if (this->Map->type != arcade::CommandType::PLAY)
 	{
@@ -256,12 +255,23 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
           currentLibrary--;
           break;
         }
+      else if (action == ChangeCommandType::PREV_GAME)
+      {
+        currentGame--;
+        libraryInstance->endScreen();
+        return (false);
+      }
+      else if (action == ChangeCommandType::NEXT_GAME)
+      {
+        currentGame++;
+        libraryInstance->endScreen();
+        return (false);
+      }
 
       libraryInstance->displayScore(this->getGameName(), libraryInstance->getLibraryName(), this->score);
       libraryInstance->refresh();
     }
   libraryInstance->endScreen();
-  (void)currentGame;
   return (true);
 }
 

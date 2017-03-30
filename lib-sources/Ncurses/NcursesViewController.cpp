@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Thu Mar 30 16:22:25 2017 Matthias Prost
+// Last update Thu Mar 30 17:30:01 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -51,6 +51,10 @@ bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeComm
     action = ChangeCommandType::NEXT_LIBRARY;
   else if (key == '2')
     action = ChangeCommandType::PREV_LIBRARY;
+  else if (key == '4')
+    action = ChangeCommandType::PREV_GAME;
+  else if (key == '5')
+    action = ChangeCommandType::NEXT_GAME;
   else if (key == KEY_UP)
     *commandType = arcade::CommandType::GO_UP;
   else if (key == KEY_DOWN)
