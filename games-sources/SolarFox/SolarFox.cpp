@@ -66,7 +66,7 @@ void         SolarFox::setScore(int value)
   this->score =+ value;
 }
 
-bool	SolarFox::play(ILibraryViewController *libraryInstance,
+ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 			       size_t &currentGame, size_t & currentLibrary,
 			       bool &exit)
 {
@@ -75,7 +75,7 @@ bool	SolarFox::play(ILibraryViewController *libraryInstance,
   (void)currentGame;
   (void)currentLibrary;
   (void)exit;
-  return (true);
+  return (ChangeCommandType::STANDBY);
 }
 
 std::string	SolarFox::getGameName()

@@ -16,6 +16,7 @@
 #include <string>
 #include "../../lib-include/interface/ILibraryViewController.hpp"
 #include "../../include/Protocol.hh"
+#include "../../include/ArcadeEnum.hpp"
 
 class	IGameModel
 {
@@ -24,7 +25,7 @@ private:
  public:
   virtual void setMap() = 0;
   virtual void drawMap(ILibraryViewController *libraryInstance) = 0;
-  virtual bool	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &) = 0;
+  virtual ChangeCommandType	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &) = 0;
   virtual int  getScore() = 0;
   virtual void setScore(int) = 0;
   virtual std::string getGameName() = 0;

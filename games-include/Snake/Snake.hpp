@@ -20,6 +20,7 @@ extern "C" IGameModel *createInstanceGame(std::string const &);
 class	Snake : public IGameModel
 {
  private:
+  bool			alreadyLaunch;
   std::string				libraryName;
   arcade::GetMap			*Map;
   std::vector<arcade::Position>		_snake;
@@ -37,7 +38,7 @@ class	Snake : public IGameModel
 
   virtual void setMap();
   virtual void drawMap(ILibraryViewController *libraryInstance);
-  virtual bool play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &);
+  virtual ChangeCommandType	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &);
   virtual int  getScore();
   virtual void setScore(int);
   virtual std::string getGameName();

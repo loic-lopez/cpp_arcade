@@ -67,6 +67,7 @@ Snake::Snake(std::string const &libname)
   this->popApple = false;
   this->last_key = SaveCommand::LEFT;
   this->score = 0;
+  this->alreadyLaunch = false;
 }
 
 void			Snake::setMap()
@@ -193,24 +194,45 @@ static	void 	eatApple(IGameModel *game, arcade::GetMap *map, std::vector<arcade:
     return;
 }
 
-bool	Snake::play(ILibraryViewController *libraryInstance,
+ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 			size_t &currentGame, size_t &currentLibrary,
 			bool &exit)
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
   this->Map->type = arcade::CommandType::PLAY;
-  bool  gameover = false;
 
-  libraryInstance->initScreen(this->getGameName());
-  this->setMap();
+  if (!this->alreadyLaunch)
+    {
+      libraryInstance->initScreen(this->getGameName());
+      this->setMap();
+      this->alreadyLaunch = true;
+    }
   while (libraryInstance->getKey(&this->Map->type, action, exit))
     {
       this->drawMap(libraryInstance);
       eatApple(this, this->Map, &this->_snake, this->popApple, this->applePosition);
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x, this->_snake.at(0).y, this->_snake))
 	{
-    gameover = true;
-    break;
+	  libraryInstance->clear();
+	  this->_snake.clear();
+	  initSnake(&this->_snake, this->Map->height, this->Map->width);
+	  this->Map->type = arcade::CommandType::PLAY;
+	  this->score = 0;
+	  this->popApple = false;
+	  while (libraryInstance->getKey(&this->Map->type, action, exit))
+	    {
+	      if (this->Map->type == arcade::CommandType::RESTART)
+		{
+		  this->alreadyLaunch = true;
+		  action = ChangeCommandType::RESTART;
+		  return (action);
+		}
+	      else if (action == ChangeCommandType::NEXT_LIBRARY) break;
+	      else if (action == ChangeCommandType::PREV_LIBRARY) break;
+	      libraryInstance->gameOver(this->score);
+	      libraryInstance->refresh();
+	    }
+	  if (exit) break;
 	}
       if (this->Map->type != arcade::CommandType::PLAY)
 	{
@@ -246,48 +268,31 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 	}
       if (action == ChangeCommandType::NEXT_LIBRARY)
         {
-          currentLibrary++;
-          break;
+	  currentLibrary++;
+	  this->alreadyLaunch = false;
+	  break;
         }
       else if (action == ChangeCommandType::PREV_LIBRARY)
         {
-          currentLibrary--;
-          break;
+	  currentLibrary--;
+	  this->alreadyLaunch = false;
+	  break;
         }
       else if (action == ChangeCommandType::PREV_GAME)
-      {
-        currentGame--;
-        libraryInstance->endScreen();
-        return (false);
-      }
+      	{
+	  currentGame--;
+	  break;
+	}
       else if (action == ChangeCommandType::NEXT_GAME)
-      {
-        currentGame++;
-        libraryInstance->endScreen();
-        return (false);
-      }
-
+	{
+	  currentGame++;
+	  break;
+	}
       libraryInstance->displayScore(this->getGameName(), libraryInstance->getLibraryName(), this->score);
       libraryInstance->refresh();
     }
-  if (gameover == true)
-  {
-    while (libraryInstance->getKey(&this->Map->type, action, exit))
-      {
-        libraryInstance->clear();
-        libraryInstance->gameOver(this->score);
-        if (this->Map->type == arcade::CommandType::RESTART)
-        {
-          this->_snake.clear();
-          initSnake(&this->_snake, this->Map->height, this->Map->width);
-          this->score = 0;
-          break;
-        }
-      }
-      this->Map->type = arcade::CommandType::STAND_BY;
-    }
   libraryInstance->endScreen();
-  return (true);
+  return (action);
 }
 
 std::string Snake::getGameName()

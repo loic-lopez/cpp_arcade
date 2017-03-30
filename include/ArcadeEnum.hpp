@@ -28,7 +28,8 @@ enum class	ChangeCommandType : int
   NEXT_LIBRARY	=	1,
   PREV_LIBRARY	=	2,
   NEXT_GAME	=	3,
-  PREV_GAME	=	4
+  PREV_GAME	=	4,
+  RESTART	=	5
 };
 
 enum class  SaveCommand : int

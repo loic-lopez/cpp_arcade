@@ -15,6 +15,7 @@
 #include <vector>
 #include <algorithm>
 #include "IGameCore.hpp"
+#include "ArcadeEnum.hpp"
 
 class GameCore : public IGameCore
 {

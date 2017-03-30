@@ -39,13 +39,13 @@ void	GameCore::GameLauncher()
   size_t			currentLib = 0;
   size_t			currentGame = 0;
   bool				exit = false;
-  bool				created = false;
+  ChangeCommandType		action = ChangeCommandType::STANDBY;
   play_function_type		play_function;
   load_library_function_type	load_library_function;
   void				*game = NULL;
   void				*library = NULL;
-  IGameModel			*GameInstance;
-  ILibraryViewController	*libraryInstance;
+  IGameModel			*GameInstance = NULL;
+  ILibraryViewController	*libraryInstance = NULL;
 
   this->fillVector(Games, "./games");
   this->fillVector(Libs, "./lib");
@@ -54,29 +54,45 @@ void	GameCore::GameLauncher()
     {
       game = this->openLibrary(Games.at(currentGame).c_str());
       library = this->openLibrary(Libs.at(currentLib).c_str());
-      play_function = this->getcreateInstanceGameFunction(game);
-      load_library_function = this->getLibrary(library);
-      if (!created)
-	      GameInstance = play_function(Libs.at(currentLib));
-      libraryInstance = load_library_function();
-      created = GameInstance->play(libraryInstance, currentGame, currentLib, exit);
-      delete libraryInstance;
+      if (action == ChangeCommandType::STANDBY
+	  || action == ChangeCommandType::NEXT_GAME
+	  || action == ChangeCommandType::PREV_GAME)
+	{
+	  play_function = this->getcreateInstanceGameFunction(game);
+	  GameInstance = play_function(Libs.at(currentLib));
+	}
+      if (action == ChangeCommandType::STANDBY
+	  || action == ChangeCommandType::NEXT_LIBRARY
+	  || action == ChangeCommandType::PREV_LIBRARY)
+	{
+	  load_library_function = this->getLibrary(library);
+	  libraryInstance = load_library_function();
+	}
+      action = GameInstance->play(libraryInstance, currentGame, currentLib, exit);
       if (currentGame == Games.size())
         currentGame = 0;
+      else if (currentGame > Games.size())
+	currentGame = Games.size() - 1;
       if (currentLib == Libs.size())
         currentLib = 0;
-      if (currentLib > Libs.size())
+      else if (currentLib > Libs.size())
         currentLib = Libs.size() - 1;
-      if (currentGame > Games.size())
-        currentGame = Games.size() - 1;
-      if (Games.at(currentGame).find(GameInstance->getGameName()) != std::string::npos)
+      if ((action == ChangeCommandType::NEXT_GAME
+	  || action == ChangeCommandType::PREV_GAME) && !exit)
         {
           delete GameInstance;
           Cencapsulation::c_dlclose(game);
         }
-      Cencapsulation::c_dlclose(library);
+      else if ((action == ChangeCommandType::NEXT_LIBRARY
+	  || action == ChangeCommandType::PREV_LIBRARY) && !exit)
+	{
+	  delete libraryInstance;
+	  Cencapsulation::c_dlclose(library);
+	}
     }
 
+  delete libraryInstance;
+  Cencapsulation::c_dlclose(library);
   delete GameInstance;
   Cencapsulation::c_dlclose(game);
 }
