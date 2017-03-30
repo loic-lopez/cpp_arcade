@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Thu Mar 30 18:18:58 2017 Matthias Prost
+// Last update Thu Mar 30 19:44:03 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -65,7 +65,6 @@ void         SolarFox::setScore(int value)
 {
   this->score =+ value;
 }
-
 
 bool	SolarFox::play(ILibraryViewController *libraryInstance,
 			       size_t &currentGame, size_t & currentLibrary,
