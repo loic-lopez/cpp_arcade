@@ -25,6 +25,7 @@ namespace		arcade
       ILLEGAL		= 8,		// THE INSTRUCTION WAS ILLEGAL
       PLAY		= 9,		// PLAY A ROUND
       STAND_BY = 10,
+      RESTART = 11,
     };
   enum class		TileType : uint16_t
     {

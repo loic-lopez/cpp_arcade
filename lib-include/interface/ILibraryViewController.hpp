@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. mars 17 15:03:52 2017 Loïc Lopez
-// Last update Tue Mar 28 17:46:38 2017 Matthias Prost
+// Last update Thu Mar 30 16:17:30 2017 Matthias Prost
 */
 
 #ifndef ILIBRAYVIEWCONTROLLER_HPP__
@@ -25,6 +25,8 @@ class	ILibraryViewController
   virtual void displayScore(std::string const &, std::string const &, int) = 0;
   virtual void endScreen() = 0;
   virtual void refresh() = 0;
+  virtual void clear() = 0;
+  virtual void gameOver(int) = 0;
   virtual std::string	getLibraryName() = 0;
 
   virtual ~ILibraryViewController() {}

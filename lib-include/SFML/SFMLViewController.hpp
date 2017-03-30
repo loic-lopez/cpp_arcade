@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Tue Mar 28 17:49:12 2017 Matthias Prost
+// Last update Thu Mar 30 16:17:24 2017 Matthias Prost
 //
 
 #ifndef SFMLCONTROLLER_HPP__
@@ -41,6 +41,8 @@ private:
   virtual void displayScore(std::string const &, std::string const &, int);
   virtual void endScreen();
   virtual void refresh();
+  virtual void clear();
+  virtual void gameOver(int);
   virtual std::string	getLibraryName();
 };
 

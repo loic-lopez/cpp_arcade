@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:01:26 2017 Loïc Lopez
-// Last update Tue Mar 28 17:55:25 2017 Matthias Prost
+// Last update Thu Mar 30 15:53:50 2017 Matthias Prost
 */
 
 #ifndef SNAKE_HPP__

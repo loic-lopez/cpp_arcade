@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Tue Mar 28 17:48:26 2017 Matthias Prost
+// Last update Thu Mar 30 16:22:25 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -59,6 +59,8 @@ bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeComm
     *commandType = arcade::CommandType::GO_LEFT;
   else if (key == KEY_RIGHT)
     *commandType = arcade::CommandType::GO_RIGHT;
+  else if (key == ' ')
+    *commandType = arcade::CommandType::RESTART;
   return (true);
 }
 
@@ -92,6 +94,22 @@ void  NcursesViewController::refresh()
   NcursesEncap::n_refresh();
 }
 
+void  NcursesViewController::clear()
+{
+  NcursesEncap::n_clear();
+}
+
+void  NcursesViewController::gameOver(int score)
+{
+  NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 10,
+			   this->windowsize_x/ 2 - 4, "GameOver");
+  NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 12,
+   			 this->windowsize_x/ 2 - 4, "Score: ");
+  NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 12,
+  		   this->windowsize_x / 2 + 4, std::to_string(score).c_str());
+  NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 16,
+  		   this->windowsize_x/ 2 - 11, "Press SPACE to restart");
+}
 
 void	NcursesViewController::displayScore(std::string const &Game, std::string const &libraryName, int score)
 {

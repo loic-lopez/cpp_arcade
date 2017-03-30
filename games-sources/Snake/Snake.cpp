@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Tue Mar 28 18:02:53 2017 Matthias Prost
+// Last update Thu Mar 30 16:15:35 2017 Matthias Prost
 //
 
 #include <array>
@@ -202,10 +202,17 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
       eatApple(this, this->Map, &this->_snake, this->popApple, this->applePosition);
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x, this->_snake.at(0).y, this->_snake))
 	{
-	  libraryInstance->endScreen();
-	  std::cout << "YOU LOOSE BITCH" << std::endl;
-	  this->Map->type = arcade::CommandType::STAND_BY;
-	  return (false);
+    while (libraryInstance->getKey(&this->Map->type, action, exit))
+      {
+        libraryInstance->clear();
+        libraryInstance->gameOver(this->score);
+        if (this->Map->type == arcade::CommandType::RESTART)
+          return false;
+      }
+      libraryInstance->clear();
+      libraryInstance->endScreen();
+      this->Map->type = arcade::CommandType::STAND_BY;
+      return false;
 	}
       if (this->Map->type != arcade::CommandType::PLAY)
 	{

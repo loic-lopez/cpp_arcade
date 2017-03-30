@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Tue Mar 28 17:49:53 2017 Matthias Prost
+// Last update Thu Mar 30 16:48:23 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -59,6 +59,8 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
             *commandType = arcade::CommandType::GO_LEFT;
           else if (event.key.code == sf::Keyboard::Right)
             *commandType = arcade::CommandType::GO_RIGHT;
+          else if (event.key.code == sf::Keyboard::Space)
+            *commandType = arcade::CommandType::RESTART;
         }
     }
   return (true);
@@ -142,4 +144,43 @@ void  SFMLViewController::refresh()
 std::string	SFMLViewController::getLibraryName()
 {
   return ("SFML");
+}
+
+void  SFMLViewController::gameOver(int score)
+{
+  sf::Font      font;
+  sf::Text      _game_over;
+  sf::Text      _key;
+  sf::Text      _score;
+
+  if (!font.loadFromFile("lib-sources/SFML/Fonts/Roboto-Regular.ttf"))
+      std::cout << "ERROR: cannot found Roboto-Regular.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
+
+  _game_over.setFont(font);
+  _game_over.setString("Game Over");
+  _game_over.setCharacterSize(24);
+  _game_over.setFillColor(sf::Color::Red);
+  _game_over.setPosition(((this->windowsize_x) - (4 * 24)) / 2, 24 + (this->windowsize_y / 9));
+
+  _key.setFont(font);
+  _key.setString("Press Space to restart");
+  _key.setCharacterSize(24);
+  _key.setFillColor(sf::Color::White);
+  _key.setPosition(((this->windowsize_x) - (9 * 24)) / 2, 24 + (this->windowsize_y / 5));
+
+  _score.setFont(font);
+  _score.setString("Score: " + std::to_string(score));
+  _score.setCharacterSize(24);
+  _score.setFillColor(sf::Color::White);
+  _score.setPosition(((this->windowsize_x) - ((2 + std::to_string(score).length() - 1) * 24)) / 2, 24 + (this->windowsize_y / 7));
+
+  this->window.draw(_game_over);
+  this->window.draw(_key);
+  this->window.draw(_score);
+}
+
+void SFMLViewController::clear()
+{
+  this->window.display();
+  this->window.clear(sf::Color::Black);
 }

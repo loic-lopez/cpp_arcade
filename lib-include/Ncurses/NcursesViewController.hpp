@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Tue Mar 28 17:46:30 2017 Matthias Prost
+// Last update Thu Mar 30 16:17:09 2017 Matthias Prost
 //
 
 #ifndef NCURSESVIEWCONTROLLER_HPP__
@@ -34,6 +34,8 @@ class NcursesViewController : public ILibraryViewController
   virtual void displayScore(std::string const &, std::string const &, int);
   virtual void endScreen();
   virtual void refresh();
+  virtual void gameOver(int);
+  virtual void clear();
   virtual std::string	getLibraryName();
 };
 

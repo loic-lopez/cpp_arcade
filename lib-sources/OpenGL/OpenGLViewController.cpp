@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Tue Mar 28 17:49:34 2017 Matthias Prost
+// Last update Thu Mar 30 16:17:51 2017 Matthias Prost
 //
 
 #include <iostream>
@@ -275,4 +275,14 @@ void	OpenGLViewController::drawSquare(int x, int y, Color const &color)
 std::string	OpenGLViewController::getLibraryName()
 {
   return ("OpenGL");
+}
+
+void  OpenGLViewController::gameOver(int score)
+{
+  (void)score;
+}
+
+void  OpenGLViewController::clear()
+{
+
 }
