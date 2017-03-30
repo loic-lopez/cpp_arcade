@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Thu Mar 30 17:47:29 2017 Matthias Prost
+// Last update Thu Mar 30 19:30:21 2017 Matthias Prost
 //
 
 #include <array>
@@ -24,6 +24,19 @@ Snake &Snake::operator=(Snake const &snake)
   return (*this);
 }
 
+static void   initSnake(std::vector<arcade::Position> *snake, int height, int width)
+{
+  arcade::Position	pos;
+
+  pos.x = (uint16_t) (width / 2);
+  pos.y = (uint16_t) (height / 2);
+  for (int i = 0; i < 4; i++)
+    {
+      snake->push_back(pos);
+      pos.x += 1;
+    }
+}
+
 Snake::~Snake()
 {
 }
@@ -38,7 +51,6 @@ Snake::Snake(Snake const &snake)
 Snake::Snake(std::string const &libname)
 {
   this->libraryName =  libname;
-  arcade::Position	pos;
 
   if ((this->Map = (arcade::GetMap *)malloc(sizeof(arcade::GetMap) + (35 * 35 * sizeof(arcade::TileType))))== NULL)
     {
@@ -50,13 +62,7 @@ Snake::Snake(std::string const &libname)
   this->Map->type = arcade::CommandType::PLAY;
   for (int i = 0; i < this->Map->height * this->Map->width; ++i)
       this->Map->tile[i] = arcade::TileType::EMPTY;
-  pos.x = (uint16_t) (this->Map->width / 2);
-  pos.y = (uint16_t) (this->Map->height / 2);
-  for (int i = 0; i < 4; i++)
-    {
-      this->_snake.push_back(pos);
-      pos.x += 1;
-    }
+  initSnake(&this->_snake, this->Map->height, this->Map->width);
   this->applePosition = -1;
   this->popApple = false;
   this->last_key = SaveCommand::LEFT;
@@ -193,6 +199,7 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
   this->Map->type = arcade::CommandType::PLAY;
+  bool  gameover = false;
 
   libraryInstance->initScreen(this->getGameName());
   this->setMap();
@@ -202,16 +209,8 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
       eatApple(this, this->Map, &this->_snake, this->popApple, this->applePosition);
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x, this->_snake.at(0).y, this->_snake))
 	{
-    while (libraryInstance->getKey(&this->Map->type, action, exit))
-      {
-        libraryInstance->clear();
-        libraryInstance->gameOver(this->score);
-        if (this->Map->type == arcade::CommandType::RESTART)
-          return false;
-      }
-      libraryInstance->clear();
-      libraryInstance->endScreen();
-      this->Map->type = arcade::CommandType::STAND_BY;
+    gameover = true;
+    break;
 	}
       if (this->Map->type != arcade::CommandType::PLAY)
 	{
@@ -270,6 +269,22 @@ bool	Snake::play(ILibraryViewController *libraryInstance,
 
       libraryInstance->displayScore(this->getGameName(), libraryInstance->getLibraryName(), this->score);
       libraryInstance->refresh();
+    }
+  if (gameover == true)
+  {
+    while (libraryInstance->getKey(&this->Map->type, action, exit))
+      {
+        libraryInstance->clear();
+        libraryInstance->gameOver(this->score);
+        if (this->Map->type == arcade::CommandType::RESTART)
+        {
+          this->_snake.clear();
+          initSnake(&this->_snake, this->Map->height, this->Map->width);
+          this->score = 0;
+          break;
+        }
+      }
+      this->Map->type = arcade::CommandType::STAND_BY;
     }
   libraryInstance->endScreen();
   return (true);
