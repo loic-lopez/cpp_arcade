@@ -34,10 +34,10 @@ enum class	ChangeCommandType : int
 
 enum class  SaveCommand : int
 {
-  UP = 0,
-  DOWN = 1,
-  LEFT = 2,
-  RIGHT = 3,
+  UP = 2,
+  DOWN = 3,
+  LEFT = 4,
+  RIGHT = 5,
 };
 
 #endif
