@@ -8,6 +8,7 @@
 // Last update Fri Mar 31 16:31:22 2017 Matthias Prost
 //
 
+#include "../games-include/Snake/Snake.hpp"
 #include "../include/Protocol.hh"
 
 extern "C" void Play(void);

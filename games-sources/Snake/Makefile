@@ -9,7 +9,7 @@
 ##
 
 
-Snake	=	../../games/snake.so
+Snake	=	../../games/libarcade_snake.so
 
 CXXFLAGS	= -Wall -Wextra -Werror -I../../games-include/Snake -fPIC -shared
 

@@ -9,7 +9,7 @@
 ##
 
 
-SolarFox	=	../../games/solarfox.so
+SolarFox	=	../../games/libarcade_solarfox.so
 
 
 ################# LIB SRCS ################
