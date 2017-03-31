@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:01:26 2017 Loïc Lopez
-// Last update Thu Mar 30 15:53:50 2017 Matthias Prost
+// Last update Fri Mar 31 15:53:50 2017 Matthias Prost
 */
 
 #ifndef SNAKE_HPP__
@@ -16,6 +16,8 @@
 #include "../interface/IGameModel.hpp"
 
 extern "C" IGameModel *createInstanceGame(std::string const &);
+extern "C" void Play(void);
+
 
 class	Snake : public IGameModel
 {

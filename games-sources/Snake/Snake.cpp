@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Thu Mar 30 19:30:21 2017 Matthias Prost
+// Last update Fri Mar 31 16:43:19 2017 Matthias Prost
 //
 
 #include <array>
@@ -16,6 +16,12 @@ extern "C" IGameModel *createInstanceGame(std::string const &libname)
 {
   return (new Snake(libname));
 }
+
+extern "C" void Play(void)
+{
+
+}
+
 
 Snake &Snake::operator=(Snake const &snake)
 {
@@ -65,7 +71,6 @@ Snake::Snake(std::string const &libname)
   initSnake(&this->_snake, this->Map->height, this->Map->width);
   this->applePosition = -1;
   this->popApple = false;
-  this->last_key = SaveCommand::LEFT;
   this->score = 0;
   this->alreadyLaunch = false;
 }
@@ -200,7 +205,7 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
   this->Map->type = arcade::CommandType::PLAY;
-
+  this->last_key = SaveCommand::LEFT;
   if (!this->alreadyLaunch)
     {
       libraryInstance->initScreen(this->getGameName());

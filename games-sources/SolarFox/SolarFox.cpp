@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Thu Mar 30 19:44:03 2017 Matthias Prost
+// Last update Fri Mar 31 15:50:39 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -54,6 +54,11 @@ void drawMap(ILibraryViewController *libraryInstance)
 
 void SolarFox::setMap()
 {
+}
+
+void Play()
+{
+
 }
 
 int         SolarFox::getScore()
