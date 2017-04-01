@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  sam. avr. 01 15:05:06 2017 Loïc Lopez
-** Last update sam. avr. 01 15:05:06 2017 Loïc Lopez
+** Last update Sat Apr  1 19:43:04 2017 Matthias Prost
 */
 
 #include "Snake.hpp"

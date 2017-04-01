@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:02:17 2017 Loïc Lopez
-** Last update Fri Mar 31 15:53:40 2017 Matthias Prost
+** Last update Sat Apr  1 23:43:43 2017 Matthias Prost
 */
 
 #ifndef SolarFox_HPP__
@@ -13,8 +13,9 @@
 
 #include <iostream>
 #include "../interface/IGameModel.hpp"
+#include "../../include/Cencapsulation.hpp"
 
-extern "C" IGameModel *createInstanceGame(std::string const &libname);
+extern "C" IGameModel *createInstanceGame(std::string const &);
 
 class SolarFox : public IGameModel
 {
@@ -23,6 +24,7 @@ class SolarFox : public IGameModel
   int   pos_x;
   int   pos_y;
   int   score;
+  arcade::GetMap			*Map;
   virtual void  wait_second(int);
 
  public:

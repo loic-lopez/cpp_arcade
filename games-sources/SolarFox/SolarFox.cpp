@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Fri Mar 31 15:50:39 2017 Matthias Prost
+// Last update Sat Apr  1 23:45:29 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -18,6 +18,13 @@ extern "C" IGameModel *createInstanceGame(std::string const &libname)
 SolarFox::SolarFox(std::string const &libname)
 {
   this->libraryName = libname;
+  if ((this->Map = (arcade::GetMap *)malloc(sizeof(arcade::GetMap) + (35 * 35 * sizeof(arcade::TileType))))== NULL)
+    {
+      std::cerr << "Error: can't allocate memory to create map" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+    this->Map->height = 50;
+    this->Map->width = 50;
 }
 
 SolarFox::SolarFox(SolarFox const &SolarFox)
@@ -47,9 +54,9 @@ void  SolarFox::wait_second(int toSleep)
     ticks2 = clock();
 }
 
-void drawMap(ILibraryViewController *libraryInstance)
+void SolarFox::drawMap(ILibraryViewController *libraryInstance)
 {
-  (void)libraryInstance;
+  libraryInstance->drawSquare(1, 1, Color::RED);
 }
 
 void SolarFox::setMap()
@@ -75,7 +82,13 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 			       size_t &currentGame, size_t & currentLibrary,
 			       bool &exit)
 {
+  ChangeCommandType action = ChangeCommandType::STANDBY;
+  libraryInstance->initScreen(this->getGameName());
+  while (libraryInstance->getKey(&this->Map->type, action, exit))
+  {
 
+  }
+  libraryInstance->endScreen();
   (void)libraryInstance;
   (void)currentGame;
   (void)currentLibrary;
@@ -86,4 +99,9 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 std::string	SolarFox::getGameName()
 {
   return ("SolarFox");
+}
+
+void  SolarFox::playProtocol()
+{
+
 }
