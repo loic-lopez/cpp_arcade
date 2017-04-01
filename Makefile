@@ -9,21 +9,23 @@
 ##
 
 all:
-	@make --no-print-directory -C sources
 	@make --no-print-directory -C lib-sources
 	@make --no-print-directory -C games-sources
+	@make --no-print-directory -C sources
+
 
 clean:
-	@make clean  --no-print-directory -C sources
 	@make clean  --no-print-directory -C lib-sources
 	@make clean  --no-print-directory -C games-sources
+	@make clean  --no-print-directory -C sources
 
 fclean:
-	@make fclean  --no-print-directory -C sources
 	@make fclean  --no-print-directory -C lib-sources
 	@make fclean  --no-print-directory -C games-sources
+	@make fclean  --no-print-directory -C sources
 
 re:
-	@make re  --no-print-directory -C sources
 	@make re  --no-print-directory -C lib-sources
 	@make re  --no-print-directory -C games-sources
+	@make re  --no-print-directory -C sources
+

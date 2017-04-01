@@ -14,26 +14,30 @@
 #include <iostream>
 #include <vector>
 #include "../interface/IGameModel.hpp"
+#include "../../include/Cencapsulation.hpp"
 
-extern "C" IGameModel *createInstanceGame(std::string const &);
+extern "C" IGameModel *createInstanceGame(std::string const &, bool const &);
 extern "C" void Play(void);
 
 
 class	Snake : public IGameModel
 {
  private:
-  bool			alreadyLaunch;
+  bool					alreadyLaunch;
   std::string				libraryName;
   arcade::GetMap			*Map;
-  std::vector<arcade::Position>		_snake;
-  int 					      applePosition;
-  bool					      popApple;
+  std::vector<arcade::Position>	_snake;
+  int 					applePosition;
+  bool					popApple;
   virtual void				wait_second(int);
-  SaveCommand         last_key;
-  int                 score;
+  SaveCommand         			last_key;
+  int                 			score;
+  bool 					display;
+  arcade::WhereAmI			whereAmI;
+
 
  public:
-  Snake(std::string const &);
+  Snake(std::string const &libname, bool const &display);
   Snake(Snake const &);
   Snake &operator=(Snake const &);
   virtual ~Snake();

@@ -12,16 +12,10 @@
 #include <random>
 #include "Snake.hpp"
 
-extern "C" IGameModel *createInstanceGame(std::string const &libname)
+extern "C" IGameModel *createInstanceGame(std::string const &libname, bool const &display)
 {
-  return (new Snake(libname));
+  return (new Snake(libname, display));
 }
-
-extern "C" void Play(void)
-{
-
-}
-
 
 Snake &Snake::operator=(Snake const &snake)
 {
@@ -54,10 +48,10 @@ Snake::Snake(Snake const &snake)
   this->score = 0;
 }
 
-Snake::Snake(std::string const &libname)
+Snake::Snake(std::string const &libname, bool const &display)
 {
   this->libraryName =  libname;
-
+  this->display = display;
   if ((this->Map = (arcade::GetMap *)malloc(sizeof(arcade::GetMap) + (35 * 35 * sizeof(arcade::TileType))))== NULL)
     {
       std::cerr << "Error: can't allocate memory to create map" << std::endl;
@@ -117,25 +111,28 @@ void			Snake::drawMap(ILibraryViewController *libraryInstance)
 
   i = -1;
   setApple(this->Map, this->popApple, this->applePosition);
-  while (++i < lenght)
+  if (this->display)
     {
-      if (i % this->Map->width == 0 || i / this->Map->width == 0
-	  || i / this->Map->width == this->Map->width - 1
-	  || i % this->Map->width  == this->Map->width - 1)
-	libraryInstance->drawSquare(i % this->Map->width,
-				    i / this->Map->width, Color::CYAN);
-      else
-	libraryInstance->drawSquare(i % this->Map->width,
-				    i / this->Map->width, Color::BLACK);
+      while (++i < lenght)
+	{
+	  if (i % this->Map->width == 0 || i / this->Map->width == 0
+	      || i / this->Map->width == this->Map->width - 1
+	      || i % this->Map->width  == this->Map->width - 1)
+	    libraryInstance->drawSquare(i % this->Map->width,
+					i / this->Map->width, Color::CYAN);
+	  else
+	    libraryInstance->drawSquare(i % this->Map->width,
+					i / this->Map->width, Color::BLACK);
+	}
+      libraryInstance->drawSquare(this->_snake.at(0).x,
+				  this->_snake.at(0).y, Color::BLUE);
+      for (size_t j = 1; j < this->_snake.size(); j++)
+	libraryInstance->drawSquare(this->_snake.at(j).x,
+				    this->_snake.at(j).y, Color::RED);
+      if (this->applePosition > -1)
+	libraryInstance->drawSquare(this->applePosition % this->Map->width,
+				    this->applePosition / this->Map->width, Color::GREEN);
     }
-  libraryInstance->drawSquare(this->_snake.at(0).x,
-			      this->_snake.at(0).y, Color::BLUE);
-  for (size_t j = 1; j < this->_snake.size(); j++)
-    libraryInstance->drawSquare(this->_snake.at(j).x,
-				this->_snake.at(j).y, Color::RED);
-  if (this->applePosition > -1)
-    libraryInstance->drawSquare(this->applePosition % this->Map->width,
-				this->applePosition / this->Map->width, Color::GREEN);
   if (libraryInstance->getLibraryName() == "Ncurses")
     this->wait_second(75);
   else if (libraryInstance->getLibraryName() == "SFML")
@@ -216,7 +213,8 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
   this->last_key = SaveCommand::LEFT;
   if (!this->alreadyLaunch)
     {
-      libraryInstance->initScreen(this->getGameName());
+      if (this->display)
+      	libraryInstance->initScreen(this->getGameName());
       this->setMap();
       this->alreadyLaunch = true;
     }
@@ -229,7 +227,8 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x,
 			      this->_snake.at(0).y, this->_snake))
 	{
-	  libraryInstance->clear();
+	  if (this->display)
+	    libraryInstance->clear();
 	  this->_snake.clear();
 	  initSnake(&this->_snake, this->Map->height, this->Map->width);
 	  this->Map->type = arcade::CommandType::PLAY;
@@ -245,8 +244,11 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 		}
 	      else if (action == ChangeCommandType::NEXT_LIBRARY) break;
 	      else if (action == ChangeCommandType::PREV_LIBRARY) break;
-	      libraryInstance->gameOver(this->score);
-	      libraryInstance->refresh();
+	      if (this->display)
+		{
+		  libraryInstance->gameOver(this->score);
+		  libraryInstance->refresh();
+		}
 	    }
 	  if (exit) break;
 	}
@@ -312,11 +314,15 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 	  currentGame++;
 	  break;
 	}
-      libraryInstance->displayScore(this->getGameName(),
-				    libraryInstance->getLibraryName(), this->score);
-      libraryInstance->refresh();
+      if (this->display)
+	{
+	  libraryInstance->displayScore(this->getGameName(),
+					libraryInstance->getLibraryName(), this->score);
+	  libraryInstance->refresh();
+	}
     }
-  libraryInstance->endScreen();
+  if (this->display)
+    libraryInstance->endScreen();
   return (action);
 }
 

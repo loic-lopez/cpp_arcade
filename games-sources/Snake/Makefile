@@ -11,12 +11,15 @@
 
 Snake	=	../../games/libarcade_snake.so
 
-CXXFLAGS	= -Wall -Wextra -Werror -I../../games-include/Snake -fPIC -shared
+CXXFLAGS	= -Wall -Wextra -Werror -I../../games-include/Snake -fPIC -shared \
+		-I../../include  -ldl
 
 
 ################# LIB SRCS ################
 
-Snake_SRCS	=	Snake.cpp
+Snake_SRCS	=	Snake.cpp \
+			../../sources/Cencapsulation.cpp \
+			SnakeProtocol.cpp
 
 ###########################################
 
