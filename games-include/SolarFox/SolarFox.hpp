@@ -14,7 +14,7 @@
 #include <iostream>
 #include "../interface/IGameModel.hpp"
 
-extern "C" IGameModel *createInstanceGame(std::string const &libname, bool const &display);
+extern "C" IGameModel *createInstanceGame(std::string const &libname);
 
 class SolarFox : public IGameModel
 {
@@ -23,11 +23,10 @@ class SolarFox : public IGameModel
   int   pos_x;
   int   pos_y;
   int   score;
-  bool	display;
   virtual void  wait_second(int);
 
  public:
-  SolarFox(std::string const &libname, bool const &display);
+  SolarFox(std::string const &libname);
   SolarFox(SolarFox const &);
   SolarFox &operator=(SolarFox const &);
   virtual ~SolarFox();
@@ -39,6 +38,7 @@ class SolarFox : public IGameModel
   virtual int  getScore();
   virtual void setScore(int);
   virtual std::string getGameName();
+  virtual void  playProtocol(void);
 };
 
 #endif /* SolarFox_HPP__ */

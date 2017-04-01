@@ -59,7 +59,7 @@ void	GameCore::GameLauncher()
 	  || action == ChangeCommandType::PREV_GAME)
 	{
 	  play_function = this->getcreateInstanceGameFunction(game);
-	  GameInstance = play_function(Libs.at(currentLib), true);
+	  GameInstance = play_function(Libs.at(currentLib));
 	}
       if (action == ChangeCommandType::STANDBY
 	  || action == ChangeCommandType::NEXT_LIBRARY

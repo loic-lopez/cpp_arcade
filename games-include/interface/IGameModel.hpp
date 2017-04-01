@@ -29,6 +29,7 @@ private:
   virtual int  getScore() = 0;
   virtual void setScore(int) = 0;
   virtual std::string getGameName() = 0;
+  virtual void  playProtocol(void) = 0;
 
   virtual ~IGameModel() {}
 };

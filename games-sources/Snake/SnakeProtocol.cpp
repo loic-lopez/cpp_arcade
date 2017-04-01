@@ -10,7 +10,30 @@
 
 #include "Snake.hpp"
 
-typedef IGameModel *(*play_function_type)(std::string const &, bool const &);
+typedef IGameModel *(*play_function_type)(std::string const &);
+
+
+#include <unistd.h>
+#include <algorithm>
+
+void	Snake::playProtocol()
+{
+  std::string 	line;
+  size_t 	i = 0;
+
+  this->setMap();
+  while (true)
+    {
+      std::cin >> line;
+      arcade::CommandType commandType = (arcade::CommandType)static_cast<unsigned>(line[i]);
+
+      if (i == line.length() - 1)
+	  break;
+      if (commandType == arcade::CommandType::GET_MAP)
+	  write(1, this->Map->tile, sizeof(this->Map + this->Map->height * this->Map->width));
+      i++;
+    }
+}
 
 extern "C" void Play(void)
 {
@@ -32,12 +55,6 @@ extern "C" void Play(void)
       exit(EXIT_FAILURE);
     }
   std::string line;
-  gameModel = play("Ncurses", false);
-  (void)gameModel;
-  while (true)
-    {
-      std::cin >> line;
-      std::cout << line;
-      break;
-    }
+  gameModel = play("");
+  gameModel->playProtocol();
 }

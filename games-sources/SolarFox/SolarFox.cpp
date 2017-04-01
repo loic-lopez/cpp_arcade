@@ -10,15 +10,14 @@
 
 #include "SolarFox.hpp"
 
-extern "C" IGameModel *createInstanceGame(std::string const &libname, bool const &display)
+extern "C" IGameModel *createInstanceGame(std::string const &libname)
 {
-  return (new SolarFox(libname, display));
+  return (new SolarFox(libname));
 }
 
-SolarFox::SolarFox(std::string const &libname, bool const &display)
+SolarFox::SolarFox(std::string const &libname)
 {
   this->libraryName = libname;
-  this->display = display;
 }
 
 SolarFox::SolarFox(SolarFox const &SolarFox)

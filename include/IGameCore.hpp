@@ -16,7 +16,7 @@
 #include "IGameModel.hpp"
 #include "ILibraryViewController.hpp"
 
-typedef IGameModel *(*play_function_type)(std::string const &, bool const &);
+typedef IGameModel *(*play_function_type)(std::string const &);
 typedef ILibraryViewController *(*load_library_function_type)(void);
 
 class IGameCore

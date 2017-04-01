@@ -16,7 +16,7 @@
 #include "../interface/IGameModel.hpp"
 #include "../../include/Cencapsulation.hpp"
 
-extern "C" IGameModel *createInstanceGame(std::string const &, bool const &);
+extern "C" IGameModel *createInstanceGame(std::string const &);
 extern "C" void Play(void);
 
 
@@ -32,12 +32,11 @@ class	Snake : public IGameModel
   virtual void				wait_second(int);
   SaveCommand         			last_key;
   int                 			score;
-  bool 					display;
   arcade::WhereAmI			whereAmI;
 
 
  public:
-  Snake(std::string const &libname, bool const &display);
+  Snake(std::string const &libname);
   Snake(Snake const &);
   Snake &operator=(Snake const &);
   virtual ~Snake();
@@ -48,6 +47,7 @@ class	Snake : public IGameModel
   virtual int  getScore();
   virtual void setScore(int);
   virtual std::string getGameName();
+  virtual void  playProtocol(void);
 };
 
 #endif /* SNAKE_HPP__ */
