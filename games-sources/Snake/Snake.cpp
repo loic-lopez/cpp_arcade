@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Fri Mar 31 16:43:19 2017 Matthias Prost
+// Last update Sat Apr  1 23:53:08 2017 Matthias Prost
 //
 
 #include <array>
@@ -214,7 +214,7 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
   while (libraryInstance->getKey(&this->Map->type, action, exit))
     {
       if (this->Map->type == arcade::CommandType::RESTART)
-	this->Map->type = (arcade::CommandType)this->last_key;
+	     this->Map->type = (arcade::CommandType)this->last_key;
       this->drawMap(libraryInstance);
       eatApple(this, this->Map, &this->_snake, this->popApple, this->applePosition);
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x,

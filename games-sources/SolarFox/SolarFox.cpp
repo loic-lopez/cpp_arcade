@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Sat Apr  1 23:45:29 2017 Matthias Prost
+// Last update Sun Apr  2 00:48:49 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -18,18 +18,22 @@ extern "C" IGameModel *createInstanceGame(std::string const &libname)
 SolarFox::SolarFox(std::string const &libname)
 {
   this->libraryName = libname;
-  if ((this->Map = (arcade::GetMap *)malloc(sizeof(arcade::GetMap) + (35 * 35 * sizeof(arcade::TileType))))== NULL)
+  if ((this->Map = (arcade::GetMap *)malloc(sizeof(arcade::GetMap) + (45 * 90 * sizeof(arcade::TileType))))== NULL)
     {
       std::cerr << "Error: can't allocate memory to create map" << std::endl;
       exit(EXIT_FAILURE);
     }
-    this->Map->height = 50;
-    this->Map->width = 50;
+  this->Map->height = 45;
+  this->Map->width = 90;
+  for (int i = 0; i < this->Map->height * this->Map->width; i++)
+      this->Map->tile[i] = arcade::TileType::EMPTY;
+  this->alreadyLaunch = false;
 }
 
 SolarFox::SolarFox(SolarFox const &SolarFox)
 {
   this->libraryName = SolarFox.libraryName;
+  this->score = 0;
 }
 
 SolarFox &SolarFox::operator=(SolarFox const &SolarFox)
@@ -50,17 +54,47 @@ void  SolarFox::wait_second(int toSleep)
 
   ticks1 = clock();
   ticks2 = ticks1;
-  while ((ticks2 / CLOCKS_PER_SEC - ticks1 / CLOCKS_PER_SEC) < toSleep)
+  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1
+					     / (CLOCKS_PER_SEC / 1000)) < toSleep)
     ticks2 = clock();
 }
 
 void SolarFox::drawMap(ILibraryViewController *libraryInstance)
 {
-  libraryInstance->drawSquare(1, 1, Color::RED);
+  int   i;
+  int   size = this->Map->height * this->Map->width;
+
+  i = -1;
+  while (++i < size)
+    {
+      if (this->Map->tile[i] == arcade::TileType::BLOCK)
+	       libraryInstance->drawSquare(i % this->Map->width - 28,
+           i / this->Map->width, Color::CYAN);
+      else
+	       libraryInstance->drawSquare(i % this->Map->width - 28,
+           i / this->Map->width, Color::BLACK);
+    }
+  if (libraryInstance->getLibraryName() == "Ncurses")
+    this->wait_second(75);
+  else if (libraryInstance->getLibraryName() == "SFML")
+    this->wait_second(67);
 }
 
 void SolarFox::setMap()
 {
+  int   			i;
+  int 			size = this->Map->width * this->Map->height;
+
+  i = -1;
+  while (++i < size)
+    {
+      if (i % this->Map->width == 0 || i % this->Map->width == 1
+    || i / this->Map->width == 0
+    || i % this->Map->width == this->Map->width - 1
+    || i % this->Map->width == this->Map->width - 2
+    || i / this->Map->width == this->Map->height - 1)
+      this->Map->tile[i] = arcade::TileType::BLOCK;
+    }
 }
 
 void Play()
@@ -83,17 +117,52 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 			       bool &exit)
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
-  libraryInstance->initScreen(this->getGameName());
+  if (!this->alreadyLaunch)
+    {
+      libraryInstance->initScreen(this->getGameName());
+      this->setMap();
+      this->alreadyLaunch = true;
+    }
   while (libraryInstance->getKey(&this->Map->type, action, exit))
   {
-
+    this->drawMap(libraryInstance);
+    if (this->Map->type == arcade::CommandType::RESTART)
+      {
+        this->alreadyLaunch = true;
+        this->score = 0;
+        action = ChangeCommandType::RESTART;
+        return (action);
+      }
+    if (action == ChangeCommandType::NEXT_LIBRARY)
+      {
+        currentLibrary++;
+        this->alreadyLaunch = false;
+        break;
+      }
+    else if (action == ChangeCommandType::PREV_LIBRARY)
+      {
+        currentLibrary--;
+        this->alreadyLaunch = false;
+        break;
+      }
+    else if (action == ChangeCommandType::PREV_GAME)
+      {
+        currentGame--;
+        break;
+      }
+    else if (action == ChangeCommandType::NEXT_GAME)
+      {
+        currentGame++;
+        break;
+      }
+    libraryInstance->refresh();
   }
   libraryInstance->endScreen();
   (void)libraryInstance;
   (void)currentGame;
   (void)currentLibrary;
   (void)exit;
-  return (ChangeCommandType::STANDBY);
+  return (action);
 }
 
 std::string	SolarFox::getGameName()

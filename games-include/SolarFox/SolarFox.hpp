@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:02:17 2017 Loïc Lopez
-** Last update Sat Apr  1 23:43:43 2017 Matthias Prost
+** Last update Sat Apr  1 23:50:14 2017 Matthias Prost
 */
 
 #ifndef SolarFox_HPP__
@@ -20,6 +20,7 @@ extern "C" IGameModel *createInstanceGame(std::string const &);
 class SolarFox : public IGameModel
 {
  private:
+   bool					alreadyLaunch;
   std::string	libraryName;
   int   pos_x;
   int   pos_y;
