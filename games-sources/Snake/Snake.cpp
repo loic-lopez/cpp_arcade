@@ -122,15 +122,20 @@ void			Snake::drawMap(ILibraryViewController *libraryInstance)
       if (i % this->Map->width == 0 || i / this->Map->width == 0
 	  || i / this->Map->width == this->Map->width - 1
 	  || i % this->Map->width  == this->Map->width - 1)
-	libraryInstance->drawSquare(i % this->Map->width, i / this->Map->width, Color::CYAN);
+	libraryInstance->drawSquare(i % this->Map->width,
+				    i / this->Map->width, Color::CYAN);
       else
-	libraryInstance->drawSquare(i % this->Map->width, i / this->Map->width, Color::BLACK);
+	libraryInstance->drawSquare(i % this->Map->width,
+				    i / this->Map->width, Color::BLACK);
     }
-  libraryInstance->drawSquare(this->_snake.at(0).x, this->_snake.at(0).y, Color::BLUE);
+  libraryInstance->drawSquare(this->_snake.at(0).x,
+			      this->_snake.at(0).y, Color::BLUE);
   for (size_t j = 1; j < this->_snake.size(); j++)
-    libraryInstance->drawSquare(this->_snake.at(j).x, this->_snake.at(j).y, Color::RED);
+    libraryInstance->drawSquare(this->_snake.at(j).x,
+				this->_snake.at(j).y, Color::RED);
   if (this->applePosition > -1)
-    libraryInstance->drawSquare(this->applePosition % this->Map->width, this->applePosition / this->Map->width, Color::GREEN);
+    libraryInstance->drawSquare(this->applePosition % this->Map->width,
+				this->applePosition / this->Map->width, Color::GREEN);
   if (libraryInstance->getLibraryName() == "Ncurses")
     this->wait_second(75);
   else if (libraryInstance->getLibraryName() == "SFML")
@@ -143,7 +148,8 @@ void  Snake::wait_second(int toSleep)
 
   ticks1 = clock();
   ticks2 = ticks1;
-  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1 / (CLOCKS_PER_SEC / 1000)) < toSleep)
+  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1
+					     / (CLOCKS_PER_SEC / 1000)) < toSleep)
     ticks2 = clock();
 }
 
@@ -183,7 +189,9 @@ void         Snake::setScore(int value)
   this->score += value;
 }
 
-static	void 	eatApple(IGameModel *game, arcade::GetMap *map, std::vector<arcade::Position> *snake, bool &popApple, int &applePosition)
+static	void 	eatApple(IGameModel *game, arcade::GetMap *map,
+				   std::vector<arcade::Position> *snake,
+				   bool &popApple, int &applePosition)
 {
   if (applePosition == (snake->at(0).x + map->width * snake->at(0).y))
     {
@@ -200,8 +208,8 @@ static	void 	eatApple(IGameModel *game, arcade::GetMap *map, std::vector<arcade:
 }
 
 ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
-			size_t &currentGame, size_t &currentLibrary,
-			bool &exit)
+				     size_t &currentGame, size_t &currentLibrary,
+				     bool &exit)
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
   this->Map->type = arcade::CommandType::PLAY;
@@ -218,7 +226,8 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 	this->Map->type = (arcade::CommandType)this->last_key;
       this->drawMap(libraryInstance);
       eatApple(this, this->Map, &this->_snake, this->popApple, this->applePosition);
-      if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x, this->_snake.at(0).y, this->_snake))
+      if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x,
+			      this->_snake.at(0).y, this->_snake))
 	{
 	  libraryInstance->clear();
 	  this->_snake.clear();
@@ -248,26 +257,34 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 	      this->_snake.at(j).x = this->_snake.at(j - 1).x;
 	      this->_snake.at(j).y = this->_snake.at(j - 1).y;
 	    }
-	  if ((this->Map->type == arcade::CommandType::GO_UP && this->last_key != SaveCommand::DOWN) ||
-	       (this->Map->type == arcade::CommandType::GO_DOWN && this->last_key == SaveCommand::UP))
+	  if ((this->Map->type == arcade::CommandType::GO_UP
+	       && this->last_key != SaveCommand::DOWN) ||
+	       (this->Map->type == arcade::CommandType::GO_DOWN
+		&& this->last_key == SaveCommand::UP))
 	    {
 	      this->_snake.at(0).y--;
 	      this->last_key = SaveCommand::UP;
 	    }
-	  else if ((this->Map->type == arcade::CommandType::GO_DOWN && this->last_key != SaveCommand::UP) ||
-		    (this->Map->type == arcade::CommandType::GO_UP && this->last_key == SaveCommand::DOWN))
+	  else if ((this->Map->type == arcade::CommandType::GO_DOWN
+		    && this->last_key != SaveCommand::UP) ||
+		    (this->Map->type == arcade::CommandType::GO_UP
+		     && this->last_key == SaveCommand::DOWN))
 	    {
 	      this->_snake.at(0).y++;
 	      this->last_key = SaveCommand::DOWN;
 	    }
-	  else if ((this->Map->type == arcade::CommandType::GO_LEFT && this->last_key != SaveCommand::RIGHT) ||
-		    (this->Map->type == arcade::CommandType::GO_RIGHT && this->last_key == SaveCommand::LEFT))
+	  else if ((this->Map->type == arcade::CommandType::GO_LEFT
+		    && this->last_key != SaveCommand::RIGHT) ||
+		    (this->Map->type == arcade::CommandType::GO_RIGHT
+		     && this->last_key == SaveCommand::LEFT))
 	    {
 	      this->_snake.at(0).x--;
 	      this->last_key = SaveCommand::LEFT;
 	    }
-	  else if ((this->Map->type == arcade::CommandType::GO_RIGHT && this->last_key != SaveCommand::LEFT) ||
-		    (this->Map->type == arcade::CommandType::GO_LEFT && this->last_key == SaveCommand::RIGHT))
+	  else if ((this->Map->type == arcade::CommandType::GO_RIGHT
+		    && this->last_key != SaveCommand::LEFT) ||
+		    (this->Map->type == arcade::CommandType::GO_LEFT
+		     && this->last_key == SaveCommand::RIGHT))
 	    {
 	      this->_snake.at(0).x++;
 	      this->last_key = SaveCommand::RIGHT;
@@ -295,7 +312,8 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 	  currentGame++;
 	  break;
 	}
-      libraryInstance->displayScore(this->getGameName(), libraryInstance->getLibraryName(), this->score);
+      libraryInstance->displayScore(this->getGameName(),
+				    libraryInstance->getLibraryName(), this->score);
       libraryInstance->refresh();
     }
   libraryInstance->endScreen();
