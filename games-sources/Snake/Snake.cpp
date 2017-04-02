@@ -242,45 +242,7 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 	  if (exit) break;
 	}
       if (this->Map->type != arcade::CommandType::PLAY)
-	{
-	  for (size_t j = _snake.size() - 1; j > 0 ; j--)
-	    {
-	      this->_snake.at(j).x = this->_snake.at(j - 1).x;
-	      this->_snake.at(j).y = this->_snake.at(j - 1).y;
-	    }
-	  if ((this->Map->type == arcade::CommandType::GO_UP
-	       && this->last_key != SaveCommand::DOWN) ||
-	       (this->Map->type == arcade::CommandType::GO_DOWN
-		&& this->last_key == SaveCommand::UP))
-	    {
-	      this->_snake.at(0).y--;
-	      this->last_key = SaveCommand::UP;
-	    }
-	  else if ((this->Map->type == arcade::CommandType::GO_DOWN
-		    && this->last_key != SaveCommand::UP) ||
-		    (this->Map->type == arcade::CommandType::GO_UP
-		     && this->last_key == SaveCommand::DOWN))
-	    {
-	      this->_snake.at(0).y++;
-	      this->last_key = SaveCommand::DOWN;
-	    }
-	  else if ((this->Map->type == arcade::CommandType::GO_LEFT
-		    && this->last_key != SaveCommand::RIGHT) ||
-		    (this->Map->type == arcade::CommandType::GO_RIGHT
-		     && this->last_key == SaveCommand::LEFT))
-	    {
-	      this->_snake.at(0).x--;
-	      this->last_key = SaveCommand::LEFT;
-	    }
-	  else if ((this->Map->type == arcade::CommandType::GO_RIGHT
-		    && this->last_key != SaveCommand::LEFT) ||
-		    (this->Map->type == arcade::CommandType::GO_LEFT
-		     && this->last_key == SaveCommand::RIGHT))
-	    {
-	      this->_snake.at(0).x++;
-	      this->last_key = SaveCommand::RIGHT;
-	    }
-	}
+	  SnakeAlgorithm(this->Map, &this->_snake, &this->last_key);
       if (action == ChangeCommandType::NEXT_LIBRARY)
         {
 	  currentLibrary++;

@@ -16,21 +16,20 @@ typedef IGameModel *(*play_function_type)(std::string const &);
 
 void	Snake::playProtocol()
 {
-  std::string 	line;
-  //size_t 	i = 0;
-  arcade::CommandType commandType = arcade::CommandType::GET_MAP;
-
+  char buffer;
+  this->Map->type = arcade::CommandType::PLAY;
   this->setMap();
-  while (true)
+  while ((buffer = (char) std::cin.get()) != EOF)
     {
-      //std::cin >> line;
-
+      arcade::CommandType commandType = (arcade::CommandType)static_cast<unsigned>(buffer);
       this->Map->type = commandType;
       if (commandType == arcade::CommandType::GET_MAP)
 	{
-	  write(1, this->Map, sizeof(sizeof(arcade::GetMap)
-				     + (35 * 35 * sizeof(arcade::TileType))));
-	  commandType = arcade::CommandType::WHERE_AM_I;
+	  this->Map->type = commandType;
+	  write(1, &this->Map->type, sizeof(arcade::CommandType));
+	  write(1, &this->Map->width, sizeof(uint16_t));
+	  write(1, &this->Map->height, sizeof(uint16_t));
+	  write(1, &this->Map->tile, sizeof(arcade::TileType) * this->Map->height * this->Map->width);
 	}
       else if (commandType == arcade::CommandType::WHERE_AM_I)
 	{
@@ -38,16 +37,19 @@ void	Snake::playProtocol()
 	   reinterpret_cast<arcade::WhereAmI *>(malloc(sizeof(arcade::WhereAmI)
 						       + this->_snake.size()
 				      * sizeof(arcade::Position)));
+	  this->whereAmI->lenght = (uint16_t) this->_snake.size();
 	  this->whereAmI->type = commandType;
-	  this->whereAmI->lenght = this->_snake.size();
 	  for (size_t j = 0; j < this->_snake.size(); j++)
 	    {
 	      this->whereAmI->position[j].x = this->_snake.at(j).x;
 	      this->whereAmI->position[j].y = this->_snake.at(j).y;
 	    }
-	  write(1, this->whereAmI, sizeof(arcade::Position) * this->_snake.size());
-	  commandType = arcade::CommandType::GET_MAP;
+	  write(1, &this->whereAmI->type, sizeof(arcade::CommandType));
+	  write(1, &this->whereAmI->lenght, sizeof(uint16_t));
+	  write(1, &this->whereAmI->position, sizeof(arcade::Position) * this->whereAmI->lenght);
 	}
+      else
+	SnakeAlgorithm(this->Map, &this->_snake, &this->last_key);
     }
 }
 

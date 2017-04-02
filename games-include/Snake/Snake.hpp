@@ -50,4 +50,6 @@ class	Snake : public IGameModel
   virtual void  playProtocol(void);
 };
 
+void	SnakeAlgorithm(arcade::GetMap *Map, std::vector<arcade::Position> *snake, SaveCommand *last_key);
+
 #endif /* SNAKE_HPP__ */

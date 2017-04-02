@@ -33,7 +33,7 @@ namespace		arcade
       BLOCK		= 1,		// TILE WHERE THE CHARACTER CANNOT GO
       OBSTACLE		= 2,		// FOR CENTIPEDE
       EVIL_DUDE		= 3,		// EVIL DUDE
-      EVIL_SHOOT	= 4,		// EVIL SHOOT
+      EVIL_SHOOT		= 4,		// EVIL SHOOT
       MY_SHOOT		= 5,
       POWERUP		= 6,		// POWERUP
       OTHER		= 7		// ANYTHING THAT WILL BE IGNORED BY THE KOALINETTE
