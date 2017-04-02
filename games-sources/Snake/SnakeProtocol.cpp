@@ -12,26 +12,42 @@
 
 typedef IGameModel *(*play_function_type)(std::string const &);
 
-
 #include <unistd.h>
-#include <algorithm>
 
 void	Snake::playProtocol()
 {
   std::string 	line;
-  size_t 	i = 0;
+  //size_t 	i = 0;
+  arcade::CommandType commandType = arcade::CommandType::GET_MAP;
 
   this->setMap();
   while (true)
     {
-      std::cin >> line;
-      arcade::CommandType commandType = (arcade::CommandType)static_cast<unsigned>(line[i]);
+      //std::cin >> line;
 
-      if (i == line.length() - 1)
-	  break;
+      this->Map->type = commandType;
       if (commandType == arcade::CommandType::GET_MAP)
-	  write(1, this->Map->tile, sizeof(this->Map + this->Map->height * this->Map->width));
-      i++;
+	{
+	  write(1, this->Map, sizeof(sizeof(arcade::GetMap)
+				     + (35 * 35 * sizeof(arcade::TileType))));
+	  commandType = arcade::CommandType::WHERE_AM_I;
+	}
+      else if (commandType == arcade::CommandType::WHERE_AM_I)
+	{
+	  this->whereAmI =
+	   reinterpret_cast<arcade::WhereAmI *>(malloc(sizeof(arcade::WhereAmI)
+						       + this->_snake.size()
+				      * sizeof(arcade::Position)));
+	  this->whereAmI->type = commandType;
+	  this->whereAmI->lenght = this->_snake.size();
+	  for (size_t j = 0; j < this->_snake.size(); j++)
+	    {
+	      this->whereAmI->position[j].x = this->_snake.at(j).x;
+	      this->whereAmI->position[j].y = this->_snake.at(j).y;
+	    }
+	  write(1, this->whereAmI, sizeof(arcade::Position) * this->_snake.size());
+	  commandType = arcade::CommandType::GET_MAP;
+	}
     }
 }
 

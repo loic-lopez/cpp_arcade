@@ -32,7 +32,7 @@ class	Snake : public IGameModel
   virtual void				wait_second(int);
   SaveCommand         			last_key;
   int                 			score;
-  arcade::WhereAmI			whereAmI;
+  arcade::WhereAmI			*whereAmI;
 
 
  public:

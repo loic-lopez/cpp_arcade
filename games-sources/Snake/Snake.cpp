@@ -51,7 +51,8 @@ Snake::Snake(Snake const &snake)
 Snake::Snake(std::string const &libname)
 {
   this->libraryName =  libname;
-  if ((this->Map = (arcade::GetMap *)malloc(sizeof(arcade::GetMap) + (35 * 35 * sizeof(arcade::TileType))))== NULL)
+  if ((this->Map = reinterpret_cast<arcade::GetMap *>
+  (malloc(sizeof(arcade::GetMap) + (35 * 35 * sizeof(arcade::TileType))))) == NULL)
     {
       std::cerr << "Error: can't allocate memory to create map" << std::endl;
       exit(EXIT_FAILURE);
@@ -204,7 +205,6 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
   this->Map->type = arcade::CommandType::PLAY;
-  this->last_key = SaveCommand::LEFT;
   if (!this->alreadyLaunch)
     {
       libraryInstance->initScreen(this->getGameName());
