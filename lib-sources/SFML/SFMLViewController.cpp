@@ -51,7 +51,7 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
             action = ChangeCommandType::NEXT_LIBRARY;
           else if (event.key.code == sf::Keyboard::Num2)
             action = ChangeCommandType::PREV_LIBRARY;
-          else if (event.key.code == sf::Keyboard::Num4)
+          else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
             action = ChangeCommandType::PREV_GAME;
           else if (event.key.code == sf::Keyboard::Num5)
             action = ChangeCommandType::NEXT_GAME;
