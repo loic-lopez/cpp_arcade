@@ -14,6 +14,7 @@
 #include <array>
 #include <map>
 #include <string>
+#include <unistd.h>
 #include "../../lib-include/interface/ILibraryViewController.hpp"
 #include "../../include/Protocol.hh"
 #include "../../include/ArcadeEnum.hpp"

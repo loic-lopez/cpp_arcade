@@ -12,8 +12,6 @@
 
 typedef IGameModel *(*play_function_type)(std::string const &);
 
-#include <unistd.h>
-
 void	Snake::playProtocol()
 {
   char buffer;
