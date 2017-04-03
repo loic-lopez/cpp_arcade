@@ -67,6 +67,7 @@ Snake::Snake(std::string const &libname)
   this->popApple = false;
   this->score = 0;
   this->alreadyLaunch = false;
+  this->last_key = SaveCommand::LEFT;
 }
 
 void			Snake::setMap()
@@ -232,6 +233,7 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
       		  this->alreadyLaunch = true;
       		  this->score = 0;
       		  action = ChangeCommandType::RESTART;
+		  this->last_key = SaveCommand::LEFT;
       		  return (action);
       		}
       	      else if (action == ChangeCommandType::NEXT_LIBRARY) break;
