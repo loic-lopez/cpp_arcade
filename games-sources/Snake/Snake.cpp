@@ -214,8 +214,9 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
     }
   while (libraryInstance->getKey(&this->Map->type, action, exit))
     {
-      if (this->Map->type == arcade::CommandType::RESTART)
-	     this->Map->type = (arcade::CommandType)this->last_key;
+      if (this->Map->type == arcade::CommandType::RESTART
+	  || this->Map->type == arcade::CommandType::SHOOT)
+	this->Map->type = (arcade::CommandType)this->last_key;
       this->drawMap(libraryInstance);
       eatApple(this, this->Map, &this->_snake, this->popApple, this->applePosition);
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x,
