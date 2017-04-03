@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  dim. avr. 02 20:13:36 2017 Loïc Lopez
-** Last update dim. avr. 02 20:13:36 2017 Loïc Lopez
+** Last update Mon Apr  3 17:36:48 2017 Matthias Prost
 */
 
 #include "Snake.hpp"
@@ -49,4 +49,6 @@ void	SnakeAlgorithm(arcade::GetMap *Map, std::vector<arcade::Position> *snake, S
       snake->at(0).x++;
       *last_key = SaveCommand::RIGHT;
     }
+  else if (Map->type == arcade::CommandType::SHOOT)
+    Map->type = (arcade::CommandType)*last_key;
 }
