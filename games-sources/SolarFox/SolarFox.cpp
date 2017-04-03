@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Mon Apr  3 03:43:57 2017 Matthias Prost
+// Last update Mon Apr  3 03:58:15 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -18,7 +18,7 @@ extern "C" IGameModel *createInstanceGame(std::string const &libname)
 static void   initShip(arcade::Position *ship, int height, int width)
 {
   ship->x = (uint16_t) (width / 2);
-  ship->y = (uint16_t) (height / 2);
+  ship->y = (uint16_t) (height / 2) - 1;
 }
 
 SolarFox::SolarFox(std::string const &libname)
@@ -35,6 +35,7 @@ SolarFox::SolarFox(std::string const &libname)
       this->Map->tile[i] = arcade::TileType::EMPTY;
   initShip(&this->_ship, this->Map->height, this->Map->width);
   this->alreadyLaunch = false;
+  this->score = 0;
 }
 
 SolarFox::SolarFox(SolarFox const &SolarFox)
@@ -87,9 +88,9 @@ void SolarFox::drawMap(ILibraryViewController *libraryInstance)
     }
   libraryInstance->drawSquare(this->Map->width, this->_ship.x, this->_ship.y, Color::BLUE);
   if (libraryInstance->getLibraryName() == "Ncurses")
-    this->wait_second(75);
+    this->wait_second(95);
   else if (libraryInstance->getLibraryName() == "SFML")
-    this->wait_second(67);
+    this->wait_second(85);
 }
 
 void SolarFox::setMap()
@@ -130,6 +131,19 @@ void Play()
 
 }
 
+static	void 	PowerUp(IGameModel *game, arcade::GetMap *map,
+				   arcade::Position *ship)
+{
+  (void)game;
+  if (map->tile[ship->x + map->width * ship->y] == arcade::TileType::POWERUP)
+    {
+      map->tile[ship->x + map->width * ship->y] = arcade::TileType::EMPTY;
+      game->setScore(100);
+    }
+  else
+    return;
+}
+
 static	bool	Ship_collision(arcade::GetMap *map, uint16_t pos_x,
 					      uint16_t pos_y)
 {
@@ -157,7 +171,7 @@ int         SolarFox::getScore()
 
 void         SolarFox::setScore(int value)
 {
-  this->score =+ value;
+  this->score += value;
 }
 
 ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
@@ -177,6 +191,7 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
     if (this->Map->type == arcade::CommandType::RESTART)
      this->Map->type = (arcade::CommandType)this->last_key;
     this->drawMap(libraryInstance);
+    PowerUp(this, this->Map, &this->_ship);
     if (Ship_collision(this->Map, this->_ship.x, this->_ship.y))
     {
       break;
@@ -212,6 +227,8 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
         currentGame++;
         break;
       }
+    libraryInstance->displayScore(this->Map->width, this->getGameName(),
+				libraryInstance->getLibraryName(), this->score);
     libraryInstance->refresh();
   }
   libraryInstance->endScreen();
