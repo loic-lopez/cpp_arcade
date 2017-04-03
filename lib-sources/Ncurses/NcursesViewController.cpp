@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Mon Apr  3 04:02:35 2017 Matthias Prost
+// Last update Mon Apr  3 04:06:28 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -119,13 +119,13 @@ void  NcursesViewController::gameOver(int score)
 void	NcursesViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
 {
   NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 4,
-			   this->windowsize_x - width, Game.c_str());
+			   this->windowsize_x / 2 + width / 1.5, Game.c_str());
   NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 2,
-			   this->windowsize_x - width, libraryName.c_str());
+			   this->windowsize_x / 2 + width / 1.5, libraryName.c_str());
   NcursesEncap::n_mvprintw(this->windowsize_y / 20,
-			   this->windowsize_x - width, "Score: ");
+			   this->windowsize_x / 2 + width / 1.5, "Score: ");
   NcursesEncap::n_mvprintw(this->windowsize_y / 20,
-			   this->windowsize_x - width + 9, std::to_string(score).c_str());
+			   this->windowsize_x / 2 + width / 1.5 + 9, std::to_string(score).c_str());
 }
 
 void  NcursesViewController::endScreen()
