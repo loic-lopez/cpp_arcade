@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Mon Apr  3 02:02:30 2017 Matthias Prost
+// Last update Mon Apr  3 02:44:21 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -13,6 +13,12 @@
 extern "C" IGameModel *createInstanceGame(std::string const &libname)
 {
   return (new SolarFox(libname));
+}
+
+static void   initShip(arcade::Position *ship, int height, int width)
+{
+  ship->x = (uint16_t) (width / 2);
+  ship->y = (uint16_t) (height / 2);
 }
 
 SolarFox::SolarFox(std::string const &libname)
@@ -27,12 +33,14 @@ SolarFox::SolarFox(std::string const &libname)
   this->Map->width = 60;
   for (int i = 0; i < this->Map->height * this->Map->width; i++)
       this->Map->tile[i] = arcade::TileType::EMPTY;
+  initShip(&this->_ship, this->Map->height, this->Map->width);
   this->alreadyLaunch = false;
 }
 
 SolarFox::SolarFox(SolarFox const &SolarFox)
 {
   this->libraryName = SolarFox.libraryName;
+  this->last_key = SaveCommand::LEFT;
   this->score = 0;
 }
 
@@ -68,12 +76,13 @@ void SolarFox::drawMap(ILibraryViewController *libraryInstance)
   while (++i < size)
     {
       if (this->Map->tile[i] == arcade::TileType::BLOCK)
-	       libraryInstance->drawSquare(i % this->Map->width - 15,
+	       libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
            i / this->Map->width, Color::CYAN);
       else
-	       libraryInstance->drawSquare(i % this->Map->width - 15,
+	       libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
            i / this->Map->width, Color::BLACK);
     }
+  libraryInstance->drawSquare(this->Map->width, this->_ship.x, this->_ship.y, Color::BLUE);
   if (libraryInstance->getLibraryName() == "Ncurses")
     this->wait_second(75);
   else if (libraryInstance->getLibraryName() == "SFML")
@@ -123,6 +132,8 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
     }
   while (libraryInstance->getKey(&this->Map->type, action, exit))
   {
+    if (this->Map->type == arcade::CommandType::RESTART)
+     this->Map->type = (arcade::CommandType)this->last_key;
     this->drawMap(libraryInstance);
     if (this->Map->type == arcade::CommandType::RESTART)
       {
@@ -131,6 +142,8 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
         action = ChangeCommandType::RESTART;
         return (action);
       }
+    if (this->Map->type != arcade::CommandType::PLAY)
+      SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key);
     if (action == ChangeCommandType::NEXT_LIBRARY)
       {
         currentLibrary++;

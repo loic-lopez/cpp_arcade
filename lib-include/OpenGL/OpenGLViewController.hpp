@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Thu Mar 30 16:17:18 2017 Matthias Prost
+// Last update Mon Apr  3 02:46:43 2017 Matthias Prost
 //
 
 #ifndef OpenGLCONTROLLER_HPP__
@@ -53,11 +53,11 @@ class OpenGLViewController : public ILibraryViewController
   virtual ~OpenGLViewController();
 
   // Methods
-  virtual void drawSquare(int x, int y, Color const &);
+  virtual void drawSquare(int width, int x, int y, Color const &);
   virtual void drawMenu();
   virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit);
   virtual void initScreen(std::string const &name);
-  virtual void displayScore(std::string const &, std::string const &, int);
+  virtual void displayScore(int width, std::string const &, std::string const &, int);
   virtual void endScreen();
   virtual void refresh();
   virtual void clear();

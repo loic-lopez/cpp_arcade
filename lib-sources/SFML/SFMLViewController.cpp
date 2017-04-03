@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Mon Apr  3 02:03:18 2017 Matthias Prost
+// Last update Mon Apr  3 02:48:51 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -81,7 +81,7 @@ void	SFMLViewController::initScreen(std::string const &name)
   this->rectangle.setSize(sf::Vector2f(15, 15));
 }
 
-void	SFMLViewController::displayScore(std::string const &Game, std::string const &libraryName, int score)
+void	SFMLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
 {
   sf::Font      font;
   sf::Text      _game;
@@ -95,19 +95,19 @@ void	SFMLViewController::displayScore(std::string const &Game, std::string const
   _game.setString(Game);
   _game.setCharacterSize(24);
   _game.setFillColor(sf::Color::White);
-  _game.setPosition(24 + (this->windowsize_x + (35 * 15) + 75) / 2, 24 + (this->windowsize_y / 9));
+  _game.setPosition(24 + (this->windowsize_x + (width * 15) + 75) / 2, 24 + (this->windowsize_y / 9));
 
   _library.setFont(font);
   _library.setString(libraryName);
   _library.setCharacterSize(24);
   _library.setFillColor(sf::Color::White);
-  _library.setPosition(24 + (this->windowsize_x + (35 * 15) + 75) / 2, 24 + (this->windowsize_y / 6));
+  _library.setPosition(24 + (this->windowsize_x + (width * 15) + 75) / 2, 24 + (this->windowsize_y / 6));
 
   _score.setFont(font);
   _score.setString("Score: " + std::to_string(score));
   _score.setCharacterSize(24);
   _score.setFillColor(sf::Color::White);
-  _score.setPosition(24 + (this->windowsize_x + (35 * 15) + 375) / 2, 24 + (this->windowsize_y / 9));
+  _score.setPosition(24 + (this->windowsize_x + (width * 15) + 375) / 2, 24 + (this->windowsize_y / 9));
 
   this->window.draw(_game);
   this->window.draw(_library);
@@ -119,7 +119,7 @@ void  SFMLViewController::endScreen()
   this->window.close();
 }
 
-void	SFMLViewController::drawSquare(int x, int y, Color const &color)
+void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
   if (color == Color::BLUE)
     this->rectangle.setFillColor(sf::Color(33, 150, 243));
@@ -135,7 +135,7 @@ void	SFMLViewController::drawSquare(int x, int y, Color const &color)
     this->rectangle.setFillColor(sf::Color(0, 188, 212));
   else if (color == Color::YELLOW)
     this->rectangle.setFillColor(sf::Color(255, 193, 7));
-  this->rectangle.setPosition((x * 15) + (this->windowsize_x - (35 * 15)) / 2, (y * 15) + (this->windowsize_y / 7));
+  this->rectangle.setPosition((x * 15) + (this->windowsize_x - (width * 15)) / 2, (y * 15) + (this->windowsize_y / 7));
   this->window.draw(this->rectangle);
 }
 

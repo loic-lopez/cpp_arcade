@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Sun Apr  2 00:33:18 2017 Matthias Prost
+// Last update Mon Apr  3 02:41:55 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -25,8 +25,9 @@ NcursesViewController::~NcursesViewController()
 
 }
 
-void	NcursesViewController::drawSquare(int x, int y, Color const &color)
+void	NcursesViewController::drawSquare(int width, int x, int y, Color const &color)
 {
+  (void) width;
   NcursesEncap::n_attron(COLOR_PAIR((int)color));
   NcursesEncap::n_mvprintw(y + this->windowsize_y / 20,
 			   (int) (x + this->windowsize_x / 2.5), " ");
@@ -115,8 +116,9 @@ void  NcursesViewController::gameOver(int score)
   		   this->windowsize_x/ 2 - 11, "Press SPACE to restart");
 }
 
-void	NcursesViewController::displayScore(std::string const &Game, std::string const &libraryName, int score)
+void	NcursesViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
 {
+  (void) width;
   NcursesEncap::n_mvprintw(this->windowsize_y /20,
 			   this->windowsize_x / 1.5 - 9, Game.c_str());
   NcursesEncap::n_mvprintw(this->windowsize_y /20 + 2,

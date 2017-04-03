@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:02:17 2017 Loïc Lopez
-** Last update Sat Apr  1 23:50:14 2017 Matthias Prost
+** Last update Mon Apr  3 02:31:20 2017 Matthias Prost
 */
 
 #ifndef SolarFox_HPP__
@@ -26,6 +26,8 @@ class SolarFox : public IGameModel
   int   pos_y;
   int   score;
   arcade::GetMap			*Map;
+  arcade::Position  	_ship;
+  SaveCommand         last_key;
   virtual void  wait_second(int);
 
  public:
@@ -43,5 +45,7 @@ class SolarFox : public IGameModel
   virtual std::string getGameName();
   virtual void  playProtocol(void);
 };
+
+void	SolarFoxAlgorithm(arcade::GetMap *, arcade::Position *, SaveCommand *);
 
 #endif /* SolarFox_HPP__ */

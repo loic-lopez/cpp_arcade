@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Sat Apr  1 23:53:08 2017 Matthias Prost
+// Last update Mon Apr  3 02:50:13 2017 Matthias Prost
 //
 
 #include <array>
@@ -114,19 +114,19 @@ void			Snake::drawMap(ILibraryViewController *libraryInstance)
   while (++i < lenght)
     {
       if (this->Map->tile[i] == arcade::TileType::BLOCK)
-	libraryInstance->drawSquare(i % this->Map->width,
+	libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
 				    i / this->Map->width, Color::CYAN);
       else
-	libraryInstance->drawSquare(i % this->Map->width,
+	libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
 				    i / this->Map->width, Color::BLACK);
     }
-  libraryInstance->drawSquare(this->_snake.at(0).x,
+  libraryInstance->drawSquare(this->Map->width, this->_snake.at(0).x,
 			      this->_snake.at(0).y, Color::BLUE);
   for (size_t j = 1; j < this->_snake.size(); j++)
-    libraryInstance->drawSquare(this->_snake.at(j).x,
+    libraryInstance->drawSquare(this->Map->width, this->_snake.at(j).x,
 				this->_snake.at(j).y, Color::RED);
   if (this->applePosition > -1)
-    libraryInstance->drawSquare(this->applePosition % this->Map->width,
+    libraryInstance->drawSquare(this->Map->width, this->applePosition % this->Map->width,
 				this->applePosition / this->Map->width, Color::GREEN);
   if (libraryInstance->getLibraryName() == "Ncurses")
     this->wait_second(75);
@@ -265,7 +265,7 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 	  currentGame++;
 	  break;
 	}
-      libraryInstance->displayScore(this->getGameName(),
+      libraryInstance->displayScore(this->Map->width, this->getGameName(),
 					libraryInstance->getLibraryName(), this->score);
       libraryInstance->refresh();
     }

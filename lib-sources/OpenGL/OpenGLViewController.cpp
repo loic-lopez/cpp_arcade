@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Thu Mar 30 16:17:51 2017 Matthias Prost
+// Last update Mon Apr  3 02:47:07 2017 Matthias Prost
 //
 
 #include <iostream>
@@ -218,11 +218,12 @@ void	OpenGLViewController::initScreen(std::string const &name)
   glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
 }
 
-void	OpenGLViewController::displayScore(std::string const &Game, std::string const &libraryName, int score)
+void	OpenGLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
 {
   (void)Game;
   (void)libraryName;
   (void)score;
+  (void)width;
 }
 
 void	OpenGLViewController::endScreen()
@@ -265,11 +266,12 @@ void  OpenGLViewController::refresh()
   glfwPollEvents();
 }
 
-void	OpenGLViewController::drawSquare(int x, int y, Color const &color)
+void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
   (void)x;
   (void)y;
   (void)color;
+  (void)width;
 }
 
 std::string	OpenGLViewController::getLibraryName()
