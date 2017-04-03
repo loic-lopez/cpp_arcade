@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Sun Apr  2 00:48:49 2017 Matthias Prost
+// Last update Mon Apr  3 02:02:30 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -18,13 +18,13 @@ extern "C" IGameModel *createInstanceGame(std::string const &libname)
 SolarFox::SolarFox(std::string const &libname)
 {
   this->libraryName = libname;
-  if ((this->Map = (arcade::GetMap *)malloc(sizeof(arcade::GetMap) + (45 * 90 * sizeof(arcade::TileType))))== NULL)
+  if ((this->Map = (arcade::GetMap *)malloc(sizeof(arcade::GetMap) + (45 * 60 * sizeof(arcade::TileType))))== NULL)
     {
       std::cerr << "Error: can't allocate memory to create map" << std::endl;
       exit(EXIT_FAILURE);
     }
   this->Map->height = 45;
-  this->Map->width = 90;
+  this->Map->width = 60;
   for (int i = 0; i < this->Map->height * this->Map->width; i++)
       this->Map->tile[i] = arcade::TileType::EMPTY;
   this->alreadyLaunch = false;
@@ -68,10 +68,10 @@ void SolarFox::drawMap(ILibraryViewController *libraryInstance)
   while (++i < size)
     {
       if (this->Map->tile[i] == arcade::TileType::BLOCK)
-	       libraryInstance->drawSquare(i % this->Map->width - 28,
+	       libraryInstance->drawSquare(i % this->Map->width - 15,
            i / this->Map->width, Color::CYAN);
       else
-	       libraryInstance->drawSquare(i % this->Map->width - 28,
+	       libraryInstance->drawSquare(i % this->Map->width - 15,
            i / this->Map->width, Color::BLACK);
     }
   if (libraryInstance->getLibraryName() == "Ncurses")
@@ -88,10 +88,8 @@ void SolarFox::setMap()
   i = -1;
   while (++i < size)
     {
-      if (i % this->Map->width == 0 || i % this->Map->width == 1
-    || i / this->Map->width == 0
+      if (i % this->Map->width == 0 || i / this->Map->width == 0
     || i % this->Map->width == this->Map->width - 1
-    || i % this->Map->width == this->Map->width - 2
     || i / this->Map->width == this->Map->height - 1)
       this->Map->tile[i] = arcade::TileType::BLOCK;
     }
