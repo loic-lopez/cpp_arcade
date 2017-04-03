@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Mon Apr  3 04:06:28 2017 Matthias Prost
+// Last update Mon Apr  3 16:09:00 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -64,6 +64,8 @@ bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeComm
     *commandType = arcade::CommandType::GO_LEFT;
   else if (key == KEY_RIGHT)
     *commandType = arcade::CommandType::GO_RIGHT;
+  else if (key == KEY_ENTER)
+    *commandType = arcade::CommandType::SHOOT;
   else if (key == ' ')
     *commandType = arcade::CommandType::RESTART;
   return (true);

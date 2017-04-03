@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Mon Apr  3 02:48:51 2017 Matthias Prost
+// Last update Mon Apr  3 16:08:23 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -63,6 +63,8 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
             *commandType = arcade::CommandType::GO_LEFT;
           else if (event.key.code == sf::Keyboard::Right)
             *commandType = arcade::CommandType::GO_RIGHT;
+          else if (event.key.code == sf::Keyboard::Return)
+            *commandType = arcade::CommandType::SHOOT;
           else if (event.key.code == sf::Keyboard::Space)
             *commandType = arcade::CommandType::RESTART;
         }

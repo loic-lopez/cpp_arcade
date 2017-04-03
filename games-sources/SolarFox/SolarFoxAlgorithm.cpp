@@ -5,7 +5,7 @@
 // Login   <matthias.prost@epitech.eu@epitech.eu>
 //
 // Started on  Mon Apr  3 02:19:47 2017 Matthias Prost
-// Last update Mon Apr  3 02:27:32 2017 Matthias Prost
+// Last update Mon Apr  3 16:17:28 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -43,5 +43,9 @@ void	SolarFoxAlgorithm(arcade::GetMap *Map, arcade::Position *ship, SaveCommand 
     {
       ship->x++;
       *last_key = SaveCommand::RIGHT;
+    }
+  else if (Map->type == arcade::CommandType::SHOOT)
+    {
+      std::cout << "Done!" << std::endl;
     }
 }
