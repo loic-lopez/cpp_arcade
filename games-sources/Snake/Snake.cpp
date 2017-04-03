@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Mon Apr  3 02:50:13 2017 Matthias Prost
+// Last update Mon Apr  3 03:05:12 2017 Matthias Prost
 //
 
 #include <array>
@@ -219,28 +219,28 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
       eatApple(this, this->Map, &this->_snake, this->popApple, this->applePosition);
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x,
 			      this->_snake.at(0).y, this->_snake))
-	{
-	  libraryInstance->clear();
-	  this->_snake.clear();
-	  initSnake(&this->_snake, this->Map->height, this->Map->width);
-	  this->Map->type = arcade::CommandType::PLAY;
-	  this->popApple = false;
-	  while (libraryInstance->getKey(&this->Map->type, action, exit))
-	    {
-	      if (this->Map->type == arcade::CommandType::RESTART)
-		{
-		  this->alreadyLaunch = true;
-		  this->score = 0;
-		  action = ChangeCommandType::RESTART;
-		  return (action);
-		}
-	      else if (action == ChangeCommandType::NEXT_LIBRARY) break;
-	      else if (action == ChangeCommandType::PREV_LIBRARY) break;
-	      libraryInstance->gameOver(this->score);
-	      libraryInstance->refresh();
-	    }
-	  if (exit) break;
-	}
+      	{
+      	  libraryInstance->clear();
+      	  this->_snake.clear();
+      	  initSnake(&this->_snake, this->Map->height, this->Map->width);
+      	  this->Map->type = arcade::CommandType::PLAY;
+      	  this->popApple = false;
+      	  while (libraryInstance->getKey(&this->Map->type, action, exit))
+      	    {
+      	      if (this->Map->type == arcade::CommandType::RESTART)
+      		{
+      		  this->alreadyLaunch = true;
+      		  this->score = 0;
+      		  action = ChangeCommandType::RESTART;
+      		  return (action);
+      		}
+      	      else if (action == ChangeCommandType::NEXT_LIBRARY) break;
+      	      else if (action == ChangeCommandType::PREV_LIBRARY) break;
+      	      libraryInstance->gameOver(this->score);
+      	      libraryInstance->refresh();
+      	    }
+      	  if (exit) break;
+      	}
       if (this->Map->type != arcade::CommandType::PLAY)
 	  SnakeAlgorithm(this->Map, &this->_snake, &this->last_key);
       if (action == ChangeCommandType::NEXT_LIBRARY)

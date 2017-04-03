@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Mon Apr  3 02:44:21 2017 Matthias Prost
+// Last update Mon Apr  3 03:43:57 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -78,6 +78,9 @@ void SolarFox::drawMap(ILibraryViewController *libraryInstance)
       if (this->Map->tile[i] == arcade::TileType::BLOCK)
 	       libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
            i / this->Map->width, Color::CYAN);
+      else if (this->Map->tile[i] == arcade::TileType::POWERUP)
+     	   libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
+           i / this->Map->width, Color::YELLOW);
       else
 	       libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
            i / this->Map->width, Color::BLACK);
@@ -96,17 +99,55 @@ void SolarFox::setMap()
 
   i = -1;
   while (++i < size)
+  {
+    if ((((i % this->Map->width) % 2 == 0 && (i / this->Map->width) % 2 == 0
+          && i % this->Map->width > 12 && i % this->Map->width < 20
+          && i / this->Map->width > 10 && i / this->Map->width < 35)
+          || ((i % this->Map->width) % 2 == 0 && (i / this->Map->width) % 2 == 0
+          && i % this->Map->width > 40 && i % this->Map->width < 48
+          && i / this->Map->width > 10 && i / this->Map->width < 35))
+          || (((i % this->Map->width) % 2 == 0 && (i / this->Map->width) % 2 == 0
+          && i % this->Map->width > 15 && i % this->Map->width < 45
+          && i / this->Map->width > 8 && i / this->Map->width < 15)
+          || ((i % this->Map->width) % 2 == 0 && (i / this->Map->width) % 2 == 0
+          && i % this->Map->width > 15 && i % this->Map->width < 45
+          && i / this->Map->width > 30 && i / this->Map->width < 38)))
+      this->Map->tile[i] = arcade::TileType::POWERUP;
+    i++;
+  }
+  i = -1;
+  while (++i < size)
     {
       if (i % this->Map->width == 0 || i / this->Map->width == 0
-    || i % this->Map->width == this->Map->width - 1
-    || i / this->Map->width == this->Map->height - 1)
-      this->Map->tile[i] = arcade::TileType::BLOCK;
+          || i % this->Map->width == this->Map->width - 1
+          || i / this->Map->width == this->Map->height - 1)
+        this->Map->tile[i] = arcade::TileType::BLOCK;
     }
 }
 
 void Play()
 {
 
+}
+
+static	bool	Ship_collision(arcade::GetMap *map, uint16_t pos_x,
+					      uint16_t pos_y)
+{
+  int   			i;
+  int 			lenght = map->width * map->height;
+
+  i = -1;
+  if (map->type == arcade::CommandType::PLAY)
+    return (false);
+  while (++i < lenght)
+    {
+      if ((map->tile[i] == arcade::TileType::BLOCK && pos_x == 0) ||
+       (map->tile[i] == arcade::TileType::BLOCK && pos_y == 0) ||
+       (map->tile[i] == arcade::TileType::BLOCK && pos_y == map->height - 1) ||
+       (map->tile[i] == arcade::TileType::BLOCK && pos_x == map->width - 1))
+	      return (true);
+    }
+  return (false);
 }
 
 int         SolarFox::getScore()
@@ -124,6 +165,7 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 			       bool &exit)
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
+  this->Map->type = arcade::CommandType::PLAY;
   if (!this->alreadyLaunch)
     {
       libraryInstance->initScreen(this->getGameName());
@@ -135,6 +177,10 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
     if (this->Map->type == arcade::CommandType::RESTART)
      this->Map->type = (arcade::CommandType)this->last_key;
     this->drawMap(libraryInstance);
+    if (Ship_collision(this->Map, this->_ship.x, this->_ship.y))
+    {
+      break;
+    }
     if (this->Map->type == arcade::CommandType::RESTART)
       {
         this->alreadyLaunch = true;
@@ -169,10 +215,6 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
     libraryInstance->refresh();
   }
   libraryInstance->endScreen();
-  (void)libraryInstance;
-  (void)currentGame;
-  (void)currentLibrary;
-  (void)exit;
   return (action);
 }
 
