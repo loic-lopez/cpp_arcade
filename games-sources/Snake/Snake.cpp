@@ -51,12 +51,9 @@ Snake::Snake(Snake const &snake)
 Snake::Snake(std::string const &libname)
 {
   this->libraryName =  libname;
-  if ((this->Map = reinterpret_cast<arcade::GetMap *>
-  (malloc(sizeof(arcade::GetMap) + (35 * 35 * sizeof(arcade::TileType))))) == NULL)
-    {
-      std::cerr << "Error: can't allocate memory to create map" << std::endl;
-      exit(EXIT_FAILURE);
-    }
+  this->Map = new arcade::GetMap[sizeof(arcade::GetMap)
+				 + (35 * 35 * sizeof(arcade::TileType))];
+
   this->Map->height = 35;
   this->Map->width = 35;
   this->Map->type = arcade::CommandType::PLAY;

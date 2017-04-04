@@ -71,9 +71,8 @@ void	Snake::playProtocol()
       else if (commandType == arcade::CommandType::WHERE_AM_I)
 	{
 	  this->whereAmI =
-	   reinterpret_cast<arcade::WhereAmI *>(malloc(sizeof(arcade::WhereAmI)
-						       + this->_snake.size()
-				      * sizeof(arcade::Position)));
+	   new arcade::WhereAmI[sizeof(arcade::WhereAmI) + this->_snake.size()
+				      * sizeof(arcade::Position)];
 	  this->whereAmI->lenght = (uint16_t) this->_snake.size();
 	  this->whereAmI->type = commandType;
 	  for (size_t j = 0; j < this->_snake.size(); j++)
