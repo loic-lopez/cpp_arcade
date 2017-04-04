@@ -37,7 +37,7 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/Ncurses -lncurses -fPIC -shared
+CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/Ncurses -lmenu -lncurses -fPIC -shared
 
 all: $(Ncurses)
 

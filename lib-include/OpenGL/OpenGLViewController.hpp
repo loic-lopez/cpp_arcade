@@ -54,7 +54,7 @@ class OpenGLViewController : public ILibraryViewController
 
   // Methods
   virtual void drawSquare(int width, int x, int y, Color const &);
-  virtual void drawMenu();
+  virtual void drawMenu(size_t &currentGame);
   virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit);
   virtual void initScreen(std::string const &name);
   virtual void displayScore(int width, std::string const &, std::string const &, int);

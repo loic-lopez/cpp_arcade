@@ -110,8 +110,9 @@ OpenGLViewController::~OpenGLViewController()
 
 }
 
-void	OpenGLViewController::drawMenu()
+void	OpenGLViewController::drawMenu(size_t &currentGame)
 {
+  (void)currentGame;
 }
 
 bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)

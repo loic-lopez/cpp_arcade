@@ -25,8 +25,9 @@ SFMLViewController::SFMLViewController()
   this->windowsize_y = sf::VideoMode::getDesktopMode().height;
 }
 
-void	SFMLViewController::drawMenu()
+void	SFMLViewController::drawMenu(size_t &currentGame)
 {
+  (void)currentGame;
 }
 
 bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)

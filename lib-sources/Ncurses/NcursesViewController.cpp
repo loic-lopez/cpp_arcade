@@ -34,8 +34,90 @@ void	NcursesViewController::drawSquare(int width, int x, int y, Color const &col
   NcursesEncap::n_attroff(COLOR_PAIR((int)color));
 }
 
-void  NcursesViewController::drawMenu()
+static int	my_strlen(char *str)
 {
+  int		i = 0;
+
+  while (str[i])
+    i++;
+  return (i);
+}
+
+static void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
+{
+  int length, x, y;
+  float temp;
+
+  if(win == NULL)
+    win = stdscr;
+  getyx(win, y, x);
+  if(startx != 0)
+    x = startx;
+  if(starty != 0)
+    y = starty;
+  if(width == 0)
+    width = 80;
+
+  length = my_strlen(string);
+  temp = (width - length)/ 2;
+  x = startx + (int)temp;
+  wattron(win, color);
+  mvwprintw(win, y, x, "%s", string);
+  wattroff(win, color);
+  refresh();
+}
+
+
+void  NcursesViewController::drawMenu(size_t &currentGame)
+{
+  (void)currentGame;
+  ITEM **my_items;
+  int c;
+  MENU *my_menu;
+  WINDOW *my_menu_win;
+  int n_choices, i;
+  char *choices[] = {
+   (char *) "Snake",
+   (char *) "SolarFox",
+   (char *) "Exit",
+   (char *) NULL,
+  };
+
+  this->initScreen("Arcade Game Menu");
+  n_choices = ARRAY_SIZE(choices);
+  my_items = (ITEM **)calloc(n_choices, sizeof(ITEM *));
+  for(i = 0; i < n_choices; ++i)
+    my_items[i] = new_item(choices[i], NULL);
+
+  my_menu = new_menu(my_items);
+  my_menu_win = newwin(10, 40, (this->windowsize_y / 2) - 20, (this->windowsize_x / 2) - 20);
+  keypad(my_menu_win, TRUE);
+  set_menu_win(my_menu, my_menu_win);
+  set_menu_sub(my_menu, derwin(my_menu_win, 6, 38, 3, 1));
+  set_menu_fore(my_menu, COLOR_PAIR(6));
+  set_menu_mark(my_menu, " -> ");
+  box(my_menu_win, 0, 0);
+  print_in_middle(my_menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(1));
+  post_menu(my_menu);
+  while((c = wgetch(my_menu_win)) != 27)
+    {       switch(c)
+    {	case KEY_DOWN:
+    menu_driver(my_menu, REQ_DOWN_ITEM);
+      break;
+      case KEY_UP:
+	menu_driver(my_menu, REQ_UP_ITEM);
+      break;
+    }
+      wrefresh(my_menu_win);
+    }
+
+  /* Unpost and free all the memory taken up */
+  unpost_menu(my_menu);
+  free_menu(my_menu);
+  for(i = 0; i < n_choices; ++i)
+    free_item(my_items[i]);
+  endwin();
+  exit(0);
 }
 
 bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
@@ -86,12 +168,12 @@ void  NcursesViewController::initScreen(std::string const &name)
   NcursesEncap::n_start_color();
   NcursesEncap::n_getmaxyx(stdscr, &this->windowsize_y, &this->windowsize_x);
   NcursesEncap::n_init_color(0, 0, 0, 0);
-  NcursesEncap::n_init_pair(1, COLOR_RED, COLOR_RED);
-  NcursesEncap::n_init_pair(2, COLOR_GREEN, COLOR_GREEN);
-  NcursesEncap::n_init_pair(3, COLOR_YELLOW, COLOR_YELLOW);
-  NcursesEncap::n_init_pair(4, COLOR_BLUE, COLOR_BLUE);
-  NcursesEncap::n_init_pair(5, COLOR_MAGENTA, COLOR_MAGENTA);
-  NcursesEncap::n_init_pair(6, COLOR_CYAN, COLOR_CYAN);
+  NcursesEncap::n_init_pair(1, COLOR_RED, COLOR_BLACK);
+  NcursesEncap::n_init_pair(2, COLOR_GREEN, COLOR_BLACK);
+  NcursesEncap::n_init_pair(3, COLOR_YELLOW, COLOR_BLACK);
+  NcursesEncap::n_init_pair(4, COLOR_BLUE, COLOR_BLACK);
+  NcursesEncap::n_init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
+  NcursesEncap::n_init_pair(6, COLOR_CYAN, COLOR_BLACK);
   srand(time(NULL));
 }
 

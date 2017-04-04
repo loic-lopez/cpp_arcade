@@ -19,7 +19,7 @@ class	ILibraryViewController
 {
   public:
   virtual void drawSquare(int width, int x, int y, Color const &) = 0;
-  virtual void drawMenu() = 0;
+  virtual void drawMenu(size_t &currentGame) = 0;
   virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit) = 0;
   virtual void initScreen(std::string const &name) = 0;
   virtual void displayScore(int width, std::string const &, std::string const &, int) = 0;

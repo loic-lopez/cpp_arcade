@@ -52,21 +52,22 @@ void	GameCore::GameLauncher()
   currentLib = this->getCurrentLibrary(Libs);
   while (!exit)
     {
-      game = this->openLibrary(Games.at(currentGame).c_str());
-      library = this->openLibrary(Libs.at(currentLib).c_str());
-      if (action == ChangeCommandType::STANDBY
-	  || action == ChangeCommandType::NEXT_GAME
-	  || action == ChangeCommandType::PREV_GAME)
-	{
-	  play_function = this->getcreateInstanceGameFunction(game);
-	  GameInstance = play_function(Libs.at(currentLib));
-	}
       if (action == ChangeCommandType::STANDBY
 	  || action == ChangeCommandType::NEXT_LIBRARY
 	  || action == ChangeCommandType::PREV_LIBRARY)
 	{
+	  library = this->openLibrary(Libs.at(currentLib).c_str());
 	  load_library_function = this->getLibrary(library);
 	  libraryInstance = load_library_function();
+	  libraryInstance->drawMenu(currentGame);
+	}
+      if (action == ChangeCommandType::STANDBY
+	  || action == ChangeCommandType::NEXT_GAME
+	  || action == ChangeCommandType::PREV_GAME)
+	{
+	  game = this->openLibrary(Games.at(currentGame).c_str());
+	  play_function = this->getcreateInstanceGameFunction(game);
+	  GameInstance = play_function(Libs.at(currentLib));
 	}
       action = GameInstance->play(libraryInstance, currentGame, currentLib, exit);
       if (currentGame == Games.size())
