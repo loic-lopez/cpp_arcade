@@ -94,10 +94,10 @@ void  NcursesViewController::drawMenu(size_t &currentGame)
   keypad(my_menu_win, TRUE);
   set_menu_win(my_menu, my_menu_win);
   set_menu_sub(my_menu, derwin(my_menu_win, 6, 38, 3, 1));
-  set_menu_fore(my_menu, COLOR_PAIR(6));
+  set_menu_fore(my_menu, COLOR_PAIR(8));
   set_menu_mark(my_menu, " -> ");
   box(my_menu_win, 0, 0);
-  print_in_middle(my_menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(1));
+  print_in_middle(my_menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(7));
   post_menu(my_menu);
   while((c = wgetch(my_menu_win)) != 27)
     {       switch(c)
@@ -117,7 +117,7 @@ void  NcursesViewController::drawMenu(size_t &currentGame)
   for(i = 0; i < n_choices; ++i)
     free_item(my_items[i]);
   endwin();
-  exit(0);
+ // exit(0);
 }
 
 bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
@@ -168,12 +168,14 @@ void  NcursesViewController::initScreen(std::string const &name)
   NcursesEncap::n_start_color();
   NcursesEncap::n_getmaxyx(stdscr, &this->windowsize_y, &this->windowsize_x);
   NcursesEncap::n_init_color(0, 0, 0, 0);
-  NcursesEncap::n_init_pair(1, COLOR_RED, COLOR_BLACK);
-  NcursesEncap::n_init_pair(2, COLOR_GREEN, COLOR_BLACK);
-  NcursesEncap::n_init_pair(3, COLOR_YELLOW, COLOR_BLACK);
-  NcursesEncap::n_init_pair(4, COLOR_BLUE, COLOR_BLACK);
-  NcursesEncap::n_init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
-  NcursesEncap::n_init_pair(6, COLOR_CYAN, COLOR_BLACK);
+  NcursesEncap::n_init_pair(1, COLOR_RED, COLOR_RED);
+  NcursesEncap::n_init_pair(2, COLOR_GREEN, COLOR_GREEN);
+  NcursesEncap::n_init_pair(3, COLOR_YELLOW, COLOR_YELLOW);
+  NcursesEncap::n_init_pair(4, COLOR_BLUE, COLOR_BLUE);
+  NcursesEncap::n_init_pair(5, COLOR_MAGENTA, COLOR_MAGENTA);
+  NcursesEncap::n_init_pair(6, COLOR_CYAN, COLOR_CYAN);
+  NcursesEncap::n_init_pair(7, COLOR_RED, COLOR_BLACK);
+  NcursesEncap::n_init_pair(8, COLOR_CYAN, COLOR_BLACK);
   srand(time(NULL));
 }
 
