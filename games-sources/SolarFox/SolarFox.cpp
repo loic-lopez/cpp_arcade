@@ -24,11 +24,9 @@ static void   initShip(arcade::Position *ship, int height, int width)
 SolarFox::SolarFox(std::string const &libname)
 {
   this->libraryName = libname;
-  if ((this->Map = (arcade::GetMap *)malloc(sizeof(arcade::GetMap) + (45 * 60 * sizeof(arcade::TileType))))== NULL)
-    {
-      std::cerr << "Error: can't allocate memory to create map" << std::endl;
-      exit(EXIT_FAILURE);
-    }
+  this->Map = new arcade::GetMap[sizeof(arcade::GetMap)
+				 + (45 * 60 * sizeof(arcade::TileType))];
+
   this->Map->height = 45;
   this->Map->width = 60;
   for (int i = 0; i < this->Map->height * this->Map->width; i++)
