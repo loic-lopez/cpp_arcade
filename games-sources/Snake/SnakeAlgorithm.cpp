@@ -12,6 +12,8 @@
 
 void	SnakeAlgorithm(arcade::GetMap *Map, std::vector<arcade::Position> *snake, SaveCommand *last_key)
 {
+  if (Map->type == arcade::CommandType::PLAY)
+    {}
   for (size_t j = snake->size() - 1; j > 0 ; j--)
     {
       snake->at(j).x = snake->at(j - 1).x;

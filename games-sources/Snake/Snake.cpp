@@ -228,23 +228,26 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
       	  this->Map->type = arcade::CommandType::PLAY;
       	  this->popApple = false;
       	  while (libraryInstance->getKey(&this->Map->type, action, exit))
-      	    {
-      	      if (this->Map->type == arcade::CommandType::RESTART)
-      		{
-      		  this->alreadyLaunch = true;
-      		  this->score = 0;
-      		  action = ChangeCommandType::RESTART;
+	    {
+	      if (this->Map->type == arcade::CommandType::RESTART)
+		{
+		  this->alreadyLaunch = true;
+		  this->score = 0;
+		  action = ChangeCommandType::RESTART;
 		  this->last_key = SaveCommand::LEFT;
-      		  return (action);
-      		}
-      	      else if (action == ChangeCommandType::NEXT_LIBRARY) break;
-      	      else if (action == ChangeCommandType::PREV_LIBRARY) break;
+		  return (action);
+		}
+	      else if (action == ChangeCommandType::NEXT_LIBRARY
+		       || action == ChangeCommandType::PREV_LIBRARY
+		       || action == ChangeCommandType::PREV_GAME
+		       || action == ChangeCommandType::NEXT_GAME)
+		break;
       	      libraryInstance->gameOver(this->score);
       	      libraryInstance->refresh();
       	    }
       	  if (exit) break;
       	}
-      if (this->Map->type != arcade::CommandType::PLAY)
+      //if (this->Map->type == arcade::CommandType::PLAY)
 	  SnakeAlgorithm(this->Map, &this->_snake, &this->last_key);
       if (action == ChangeCommandType::NEXT_LIBRARY)
         {

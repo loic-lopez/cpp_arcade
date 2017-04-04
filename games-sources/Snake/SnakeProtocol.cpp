@@ -10,20 +10,59 @@
 
 #include "Snake.hpp"
 
-typedef IGameModel *(*play_function_type)(std::string const &);
+void	MoveSnakeProtocol(arcade::GetMap *Map, std::vector<arcade::Position> *snake, SaveCommand *last_key)
+{
+  if (Map->type == arcade::CommandType::PLAY)
+    {
+      for (size_t j = snake->size() - 1; j > 0 ; j--)
+	{
+	  snake->at(j).x = snake->at(j - 1).x;
+	  snake->at(j).y = snake->at(j - 1).y;
+	}
+      if (*last_key == SaveCommand::UP)
+	snake->at(0).y--;
+      else if (*last_key == SaveCommand::DOWN)
+	snake->at(0).y++;
+      else if (*last_key == SaveCommand::LEFT)
+	snake->at(0).x--;
+      else if (*last_key == SaveCommand::RIGHT)
+	snake->at(0).x++;
+    }
+}
+void	SnakeAlgorithmProtocol(arcade::GetMap *Map, SaveCommand *last_key)
+{
+  if ((Map->type == arcade::CommandType::GO_UP
+       && *last_key != SaveCommand::DOWN) ||
+      (Map->type == arcade::CommandType::GO_DOWN
+       && *last_key == SaveCommand::UP))
+    *last_key = SaveCommand::UP;
+  else if ((Map->type == arcade::CommandType::GO_DOWN
+	    && *last_key != SaveCommand::UP) ||
+	   (Map->type == arcade::CommandType::GO_UP
+	    && *last_key == SaveCommand::DOWN))
+    *last_key = SaveCommand::DOWN;
+  else if ((Map->type == arcade::CommandType::GO_LEFT
+	    && *last_key != SaveCommand::RIGHT) ||
+	   (Map->type == arcade::CommandType::GO_RIGHT
+	    && *last_key == SaveCommand::LEFT))
+    *last_key = SaveCommand::LEFT;
+  else if ((Map->type == arcade::CommandType::GO_RIGHT
+	    && *last_key != SaveCommand::LEFT) ||
+	   (Map->type == arcade::CommandType::GO_LEFT
+	    && *last_key == SaveCommand::RIGHT))
+    *last_key = SaveCommand::RIGHT;
+}
 
 void	Snake::playProtocol()
 {
-  char buffer;
-  this->Map->type = arcade::CommandType::PLAY;
+  arcade::CommandType commandType = arcade::CommandType::PLAY;
+
   this->setMap();
-  while ((buffer = (char) std::cin.get()) != EOF)
+  while (read(0, &commandType, sizeof(arcade::CommandType)) != EOF)
     {
-      arcade::CommandType commandType = (arcade::CommandType)static_cast<unsigned>(buffer);
       this->Map->type = commandType;
       if (commandType == arcade::CommandType::GET_MAP)
 	{
-	  this->Map->type = commandType;
 	  write(1, &this->Map->type, sizeof(arcade::CommandType));
 	  write(1, &this->Map->width, sizeof(uint16_t));
 	  write(1, &this->Map->height, sizeof(uint16_t));
@@ -45,9 +84,13 @@ void	Snake::playProtocol()
 	  write(1, &this->whereAmI->type, sizeof(arcade::CommandType));
 	  write(1, &this->whereAmI->lenght, sizeof(uint16_t));
 	  write(1, &this->whereAmI->position, sizeof(arcade::Position) * this->whereAmI->lenght);
+	  delete whereAmI;
 	}
       else
-	SnakeAlgorithm(this->Map, &this->_snake, &this->last_key);
+	{
+	  SnakeAlgorithmProtocol(this->Map, &this->last_key);
+	  MoveSnakeProtocol(this->Map, &this->_snake, &this->last_key);
+	}
     }
 }
 
