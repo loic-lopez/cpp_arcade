@@ -247,7 +247,7 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
       	    }
       	  if (exit) break;
       	}
-      //if (this->Map->type == arcade::CommandType::PLAY)
+      if (this->Map->type != arcade::CommandType::PLAY)
 	  SnakeAlgorithm(this->Map, &this->_snake, &this->last_key);
       if (action == ChangeCommandType::NEXT_LIBRARY)
         {
