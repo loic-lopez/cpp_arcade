@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:02:17 2017 Loïc Lopez
-** Last update Wed Apr  5 20:22:38 2017 Matthias Prost
+** Last update Wed Apr  5 22:03:13 2017 Matthias Prost
 */
 
 #ifndef SolarFox_HPP__
@@ -17,11 +17,14 @@
 
 extern "C" IGameModel *createInstanceGame(std::string const &);
 
-struct  shoot {
+struct  shoot
+{
     bool             is_ennemy;
     uint16_t         pos;
     Shoot_direction  direction;
     uint16_t         count;
+    arcade::TileType type;
+    shoot();
 };
 
 class SolarFox : public IGameModel
