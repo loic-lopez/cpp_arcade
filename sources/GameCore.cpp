@@ -67,7 +67,8 @@ void	GameCore::GameLauncher()
 	}
       if (action == ChangeCommandType::STANDBY
 	  || action == ChangeCommandType::NEXT_GAME
-	  || action == ChangeCommandType::PREV_GAME)
+	  || action == ChangeCommandType::PREV_GAME
+	  || action == ChangeCommandType::DISPLAY_MENU)
 	{
 	  game = this->openLibrary(Games.at(currentGame).c_str());
 	  play_function = this->getcreateInstanceGameFunction(game);
@@ -83,7 +84,8 @@ void	GameCore::GameLauncher()
       else if (currentLib > Libs.size())
         currentLib = Libs.size() - 1;
       if ((action == ChangeCommandType::NEXT_GAME
-	  || action == ChangeCommandType::PREV_GAME) && !exit)
+	  || action == ChangeCommandType::PREV_GAME
+	   || action == ChangeCommandType::DISPLAY_MENU) && !exit)
         {
           delete GameInstance;
           Cencapsulation::c_dlclose(game);
