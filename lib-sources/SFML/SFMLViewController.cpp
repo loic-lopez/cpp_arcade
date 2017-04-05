@@ -32,9 +32,17 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
   sf::Font     	font;
   sf::Event 	event;
   std::vector<sf::Text> menu;
-  short		isSecondPart = 0;
+  bool		isSecondPart = false;
   int 		gamePosition;
-  const	char	*texts[]
+  int 		selectedItemIndex = 0;
+  std::vector<sf::Text> Items;
+  const	char 	*ItemStrings[] =
+   {
+    "Snake",
+    "SolarFox",
+    "Exit"
+   };
+  const	char	*texts[] =
    {
     "Move the cursor menu to select a game.",
     "Press enter to choose a game.",
@@ -48,13 +56,21 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
    "Key Escape : quit the game or menu.",
    "Move character with arrows."
    };
+  sf::Text	mainText;
+  size_t	index;
+  sf::Texture texture;
+  sf::Sprite sprite;
 
-  (void)currentGame;
-  (void)games;
-  (void)exit;
+  if (!texture.loadFromFile("assets/BorneArcade.png"))
+    std::cerr << "ERROR: cannot found BorneArcade in assets/ make sure it exist" << std::endl;
   if (!font.loadFromFile("lib-sources/SFML/Fonts/Roboto-Condensed.ttf"))
-    std::cout << "ERROR: cannot found Roboto-Condensed.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
-
+    std::cerr << "ERROR: cannot found Roboto-Condensed.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
+  texture.setSmooth(true);
+  mainText.setFont(font);
+  mainText.setString("Game Arcade Menu");
+  mainText.setCharacterSize((this->windowsize_x / 2) / sizeof("Game Arcade Menu"));
+  mainText.setFillColor(sf::Color::Red);
+  mainText.setPosition(((this->windowsize_x / 2) - (sizeof("Game Arcade Menu")) * 25) , 0);
   for (size_t j = 0; j < (sizeof(texts) / sizeof(texts[0])); ++j)
     {
       sf::Text	Text;
@@ -63,45 +79,89 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
       Text.setString(string);
       Text.setCharacterSize(24);
       Text.setFillColor(sf::Color::White);
-      if (isSecondPart == 1)
-	  Text.setPosition((this->windowsize_x) / 6, (gamePosition + j * 25) - 20);
+      if (isSecondPart == true)
+	  Text.setPosition((this->windowsize_x) / 7, (gamePosition + j * 25) - 20);
       else if (string == "In Game :")
 	{
-	  isSecondPart = 1;
+	  isSecondPart = true;
 	  gamePosition = (24 * (j * 2)) + (this->windowsize_y / 3);
-	  Text.setPosition((this->windowsize_x) / 6, gamePosition);
+	  Text.setPosition((this->windowsize_x) / 7, gamePosition);
 	}
       else
-	Text.setPosition((this->windowsize_x) / 6, 24 * j + (this->windowsize_y / 3));
+	Text.setPosition((this->windowsize_x) / 7, 24 * j + (this->windowsize_y / 3));
       menu.push_back(Text);
     }
-  this->initScreen("Arcade Game Menu");
 
+  for (size_t i = 0; i < (sizeof(ItemStrings) / sizeof(ItemStrings[0])); ++i)
+    {
+      sf::Text	Text;
+      Text.setFont(font);
+      Text.setString(ItemStrings[i]);
+      Text.setCharacterSize(35);
+      Text.setFillColor(sf::Color::White);
+      Text.setPosition(((this->windowsize_x) / 2) - sizeof(ItemStrings[i]),
+		       (this->windowsize_y / 3) + (((i * sizeof(ItemStrings[i]))) * 5));
+      Items.push_back(Text);
+    }
+
+  Items[selectedItemIndex].setFillColor(sf::Color::Cyan);
+  this->initScreen("Arcade Game Menu");
   while (this->window.isOpen())
     {
       while (this->window.pollEvent(event))
 	{
 	  if (event.type == sf::Event::Closed)
-	    {
-	      exit = true;
-	      this->endScreen();
-	      return;
-	    }
+	    goto exit;
 	  if (event.type == sf::Event::KeyPressed)
 	    {
 	      if (event.key.code == sf::Keyboard::Escape)
+		goto exit;
+	      else if (event.key.code == sf::Keyboard::Up)
 		{
-		  exit = true;
-		  this->endScreen();
-		  return;
+		  if (selectedItemIndex - 1 >= 0)
+		    {
+		      Items[selectedItemIndex].setFillColor(sf::Color::White);
+		      selectedItemIndex--;
+		      Items[selectedItemIndex].setFillColor(sf::Color::Cyan);
+		    }
+		}
+	      else if (event.key.code == sf::Keyboard::Down)
+		{
+		  if (selectedItemIndex + 1 < static_cast<int>(Items.size()))
+		    {
+		      Items[selectedItemIndex].setFillColor(sf::Color::White);
+		      selectedItemIndex++;
+		      Items[selectedItemIndex].setFillColor(sf::Color::Cyan);
+		    }
+		}
+	      else if (event.key.code == sf::Keyboard::Return)
+		{
+		  std::string 	currentText = Items[selectedItemIndex].getString();
+		  std::transform(currentText.begin(), currentText.end(),
+				 currentText.begin(), ::tolower);
+		  if (currentText == "exit")
+		      goto exit;
+		  for (index = 0; index < games.size(); ++index)
+		    {
+		      if (games.at(index).find(currentText) != std::string::npos)
+			  goto find;
+		    }
+		  if (index == games.size())
+		      goto exit;
 		}
 	    }
 	}
       for (size_t i = 0; i < menu.size(); ++i)
-	  window.draw(menu[i]);
+	  this->window.draw(menu[i]);
+      for (size_t j = 0; j < Items.size(); ++j)
+	this->window.draw(Items[j]);
+      this->window.draw(mainText);
       this->refresh();
     }
-
+  exit:
+    exit = true;
+  find:
+    currentGame = index;
   this->endScreen();
 }
 
@@ -167,7 +227,7 @@ void	SFMLViewController::displayScore(int width, std::string const &Game, std::s
   sf::Text      _score;
 
   if (!font.loadFromFile("lib-sources/SFML/Fonts/Roboto-Regular.ttf"))
-      std::cout << "ERROR: cannot found Roboto-Regular.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
+      std::cerr << "ERROR: cannot found Roboto-Regular.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
 
   _game.setFont(font);
   _game.setString(Game);
@@ -236,7 +296,7 @@ void  SFMLViewController::gameOver(int score)
   sf::Text      _score;
 
   if (!font.loadFromFile("lib-sources/SFML/Fonts/Roboto-Regular.ttf"))
-      std::cout << "ERROR: cannot found Roboto-Regular.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
+      std::cerr << "ERROR: cannot found Roboto-Regular.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
 
   _game_over.setFont(font);
   _game_over.setString("Game Over");
