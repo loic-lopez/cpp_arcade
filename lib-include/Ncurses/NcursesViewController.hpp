@@ -12,6 +12,7 @@
 # define NCURSESVIEWCONTROLLER_HPP__
 
 #include <algorithm>
+#include <signal.h>
 #include "../interface/ILibraryViewController.hpp"
 #include "NcursesEncap.hpp"
 #include "menu.h"

@@ -226,7 +226,7 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
             *commandType = arcade::CommandType::GO_RIGHT;
           else if (event.key.code == sf::Keyboard::Return)
             *commandType = arcade::CommandType::SHOOT;
-          else if (event.key.code == sf::Keyboard::Space)
+          else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8))
             *commandType = arcade::CommandType::RESTART;
 	  else if (event.key.code == sf::Keyboard::Num9)
 	    action = ChangeCommandType::DISPLAY_MENU;
@@ -332,7 +332,7 @@ void  SFMLViewController::gameOver(int score)
   _game_over.setPosition(((this->windowsize_x) - (4 * 24)) / 2, 24 + (this->windowsize_y / 9));
 
   _key.setFont(font);
-  _key.setString("Press Space to restart");
+  _key.setString("Press 8 to restart");
   _key.setCharacterSize(24);
   _key.setFillColor(sf::Color::White);
   _key.setPosition(((this->windowsize_x) - (9 * 24)) / 2, 24 + (this->windowsize_y / 5));

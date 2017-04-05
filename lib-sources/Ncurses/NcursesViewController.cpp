@@ -9,7 +9,6 @@
 //
 
 #include "NcursesViewController.hpp"
-#include <signal.h>
 
 int max_Y_sighandler;
 int max_X_sighandler;
@@ -205,7 +204,7 @@ bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeComm
     *commandType = arcade::CommandType::GO_RIGHT;
   else if (key == 10) //10 = Enter
     *commandType = arcade::CommandType::SHOOT;
-  else if (key == ' ')
+  else if (key == '8')
     *commandType = arcade::CommandType::RESTART;
   else if (key == '9')
     action = ChangeCommandType::DISPLAY_MENU;
@@ -263,7 +262,7 @@ void  NcursesViewController::gameOver(int score)
   NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 12,
   		   this->windowsize_x / 2 + 4, std::to_string(score).c_str());
   NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 16,
-  		   this->windowsize_x/ 2 - 11, "Press SPACE to restart");
+  		   this->windowsize_x/ 2 - 11, "Press 8 to restart");
 }
 
 void	NcursesViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
