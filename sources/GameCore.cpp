@@ -59,6 +59,9 @@ void	GameCore::GameLauncher()
 	  library = this->openLibrary(Libs.at(currentLib).c_str());
 	  load_library_function = this->getLibrary(library);
 	  libraryInstance = load_library_function();
+	}
+      if (action == ChangeCommandType::STANDBY)
+	{
 	  libraryInstance->drawMenu(currentGame, Games, exit);
 	  if (exit) break;
 	}

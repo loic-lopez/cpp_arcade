@@ -57,6 +57,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
    "Move character with arrows."
    };
   sf::Text	mainText;
+  sf::Text	arrow;
   size_t	index;
   sf::Texture texture;
   sf::Sprite sprite;
@@ -78,6 +79,15 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
   mainText.setPosition((sf::Vector2f((this->windowsize_x / 2.0f), sizeof("Game Arcade Menu"))));
   mainText.setCharacterSize(45);
   mainText.setFillColor(sf::Color::Red);
+  arrow.setFont(font);
+  arrow.setString("->");
+  arrow.setCharacterSize(24);
+  arrow.setFillColor(sf::Color::Red);
+  arrow.setPosition(((this->windowsize_x) / 2) -
+		     (sizeof(ItemStrings[selectedItemIndex]) *
+		      sizeof(ItemStrings[selectedItemIndex])) -
+		     (sizeof("->") * sizeof("->")) * 3 , (this->windowsize_y / 3) +
+		    (((selectedItemIndex * sizeof(ItemStrings[selectedItemIndex]))) * 5));
   for (size_t j = 0; j < (sizeof(texts) / sizeof(texts[0])); ++j)
     {
       sf::Text	Text;
@@ -86,7 +96,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
       Text.setString(string);
       Text.setCharacterSize(24);
       Text.setFillColor(sf::Color::White);
-      if (isSecondPart == true)
+      if (isSecondPart)
 	  Text.setPosition((this->windowsize_x) / 12, (gamePosition + j * 25) - 20);
       else if (string == "In Game :")
 	{
@@ -163,7 +173,14 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
       for (size_t j = 0; j < Items.size(); ++j)
 	this->window.draw(Items[j]);
       this->window.draw(mainText);
+      arrow.setPosition(((this->windowsize_x) / 2) -
+			 (sizeof(ItemStrings[selectedItemIndex]) *
+			  sizeof(ItemStrings[selectedItemIndex])) -
+			(sizeof("->") * sizeof("->")) * 3 ,
+			(this->windowsize_y / 3) +
+			 (((selectedItemIndex * sizeof(ItemStrings[selectedItemIndex]))) * 5));
       this->window.draw(sprite);
+      this->window.draw(arrow);
       this->refresh();
     }
   exit:
