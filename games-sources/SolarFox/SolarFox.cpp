@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Wed Apr  5 16:16:56 2017 Matthias Prost
+// Last update Wed Apr  5 16:27:42 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -122,7 +122,17 @@ void Play()
 
 }
 
-void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direction)
+static int  verif(arcade::GetMap *map)
+{
+  int   i;
+
+  while (++i != map->width * map->height)
+    if (map->tile[i] == arcade::TileType::POWERUP)
+      return (1);
+  return (0);
+}
+
+static void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direction)
 {
   int x;
   int y;
@@ -131,7 +141,6 @@ void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direc
   map->tile[ennemy2_pos] = arcade::TileType::EMPTY;
   map->tile[ennemy1_pos] = arcade::TileType::EMPTY;
 
-  // Ennemy 1
   x = ennemy1_pos % map->width;
   y = ennemy1_pos / map->width;
   if (y >= map->height - 2)
@@ -146,7 +155,6 @@ void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direc
   ennemy1_pos = i;
   map->tile[ennemy1_pos] = arcade::TileType::EVIL_DUDE;
 
-  // Ennemy 2
   x = ennemy2_pos % map->width;
   y = ennemy2_pos / map->width;
   if (direction == 0)
@@ -262,6 +270,8 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
         currentGame++;
         break;
       }
+    if (verif(this->Map) == 0)
+      break;
     libraryInstance->displayScore(this->Map->width, this->getGameName(),
 				libraryInstance->getLibraryName(), this->score);
     libraryInstance->refresh();
