@@ -25,7 +25,9 @@ SFMLViewController::SFMLViewController()
   this->windowsize_y = sf::VideoMode::getDesktopMode().height;
 }
 
-void	SFMLViewController::drawMenu(size_t &currentGame, std::vector<std::string> const &games, bool &exit)
+void	SFMLViewController::drawMenu(size_t &currentGame,
+					 std::vector<std::string> const &games,
+					 bool &exit)
 {
   (void)currentGame;
   (void)games;

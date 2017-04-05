@@ -15,14 +15,13 @@
 #include <map>
 #include <string>
 #include <unistd.h>
+#include <chrono>
 #include "../../lib-include/interface/ILibraryViewController.hpp"
 #include "../../include/Protocol.hh"
 #include "../../include/ArcadeEnum.hpp"
 
 class	IGameModel
 {
-private:
-  virtual void  wait_second(int) = 0;
  public:
   virtual void setMap() = 0;
   virtual void drawMap(ILibraryViewController *libraryInstance) = 0;

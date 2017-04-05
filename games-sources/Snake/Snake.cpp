@@ -126,21 +126,6 @@ void			Snake::drawMap(ILibraryViewController *libraryInstance)
   if (this->applePosition > -1)
     libraryInstance->drawSquare(this->Map->width, this->applePosition % this->Map->width,
 				this->applePosition / this->Map->width, Color::GREEN);
-  if (libraryInstance->getLibraryName() == "Ncurses")
-    this->wait_second(75);
-  else if (libraryInstance->getLibraryName() == "SFML")
-    this->wait_second(67);
-}
-
-void  Snake::wait_second(int toSleep)
-{
-  clock_t   ticks1, ticks2;
-
-  ticks1 = clock();
-  ticks2 = ticks1;
-  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1
-					     / (CLOCKS_PER_SEC / 1000)) < toSleep)
-    ticks2 = clock();
 }
 
 static	bool	headIsOnAWallOrSelf(arcade::GetMap *map, uint16_t head_x_pos,
@@ -203,6 +188,10 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
   this->Map->type = arcade::CommandType::PLAY;
+  std::chrono::time_point<std::chrono::system_clock> start, end;
+  long long int elapsed_milliseconds;
+
+  start = std::chrono::system_clock::now();
   if (!this->alreadyLaunch)
     {
       libraryInstance->initScreen(this->getGameName());
@@ -211,6 +200,8 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
     }
   while (libraryInstance->getKey(&this->Map->type, action, exit))
     {
+      end = std::chrono::system_clock::now();
+      elapsed_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
       if (this->Map->type == arcade::CommandType::RESTART
 	  || this->Map->type == arcade::CommandType::SHOOT)
 	this->Map->type = (arcade::CommandType)this->last_key;
@@ -244,8 +235,11 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
       	    }
       	  if (exit) break;
       	}
-      if (this->Map->type != arcade::CommandType::PLAY)
+      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 50)
+	{
 	  SnakeAlgorithm(this->Map, &this->_snake, &this->last_key);
+	  start = end;
+	}
       if (action == ChangeCommandType::NEXT_LIBRARY)
         {
 	  currentLibrary++;

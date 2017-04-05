@@ -9,6 +9,21 @@
 //
 
 #include "NcursesViewController.hpp"
+#include <signal.h>
+
+int max_Y_sighandler;
+int max_X_sighandler;
+
+void	resizeHandler(int sig)
+{
+  (void)sig;
+  NcursesEncap::n_getmaxyx(stdscr, &max_Y_sighandler, &max_X_sighandler);
+  clear();
+  wresize(stdscr, LINES, COLS);
+  resizeterm(LINES, COLS);
+  NcursesEncap::n_wrefresh(stdscr);
+  NcursesEncap::n_refresh();
+}
 
 extern "C" ILibraryViewController	*loadLibrary()
 {
@@ -209,6 +224,8 @@ void  NcursesViewController::initScreen(std::string const &name)
   NcursesEncap::n_cbreak();
   NcursesEncap::n_start_color();
   NcursesEncap::n_getmaxyx(stdscr, &this->windowsize_y, &this->windowsize_x);
+  max_X_sighandler = this->windowsize_x;
+  max_Y_sighandler = this->windowsize_y;
   NcursesEncap::n_init_color(0, 0, 0, 0);
   NcursesEncap::n_init_pair(1, COLOR_RED, COLOR_RED);
   NcursesEncap::n_init_pair(2, COLOR_GREEN, COLOR_GREEN);
@@ -223,6 +240,9 @@ void  NcursesViewController::initScreen(std::string const &name)
 
 void  NcursesViewController::refresh()
 {
+  signal(SIGWINCH, resizeHandler);
+  this->windowsize_y = max_Y_sighandler;
+  this->windowsize_x = max_X_sighandler;
   NcursesEncap::n_wrefresh(stdscr);
   NcursesEncap::n_refresh();
 }

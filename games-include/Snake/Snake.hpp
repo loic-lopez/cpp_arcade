@@ -29,7 +29,6 @@ class	Snake : public IGameModel
   std::vector<arcade::Position>	_snake;
   int 					applePosition;
   bool					popApple;
-  virtual void				wait_second(int);
   SaveCommand         			last_key;
   int                 			score;
   arcade::WhereAmI			*whereAmI;

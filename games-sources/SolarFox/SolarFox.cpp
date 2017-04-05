@@ -55,17 +55,6 @@ SolarFox::~SolarFox()
 
 }
 
-void  SolarFox::wait_second(int toSleep)
-{
-  clock_t   ticks1, ticks2;
-
-  ticks1 = clock();
-  ticks2 = ticks1;
-  while ((ticks2 / (CLOCKS_PER_SEC / 1000) - ticks1
-					     / (CLOCKS_PER_SEC / 1000)) < toSleep)
-    ticks2 = clock();
-}
-
 void SolarFox::drawMap(ILibraryViewController *libraryInstance)
 {
   int   i;
@@ -85,10 +74,6 @@ void SolarFox::drawMap(ILibraryViewController *libraryInstance)
            i / this->Map->width, Color::BLACK);
     }
   libraryInstance->drawSquare(this->Map->width, this->_ship.x, this->_ship.y, Color::BLUE);
-  if (libraryInstance->getLibraryName() == "Ncurses")
-    this->wait_second(95);
-  else if (libraryInstance->getLibraryName() == "SFML")
-    this->wait_second(85);
 }
 
 void SolarFox::setMap()

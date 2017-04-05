@@ -28,7 +28,6 @@ class SolarFox : public IGameModel
   arcade::GetMap			*Map;
   arcade::Position  	_ship;
   SaveCommand         last_key;
-  virtual void  wait_second(int);
 
  public:
   SolarFox(std::string const &libname);
