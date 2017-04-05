@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Wed Apr  5 22:09:28 2017 Matthias Prost
+// Last update Wed Apr  5 22:34:52 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -225,7 +225,7 @@ static void  Ennemy_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, int e
   shoots->push_back(tmp_shoot2);
 }
 
-static void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direction)
+void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direction)
 {
   int x;
   int y;
@@ -286,7 +286,11 @@ static	bool	Ship_collision(arcade::GetMap *map, uint16_t pos_x,
       if ((map->tile[i] == arcade::TileType::BLOCK && pos_x == 0) ||
        (map->tile[i] == arcade::TileType::BLOCK && pos_y == 0) ||
        (map->tile[i] == arcade::TileType::BLOCK && pos_y == map->height - 1) ||
-       (map->tile[i] == arcade::TileType::BLOCK && pos_x == map->width - 1))
+       (map->tile[i] == arcade::TileType::BLOCK && pos_x == map->width - 1) ||
+       (map->tile[i] == arcade::TileType::EVIL_DUDE) ||
+       (map->tile[i] == arcade::TileType::EVIL_DUDE) ||
+       (map->tile[i] == arcade::TileType::EVIL_DUDE) ||
+       (map->tile[i] == arcade::TileType::EVIL_DUDE))
 	      return (true);
     }
   return (false);
@@ -342,7 +346,7 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
         action = ChangeCommandType::RESTART;
         return (action);
       }
-      if (this->Map->type != arcade::CommandType::PLAY && ennemy_milliseconds > 1585)
+      if (this->Map->type != arcade::CommandType::PLAY && ennemy_milliseconds > 300)
       {
         Ennemy_shoot(this->Map, &this->shoots, this->ennemy1_pos, this->ennemy2_pos);
         ennemy_start = ennemy_end;
@@ -352,7 +356,7 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
       if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 75)
       {
         SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key, &this->shoots);
-        Ennemy(this->ennemy1_pos, this->ennemy2_pos, this->Map, this->direction);
+        // Ennemy(this->ennemy1_pos, this->ennemy2_pos, this->Map, this->direction);
         start = end;
       }
     if (action == ChangeCommandType::NEXT_LIBRARY)

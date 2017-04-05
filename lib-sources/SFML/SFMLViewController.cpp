@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Wed Apr  5 16:54:20 2017 Matthias Prost
+// Last update Wed Apr  5 22:42:45 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -71,8 +71,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
   mainText.setCharacterSize((this->windowsize_x / 2) / sizeof("Game Arcade Menu"));
   mainText.setFillColor(sf::Color::Red);
   mainText.setPosition(((this->windowsize_x / 2) - (sizeof("Game Arcade Menu")
-						    * sizeof("Game Arcade Menu"))
-			- sizeof("Game Arcade Menu") * 2), 0);
+						    * sizeof("Game Arcade Menu"))) + sizeof("Game Arcade Menu"), 0);
   for (size_t j = 0; j < (sizeof(texts) / sizeof(texts[0])); ++j)
     {
       sf::Text	Text;
@@ -82,15 +81,15 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
       Text.setCharacterSize(24);
       Text.setFillColor(sf::Color::White);
       if (isSecondPart == true)
-	  Text.setPosition((this->windowsize_x) / 7, (gamePosition + j * 25) - 20);
+	  Text.setPosition((this->windowsize_x) / 12, (gamePosition + j * 25) - 20);
       else if (string == "In Game :")
 	{
 	  isSecondPart = true;
 	  gamePosition = (24 * (j * 2)) + (this->windowsize_y / 3);
-	  Text.setPosition((this->windowsize_x) / 7, gamePosition);
+	  Text.setPosition((this->windowsize_x) / 12, gamePosition);
 	}
       else
-	Text.setPosition((this->windowsize_x) / 7, 24 * j + (this->windowsize_y / 3));
+	Text.setPosition((this->windowsize_x) / 12, 24 * j + (this->windowsize_y / 3));
       menu.push_back(Text);
     }
 
@@ -101,7 +100,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
       Text.setString(ItemStrings[i]);
       Text.setCharacterSize(35);
       Text.setFillColor(sf::Color::White);
-      Text.setPosition(((this->windowsize_x) / 2) - sizeof(ItemStrings[i]),
+      Text.setPosition(((this->windowsize_x) / 2) - (sizeof(ItemStrings[i]) * sizeof(ItemStrings[i])),
 		       (this->windowsize_y / 3) + (((i * sizeof(ItemStrings[i]))) * 5));
       Items.push_back(Text);
     }
