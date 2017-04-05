@@ -66,12 +66,16 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
   if (!font.loadFromFile("lib-sources/SFML/Fonts/Roboto-Condensed.ttf"))
     std::cerr << "ERROR: cannot found Roboto-Condensed.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
   texture.setSmooth(true);
+  sprite.setTexture(texture);
+  sprite.setPosition(sf::Vector2f((this->windowsize_x / 2.0f) - (texture.getSize().x),
+				  (this->windowsize_y / 2.0f) - (texture.getSize().y) * 1.8));
+  sprite.scale(sf::Vector2f(2.f, 2.f));
   mainText.setFont(font);
   mainText.setString("Game Arcade Menu");
   sf::FloatRect textRect = mainText.getLocalBounds();
 
   mainText.setOrigin(textRect.width / 2, textRect.height / 2);
-  mainText.setPosition((sf::Vector2f(this->windowsize_x / 2.0f, sizeof("Game Arcade Menu"))));
+  mainText.setPosition((sf::Vector2f((this->windowsize_x / 2.0f), sizeof("Game Arcade Menu"))));
   mainText.setCharacterSize(45);
   mainText.setFillColor(sf::Color::Red);
   for (size_t j = 0; j < (sizeof(texts) / sizeof(texts[0])); ++j)
@@ -159,6 +163,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
       for (size_t j = 0; j < Items.size(); ++j)
 	this->window.draw(Items[j]);
       this->window.draw(mainText);
+      this->window.draw(sprite);
       this->refresh();
     }
   exit:
