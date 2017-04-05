@@ -29,9 +29,75 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 					 std::vector<std::string> const &games,
 					 bool &exit)
 {
+  sf::Font      font;
+  sf::Event event;
+  std::vector<sf::Text> menu;
+  const	char	*texts[]
+   {
+    "Move the cursor menu to select a game.",
+    "Press enter to choose a game.",
+    "In Game :",
+   "Key 2 : move to previous graphical library.",
+   "Key 3 : move to next graphical library.",
+   "Key 4 : move to previous game.",
+   "Key 5 : move to next game.",
+   "Key 8 : restart the game.",
+   "Key 9 : display this menu.",
+   "Key Escape : quit the game or menu.",
+   "Move character with arrows."
+   };
+
   (void)currentGame;
   (void)games;
   (void)exit;
+  if (!font.loadFromFile("lib-sources/SFML/Fonts/Roboto-Condensed.ttf"))
+    std::cout << "ERROR: cannot found Roboto-Condensed.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
+
+  for (size_t j = 0; j < (sizeof(texts) / sizeof(texts[0])); ++j)
+    {
+      sf::Text	Text;
+      Text.setFont(font);
+      Text.setString(texts[j]);
+      Text.setCharacterSize(24);
+      Text.setFillColor(sf::Color::White);
+      Text.setPosition(24 + (this->windowsize_x + (5 * 15) + 75) / 2, 24 + (this->windowsize_y / 9));
+      menu.push_back(Text);
+    }
+  /*
+  _game.setFont(font);
+  _game.setString(Game);
+  _game.setCharacterSize(24);
+  _game.setFillColor(sf::Color::White);
+  _game.setPosition(24 + (this->windowsize_x + (this->windowsize_y / 9)));
+
+*/
+
+  while (this->window.isOpen())
+    {
+      while (this->window.pollEvent(event))
+	{
+	  if (event.type == sf::Event::Closed)
+	    {
+	      exit = true;
+	      this->endScreen();
+	      return;
+	    }
+	  if (event.type == sf::Event::KeyPressed)
+	    {
+	      if (event.key.code == sf::Keyboard::Escape)
+		{
+		  exit = true;
+		  this->endScreen();
+		  return;
+		}
+	    }
+	}
+      for (size_t i = 0; i < menu.size(); ++i)
+	  window.draw(menu[i]);
+      this->refresh();
+    }
+
+  this->endScreen();
 }
 
 bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)

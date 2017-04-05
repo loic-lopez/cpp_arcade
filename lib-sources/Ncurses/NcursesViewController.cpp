@@ -176,7 +176,7 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
   free_menu(menu);
   for(int i = 0; i < n_choices; ++i)
     free_item(my_items[i]);
-  endwin();
+  this->endScreen();
 }
 
 bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
