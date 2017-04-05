@@ -76,27 +76,25 @@ static	void	print_in_middle(WINDOW *win, int starty, int startx,
   temp = (width - length)/ 2;
   x = startx + (int)temp;
   wattron(win, color);
-  mvwprintw(win, y, x, "%s", string);
+  NcursesEncap::n_mvwprintw(win, y, x, string);
   wattroff(win, color);
   refresh();
 }
 
 static	void	printKeys(int max_y, int max_x)
 {
-  mvprintw((max_y / 2) - 9, (max_x / 2) - 18, "Move the cursor menu to select a game.");
-  mvprintw((max_y / 2) - 8, (max_x / 2) - 18, "Press enter to choose a game.");
-  mvprintw((max_y / 2) - 6, (max_x / 2) - 18, "In Game :");
-  mvprintw((max_y / 2) - 5, (max_x / 2) - 18, "Key 2 : move to previous graphical library.");
-  mvprintw((max_y / 2) - 4, (max_x / 2) - 18, "Key 3 : move to next graphical library.");
-  mvprintw((max_y / 2) - 3, (max_x / 2) - 18, "Key 4 : move to previous game.");
-  mvprintw((max_y / 2) - 2, (max_x / 2) - 18, "Key 5 : move to next game.");
-  mvprintw((max_y / 2) - 1, (max_x / 2) - 18, "Key 8 : restart the game.");
-  mvprintw((max_y / 2), (max_x / 2) - 18, "Key 9 : display this menu.");
-  mvprintw((max_y / 2) + 1, (max_x / 2) - 18, "Key Escape : quit the game or menu.");
-  mvprintw((max_y / 2) + 2, (max_x / 2) - 18, "Move character with arrows.");
+  NcursesEncap::n_mvprintw((max_y / 2) - 9, (max_x / 2) - 18, "Move the cursor menu to select a game.");
+  NcursesEncap::n_mvprintw((max_y / 2) - 8, (max_x / 2) - 18, "Press enter to choose a game.");
+  NcursesEncap::n_mvprintw((max_y / 2) - 6, (max_x / 2) - 18, "In Game :");
+  NcursesEncap::n_mvprintw((max_y / 2) - 5, (max_x / 2) - 18, "Key 2 : move to previous graphical library.");
+  NcursesEncap::n_mvprintw((max_y / 2) - 4, (max_x / 2) - 18, "Key 3 : move to next graphical library.");
+  NcursesEncap::n_mvprintw((max_y / 2) - 3, (max_x / 2) - 18, "Key 4 : move to previous game.");
+  NcursesEncap::n_mvprintw((max_y / 2) - 2, (max_x / 2) - 18, "Key 5 : move to next game.");
+  NcursesEncap::n_mvprintw((max_y / 2) - 1, (max_x / 2) - 18, "Key 8 : restart the game.");
+  NcursesEncap::n_mvprintw((max_y / 2), (max_x / 2) - 18, "Key 9 : display this menu.");
+  NcursesEncap::n_mvprintw((max_y / 2) + 1, (max_x / 2) - 18, "Key Escape : quit the game or menu.");
+  NcursesEncap::n_mvprintw((max_y / 2) + 2, (max_x / 2) - 18, "Move character with arrows.");
 }
-
-#include <iostream>
 
 void	NcursesViewController::drawMenu(size_t &currentGame,
 					    std::vector<std::string> const &games,

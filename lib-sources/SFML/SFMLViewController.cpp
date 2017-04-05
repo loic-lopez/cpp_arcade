@@ -29,9 +29,11 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 					 std::vector<std::string> const &games,
 					 bool &exit)
 {
-  sf::Font      font;
-  sf::Event event;
+  sf::Font     	font;
+  sf::Event 	event;
   std::vector<sf::Text> menu;
+  short		isSecondPart = 0;
+  int 		gamePosition;
   const	char	*texts[]
    {
     "Move the cursor menu to select a game.",
@@ -56,21 +58,24 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
   for (size_t j = 0; j < (sizeof(texts) / sizeof(texts[0])); ++j)
     {
       sf::Text	Text;
+      std::string string = texts[j];
       Text.setFont(font);
-      Text.setString(texts[j]);
+      Text.setString(string);
       Text.setCharacterSize(24);
       Text.setFillColor(sf::Color::White);
-      Text.setPosition(24 + (this->windowsize_x + (5 * 15) + 75) / 2, 24 + (this->windowsize_y / 9));
+      if (isSecondPart == 1)
+	  Text.setPosition((this->windowsize_x) / 6, (gamePosition + j * 25) - 20);
+      else if (string == "In Game :")
+	{
+	  isSecondPart = 1;
+	  gamePosition = (24 * (j * 2)) + (this->windowsize_y / 3);
+	  Text.setPosition((this->windowsize_x) / 6, gamePosition);
+	}
+      else
+	Text.setPosition((this->windowsize_x) / 6, 24 * j + (this->windowsize_y / 3));
       menu.push_back(Text);
     }
-  /*
-  _game.setFont(font);
-  _game.setString(Game);
-  _game.setCharacterSize(24);
-  _game.setFillColor(sf::Color::White);
-  _game.setPosition(24 + (this->windowsize_x + (this->windowsize_y / 9)));
-
-*/
+  this->initScreen("Arcade Game Menu");
 
   while (this->window.isOpen())
     {
