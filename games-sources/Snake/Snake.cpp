@@ -171,8 +171,8 @@ static	void 	eatApple(IGameModel *game, arcade::GetMap *map,
       game->setScore(100);
       arcade::Position	newNode;
       map->tile[applePosition] = arcade::TileType::EMPTY;
-      newNode.x = (uint16_t) (snake->at(snake->size() - 1).x + 1);
-      newNode.y = (uint16_t) (snake->at(snake->size() - 1).y + 1);
+      newNode.x = (uint16_t) (snake->at(snake->size() - 1).x);
+      newNode.y = (uint16_t) (snake->at(snake->size() - 1).y);
       snake->push_back(newNode);
       popApple = false;
     }
