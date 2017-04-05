@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Mon Apr  3 03:58:15 2017 Matthias Prost
+// Last update Wed Apr  5 15:12:35 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -33,6 +33,10 @@ SolarFox::SolarFox(std::string const &libname)
       this->Map->tile[i] = arcade::TileType::EMPTY;
   initShip(&this->_ship, this->Map->height, this->Map->width);
   this->alreadyLaunch = false;
+  this->ennemy1_pos = 1 + this->Map->width * 1;
+  this->ennemy2_pos = 58 + this->Map->width * 43;
+  this->Map->tile[ennemy1_pos] = arcade::TileType::EVIL_DUDE;
+  this->Map->tile[ennemy2_pos] = arcade::TileType::EVIL_DUDE;
   this->score = 0;
 }
 
@@ -69,6 +73,9 @@ void SolarFox::drawMap(ILibraryViewController *libraryInstance)
       else if (this->Map->tile[i] == arcade::TileType::POWERUP)
      	   libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
            i / this->Map->width, Color::YELLOW);
+      else if (this->Map->tile[i] == arcade::TileType::EVIL_DUDE)
+         libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
+            i / this->Map->width, Color::RED);
       else
 	       libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
            i / this->Map->width, Color::BLACK);
@@ -112,6 +119,21 @@ void SolarFox::setMap()
 void Play()
 {
 
+}
+
+void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map)
+{
+  int x;
+  int y;
+  int i;
+
+  map->tile[ennemy1_pos] = arcade::TileType::EMPTY;
+  x = ennemy1_pos % map->width;
+  y = ennemy2_pos / map->width;
+  y++;
+  i = x + map->width * y;
+  ennemy1_pos = i;
+  map->tile[ennemy1_pos] = arcade::TileType::EVIL_DUDE;
 }
 
 static	void 	PowerUp(IGameModel *game, arcade::GetMap *map,
@@ -163,6 +185,9 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
   this->Map->type = arcade::CommandType::PLAY;
+  std::chrono::time_point<std::chrono::system_clock> start, end;
+  long long int elapsed_milliseconds;
+  Ennemy(this->ennemy1_pos, this->ennemy2_pos, this->Map);
   if (!this->alreadyLaunch)
     {
       libraryInstance->initScreen(this->getGameName());
@@ -171,6 +196,8 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
     }
   while (libraryInstance->getKey(&this->Map->type, action, exit))
   {
+    end = std::chrono::system_clock::now();
+    elapsed_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
     if (this->Map->type == arcade::CommandType::RESTART)
      this->Map->type = (arcade::CommandType)this->last_key;
     this->drawMap(libraryInstance);
@@ -186,8 +213,11 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
         action = ChangeCommandType::RESTART;
         return (action);
       }
-    if (this->Map->type != arcade::CommandType::PLAY)
-      SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key);
+      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 75)
+      {
+        SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key);
+        start = end;
+      }
     if (action == ChangeCommandType::NEXT_LIBRARY)
       {
         currentLibrary++;

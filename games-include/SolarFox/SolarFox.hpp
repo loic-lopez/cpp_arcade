@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:02:17 2017 Loïc Lopez
-** Last update Mon Apr  3 02:31:20 2017 Matthias Prost
+** Last update Wed Apr  5 14:53:43 2017 Matthias Prost
 */
 
 #ifndef SolarFox_HPP__
@@ -27,6 +27,8 @@ class SolarFox : public IGameModel
   int   score;
   arcade::GetMap			*Map;
   arcade::Position  	_ship;
+  int                 ennemy1_pos;
+  int                 ennemy2_pos;
   SaveCommand         last_key;
 
  public:

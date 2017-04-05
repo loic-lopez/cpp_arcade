@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  ven. mars 17 13:55:07 2017 Loïc Lopez
-** Last update Fri Mar 31 15:53:56 2017 Matthias Prost
+** Last update Wed Apr  5 14:55:17 2017 Matthias Prost
 */
 
 #ifndef IGAMEMODEL_HPP__
