@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Wed Apr  5 18:42:41 2017 Matthias Prost
+// Last update Wed Apr  5 21:09:59 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -140,9 +140,68 @@ void  player_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, arcade::Posi
   shoot tmp_shoot;
 
   tmp_shoot.is_ennemy = false;
+  tmp_shoot.count = 0;
   tmp_shoot.pos = _ship->x + map->width * _ship->y;
   tmp_shoot.direction = static_cast<Shoot_direction>(*last_key);
+  map->tile[tmp_shoot.pos] = arcade::TileType::MY_SHOOT;
   shoots->push_back(tmp_shoot);
+}
+
+static void  refresh_shoot(arcade::GetMap *map, std::vector<shoot> *shoots)
+{
+  size_t   i;
+  int   x;
+  int   y;
+
+  i = -1;
+  while (++i < shoots->size())
+  {
+    x = shoots->at(i).pos % map->width;
+    y = shoots->at(i).pos / map->width;
+    map->tile[shoots->at(i).pos] = arcade::TileType::EMPTY;
+    if (shoots->at(i).count == 10 && shoots->at(i).is_ennemy == false)
+    {
+      shoots->erase(shoots->begin() + i);
+      break;
+    }
+    if (x >= map->width - 2 || x <= 0 || y >= map->height || y <= 0)
+    {
+      shoots->erase(shoots->begin() + i);
+      break;
+    }
+    if (shoots->at(i).direction == Shoot_direction::UP)
+      y--;
+    else if (shoots->at(i).direction == Shoot_direction::DOWN)
+      y++;
+    else if (shoots->at(i).direction == Shoot_direction::LEFT)
+      x--;
+    else if (shoots->at(i).direction == Shoot_direction::RIGHT)
+      x++;
+    shoots->at(i).count++;
+    shoots->at(i).pos = x + map->width * y;
+    map->tile[shoots->at(i).pos] = arcade::TileType::MY_SHOOT;
+  }
+}
+
+static void  Ennemy_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, int ennemy1_pos, int ennemy2_pos)
+{
+  shoot tmp_shoot;
+
+  tmp_shoot.is_ennemy = true;
+  tmp_shoot.count = 0;
+  tmp_shoot.pos = ennemy1_pos;
+  tmp_shoot.direction = Shoot_direction::RIGHT;
+  map->tile[tmp_shoot.pos] = arcade::TileType::EVIL_SHOOT;
+  shoots->push_back(tmp_shoot);
+
+  shoot tmp_shoot2;
+
+  tmp_shoot2.is_ennemy = true;
+  tmp_shoot2.count = 0;
+  tmp_shoot2.pos = ennemy2_pos;
+  tmp_shoot2.direction = Shoot_direction::LEFT;
+  map->tile[tmp_shoot2.pos] = arcade::TileType::EVIL_SHOOT;
+  shoots->push_back(tmp_shoot2);
 }
 
 static void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direction)
@@ -255,6 +314,10 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
         action = ChangeCommandType::RESTART;
         return (action);
       }
+      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 1000)
+        Ennemy_shoot(this->Map, &this->shoots, this->ennemy1_pos, this->ennemy2_pos);
+      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 50)
+        refresh_shoot(this->Map, &this->shoots);
       if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 75)
       {
         SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key, &this->shoots);
