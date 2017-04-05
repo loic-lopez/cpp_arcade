@@ -71,7 +71,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
   sf::FloatRect textRect = mainText.getLocalBounds();
 
   mainText.setOrigin(textRect.width / 2, textRect.height / 2);
-  mainText.setPosition((sf::Vector2f(this->windowsize_x / 2.0f - sizeof("Game Arcade Menu"), sizeof("Game Arcade Menu"))));
+  mainText.setPosition((sf::Vector2f(this->windowsize_x / 2.0f, sizeof("Game Arcade Menu"))));
   mainText.setCharacterSize(45);
   mainText.setFillColor(sf::Color::Red);
   for (size_t j = 0; j < (sizeof(texts) / sizeof(texts[0])); ++j)
