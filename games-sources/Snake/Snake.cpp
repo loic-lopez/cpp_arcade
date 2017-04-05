@@ -8,8 +8,6 @@
 // Last update Wed Apr  5 15:12:42 2017 Matthias Prost
 //
 
-#include <array>
-#include <random>
 #include "Snake.hpp"
 
 extern "C" IGameModel *createInstanceGame(std::string const &libname)
