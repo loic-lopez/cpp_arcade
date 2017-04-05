@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Wed Apr  5 23:06:19 2017 Matthias Prost
+// Last update Wed Apr  5 23:53:39 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -155,7 +155,7 @@ void  player_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, arcade::Posi
   shoots->push_back(tmp_shoot);
 }
 
-static void  refresh_shoot(arcade::GetMap *map, std::vector<shoot> *shoots)
+static void  refresh_shoot(SolarFox *solarfox, arcade::GetMap *map, std::vector<shoot> *shoots)
 {
   size_t   i;
   int   x;
@@ -167,7 +167,10 @@ static void  refresh_shoot(arcade::GetMap *map, std::vector<shoot> *shoots)
     x = shoots->at(i).pos % map->width;
     y = shoots->at(i).pos / map->width;
 
-    if (shoots->at(i).type != arcade::TileType::EVIL_SHOOT)
+    if (shoots->at(i).type != arcade::TileType::EVIL_SHOOT
+    && shoots->at(i).type != arcade::TileType::EVIL_DUDE
+    && shoots->at(i).type != arcade::TileType::MY_SHOOT
+    && shoots->at(i).is_ennemy == true)
       map->tile[shoots->at(i).pos] = shoots->at(i).type;
     else
       map->tile[shoots->at(i).pos] = arcade::TileType::EMPTY;
@@ -197,6 +200,13 @@ static void  refresh_shoot(arcade::GetMap *map, std::vector<shoot> *shoots)
     shoots->at(i).count++;
     shoots->at(i).pos = x + map->width * y;
     shoots->at(i).type = map->tile[shoots->at(i).pos];
+    if (map->tile[shoots->at(i).pos] == arcade::TileType::POWERUP && shoots->at(i).is_ennemy == false)
+      {
+        map->tile[shoots->at(i).pos] = arcade::TileType::EMPTY;
+        solarfox->setScore(100);
+        shoots->erase(shoots->begin() + i);
+        break;
+      }
     if (shoots->at(i).is_ennemy == false)
       map->tile[shoots->at(i).pos] = arcade::TileType::MY_SHOOT;
     if (shoots->at(i).is_ennemy == true)
@@ -204,29 +214,25 @@ static void  refresh_shoot(arcade::GetMap *map, std::vector<shoot> *shoots)
   }
 }
 
-static void  Ennemy_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, int ennemy1_pos, int ennemy2_pos, long long int *ennemy_milliseconds)
+static void  Ennemy_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, int ennemy1_pos, int ennemy2_pos)
 {
   shoot tmp_shoot;
+
+  tmp_shoot.is_ennemy = true;
+  tmp_shoot.count = 0;
+  tmp_shoot.pos = (ennemy1_pos % map->width) + 1 + map->width * (ennemy1_pos / map->width);
+  tmp_shoot.direction = Shoot_direction::RIGHT;
+  map->tile[tmp_shoot.pos] = arcade::TileType::EVIL_SHOOT;
+  shoots->push_back(tmp_shoot);
+
   shoot tmp_shoot2;
 
-  if (*ennemy_milliseconds > 1585)
-  {
-    tmp_shoot.is_ennemy = true;
-    tmp_shoot.count = 0;
-    tmp_shoot.pos = (ennemy1_pos % map->width) + 1 + map->width * (ennemy1_pos / map->width);
-    tmp_shoot.direction = Shoot_direction::RIGHT;
-    map->tile[tmp_shoot.pos] = arcade::TileType::EVIL_SHOOT;
-    shoots->push_back(tmp_shoot);
-  }
-  else if (*ennemy_milliseconds > 1385)
-  {
-    tmp_shoot2.is_ennemy = true;
-    tmp_shoot2.count = 0;
-    tmp_shoot2.pos = (ennemy2_pos % map->width) - 1 + map->width * (ennemy2_pos / map->width);
-    tmp_shoot2.direction = Shoot_direction::LEFT;
-    map->tile[tmp_shoot2.pos] = arcade::TileType::EVIL_SHOOT;
-    shoots->push_back(tmp_shoot2);
-  }
+  tmp_shoot2.is_ennemy = true;
+  tmp_shoot2.count = 0;
+  tmp_shoot2.pos = (ennemy2_pos % map->width) - 1 + map->width * (ennemy2_pos / map->width);
+  tmp_shoot2.direction = Shoot_direction::LEFT;
+  map->tile[tmp_shoot2.pos] = arcade::TileType::EVIL_SHOOT;
+  shoots->push_back(tmp_shoot2);
 }
 
 static void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direction)
@@ -263,18 +269,19 @@ static void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int
   map->tile[ennemy2_pos] = arcade::TileType::EVIL_DUDE;
 }
 
-static	void 	PowerUp(IGameModel *game, arcade::GetMap *map,
-				   arcade::Position *ship)
-{
-  (void)game;
-  if (map->tile[ship->x + map->width * ship->y] == arcade::TileType::POWERUP)
-    {
-      map->tile[ship->x + map->width * ship->y] = arcade::TileType::EMPTY;
-      game->setScore(100);
-    }
-  else
-    return;
-}
+// static	void 	PowerUp(IGameModel *game, arcade::GetMap *map,
+// 				   arcade::Position *ship)
+// {
+//   (void)game;
+//
+//   if (map->tile[ship->x + map->width * ship->y] == arcade::TileType::POWERUP)
+//     {
+//       map->tile[ship->x + map->width * ship->y] = arcade::TileType::EMPTY;
+//       game->setScore(100);
+//     }
+//   else
+//     return;
+// }
 
 static	bool	Ship_collision(std::vector<shoot> *shoots, arcade::GetMap *map, uint16_t pos_x,
 					      uint16_t pos_y)
@@ -344,7 +351,6 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
     if (this->Map->type == arcade::CommandType::RESTART)
      this->Map->type = (arcade::CommandType)this->last_key;
     this->drawMap(libraryInstance);
-    PowerUp(this, this->Map, &this->_ship);
     if (Ship_collision(&this->shoots, this->Map, this->_ship.x, this->_ship.y))
     {
       break;
@@ -356,10 +362,13 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
         action = ChangeCommandType::RESTART;
         return (action);
       }
-        Ennemy_shoot(this->Map, &this->shoots, this->ennemy1_pos, this->ennemy2_pos, &ennemy_milliseconds);
+      if (this->Map->type != arcade::CommandType::PLAY && ennemy_milliseconds > 1585)
+      {
+        Ennemy_shoot(this->Map, &this->shoots, this->ennemy1_pos, this->ennemy2_pos);
         ennemy_start = ennemy_end;
+      }
       if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 50)
-        refresh_shoot(this->Map, &this->shoots);
+        refresh_shoot(this, this->Map, &this->shoots);
       if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 75)
       {
         SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key, &this->shoots);
