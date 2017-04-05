@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Wed Apr  5 16:27:42 2017 Matthias Prost
+// Last update Wed Apr  5 18:42:41 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -77,6 +77,9 @@ void SolarFox::drawMap(ILibraryViewController *libraryInstance)
       else if (this->Map->tile[i] == arcade::TileType::EVIL_DUDE)
          libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
             i / this->Map->width, Color::RED);
+      else if (this->Map->tile[i] == arcade::TileType::MY_SHOOT)
+         libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
+            i / this->Map->width, Color::GREEN);
       else
 	       libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
            i / this->Map->width, Color::BLACK);
@@ -130,6 +133,16 @@ static int  verif(arcade::GetMap *map)
     if (map->tile[i] == arcade::TileType::POWERUP)
       return (1);
   return (0);
+}
+
+void  player_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, arcade::Position *_ship, SaveCommand *last_key)
+{
+  shoot tmp_shoot;
+
+  tmp_shoot.is_ennemy = false;
+  tmp_shoot.pos = _ship->x + map->width * _ship->y;
+  tmp_shoot.direction = static_cast<Shoot_direction>(*last_key);
+  shoots->push_back(tmp_shoot);
 }
 
 static void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direction)
@@ -244,7 +257,7 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
       }
       if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 75)
       {
-        SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key);
+        SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key, &this->shoots);
         Ennemy(this->ennemy1_pos, this->ennemy2_pos, this->Map, this->direction);
         start = end;
       }

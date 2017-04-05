@@ -5,11 +5,19 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  dim. mars 26 16:54:00 2017 Loïc Lopez
-** Last update Tue Mar 28 15:39:59 2017 Matthias Prost
+** Last update Wed Apr  5 18:20:30 2017 Matthias Prost
 */
 
 #ifndef ARCADE_COLOR_HPP__
 # define ARCADE_COLOR_HPP__
+
+enum class  Shoot_direction : int
+{
+  UP = 2,
+  DOWN = 3,
+  LEFT = 4,
+  RIGHT = 5,
+};
 
 enum class 	Color : int
 {

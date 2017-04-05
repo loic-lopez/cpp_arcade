@@ -5,12 +5,12 @@
 // Login   <matthias.prost@epitech.eu@epitech.eu>
 //
 // Started on  Mon Apr  3 02:19:47 2017 Matthias Prost
-// Last update Mon Apr  3 17:28:57 2017 Matthias Prost
+// Last update Wed Apr  5 18:36:47 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
 
-void	SolarFoxAlgorithm(arcade::GetMap *Map, arcade::Position *ship, SaveCommand *last_key)
+void	SolarFoxAlgorithm(arcade::GetMap *Map, arcade::Position *ship, SaveCommand *last_key, std::vector<shoot> *shoots)
 {
   if ((Map->type == arcade::CommandType::GO_UP
        && *last_key != SaveCommand::DOWN) ||
@@ -46,7 +46,6 @@ void	SolarFoxAlgorithm(arcade::GetMap *Map, arcade::Position *ship, SaveCommand 
     }
   else if (Map->type == arcade::CommandType::SHOOT)
     {
-      std::cout << "Done!" << std::endl;
-      Map->type = (arcade::CommandType)*last_key;
+      player_shoot(Map, shoots, ship, last_key);
     }
 }

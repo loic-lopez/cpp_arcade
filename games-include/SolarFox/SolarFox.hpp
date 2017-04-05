@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:02:17 2017 Loïc Lopez
-** Last update Wed Apr  5 15:27:23 2017 Matthias Prost
+** Last update Wed Apr  5 18:40:43 2017 Matthias Prost
 */
 
 #ifndef SolarFox_HPP__
@@ -16,6 +16,12 @@
 #include "../../include/Cencapsulation.hpp"
 
 extern "C" IGameModel *createInstanceGame(std::string const &);
+
+struct  shoot {
+    bool             is_ennemy;
+    uint16_t         pos;
+    Shoot_direction  direction;
+};
 
 class SolarFox : public IGameModel
 {
@@ -31,6 +37,7 @@ class SolarFox : public IGameModel
   int                 ennemy2_pos;
   int                 direction;
   SaveCommand         last_key;
+  std::vector<shoot>  shoots;
 
  public:
   SolarFox(std::string const &libname);
@@ -48,6 +55,7 @@ class SolarFox : public IGameModel
   virtual void  playProtocol(void);
 };
 
-void	SolarFoxAlgorithm(arcade::GetMap *, arcade::Position *, SaveCommand *);
+void	SolarFoxAlgorithm(arcade::GetMap *Map, arcade::Position *ship, SaveCommand *last_key, std::vector<shoot> *shoots);
+void  player_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, arcade::Position *_ship, SaveCommand *last_key);
 
 #endif /* SolarFox_HPP__ */
