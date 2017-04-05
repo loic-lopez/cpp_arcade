@@ -226,7 +226,8 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 	      else if (action == ChangeCommandType::NEXT_LIBRARY
 		       || action == ChangeCommandType::PREV_LIBRARY
 		       || action == ChangeCommandType::PREV_GAME
-		       || action == ChangeCommandType::NEXT_GAME)
+		       || action == ChangeCommandType::NEXT_GAME
+		       || action == ChangeCommandType::DISPLAY_MENU)
 		break;
       	      libraryInstance->gameOver(this->score);
       	      libraryInstance->refresh();
@@ -260,6 +261,7 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 	  currentGame++;
 	  break;
 	}
+      else if (action == ChangeCommandType::DISPLAY_MENU) break;
       libraryInstance->displayScore(this->Map->width, this->getGameName(),
 					libraryInstance->getLibraryName(), this->score);
       libraryInstance->refresh();

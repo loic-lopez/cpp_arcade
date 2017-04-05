@@ -207,6 +207,8 @@ bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeComm
     *commandType = arcade::CommandType::SHOOT;
   else if (key == ' ')
     *commandType = arcade::CommandType::RESTART;
+  else if (key == '9')
+    action = ChangeCommandType::DISPLAY_MENU;
   return (true);
 }
 

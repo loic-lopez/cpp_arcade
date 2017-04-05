@@ -228,6 +228,8 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
             *commandType = arcade::CommandType::SHOOT;
           else if (event.key.code == sf::Keyboard::Space)
             *commandType = arcade::CommandType::RESTART;
+	  else if (event.key.code == sf::Keyboard::Num9)
+	    action = ChangeCommandType::DISPLAY_MENU;
         }
     }
   return (true);

@@ -60,7 +60,7 @@ void	GameCore::GameLauncher()
 	  load_library_function = this->getLibrary(library);
 	  libraryInstance = load_library_function();
 	}
-      if (action == ChangeCommandType::STANDBY)
+      if (action == ChangeCommandType::STANDBY || action == ChangeCommandType::DISPLAY_MENU)
 	{
 	  libraryInstance->drawMenu(currentGame, Games, exit);
 	  if (exit) break;
