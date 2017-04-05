@@ -70,7 +70,9 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
   mainText.setString("Game Arcade Menu");
   mainText.setCharacterSize((this->windowsize_x / 2) / sizeof("Game Arcade Menu"));
   mainText.setFillColor(sf::Color::Red);
-  mainText.setPosition(((this->windowsize_x / 2) - (sizeof("Game Arcade Menu")) * 25) , 0);
+  mainText.setPosition(((this->windowsize_x / 2) - (sizeof("Game Arcade Menu")
+						    * sizeof("Game Arcade Menu"))
+			- sizeof("Game Arcade Menu") * 2), 0);
   for (size_t j = 0; j < (sizeof(texts) / sizeof(texts[0])); ++j)
     {
       sf::Text	Text;
