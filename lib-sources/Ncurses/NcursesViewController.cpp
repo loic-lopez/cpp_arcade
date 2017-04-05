@@ -14,15 +14,13 @@
 int max_Y_sighandler;
 int max_X_sighandler;
 
-void	resizeHandler(int sig)
+static void	resizeHandler(int sig)
 {
   (void)sig;
   NcursesEncap::n_getmaxyx(stdscr, &max_Y_sighandler, &max_X_sighandler);
   clear();
-  wresize(stdscr, LINES, COLS);
   resizeterm(LINES, COLS);
-  NcursesEncap::n_wrefresh(stdscr);
-  NcursesEncap::n_refresh();
+  refresh();
 }
 
 extern "C" ILibraryViewController	*loadLibrary()
@@ -166,6 +164,10 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
 		break;
 	    }
       	}
+      clear();
+      printKeys(this->windowsize_y, windowsize_x);
+      box(menu_win, 0, 0);
+      print_in_middle(menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(7));
       wrefresh(menu_win);
     }
   if (key == _KEY_ESC)
