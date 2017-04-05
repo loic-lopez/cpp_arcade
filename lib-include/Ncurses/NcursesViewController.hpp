@@ -11,19 +11,25 @@
 #ifndef NCURSESVIEWCONTROLLER_HPP__
 # define NCURSESVIEWCONTROLLER_HPP__
 
+#include <algorithm>
 #include "../interface/ILibraryViewController.hpp"
 #include "NcursesEncap.hpp"
 #include "menu.h"
 
 extern "C" ILibraryViewController	*loadLibrary();
 
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]));
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+#define _KEY_ENTER 10
+#define _KEY_ESC	27
 
 class NcursesViewController : public ILibraryViewController
 {
-  private:
-    int   windowsize_x;
-    int   windowsize_y;
+ private:
+  int   windowsize_x;
+  int   windowsize_y;
+  MENU	*menu;
+  WINDOW	*menu_win;
+  ITEM	*my_items[4];
 
  public:
   virtual ~NcursesViewController();
@@ -31,7 +37,7 @@ class NcursesViewController : public ILibraryViewController
 
   // Methods
   virtual void drawSquare(int width, int x, int y, Color const &);
-  virtual void drawMenu(size_t &currentGame);
+  virtual void drawMenu(size_t &currentGame, std::vector<std::string> const &games, bool &exit);
   virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit);
   virtual void initScreen(std::string const &name);
   virtual void displayScore(int width, std::string const &, std::string const &, int);

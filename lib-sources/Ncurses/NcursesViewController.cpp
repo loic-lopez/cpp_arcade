@@ -43,7 +43,8 @@ static int	my_strlen(char *str)
   return (i);
 }
 
-static void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
+static	void	print_in_middle(WINDOW *win, int starty, int startx,
+					  int width, char *string, chtype color)
 {
   int length, x, y;
   float temp;
@@ -67,57 +68,98 @@ static void print_in_middle(WINDOW *win, int starty, int startx, int width, char
   refresh();
 }
 
-
-void  NcursesViewController::drawMenu(size_t &currentGame)
+static	void	printKeys(int max_y, int max_x)
 {
-  (void)currentGame;
-  ITEM **my_items;
-  int c;
-  MENU *my_menu;
-  WINDOW *my_menu_win;
-  int n_choices, i;
-  char *choices[] = {
-   (char *) "Snake",
-   (char *) "SolarFox",
-   (char *) "Exit",
-   (char *) NULL,
-  };
+  mvprintw((max_y / 2) - 9, (max_x / 2) - 18, "Move the cursor menu to select a game.");
+  mvprintw((max_y / 2) - 8, (max_x / 2) - 18, "Press enter to choose a game.");
+  mvprintw((max_y / 2) - 6, (max_x / 2) - 18, "In Game :");
+  mvprintw((max_y / 2) - 5, (max_x / 2) - 18, "Key 2 : move to previous graphical library.");
+  mvprintw((max_y / 2) - 4, (max_x / 2) - 18, "Key 3 : move to next graphical library.");
+  mvprintw((max_y / 2) - 3, (max_x / 2) - 18, "Key 4 : move to previous game.");
+  mvprintw((max_y / 2) - 2, (max_x / 2) - 18, "Key 5 : move to next game.");
+  mvprintw((max_y / 2) - 1, (max_x / 2) - 18, "Key 8 : restart the game.");
+  mvprintw((max_y / 2), (max_x / 2) - 18, "Key 9 : display this menu.");
+  mvprintw((max_y / 2) + 1, (max_x / 2) - 18, "Key Escape : quit the game or menu.");
+  mvprintw((max_y / 2) + 2, (max_x / 2) - 18, "Move character with arrows.");
+}
+
+#include <iostream>
+
+void	NcursesViewController::drawMenu(size_t &currentGame,
+					    std::vector<std::string> const &games,
+					    bool &exit)
+{
+  int	key;
+  int n_choices;
+  const char *choices[] =
+   {
+    "Snake",
+    "SolarFox",
+    "Exit",
+    NULL,
+   };
+
 
   this->initScreen("Arcade Game Menu");
   n_choices = ARRAY_SIZE(choices);
-  my_items = (ITEM **)calloc(n_choices, sizeof(ITEM *));
-  for(i = 0; i < n_choices; ++i)
+  for(int i = 0; i < n_choices; ++i)
     my_items[i] = new_item(choices[i], NULL);
 
-  my_menu = new_menu(my_items);
-  my_menu_win = newwin(10, 40, (this->windowsize_y / 2) - 20, (this->windowsize_x / 2) - 20);
-  keypad(my_menu_win, TRUE);
-  set_menu_win(my_menu, my_menu_win);
-  set_menu_sub(my_menu, derwin(my_menu_win, 6, 38, 3, 1));
-  set_menu_fore(my_menu, COLOR_PAIR(8));
-  set_menu_mark(my_menu, " -> ");
-  box(my_menu_win, 0, 0);
-  print_in_middle(my_menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(7));
-  post_menu(my_menu);
-  while((c = wgetch(my_menu_win)) != 27)
-    {       switch(c)
-    {	case KEY_DOWN:
-    menu_driver(my_menu, REQ_DOWN_ITEM);
-      break;
-      case KEY_UP:
-	menu_driver(my_menu, REQ_UP_ITEM);
-      break;
+  menu = new_menu(my_items);
+  menu_win = newwin(10, 40, (this->windowsize_y / 2) - 20, (this->windowsize_x / 2) - 20);
+  printKeys(this->windowsize_y, windowsize_x);
+  keypad(menu_win, TRUE);
+  set_menu_win(menu, menu_win);
+  set_menu_sub(menu, derwin(menu_win, 6, 38, 3, 1));
+  set_menu_fore(menu, COLOR_PAIR(8));
+  set_menu_mark(menu, " -> ");
+  box(menu_win, 0, 0);
+  print_in_middle(menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(7));
+  post_menu(menu);
+  while((key = wgetch(menu_win)) != _KEY_ESC)
+    {
+      if (key == KEY_DOWN)
+	menu_driver(menu, REQ_DOWN_ITEM);
+      else if (key == KEY_UP)
+    	menu_driver(menu, REQ_UP_ITEM);
+      else if (key == _KEY_ENTER)
+      	{
+	  std::string item = item_name(current_item(menu));
+	  if (item == "Exit")
+	    {
+	      exit = true;
+	      break;
+	    }
+	  else
+	    {
+	      size_t	index;
+	      std::transform(item.begin(), item.end(), item.begin(), ::tolower);
+	      for (index = 0; index < games.size(); ++index)
+		{
+		  if (games.at(index).find(item) != std::string::npos)
+		    {
+		      currentGame = index;
+		      break;
+		    }
+		}
+	      if (index == games.size())
+		{
+		  exit = true;
+		  break;
+		}
+	       else
+		break;
+	    }
+      	}
+      wrefresh(menu_win);
     }
-      wrefresh(my_menu_win);
-    }
-
-  /* Unpost and free all the memory taken up */
-  unpost_menu(my_menu);
-  free_menu(my_menu);
-  for(i = 0; i < n_choices; ++i)
+  if (key == _KEY_ESC)
+    exit = true;
+  unpost_menu(menu);
+  free_menu(menu);
+  for(int i = 0; i < n_choices; ++i)
     free_item(my_items[i]);
   endwin();
- // exit(0);
 }
 
 bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
@@ -125,7 +167,7 @@ bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeComm
   int key;
 
   key = NcursesEncap::n_getch();
-  if (key == 27)
+  if (key == _KEY_ESC)
     {
       exit = true;
       return (false);

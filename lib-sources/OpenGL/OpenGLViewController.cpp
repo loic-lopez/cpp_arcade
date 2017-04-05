@@ -110,9 +110,11 @@ OpenGLViewController::~OpenGLViewController()
 
 }
 
-void	OpenGLViewController::drawMenu(size_t &currentGame)
+void	OpenGLViewController::drawMenu(size_t &currentGame, std::vector<std::string> const &games, bool &exit)
 {
   (void)currentGame;
+  (void)games;
+  (void)exit;
 }
 
 bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
@@ -190,10 +192,7 @@ void	OpenGLViewController::initScreen(std::string const &name)
     }
 
   glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
-  // Hide the mouse and enable unlimited mouvement
-  glfwSetInputMode(this->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
   glfwPollEvents();
-  glfwSetCursorPos(window, 1024/2, 768/2);
 
   glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
   glEnable(GL_DEPTH_TEST);
