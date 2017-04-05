@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Wed Apr  5 23:53:39 2017 Matthias Prost
+// Last update Thu Apr  6 00:08:03 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -39,6 +39,7 @@ SolarFox::SolarFox(std::string const &libname)
   this->Map->tile[ennemy2_pos] = arcade::TileType::EVIL_DUDE;
   this->direction = 0;
   this->score = 0;
+  this->last_key = SaveCommand::LEFT;
 }
 
 SolarFox::SolarFox(SolarFox const &SolarFox)
@@ -137,6 +138,7 @@ static int  verif(arcade::GetMap *map)
 {
   int   i;
 
+  i = -1;
   while (++i != map->width * map->height)
     if (map->tile[i] == arcade::TileType::POWERUP)
       return (1);
