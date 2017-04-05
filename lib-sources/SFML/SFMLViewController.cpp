@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Wed Apr  5 22:42:45 2017 Matthias Prost
+// Last update Wed Apr  5 23:12:17 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -67,9 +67,9 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
     std::cerr << "ERROR: cannot found Roboto-Condensed.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
   texture.setSmooth(true);
   sprite.setTexture(texture);
-  sprite.setPosition(sf::Vector2f((this->windowsize_x / 2.0f) - (texture.getSize().x),
-				  (this->windowsize_y / 2.0f) - (texture.getSize().y) * 1.8));
-  sprite.scale(sf::Vector2f(2.f, 2.f));
+  sprite.setPosition(sf::Vector2f((this->windowsize_x / 2.0f) * 1.15 - (texture.getSize().x),
+				  (this->windowsize_y / 2.0f) * 1.1 - (texture.getSize().y)));
+  sprite.scale(sf::Vector2f(1.5f, 1.5f));
   mainText.setFont(font);
   mainText.setString("Game Arcade Menu");
   sf::FloatRect textRect = mainText.getLocalBounds();
