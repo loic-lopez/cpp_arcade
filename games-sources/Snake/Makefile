@@ -18,7 +18,7 @@ CXXFLAGS	= -Wall -Wextra -Werror -I../../games-include/Snake -fPIC -shared \
 ################# LIB SRCS ################
 
 Snake_SRCS	=	Snake.cpp \
-			../../sources/Cencapsulation.cpp \
+			../commun/Cencapsulation.cpp \
 			SnakeProtocol.cpp \
 			SnakeAlgorithm.cpp
 
