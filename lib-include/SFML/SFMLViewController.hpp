@@ -36,6 +36,8 @@ private:
   bool 		playGameOver;
   std::string	functionCaller;
   sf::Music 	deathComes;
+  sf::Texture	backgroundTexture;
+  sf::Sprite	backgroundSprite;
 
  public:
   virtual ~SFMLViewController();

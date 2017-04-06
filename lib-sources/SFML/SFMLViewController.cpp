@@ -30,7 +30,9 @@ SFMLViewController::SFMLViewController()
   if (!regular.loadFromFile("lib-sources/SFML/Fonts/Roboto-Regular.ttf"))
     std::cerr << "ERROR: cannot found Roboto-Regular.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
   if (!deathComes.openFromFile("assets/Death_comes.ogg"))
-    std::cerr << "SALUT " << std::endl;
+    std::cerr << "ERROR: cannot found Death_comes.ogg in assets/ make sure it exist" << std::endl;
+  if (!backgroundTexture.loadFromFile("assets/BackgroundArcade.jpg"))
+    std::cerr << "ERROR: cannot found Death_comes.ogg in assets/ make sure it exist" << std::endl;
   this->Lose.setBuffer(this->bufferLose);
   this->_game.setFont(this->regular);
   this->_game.setCharacterSize(24);
@@ -52,6 +54,7 @@ SFMLViewController::SFMLViewController()
   this->_key.setFillColor(sf::Color::White);
   this->_key.setPosition(((this->windowsize_x) - (9 * 24)) / 2, 24 + (this->windowsize_y / 5));
   this->functionCaller = "OTHER";
+  this->backgroundSprite.setTexture(this->backgroundTexture);
 }
 
 bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
@@ -127,10 +130,6 @@ void	SFMLViewController::displayScore(int width, std::string const &Game, std::s
 
   this->_score.setString("Score: " + std::to_string(score));
   this->_score.setPosition(24 + (this->windowsize_x + (width * 15) + 375) / 2, 24 + (this->windowsize_y / 9));
-
-  this->window.draw(this->_game);
-  this->window.draw(this->_library);
-  this->window.draw(this->_score);
 }
 
 void  SFMLViewController::endScreen()
@@ -157,7 +156,11 @@ void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
   else if (color == Color::WHITE)
     this->rectangle.setFillColor(sf::Color(255, 255, 255));
   this->rectangle.setPosition((x * 15) + (this->windowsize_x - (width * 15)) / 2, (y * 15) + (this->windowsize_y / 7));
+  this->window.draw(this->backgroundSprite);
   this->window.draw(this->rectangle);
+  this->window.draw(this->_game);
+  this->window.draw(this->_library);
+  this->window.draw(this->_score);
 }
 
 void  SFMLViewController::refresh()
@@ -179,9 +182,9 @@ void  SFMLViewController::gameOver(int score)
       this->playGameOver = true;
     }
   _score.setPosition(((this->windowsize_x) - ((2 + std::to_string(score).length() - 1) * 24)) / 2, 24 + (this->windowsize_y / 7));
-  this->window.draw(_game_over);
-  this->window.draw(_key);
-  this->window.draw(_score);
+  this->window.draw(this->_game_over);
+  this->window.draw(this->_key);
+  this->window.draw(this->_score);
 }
 
 void SFMLViewController::clear()
