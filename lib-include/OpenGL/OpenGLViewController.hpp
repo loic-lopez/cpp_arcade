@@ -13,10 +13,10 @@
 
 #define GLEW_STATIC
 #define GLM_FORCE_RADIANS
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include <SDL/SDL.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+
 #include <vector>
 #include <fstream>
 #include <iostream>
@@ -28,25 +28,6 @@ extern "C" ILibraryViewController	*loadLibrary();
 class OpenGLViewController : public ILibraryViewController
 {
  private:
-  GLFWwindow		*window;
-  GLuint			vertexbuffer;
-  GLuint			colorbuffer;
-  GLuint			VertexArrayID;
-  GLuint 		programID;
-  GLuint 		MatrixID;
-  const GLFWvidmode	*mode;
-  glm::mat4		View;
-  glm::mat4 		Projection;
-  glm::mat4		Model;
-  glm::mat4		MVP;
-  float 			horizontalAngle;
-  float 			verticalAngle;
-  float 			FoV;
-  float 			speed;
-  double 			lastTime;
-  glm::vec3 		camera;
-  int   			user_x;
-  int   			user_y;
 
  public:
   OpenGLViewController();
@@ -66,6 +47,5 @@ class OpenGLViewController : public ILibraryViewController
 };
 
 // DEFINED IN /lib-sources/OpenGL/LoadShaders.cpp
-GLuint	LoadShaders(const char	*vertex_file_path, const char 	*fragment_file_path);
 
 #endif /* OpenGLCONTROLLER_HPP__ */
