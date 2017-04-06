@@ -5,7 +5,7 @@
 ## Login   <loic.lopez@epitech.eu>
 ##
 ## Started on  Mon Mar  6 09:53:13 2017 Loic Lopez
-## Last update Mon Apr  3 02:27:11 2017 Matthias Prost
+## Last update Thu Apr  6 18:16:42 2017 Matthias Prost
 ##
 
 
@@ -16,6 +16,7 @@ SolarFox	=	../../games/libarcade_solarfox.so
 
 SolarFox_SRCS	=	SolarFox.cpp \
 								SolarFoxAlgorithm.cpp \
+								Shoots.cpp \
 
 ###########################################
 
