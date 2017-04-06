@@ -177,7 +177,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 		}
 	    }
 	}
-      this->window.draw(mainText);
+
       arrow.setPosition(((this->windowsize_x) / 2) -
 			(sizeof(ItemStrings[selectedItemIndex]) *
 			 sizeof(ItemStrings[selectedItemIndex])) -
@@ -191,6 +191,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 	this->window.draw(menu[i]);
       for (size_t j = 0; j < Items.size(); ++j)
 	this->window.draw(Items[j]);
+      this->window.draw(mainText);
       this->refresh();
     }
 }

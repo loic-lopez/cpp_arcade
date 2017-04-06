@@ -182,6 +182,7 @@ void  SFMLViewController::gameOver(int score)
       this->playGameOver = true;
     }
   _score.setPosition(((this->windowsize_x) - ((2 + std::to_string(score).length() - 1) * 24)) / 2, 24 + (this->windowsize_y / 7));
+  this->window.draw(this->backgroundSprite);
   this->window.draw(this->_game_over);
   this->window.draw(this->_key);
   this->window.draw(this->_score);
