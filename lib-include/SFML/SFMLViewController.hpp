@@ -25,8 +25,6 @@ private:
   sf::RectangleShape rectangle;
   int   windowsize_x;
   int   windowsize_y;
-  int   mapsize_x;
-  int   mapsize_y;
   sf::SoundBuffer bufferLose;
   sf::Sound	Lose;
   sf::Font      regular;
@@ -36,6 +34,7 @@ private:
   sf::Text      _game_over;
   sf::Text      _key;
   bool 		playGameOver;
+  std::string	functionCaller;
 
  public:
   virtual ~SFMLViewController();

@@ -30,6 +30,7 @@ extern "C" ILibraryViewController	*loadLibrary()
 NcursesViewController::NcursesViewController()
 {
   this->playGameOver = false;
+  this->functionCaller = "OTHER";
 }
 
 NcursesViewController::~NcursesViewController()
@@ -109,7 +110,7 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
     NULL,
    };
 
-
+  this->functionCaller = __FUNCTION__;
   this->initScreen("Arcade Game Menu");
   n_choices = ARRAY_SIZE(choices);
   for(int i = 0; i < n_choices; ++i)
@@ -173,6 +174,7 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
   free_menu(menu);
   for(int i = 0; i < n_choices; ++i)
     free_item(my_items[i]);
+  this->functionCaller = "OTHER";
   this->endScreen();
 }
 
@@ -215,6 +217,8 @@ void  NcursesViewController::initScreen(std::string const &name)
 {
   std::string	changeTerminalName = "echo -n \"\033]0;" + name + " \007\"";
 
+  if (this->functionCaller == "OTHER")
+      system("paplay assets/Death_comes.ogg & > /dev/null 2>&1");
   system(changeTerminalName.c_str());
   NcursesEncap::n_clear();
   NcursesEncap::n_newterm();
