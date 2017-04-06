@@ -315,6 +315,8 @@ void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
     this->rectangle.setFillColor(sf::Color(0, 188, 212));
   else if (color == Color::YELLOW)
     this->rectangle.setFillColor(sf::Color(255, 193, 7));
+  else if (color == Color::WHITE)
+    this->rectangle.setFillColor(sf::Color(255, 255, 255));
   this->rectangle.setPosition((x * 15) + (this->windowsize_x - (width * 15)) / 2, (y * 15) + (this->windowsize_y / 7));
   this->window.draw(this->rectangle);
 }

@@ -262,6 +262,14 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 	  break;
 	}
       else if (action == ChangeCommandType::DISPLAY_MENU) break;
+      else if (this->Map->type == arcade::CommandType::RESTART)
+	{
+	  this->alreadyLaunch = true;
+	  this->score = 0;
+	  action = ChangeCommandType::RESTART;
+	  this->last_key = SaveCommand::LEFT;
+	  continue;
+	}
       libraryInstance->displayScore(this->Map->width, this->getGameName(),
 					libraryInstance->getLibraryName(), this->score);
       libraryInstance->refresh();
