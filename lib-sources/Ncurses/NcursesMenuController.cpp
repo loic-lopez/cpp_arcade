@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. avr. 06 13:27:47 2017 Loïc Lopez
-** Last update jeu. avr. 06 13:27:47 2017 Loïc Lopez
+** Last update Thu Apr  6 19:40:37 2017 Matthias Prost
 */
 
 #include "NcursesViewController.hpp"
@@ -88,7 +88,7 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
   set_menu_fore(menu, COLOR_PAIR(8));
   set_menu_mark(menu, " -> ");
   box(menu_win, 0, 0);
-  print_in_middle(menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(7));
+  print_in_middle(menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(8));
   post_menu(menu);
   while((key = wgetch(menu_win)) != _KEY_ESC)
     {
@@ -128,7 +128,7 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
       clear();
       printKeys(this->windowsize_y, windowsize_x);
       box(menu_win, 0, 0);
-      print_in_middle(menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(7));
+      print_in_middle(menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(8));
       wrefresh(menu_win);
     }
   if (key == _KEY_ESC)
