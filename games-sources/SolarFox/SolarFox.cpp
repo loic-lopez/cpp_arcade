@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Thu Apr  6 18:01:35 2017 Matthias Prost
+// Last update Thu Apr  6 18:03:08 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -37,7 +37,7 @@ SolarFox::SolarFox(std::string const &libname)
   this->alreadyLaunch = false;
 
   rand1_y = rand() % this->Map->width - 3;
-  rand2_y = rand() % this->Map->width - 9;
+  rand2_y = rand() % this->Map->width - 30;
   while (rand1_y <= 2)
     rand1_y = rand() % this->Map->width - 2;
   while (rand2_y <= 2)
