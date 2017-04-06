@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. mars 16 16:02:17 2017 Loïc Lopez
-** Last update Thu Apr  6 18:16:28 2017 Matthias Prost
+** Last update Thu Apr  6 18:28:18 2017 Matthias Prost
 */
 
 #ifndef SolarFox_HPP__
