@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Wed Apr  5 15:12:42 2017 Matthias Prost
+// Last update Thu Apr  6 17:21:24 2017 Matthias Prost
 //
 
 #include "Snake.hpp"
@@ -218,25 +218,25 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x,
 			      this->_snake.at(0).y, this->_snake))
       	{
-	  restartSnake(&this->_snake, libraryInstance, this->Map, this->popApple);
-      	  while (libraryInstance->getKey(&this->Map->type, action, exit))
-	    {
-	      if (this->Map->type == arcade::CommandType::RESTART)
-		{
-		  this->alreadyLaunch = true;
-		  this->score = 0;
-		  action = ChangeCommandType::RESTART;
-		  this->last_key = SaveCommand::LEFT;
-		  return (action);
-		}
-	      else if (action == ChangeCommandType::NEXT_LIBRARY
-		       || action == ChangeCommandType::PREV_LIBRARY
-		       || action == ChangeCommandType::PREV_GAME
-		       || action == ChangeCommandType::NEXT_GAME
-		       || action == ChangeCommandType::DISPLAY_MENU)
-		break;
-      	      libraryInstance->gameOver(this->score);
-      	      libraryInstance->refresh();
+  	  restartSnake(&this->_snake, libraryInstance, this->Map, this->popApple);
+        	  while (libraryInstance->getKey(&this->Map->type, action, exit))
+  	    {
+  	      if (this->Map->type == arcade::CommandType::RESTART)
+  		{
+  		  this->alreadyLaunch = true;
+  		  this->score = 0;
+  		  action = ChangeCommandType::RESTART;
+  		  this->last_key = SaveCommand::LEFT;
+  		  return (action);
+  		}
+  	      else if (action == ChangeCommandType::NEXT_LIBRARY
+  		       || action == ChangeCommandType::PREV_LIBRARY
+  		       || action == ChangeCommandType::PREV_GAME
+  		       || action == ChangeCommandType::NEXT_GAME
+  		       || action == ChangeCommandType::DISPLAY_MENU)
+  		break;
+        	      libraryInstance->gameOver(this->score);
+        	      libraryInstance->refresh();
       	    }
       	  if (exit) break;
       	}

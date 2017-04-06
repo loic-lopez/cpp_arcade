@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Thu Apr  6 17:07:57 2017 Matthias Prost
+// Last update Thu Apr  6 18:01:35 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -23,6 +23,8 @@ static void   initShip(arcade::Position *ship, int height, int width)
 
 SolarFox::SolarFox(std::string const &libname)
 {
+  int   rand1_y;
+  int   rand2_y;
   this->libraryName = libname;
   this->Map = new arcade::GetMap[sizeof(arcade::GetMap)
 				 + (45 * 60 * sizeof(arcade::TileType))];
@@ -33,11 +35,20 @@ SolarFox::SolarFox(std::string const &libname)
       this->Map->tile[i] = arcade::TileType::EMPTY;
   initShip(&this->_ship, this->Map->height, this->Map->width);
   this->alreadyLaunch = false;
-  this->ennemy1_pos = 1 + this->Map->width * 2;
-  this->ennemy2_pos = 58 + this->Map->width * 42;
+
+  rand1_y = rand() % this->Map->width - 3;
+  rand2_y = rand() % this->Map->width - 9;
+  while (rand1_y <= 2)
+    rand1_y = rand() % this->Map->width - 2;
+  while (rand2_y <= 2)
+    rand2_y = rand() % this->Map->width - 2;
+  this->ennemy1_pos = 1 + this->Map->width * rand1_y;
+  this->ennemy2_pos = 58 + this->Map->width * rand2_y;
+
   this->Map->tile[ennemy1_pos] = arcade::TileType::EVIL_DUDE;
   this->Map->tile[ennemy2_pos] = arcade::TileType::EVIL_DUDE;
-  this->direction = 0;
+  this->direction1 = 0;
+  this->direction2 = 0;
   this->score = 0;
   this->last_key = SaveCommand::LEFT;
 }
@@ -250,7 +261,7 @@ static void  Ennemy1_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, int 
   shoots->push_back(tmp_shoot);
 }
 
-static void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direction)
+static void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direction1, int &direction2)
 {
   int x;
   int y;
@@ -262,12 +273,12 @@ static void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int
   x = ennemy1_pos % map->width;
   y = ennemy1_pos / map->width;
   if (y >= map->height - 3)
-    direction = -1;
+    direction1 = -1;
   else if (y <= 2)
-    direction = 0;
-  if (direction == 0)
+    direction1 = 0;
+  if (direction1 == 0)
     y++;
-  else if (direction == -1)
+  else if (direction1 == -1)
     y--;
   i = x + map->width * y;
   ennemy1_pos = i;
@@ -275,10 +286,14 @@ static void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int
 
   x = ennemy2_pos % map->width;
   y = ennemy2_pos / map->width;
-  if (direction == 0)
-    y--;
-  else if (direction == -1)
+  if (y >= map->height - 3)
+    direction2 = -1;
+  else if (y <= 2)
+    direction2 = 0;
+  if (direction2 == 0)
     y++;
+  else if (direction2 == -1)
+    y--;
   i = x + map->width * y;
   ennemy2_pos = i;
   map->tile[ennemy2_pos] = arcade::TileType::EVIL_DUDE;
@@ -324,6 +339,60 @@ void         SolarFox::setScore(int value)
   this->score += value;
 }
 
+static void resetMap(arcade::GetMap *Map)
+{
+  int   			i;
+  int 			size = Map->width * Map->height;
+
+  i = -1;
+  while (++i < size)
+    Map->tile[i] = arcade::TileType::EMPTY;
+  i = -1;
+  while (++i < size)
+  {
+    if ((((i % Map->width) % 2 == 0 && (i / Map->width) % 2 == 0
+          && i % Map->width > 12 && i % Map->width < 20
+          && i / Map->width > 10 && i / Map->width < 35)
+          || ((i % Map->width) % 2 == 0 && (i / Map->width) % 2 == 0
+          && i % Map->width > 40 && i % Map->width < 48
+          && i / Map->width > 10 && i / Map->width < 35))
+          || (((i % Map->width) % 2 == 0 && (i / Map->width) % 2 == 0
+          && i % Map->width > 15 && i % Map->width < 45
+          && i / Map->width > 8 && i / Map->width < 15)
+          || ((i % Map->width) % 2 == 0 && (i / Map->width) % 2 == 0
+          && i % Map->width > 15 && i % Map->width < 45
+          && i / Map->width > 30 && i / Map->width < 38)))
+      Map->tile[i] = arcade::TileType::POWERUP;
+    i++;
+  }
+  i = -1;
+  while (++i < size)
+    {
+      if (i % Map->width == 0 || i / Map->width == 0
+          || i % Map->width == Map->width - 1
+          || i / Map->width == Map->height - 1)
+        Map->tile[i] = arcade::TileType::BLOCK;
+      else if (i % Map->width == 1 || i / Map->width == 1
+          || i % Map->width == Map->width - 2
+          || i / Map->width == Map->height - 2)
+        Map->tile[i] = arcade::TileType::BLOCK;
+    }
+}
+
+static void	restartSolarFox(arcade::Position *_ship,
+				ILibraryViewController *libraryInstance,
+				arcade::GetMap *Map, std::vector<shoot> *shoots,
+        int *ennemy1_pos, int *ennemy2_pos)
+{
+  libraryInstance->clear();
+  shoots->clear();
+  initShip(_ship, Map->height, Map->width);
+  resetMap(Map);
+  *ennemy1_pos = 1 + Map->width * 2;
+  *ennemy2_pos = 58 + Map->width * 42;
+  Map->type = arcade::CommandType::PLAY;
+}
+
 ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 			       size_t &currentGame, size_t & currentLibrary,
 			       bool &exit)
@@ -359,7 +428,8 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
     this->drawMap(libraryInstance);
     if (Ship_collision(&this->shoots, this->Map, this->_ship.x, this->_ship.y))
     {
-      break;
+      restartSolarFox(&this->_ship, libraryInstance, this->Map, &this->shoots,
+                      &this->ennemy1_pos, &this->ennemy2_pos);
     }
     if (this->Map->type == arcade::CommandType::RESTART)
       {
@@ -383,7 +453,7 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
       if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 78)
       {
         SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key, &this->shoots);
-        Ennemy(this->ennemy1_pos, this->ennemy2_pos, this->Map, this->direction);
+        Ennemy(this->ennemy1_pos, this->ennemy2_pos, this->Map, this->direction1, this->direction2);
         start = end;
       }
     if (action == ChangeCommandType::NEXT_LIBRARY)
