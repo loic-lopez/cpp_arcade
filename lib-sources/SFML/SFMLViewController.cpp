@@ -23,6 +23,7 @@ SFMLViewController::SFMLViewController()
 {
   this->windowsize_x = sf::VideoMode::getDesktopMode().width;
   this->windowsize_y = sf::VideoMode::getDesktopMode().height;
+  this->playGameOver = false;
 }
 
 void	SFMLViewController::drawMenu(size_t &currentGame,
@@ -259,39 +260,47 @@ void	SFMLViewController::initScreen(std::string const &name)
   this->mapsize_x = size.x;
   this->mapsize_y = size.y;
   this->rectangle.setSize(sf::Vector2f(15, 15));
+  if (!this->bufferLose.loadFromFile("assets/Die_Die_Die.ogg"))
+    std::cerr << "ERROR: cannot found Die_Die_Die.ogg in assets/ make sure it exist" << std::endl;
+  if (!regular.loadFromFile("lib-sources/SFML/Fonts/Roboto-Regular.ttf"))
+    std::cerr << "ERROR: cannot found Roboto-Regular.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
+  this->Lose.setBuffer(this->bufferLose);
+  this->_game.setFont(this->regular);
+  this->_game.setCharacterSize(24);
+  this->_game.setFillColor(sf::Color::White);
+  this->_library.setFont(this->regular);
+  this->_library.setCharacterSize(24);
+  this->_library.setFillColor(sf::Color::White);
+  this->_score.setFont(this->regular);
+  this->_score.setCharacterSize(24);
+  this->_score.setFillColor(sf::Color::White);
+  this->_game_over.setFont(regular);
+  this->_game_over.setString("Game Over");
+  this->_game_over.setCharacterSize(24);
+  this->_game_over.setFillColor(sf::Color::Red);
+  this->_game_over.setPosition(((this->windowsize_x) - (4 * 24)) / 2, 24 + (this->windowsize_y / 9));
+  this->_key.setFont(regular);
+  this->_key.setString("Press 8 to restart");
+  this->_key.setCharacterSize(24);
+  this->_key.setFillColor(sf::Color::White);
+  this->_key.setPosition(((this->windowsize_x) - (9 * 24)) / 2, 24 + (this->windowsize_y / 5));
 }
 
 void	SFMLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
 {
-  sf::Font      font;
-  sf::Text      _game;
-  sf::Text      _library;
-  sf::Text      _score;
+  this->_game.setString(Game);
+  this->_game.setPosition(24 + (this->windowsize_x + (width * 15) + 75) / 2, 24 + (this->windowsize_y / 9));
 
-  if (!font.loadFromFile("lib-sources/SFML/Fonts/Roboto-Regular.ttf"))
-      std::cerr << "ERROR: cannot found Roboto-Regular.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
+  this->_library.setString(libraryName);
+  this->_library.setPosition(24 + (this->windowsize_x + (width * 15) + 75) / 2, 24 + (this->windowsize_y / 6));
 
-  _game.setFont(font);
-  _game.setString(Game);
-  _game.setCharacterSize(24);
-  _game.setFillColor(sf::Color::White);
-  _game.setPosition(24 + (this->windowsize_x + (width * 15) + 75) / 2, 24 + (this->windowsize_y / 9));
+  this->_score.setString("Score: " + std::to_string(score));
+  this->_score.setPosition(24 + (this->windowsize_x + (width * 15) + 375) / 2, 24 + (this->windowsize_y / 9));
 
-  _library.setFont(font);
-  _library.setString(libraryName);
-  _library.setCharacterSize(24);
-  _library.setFillColor(sf::Color::White);
-  _library.setPosition(24 + (this->windowsize_x + (width * 15) + 75) / 2, 24 + (this->windowsize_y / 6));
 
-  _score.setFont(font);
-  _score.setString("Score: " + std::to_string(score));
-  _score.setCharacterSize(24);
-  _score.setFillColor(sf::Color::White);
-  _score.setPosition(24 + (this->windowsize_x + (width * 15) + 375) / 2, 24 + (this->windowsize_y / 9));
-
-  this->window.draw(_game);
-  this->window.draw(_library);
-  this->window.draw(_score);
+  this->window.draw(this->_game);
+  this->window.draw(this->_library);
+  this->window.draw(this->_score);
 }
 
 void  SFMLViewController::endScreen()
@@ -334,32 +343,12 @@ std::string	SFMLViewController::getLibraryName()
 
 void  SFMLViewController::gameOver(int score)
 {
-  sf::Font      font;
-  sf::Text      _game_over;
-  sf::Text      _key;
-  sf::Text      _score;
-
-  if (!font.loadFromFile("lib-sources/SFML/Fonts/Roboto-Regular.ttf"))
-      std::cerr << "ERROR: cannot found Roboto-Regular.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
-
-  _game_over.setFont(font);
-  _game_over.setString("Game Over");
-  _game_over.setCharacterSize(24);
-  _game_over.setFillColor(sf::Color::Red);
-  _game_over.setPosition(((this->windowsize_x) - (4 * 24)) / 2, 24 + (this->windowsize_y / 9));
-
-  _key.setFont(font);
-  _key.setString("Press 8 to restart");
-  _key.setCharacterSize(24);
-  _key.setFillColor(sf::Color::White);
-  _key.setPosition(((this->windowsize_x) - (9 * 24)) / 2, 24 + (this->windowsize_y / 5));
-
-  _score.setFont(font);
-  _score.setString("Score: " + std::to_string(score));
-  _score.setCharacterSize(24);
-  _score.setFillColor(sf::Color::White);
+  if (!this->playGameOver)
+    {
+      this->Lose.play();
+      this->playGameOver = true;
+    }
   _score.setPosition(((this->windowsize_x) - ((2 + std::to_string(score).length() - 1) * 24)) / 2, 24 + (this->windowsize_y / 7));
-
   this->window.draw(_game_over);
   this->window.draw(_key);
   this->window.draw(_score);

@@ -12,6 +12,7 @@
 # define SFMLCONTROLLER_HPP__
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "../interface/ILibraryViewController.hpp"
 #include <iostream>
 
@@ -26,8 +27,15 @@ private:
   int   windowsize_y;
   int   mapsize_x;
   int   mapsize_y;
-  int   user_x;
-  int   user_y;
+  sf::SoundBuffer bufferLose;
+  sf::Sound	Lose;
+  sf::Font      regular;
+  sf::Text      _game;
+  sf::Text      _library;
+  sf::Text      _score;
+  sf::Text      _game_over;
+  sf::Text      _key;
+  bool 		playGameOver;
 
  public:
   virtual ~SFMLViewController();
