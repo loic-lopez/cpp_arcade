@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Wed Apr  5 16:54:15 2017 Matthias Prost
+// Last update Thu Apr  6 11:22:58 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -234,7 +234,7 @@ void  NcursesViewController::initScreen(std::string const &name)
   NcursesEncap::n_init_pair(4, COLOR_BLUE, COLOR_BLUE);
   NcursesEncap::n_init_pair(5, COLOR_MAGENTA, COLOR_MAGENTA);
   NcursesEncap::n_init_pair(6, COLOR_CYAN, COLOR_CYAN);
-  NcursesEncap::n_init_pair(7, COLOR_RED, COLOR_BLACK);
+  NcursesEncap::n_init_pair(7, COLOR_WHITE, COLOR_WHITE);
   NcursesEncap::n_init_pair(8, COLOR_CYAN, COLOR_BLACK);
   srand(time(NULL));
 }
