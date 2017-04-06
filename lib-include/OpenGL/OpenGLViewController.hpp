@@ -14,6 +14,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <vector>
+#include "Vector2f.hpp"
 
 #include "../interface/ILibraryViewController.hpp"
 

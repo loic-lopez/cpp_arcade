@@ -47,23 +47,18 @@ bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeComman
       action = ChangeCommandType::NEXT_LIBRARY;
   else if (glfwGetKey(this->window, GLFW_KEY_2) == GLFW_PRESS)
       action = ChangeCommandType::PREV_LIBRARY;
-  if (glfwGetKey( window, GLFW_KEY_UP ) == GLFW_PRESS)
-    {
-
-    }
-
-  if (glfwGetKey( window, GLFW_KEY_DOWN ) == GLFW_PRESS)
-    {
-
-    }
-  if (glfwGetKey( window, GLFW_KEY_RIGHT ) == GLFW_PRESS)
-    {
-
-    }
-  if (glfwGetKey( window, GLFW_KEY_LEFT ) == GLFW_PRESS)
-    {
-
-    }
+  else if (glfwGetKey(this->window, GLFW_KEY_4) == GLFW_PRESS)
+      action = ChangeCommandType::PREV_GAME;
+  else if (glfwGetKey(this->window, GLFW_KEY_5) == GLFW_PRESS)
+      action = ChangeCommandType::NEXT_GAME;
+  else if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS)
+      *commandType = arcade::CommandType::GO_UP;
+  else if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS)
+      *commandType = arcade::CommandType::GO_DOWN;
+  else if (glfwGetKey(this->window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+      *commandType = arcade::CommandType::GO_RIGHT;
+  else if (glfwGetKey(this->window, GLFW_KEY_LEFT) == GLFW_PRESS)
+      *commandType = arcade::CommandType::GO_LEFT;
 
   return (true);
 }
@@ -73,7 +68,6 @@ void	OpenGLViewController::initScreen(std::string const &name)
   if (!glfwInit())
     return;
 
-  glfwWindowHint(GLFW_SAMPLES, 4);
   this->mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
   if (!(this->window = glfwCreateWindow(this->mode->width, this->mode->height, name.c_str(), NULL, NULL)))
       return (this->endScreen());
@@ -107,56 +101,38 @@ void  OpenGLViewController::refresh()
   glfwSwapBuffers(this->window);
   glfwPollEvents();
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-#include <cmath>
-class Vector2f {
- public:
-  float x;
-  float y;
-
-  Vector2f(float x, float y);
-  float GetLenght() const;
-  void Normalize();
-};
-
-Vector2f::Vector2f(float x, float y) {
-  this->x = x;
-  this->y = y;
-}
-
-float Vector2f::GetLenght() const {
-  return sqrt(this->x*this->x + this->y * this->y);
-}
-
-void Vector2f::Normalize() {
-  float l = GetLenght();
-  this->x /= l;
-  this->y /= l;
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
 }
 
 void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
-  (void)x;
-  (void)y;
-  (void)color;
   (void)width;
-
   glPushMatrix();
 
   const Vector2f floatWindowSize((float) this->mode->width, this->mode->height);
-  const Vector2f floatObjectSize((float) 10,(float)10);
+  const Vector2f floatObjectSize((float)30,(float)30);
   const Vector2f relativeObjectSize(floatObjectSize.x / floatWindowSize.x, floatObjectSize.y / floatWindowSize.y);
-  const Vector2f relativeObjectPosition(x / floatWindowSize.x,   y / floatWindowSize.y);
+  const Vector2f relativeObjectPosition((x / floatWindowSize.x),   (y / floatWindowSize.y));
 
-  glTranslatef(relativeObjectPosition.x, relativeObjectPosition.y, 0.0f);
-
+  if (color == Color::BLACK)
+    glColor3ub(0,0,0);
+  else if (color == Color::GREEN)
+    glColor3ub(0,100,0);
+  else if (color == Color::BLUE)
+    glColor3ub(0,0,205);
+  else if (color == Color::CYAN)
+    glColor3ub(255,0,0);
+  else if (color == Color::RED)
+    glColor3ub(0,206,209);
+  glTranslatef((relativeObjectPosition.x * floatObjectSize.x),
+	       (relativeObjectPosition.y * floatObjectSize.y), 0.0f);
   glBegin(GL_QUADS);
 
   glVertex2f(-relativeObjectSize.x, -relativeObjectSize.y);
   glVertex2f(relativeObjectSize.x,  -relativeObjectSize.y);
   glVertex2f(relativeObjectSize.x,  relativeObjectSize.y);
   glVertex2f(-relativeObjectSize.x, relativeObjectSize.y);
-
   glEnd();
   glPopMatrix();
 }
