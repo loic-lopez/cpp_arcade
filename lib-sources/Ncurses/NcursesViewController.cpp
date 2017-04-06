@@ -29,7 +29,7 @@ extern "C" ILibraryViewController	*loadLibrary()
 
 NcursesViewController::NcursesViewController()
 {
-
+  this->playGameOver = false;
 }
 
 NcursesViewController::~NcursesViewController()
@@ -255,6 +255,11 @@ void  NcursesViewController::clear()
 
 void  NcursesViewController::gameOver(int score)
 {
+  if (!this->playGameOver)
+    {
+      system("paplay assets/Die_die_die.ogg & > /dev/null 2>&1");
+      this->playGameOver = true;
+    }
   NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 10,
 			   this->windowsize_x/ 2 - 4, "GameOver");
   NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 12,
