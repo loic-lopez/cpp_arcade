@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Thu Apr  6 15:36:46 2017 Matthias Prost
+// Last update Thu Apr  6 17:07:57 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -33,8 +33,8 @@ SolarFox::SolarFox(std::string const &libname)
       this->Map->tile[i] = arcade::TileType::EMPTY;
   initShip(&this->_ship, this->Map->height, this->Map->width);
   this->alreadyLaunch = false;
-  this->ennemy1_pos = 1 + this->Map->width * 1;
-  this->ennemy2_pos = 58 + this->Map->width * 43;
+  this->ennemy1_pos = 1 + this->Map->width * 2;
+  this->ennemy2_pos = 58 + this->Map->width * 42;
   this->Map->tile[ennemy1_pos] = arcade::TileType::EVIL_DUDE;
   this->Map->tile[ennemy2_pos] = arcade::TileType::EVIL_DUDE;
   this->direction = 0;
@@ -226,7 +226,19 @@ static void  refresh_shoot(SolarFox *solarfox, arcade::GetMap *map, std::vector<
   }
 }
 
-static void  Ennemy_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, int ennemy1_pos, int ennemy2_pos)
+static void  Ennemy2_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, int ennemy2_pos)
+{
+  shoot tmp_shoot2;
+
+  tmp_shoot2.is_ennemy = true;
+  tmp_shoot2.count = 0;
+  tmp_shoot2.pos = (ennemy2_pos % map->width) - 2 + map->width * (ennemy2_pos / map->width);
+  tmp_shoot2.direction = Shoot_direction::LEFT;
+  map->tile[tmp_shoot2.pos] = arcade::TileType::EVIL_SHOOT;
+  shoots->push_back(tmp_shoot2);
+}
+
+static void  Ennemy1_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, int ennemy1_pos)
 {
   shoot tmp_shoot;
 
@@ -236,15 +248,6 @@ static void  Ennemy_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, int e
   tmp_shoot.direction = Shoot_direction::RIGHT;
   map->tile[tmp_shoot.pos] = arcade::TileType::EVIL_SHOOT;
   shoots->push_back(tmp_shoot);
-
-  shoot tmp_shoot2;
-
-  tmp_shoot2.is_ennemy = true;
-  tmp_shoot2.count = 0;
-  tmp_shoot2.pos = (ennemy2_pos % map->width) - 2 + map->width * (ennemy2_pos / map->width);
-  tmp_shoot2.direction = Shoot_direction::LEFT;
-  map->tile[tmp_shoot2.pos] = arcade::TileType::EVIL_SHOOT;
-  shoots->push_back(tmp_shoot2);
 }
 
 static void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direction)
@@ -328,12 +331,15 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
   ChangeCommandType action = ChangeCommandType::STANDBY;
   this->Map->type = arcade::CommandType::PLAY;
   std::chrono::time_point<std::chrono::system_clock> start, end;
-  std::chrono::time_point<std::chrono::system_clock> ennemy_start, ennemy_end;
+  std::chrono::time_point<std::chrono::system_clock> ennemy1_start, ennemy1_end;
+  std::chrono::time_point<std::chrono::system_clock> ennemy2_start, ennemy2_end;
   long long int elapsed_milliseconds;
-  long long int ennemy_milliseconds;
+  long long int ennemy1_milliseconds;
+  long long int ennemy2_milliseconds;
 
   start = std::chrono::system_clock::now();
-  ennemy_start = std::chrono::system_clock::now();
+  ennemy1_start = std::chrono::system_clock::now();
+  ennemy2_start = std::chrono::system_clock::now();
   if (!this->alreadyLaunch)
     {
       libraryInstance->initScreen(this->getGameName());
@@ -343,9 +349,11 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
   while (libraryInstance->getKey(&this->Map->type, action, exit))
   {
     end = std::chrono::system_clock::now();
-    ennemy_end = std::chrono::system_clock::now();
+    ennemy1_end = std::chrono::system_clock::now();
+    ennemy2_end = std::chrono::system_clock::now();
     elapsed_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-    ennemy_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(ennemy_end - ennemy_start).count();
+    ennemy1_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(ennemy1_end - ennemy1_start).count();
+    ennemy2_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(ennemy2_end - ennemy2_start).count();
     if (this->Map->type == arcade::CommandType::RESTART)
      this->Map->type = (arcade::CommandType)this->last_key;
     this->drawMap(libraryInstance);
@@ -360,10 +368,15 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
         action = ChangeCommandType::RESTART;
         return (action);
       }
-      if (this->Map->type != arcade::CommandType::PLAY && ennemy_milliseconds > 1585)
+      if (this->Map->type != arcade::CommandType::PLAY && ennemy1_milliseconds > 1685)
       {
-        Ennemy_shoot(this->Map, &this->shoots, this->ennemy1_pos, this->ennemy2_pos);
-        ennemy_start = ennemy_end;
+        Ennemy1_shoot(this->Map, &this->shoots, this->ennemy1_pos);
+        ennemy1_start = ennemy1_end;
+      }
+      if (this->Map->type != arcade::CommandType::PLAY && ennemy2_milliseconds > 1280)
+      {
+        Ennemy2_shoot(this->Map, &this->shoots, this->ennemy2_pos);
+        ennemy2_start = ennemy2_end;
       }
       if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 68)
         refresh_shoot(this, this->Map, &this->shoots);
