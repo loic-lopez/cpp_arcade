@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Thu Apr  6 11:20:14 2017 Matthias Prost
+// Last update Thu Apr  6 15:36:46 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -186,7 +186,7 @@ static void  refresh_shoot(SolarFox *solarfox, arcade::GetMap *map, std::vector<
       map->tile[shoots->at(i).pos] = shoots->at(i).type;
     else
       map->tile[shoots->at(i).pos] = arcade::TileType::EMPTY;
-    if (shoots->at(i).count == 10 && shoots->at(i).is_ennemy == false)
+    if (shoots->at(i).count == 5 && shoots->at(i).is_ennemy == false)
     {
       shoots->erase(shoots->begin() + i);
       break;
@@ -295,10 +295,10 @@ static	bool	Ship_collision(std::vector<shoot> *shoots, arcade::GetMap *map, uint
     return (false);
   while (++i < lenght)
     {
-      if ((map->tile[i] == arcade::TileType::BLOCK && pos_x == 0) ||
-       (map->tile[i] == arcade::TileType::BLOCK && pos_y == 0) ||
-       (map->tile[i] == arcade::TileType::BLOCK && pos_y == map->height - 1) ||
-       (map->tile[i] == arcade::TileType::BLOCK && pos_x == map->width - 1))
+      if ((map->tile[i] == arcade::TileType::BLOCK && pos_x == 1) ||
+       (map->tile[i] == arcade::TileType::BLOCK && pos_y == 1) ||
+       (map->tile[i] == arcade::TileType::BLOCK && pos_y == map->height - 2) ||
+       (map->tile[i] == arcade::TileType::BLOCK && pos_x == map->width - 2))
 	      return (true);
     }
     (void)shoots;
@@ -365,9 +365,9 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
         Ennemy_shoot(this->Map, &this->shoots, this->ennemy1_pos, this->ennemy2_pos);
         ennemy_start = ennemy_end;
       }
-      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 50)
+      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 68)
         refresh_shoot(this, this->Map, &this->shoots);
-      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 75)
+      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 78)
       {
         SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key, &this->shoots);
         Ennemy(this->ennemy1_pos, this->ennemy2_pos, this->Map, this->direction);
