@@ -180,6 +180,17 @@ static	void 	eatApple(IGameModel *game, arcade::GetMap *map,
     return;
 }
 
+static void	restartSnake(std::vector<arcade::Position> *_snake,
+				ILibraryViewController *libraryInstance,
+				arcade::GetMap *Map, bool &popApple)
+{
+  libraryInstance->clear();
+  _snake->clear();
+  initSnake(_snake, Map->height, Map->width);
+  Map->type = arcade::CommandType::PLAY;
+  popApple = false;
+}
+
 ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 				     size_t &currentGame, size_t &currentLibrary,
 				     bool &exit)
@@ -200,19 +211,14 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
     {
       end = std::chrono::system_clock::now();
       elapsed_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-      if (this->Map->type == arcade::CommandType::RESTART
-	  || this->Map->type == arcade::CommandType::SHOOT)
+      if (this->Map->type == arcade::CommandType::SHOOT)
 	this->Map->type = (arcade::CommandType)this->last_key;
       this->drawMap(libraryInstance);
       eatApple(this, this->Map, &this->_snake, this->popApple, this->applePosition);
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x,
 			      this->_snake.at(0).y, this->_snake))
       	{
-      	  libraryInstance->clear();
-      	  this->_snake.clear();
-      	  initSnake(&this->_snake, this->Map->height, this->Map->width);
-      	  this->Map->type = arcade::CommandType::PLAY;
-      	  this->popApple = false;
+	  restartSnake(&this->_snake, libraryInstance, this->Map, this->popApple);
       	  while (libraryInstance->getKey(&this->Map->type, action, exit))
 	    {
 	      if (this->Map->type == arcade::CommandType::RESTART)
@@ -264,9 +270,9 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
       else if (action == ChangeCommandType::DISPLAY_MENU) break;
       else if (this->Map->type == arcade::CommandType::RESTART)
 	{
+	  restartSnake(&this->_snake, libraryInstance, this->Map, this->popApple);
 	  this->alreadyLaunch = true;
 	  this->score = 0;
-	  action = ChangeCommandType::RESTART;
 	  this->last_key = SaveCommand::LEFT;
 	  continue;
 	}
