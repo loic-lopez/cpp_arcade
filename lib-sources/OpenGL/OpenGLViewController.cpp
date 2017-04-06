@@ -97,7 +97,6 @@ extern "C" ILibraryViewController	*loadLibrary()
 
 OpenGLViewController::OpenGLViewController()
 {
-
 }
 
 OpenGLViewController::~OpenGLViewController()
@@ -114,8 +113,8 @@ void	OpenGLViewController::drawMenu(size_t &currentGame, std::vector<std::string
 
 bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
 {
-
   (void)commandType;
+  // Compute new orientation
   if (glfwWindowShouldClose(this->window)
       || glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
@@ -127,14 +126,11 @@ bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeComman
       action = ChangeCommandType::NEXT_LIBRARY;
   else if (glfwGetKey(this->window, GLFW_KEY_2) == GLFW_PRESS)
       action = ChangeCommandType::PREV_LIBRARY;
-  else if (glfwGetKey(this->window, GLFW_KEY_4) == GLFW_PRESS)
-    action = ChangeCommandType::PREV_GAME;
-  else if (glfwGetKey(this->window, GLFW_KEY_5) == GLFW_PRESS)
-    action = ChangeCommandType::NEXT_GAME;
   if (glfwGetKey( window, GLFW_KEY_UP ) == GLFW_PRESS)
     {
 
     }
+
   if (glfwGetKey( window, GLFW_KEY_DOWN ) == GLFW_PRESS)
     {
 
@@ -156,13 +152,22 @@ void	OpenGLViewController::initScreen(std::string const &name)
   if (!glfwInit())
     return;
 
+  glfwWindowHint(GLFW_SAMPLES, 4);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   this->mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
   if (!(this->window = glfwCreateWindow(this->mode->width, this->mode->height, name.c_str(), NULL, NULL)))
       return (this->endScreen());
+  glfwMakeContextCurrent(this->window); // Initialize GLEW
 
-  glfwMakeContextCurrent(this->window);
   glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
+  glfwPollEvents();
+
+  glEnable(GL_DEPTH_TEST);
+  glDepthFunc(GL_LESS);
+  glEnable(GL_CULL_FACE);
+
 }
 
 void	OpenGLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
@@ -183,8 +188,9 @@ void  OpenGLViewController::refresh()
   glFlush();
   glfwSwapBuffers(this->window);
   glfwPollEvents();
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
+
 
 void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
@@ -213,5 +219,5 @@ void  OpenGLViewController::gameOver(int score)
 
 void  OpenGLViewController::clear()
 {
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
