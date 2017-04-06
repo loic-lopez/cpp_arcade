@@ -89,17 +89,25 @@ void	GameCore::GameLauncher()
         {
           delete GameInstance;
           Cencapsulation::c_dlclose(game);
+	  GameInstance = NULL;
         }
       else if ((action == ChangeCommandType::NEXT_LIBRARY
 	  || action == ChangeCommandType::PREV_LIBRARY) && !exit)
 	{
 	  delete libraryInstance;
 	  Cencapsulation::c_dlclose(library);
+	  libraryInstance = NULL;
 	}
     }
 
-  delete libraryInstance;
-  Cencapsulation::c_dlclose(library);
-  delete GameInstance;
-  Cencapsulation::c_dlclose(game);
+  if (libraryInstance != NULL)
+    {
+      delete libraryInstance;
+      Cencapsulation::c_dlclose(library);
+    }
+  if (GameInstance != NULL)
+    {
+      delete GameInstance;
+      Cencapsulation::c_dlclose(game);
+    }
 }

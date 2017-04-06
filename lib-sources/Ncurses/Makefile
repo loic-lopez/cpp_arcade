@@ -15,7 +15,9 @@ Ncurses	=	../../lib/lib_arcade_Ncurses.so
 ################# LIB SRCS ################
 
 Ncurses_SRCS	=	NcursesViewController.cpp \
-								NcursesEncap.cpp
+			NcursesMenuController.cpp \
+			NcursesEncap.cpp \
+
 
 ###########################################
 

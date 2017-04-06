@@ -12,7 +12,8 @@ SFML	=	../../lib/lib_arcade_SFML.so
 
 ################# LIB SRCS ################
 
-SFML_SRCS	=	SFMLViewController.cpp
+SFML_SRCS	=	SFMLViewController.cpp \
+			SFMLMenuController.cpp
 
 ###########################################
 

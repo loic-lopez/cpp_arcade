@@ -35,6 +35,7 @@ private:
   sf::Text      _key;
   bool 		playGameOver;
   std::string	functionCaller;
+  sf::Music 	deathComes;
 
  public:
   virtual ~SFMLViewController();
