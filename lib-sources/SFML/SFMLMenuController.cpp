@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. avr. 06 13:30:29 2017 Loïc Lopez
-** Last update jeu. avr. 06 13:30:29 2017 Loïc Lopez
+** Last update Thu Apr  6 20:01:44 2017 Matthias Prost
 */
 
 #include "SFMLViewController.hpp"
@@ -48,13 +48,20 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
   sf::Texture texture;
   sf::Sprite sprite;
 
+	sf::RectangleShape back_text;
+
+	back_text.setSize(sf::Vector2f(500,450));
+	back_text.setFillColor(sf::Color(0, 0, 0));
+	back_text.setPosition(this->windowsize_x / 2 - 850,
+			 320);
+
   if (!texture.loadFromFile("assets/BorneArcade.png"))
     std::cerr << "ERROR: cannot found BorneArcade in assets/ make sure it exist" << std::endl;
   if (!font.loadFromFile("lib-sources/SFML/Fonts/Roboto-Condensed.ttf"))
     std::cerr << "ERROR: cannot found Roboto-Condensed.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
   texture.setSmooth(true);
   sprite.setTexture(texture);
-  sprite.setPosition(sf::Vector2f((this->windowsize_x / 2.0f) * 1.15 - (texture.getSize().x),
+  sprite.setPosition(sf::Vector2f((this->windowsize_x / 2.0f) * 1.10 - (texture.getSize().x),
 				  (this->windowsize_y / 2.0f) * 1.1 - (texture.getSize().y)));
   sprite.scale(sf::Vector2f(1.5f, 1.5f));
   mainText.setFont(font);
@@ -62,7 +69,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
   sf::FloatRect textRect = mainText.getLocalBounds();
 
   mainText.setOrigin(textRect.width / 2, textRect.height / 2);
-  mainText.setPosition((sf::Vector2f((this->windowsize_x / 2.0f), sizeof("Game Arcade Menu"))));
+  mainText.setPosition((sf::Vector2f((this->windowsize_x / 2.15f), sizeof("Game Arcade Menu"))));
   mainText.setCharacterSize(45);
   mainText.setFillColor(sf::Color::Red);
   arrow.setFont(font);
@@ -77,6 +84,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
   for (size_t j = 0; j < (sizeof(texts) / sizeof(texts[0])); ++j)
     {
       sf::Text	Text;
+
       std::string string = texts[j];
       Text.setFont(font);
       Text.setString(string);
@@ -185,6 +193,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 			(this->windowsize_y / 3) +
 			(((selectedItemIndex * sizeof(ItemStrings[selectedItemIndex]))) * 5));
       this->window.draw(this->backgroundSprite);
+			this->window.draw(back_text);
       this->window.draw(sprite);
       this->window.draw(arrow);
       for (size_t i = 0; i < menu.size(); ++i)

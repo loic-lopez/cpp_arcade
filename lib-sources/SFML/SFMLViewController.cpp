@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Thu Apr  6 15:34:40 2017 Matthias Prost
+// Last update Thu Apr  6 20:23:18 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -47,7 +47,7 @@ SFMLViewController::SFMLViewController()
   this->_game_over.setString("Game Over");
   this->_game_over.setCharacterSize(24);
   this->_game_over.setFillColor(sf::Color::Red);
-  this->_game_over.setPosition(((this->windowsize_x) - (4 * 24)) / 2, 24 + (this->windowsize_y / 9));
+  this->_game_over.setPosition(this->windowsize_x / 2 - ((sizeof("Game Over") * 24) / 2), 24 + (this->windowsize_y / 9));
   this->_key.setFont(regular);
   this->_key.setString("Press 8 to restart");
   this->_key.setCharacterSize(24);
@@ -180,7 +180,8 @@ void  SFMLViewController::gameOver(int score)
       this->Lose.play();
       this->playGameOver = true;
     }
-  _score.setPosition(((this->windowsize_x) - ((2 + std::to_string(score).length() - 1) * 24)) / 2, 24 + (this->windowsize_y / 7));
+  _score.setPosition(((this->windowsize_x) - ((2 + sizeof(score) - 1) * 24)) / 2,
+   24 + (this->windowsize_y / 7));
   this->window.draw(this->backgroundSprite);
   this->window.draw(this->_game_over);
   this->window.draw(this->_key);
