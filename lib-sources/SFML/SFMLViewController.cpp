@@ -128,11 +128,19 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
       while (this->window.pollEvent(event))
 	{
 	  if (event.type == sf::Event::Closed)
-	    goto exit;
+	    {
+	      exit = true;
+	      this->endScreen();
+	      return;
+	    }
 	  if (event.type == sf::Event::KeyPressed)
 	    {
 	      if (event.key.code == sf::Keyboard::Escape)
-		goto exit;
+		{
+		  exit = true;
+		  this->endScreen();
+		  return;
+		}
 	      else if (event.key.code == sf::Keyboard::Up)
 		{
 		  if (selectedItemIndex - 1 >= 0)
@@ -157,14 +165,26 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 		  std::transform(currentText.begin(), currentText.end(),
 				 currentText.begin(), ::tolower);
 		  if (currentText == "exit")
-		      goto exit;
+		    {
+		      exit = true;
+		      this->endScreen();
+		      return;
+		    }
 		  for (index = 0; index < games.size(); ++index)
 		    {
 		      if (games.at(index).find(currentText) != std::string::npos)
-			  goto find;
+			{
+			  currentGame = index;
+			  this->endScreen();
+			  return;
+			}
 		    }
 		  if (index == games.size())
-		      goto exit;
+		    {
+		      exit = true;
+		      this->endScreen();
+		      return;
+		    }
 		}
 	    }
 	}
@@ -183,11 +203,6 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
       this->window.draw(arrow);
       this->refresh();
     }
-  exit:
-    exit = true;
-  find:
-    currentGame = index;
-  this->endScreen();
 }
 
 bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
