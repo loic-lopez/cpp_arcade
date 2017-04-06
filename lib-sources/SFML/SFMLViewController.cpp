@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Thu Apr  6 20:23:18 2017 Matthias Prost
+// Last update Fri Apr  7 00:07:36 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -165,7 +165,8 @@ void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
 void  SFMLViewController::refresh()
 {
   this->window.display();
-  this->window.clear(sf::Color::Black);
+  // this->window.clear(sf::Color::Black);
+  this->window.draw(this->backgroundSprite);
 }
 
 std::string	SFMLViewController::getLibraryName()
@@ -182,7 +183,6 @@ void  SFMLViewController::gameOver(int score)
     }
   _score.setPosition(((this->windowsize_x) - ((2 + sizeof(score) - 1) * 24)) / 2,
    24 + (this->windowsize_y / 7));
-  this->window.draw(this->backgroundSprite);
   this->window.draw(this->_game_over);
   this->window.draw(this->_key);
   this->window.draw(this->_score);

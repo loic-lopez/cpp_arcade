@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Thu Apr  6 18:45:54 2017 Matthias Prost
+// Last update Fri Apr  7 00:10:01 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -325,19 +325,19 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
         action = ChangeCommandType::RESTART;
         return (action);
       }
-      if (this->Map->type != arcade::CommandType::PLAY && ennemy1_milliseconds > 1685)
+      if (this->Map->type != arcade::CommandType::PLAY && ennemy1_milliseconds > 1500)
       {
         Ennemy1_shoot(this->Map, &this->shoots, this->ennemy1_pos);
         ennemy1_start = ennemy1_end;
       }
-      if (this->Map->type != arcade::CommandType::PLAY && ennemy2_milliseconds > 1280)
+      if (this->Map->type != arcade::CommandType::PLAY && ennemy2_milliseconds > 1200)
       {
         Ennemy2_shoot(this->Map, &this->shoots, this->ennemy2_pos);
         ennemy2_start = ennemy2_end;
       }
-      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 68)
+      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 20)
         refresh_shoot(this, this->Map, &this->shoots);
-      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 78)
+      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 60)
       {
         SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key, &this->shoots);
         Ennemy(this->ennemy1_pos, this->ennemy2_pos, this->Map, this->direction1, this->direction2);
