@@ -272,9 +272,15 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
           else if (event.key.code == sf::Keyboard::Return)
             *commandType = arcade::CommandType::SHOOT;
           else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8))
-            *commandType = arcade::CommandType::RESTART;
+	    {
+	      *commandType = arcade::CommandType::RESTART;
+	      this->playGameOver = false;
+	    }
 	  else if (event.key.code == sf::Keyboard::Num9)
-	    action = ChangeCommandType::DISPLAY_MENU;
+	    {
+	      this->playGameOver = false;
+	      action = ChangeCommandType::DISPLAY_MENU;
+	    }
         }
     }
   return (true);
