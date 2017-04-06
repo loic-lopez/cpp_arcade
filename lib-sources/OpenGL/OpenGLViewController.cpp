@@ -153,21 +153,19 @@ void	OpenGLViewController::initScreen(std::string const &name)
     return;
 
   glfwWindowHint(GLFW_SAMPLES, 4);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   this->mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
   if (!(this->window = glfwCreateWindow(this->mode->width, this->mode->height, name.c_str(), NULL, NULL)))
       return (this->endScreen());
   glfwMakeContextCurrent(this->window); // Initialize GLEW
+  glewExperimental = GL_TRUE;
+  if (glewInit() != GLEW_OK)
+    {
+      std::cerr << "Failed to initialize GLEW\n" << std::endl;
+      return;
+    }
 
   glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
   glfwPollEvents();
-
-  glEnable(GL_DEPTH_TEST);
-  glDepthFunc(GL_LESS);
-  glEnable(GL_CULL_FACE);
-
 }
 
 void	OpenGLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
