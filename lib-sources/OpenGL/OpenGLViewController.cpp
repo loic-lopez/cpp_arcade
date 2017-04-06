@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Thu Apr  6 18:41:48 2017 Matthias Prost
+// Last update Thu Apr  6 23:48:18 2017 Matthias Prost
 //
 
 #include <iostream>
@@ -52,9 +52,9 @@ bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeComman
   else if (glfwGetKey(this->window, GLFW_KEY_5) == GLFW_PRESS)
       action = ChangeCommandType::NEXT_GAME;
   else if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS)
-      *commandType = arcade::CommandType::GO_UP;
-  else if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS)
       *commandType = arcade::CommandType::GO_DOWN;
+  else if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS)
+      *commandType = arcade::CommandType::GO_UP;
   else if (glfwGetKey(this->window, GLFW_KEY_RIGHT) == GLFW_PRESS)
       *commandType = arcade::CommandType::GO_RIGHT;
   else if (glfwGetKey(this->window, GLFW_KEY_LEFT) == GLFW_PRESS)
@@ -111,9 +111,9 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
   glPushMatrix();
 
   const Vector2f floatWindowSize((float) this->mode->width, this->mode->height);
-  const Vector2f floatObjectSize((float)30,(float)30);
+  const Vector2f floatObjectSize((float)20,(float)20);
   const Vector2f relativeObjectSize(floatObjectSize.x / floatWindowSize.x, floatObjectSize.y / floatWindowSize.y);
-  const Vector2f relativeObjectPosition((x / floatWindowSize.x),   (y / floatWindowSize.y));
+  const Vector2f relativeObjectPosition((x / floatWindowSize.x), (y / floatWindowSize.y));
 
   if (color == Color::BLACK)
     glColor3ub(0,0,0);
