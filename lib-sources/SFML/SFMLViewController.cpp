@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Fri Apr  7 00:07:36 2017 Matthias Prost
+// Last update Fri Apr  7 01:03:08 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -47,7 +47,7 @@ SFMLViewController::SFMLViewController()
   this->_game_over.setString("Game Over");
   this->_game_over.setCharacterSize(24);
   this->_game_over.setFillColor(sf::Color::Red);
-  this->_game_over.setPosition(this->windowsize_x / 2 - ((sizeof("Game Over") * 24) / 2), 24 + (this->windowsize_y / 9));
+  this->_game_over.setPosition((this->windowsize_x / 2) - (3 * 24) + 8, 24 + (this->windowsize_y / 9));
   this->_key.setFont(regular);
   this->_key.setString("Press 8 to restart");
   this->_key.setCharacterSize(24);
@@ -122,14 +122,15 @@ void	SFMLViewController::initScreen(std::string const &name)
 
 void	SFMLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
 {
+  (void) width;
   this->_game.setString(Game);
-  this->_game.setPosition(24 + (this->windowsize_x + (width * 15) + 75) / 2, 24 + (this->windowsize_y / 9));
+  this->_game.setPosition((this->windowsize_x / 2) - 48, 24 + this->windowsize_y / 200);
 
   this->_library.setString(libraryName);
-  this->_library.setPosition(24 + (this->windowsize_x + (width * 15) + 75) / 2, 24 + (this->windowsize_y / 6));
+  this->_library.setPosition((this->windowsize_x / 2) - 48, 24 + (this->windowsize_y / 30));
 
   this->_score.setString("Score: " + std::to_string(score));
-  this->_score.setPosition(24 + (this->windowsize_x + (width * 15) + 375) / 2, 24 + (this->windowsize_y / 9));
+  this->_score.setPosition((this->windowsize_x / 2) - 48, 24 + (this->windowsize_y / 13));
 }
 
 void  SFMLViewController::endScreen()
@@ -181,8 +182,8 @@ void  SFMLViewController::gameOver(int score)
       this->Lose.play();
       this->playGameOver = true;
     }
-  _score.setPosition(((this->windowsize_x) - ((2 + sizeof(score) - 1) * 24)) / 2,
-   24 + (this->windowsize_y / 7));
+    (void)score;
+  _score.setPosition(((this->windowsize_x / 2) - ((std::to_string(score).length()) / 2) * 24) - 48, 24 + (this->windowsize_y / 7));
   this->window.draw(this->_game_over);
   this->window.draw(this->_key);
   this->window.draw(this->_score);

@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Thu Apr  6 17:21:24 2017 Matthias Prost
+// Last update Fri Apr  7 00:26:12 2017 Matthias Prost
 //
 
 #include "Snake.hpp"
@@ -240,7 +240,7 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
       	    }
       	  if (exit) break;
       	}
-      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 75)
+      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 70)
 	{
 	  SnakeAlgorithm(this->Map, &this->_snake, &this->last_key);
 	  start = end;
