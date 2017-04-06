@@ -11,12 +11,8 @@
 #ifndef OpenGLCONTROLLER_HPP__
 # define OpenGLCONTROLLER_HPP__
 
-#define GLEW_STATIC
-#define GLM_FORCE_RADIANS
-#include <SDL/SDL.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
-
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 #include <vector>
 #include <fstream>
 #include <iostream>
@@ -28,6 +24,8 @@ extern "C" ILibraryViewController	*loadLibrary();
 class OpenGLViewController : public ILibraryViewController
 {
  private:
+  GLFWwindow		*window;
+  const GLFWvidmode	*mode;
 
  public:
   OpenGLViewController();
@@ -46,6 +44,5 @@ class OpenGLViewController : public ILibraryViewController
   virtual std::string	getLibraryName();
 };
 
-// DEFINED IN /lib-sources/OpenGL/LoadShaders.cpp
 
 #endif /* OpenGLCONTROLLER_HPP__ */
