@@ -16,8 +16,24 @@ extern "C" ILibraryViewController	*loadLibrary()
   return (new OpenGLViewController());
 }
 
+char *program_path()
+{
+  char *path = (char *)malloc(PATH_MAX);
+  if (path != NULL) {
+      if (readlink("/proc/self/exe", path, PATH_MAX) == -1) {
+	  free(path);
+	  path = NULL;
+	}
+    }
+  return path;
+}
+
 OpenGLViewController::OpenGLViewController()
 {
+  int 		pac = 1;
+  char 		*pav[] = {(char *)program_path()};
+
+  glutInit(&pac, pav);
 }
 
 OpenGLViewController::~OpenGLViewController()
@@ -63,25 +79,10 @@ bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeComman
   return (true);
 }
 
-char *program_path()
-{
-  char *path = (char *)malloc(PATH_MAX);
-  if (path != NULL) {
-      if (readlink("/proc/self/exe", path, PATH_MAX) == -1) {
-	  free(path);
-	  path = NULL;
-	}
-    }
-  return path;
-}
-
 void	OpenGLViewController::initScreen(std::string const &name)
 {
   if (!glfwInit())
     return;
-  int 		nb = 1;
-  char 		*lol[] = {(char *)program_path()};
-  glutInit(&nb, (char **)&lol);
   this->mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
   if (!(this->window = glfwCreateWindow(this->mode->width, this->mode->height, name.c_str(), NULL, NULL)))
       return (this->endScreen());
@@ -103,10 +104,10 @@ void print(float x, float y, std::string str)
 
 void	OpenGLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
 {
-  print(0.25f, 0, Game);
-  print(0.25f, -0.05f, libraryName);
-  print(0.25f, -0.1f, "Score");
-  print(0.35f, -0.1f, std::to_string(score));
+  print(-0.05f, 0.85f, Game);
+  print(-0.05f, 0.80f, libraryName);
+  print(-0.05f, 0.75f, "Score");
+  print(0.05f, 0.75f, std::to_string(score));
   (void)width;
 }
 
