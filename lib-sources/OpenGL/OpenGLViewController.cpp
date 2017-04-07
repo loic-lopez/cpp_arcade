@@ -103,7 +103,7 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
   (void)width;
   glPushMatrix();
 
-  const Vector2f floatWindowSize((float)this->mode->width / 2, (float)this->mode->height / 2);
+  const Vector2f floatWindowSize((float)this->mode->width / 1.1f, (float)this->mode->height / 1.1f);
   const Vector2f floatObjectSize((float)20,(float)20);
   const Vector2f relativeObjectSize(floatObjectSize.x / floatWindowSize.x, floatObjectSize.y / floatWindowSize.y);
   const Vector2f relativeObjectPosition((x / floatWindowSize.x) * 2, (y / floatWindowSize.y) * 2);
