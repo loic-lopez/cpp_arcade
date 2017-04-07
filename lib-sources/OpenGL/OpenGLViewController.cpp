@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Fri Apr  7 14:14:09 2017 Matthias Prost
+// Last update Fri Apr  7 16:53:10 2017 Matthias Prost
 //
 
 #include <iostream>
@@ -128,10 +128,10 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
 	       -(relativeObjectPosition.y * floatObjectSize.y), 0.0f);
   glBegin(GL_QUADS);
 
-  glVertex2f(-relativeObjectSize.x - 0.35f, -relativeObjectSize.y + 0.55f);
-  glVertex2f(relativeObjectSize.x - 0.35f,  -relativeObjectSize.y  + 0.55f);
-  glVertex2f(relativeObjectSize.x - 0.35f,  relativeObjectSize.y  + 0.55f);
-  glVertex2f(-relativeObjectSize.x - 0.35f, relativeObjectSize.y  + 0.55f);
+  glVertex2f(-relativeObjectSize.x - 0.35f, -relativeObjectSize.y + 0.65f);
+  glVertex2f(relativeObjectSize.x - 0.35f,  -relativeObjectSize.y  + 0.65f);
+  glVertex2f(relativeObjectSize.x - 0.35f,  relativeObjectSize.y  + 0.65f);
+  glVertex2f(-relativeObjectSize.x - 0.35f, relativeObjectSize.y  + 0.65f);
   glEnd();
   glPopMatrix();
 }

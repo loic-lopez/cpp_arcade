@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Fri Apr  7 15:34:15 2017 Matthias Prost
+// Last update Fri Apr  7 16:51:38 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -36,7 +36,9 @@ SFMLViewController::SFMLViewController()
   if (!deathComes.openFromFile("assets/Death_comes.ogg"))
     std::cerr << "ERROR: cannot found Death_comes.ogg in assets/ make sure it exist" << std::endl;
   if (!backgroundTexture.loadFromFile("assets/BackgroundArcade.jpg"))
-    std::cerr << "ERROR: cannot found Death_comes.ogg in assets/ make sure it exist" << std::endl;
+    std::cerr << "ERROR: cannot found BackgroundArcadejpg in assets/ make sure it exist" << std::endl;
+  if (!shipTexture.loadFromFile("assets/ship.png"))
+    std::cerr << "ERROR: cannot found ship.png in assets/ make sure it exist" << std::endl;
   this->Lose.setBuffer(this->bufferLose);
   this->Restart.setBuffer(this->bufferMercy);
   this->SoundTrack.setBuffer(this->bufferSoundTrack);
@@ -152,21 +154,45 @@ void  SFMLViewController::endScreen()
 void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
   if (color == Color::BLUE)
+  {
     this->rectangle.setFillColor(sf::Color(33, 150, 243));
-  else if (color == Color::BLACK)
-    this->rectangle.setFillColor(sf::Color(0, 0, 0));
-  else if (color == Color::MAGENTA)
-    this->rectangle.setFillColor(sf::Color(233, 30, 99));
-  else if (color == Color::RED)
-    this->rectangle.setFillColor(sf::Color(244, 67, 54));
-  else if (color == Color::GREEN)
-    this->rectangle.setFillColor(sf::Color(76, 175, 80));
+    this->rectangle.setTexture(NULL);
+  }
   else if (color == Color::CYAN)
+  {
     this->rectangle.setFillColor(sf::Color(0, 188, 212));
+    this->rectangle.setTexture(NULL);
+  }
+  else if (color == Color::BLACK)
+  {
+    this->rectangle.setFillColor(sf::Color(0, 0, 0));
+    this->rectangle.setTexture(NULL);
+  }
+  else if (color == Color::MAGENTA)
+  {
+    this->rectangle.setFillColor(sf::Color(233, 30, 99));
+    this->rectangle.setTexture(NULL);
+  }
+  else if (color == Color::RED)
+  {
+    this->rectangle.setFillColor(sf::Color(244, 67, 54));
+    this->rectangle.setTexture(NULL);
+  }
+  else if (color == Color::GREEN)
+  {
+    this->rectangle.setFillColor(sf::Color(76, 175, 80));
+    this->rectangle.setTexture(NULL);
+  }
   else if (color == Color::YELLOW)
+  {
     this->rectangle.setFillColor(sf::Color(255, 193, 7));
+    this->rectangle.setTexture(NULL);
+  }
   else if (color == Color::WHITE)
+  {
     this->rectangle.setFillColor(sf::Color(255, 255, 255));
+    this->rectangle.setTexture(NULL);
+  }
   this->rectangle.setPosition((x * 15) + (this->windowsize_x - (width * 15)) / 2, (y * 15) + (this->windowsize_y / 7));
   this->window.draw(this->rectangle);
   this->window.draw(this->_game);

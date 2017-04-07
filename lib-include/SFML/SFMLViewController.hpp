@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Fri Apr  7 15:52:58 2017 Matthias Prost
+// Last update Fri Apr  7 16:45:49 2017 Matthias Prost
 //
 
 #ifndef SFMLCONTROLLER_HPP__
@@ -43,6 +43,7 @@ private:
   sf::Music 	deathComes;
   sf::Texture	backgroundTexture;
   sf::Sprite	backgroundSprite;
+  sf::Texture shipTexture;
 
  public:
   virtual ~SFMLViewController();

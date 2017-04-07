@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. avr. 06 13:27:47 2017 Loïc Lopez
-** Last update Thu Apr  6 19:44:32 2017 Matthias Prost
+** Last update Fri Apr  7 16:26:10 2017 Matthias Prost
 */
 
 #include "NcursesViewController.hpp"
@@ -57,6 +57,7 @@ static	void	printKeys(int max_y, int max_x)
   NcursesEncap::n_mvprintw((max_y / 2), (max_x / 2) - 18, "Key 9 : display this menu.");
   NcursesEncap::n_mvprintw((max_y / 2) + 1, (max_x / 2) - 18, "Key Escape : quit the game or menu.");
   NcursesEncap::n_mvprintw((max_y / 2) + 2, (max_x / 2) - 18, "Move character with arrows.");
+  NcursesEncap::n_mvprintw((max_y / 2) + 3, (max_x / 2) - 18, "Enter to shoot (SolarFox)");
 }
 
 void	NcursesViewController::drawMenu(size_t &currentGame,
