@@ -63,11 +63,25 @@ bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeComman
   return (true);
 }
 
+char *program_path()
+{
+  char *path = (char *)malloc(PATH_MAX);
+  if (path != NULL) {
+      if (readlink("/proc/self/exe", path, PATH_MAX) == -1) {
+	  free(path);
+	  path = NULL;
+	}
+    }
+  return path;
+}
+
 void	OpenGLViewController::initScreen(std::string const &name)
 {
   if (!glfwInit())
     return;
-
+  int 		nb = 1;
+  char 		*lol[] = {(char *)program_path()};
+  glutInit(&nb, (char **)&lol);
   this->mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
   if (!(this->window = glfwCreateWindow(this->mode->width, this->mode->height, name.c_str(), NULL, NULL)))
       return (this->endScreen());
@@ -76,11 +90,23 @@ void	OpenGLViewController::initScreen(std::string const &name)
   glfwPollEvents();
 }
 
+void print(float x, float y, std::string str)
+{
+//set the position of the text in the window using the x and y coordinates
+  glRasterPos2f(x,y);
+//loop to display character by character
+  for (unsigned int i = 0; i < str.length(); i++)
+    {
+      glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,str.at(i));
+    }
+}
+
 void	OpenGLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
 {
-  (void)Game;
-  (void)libraryName;
-  (void)score;
+  print(0.25f, 0, Game);
+  print(0.25f, -0.05f, libraryName);
+  print(0.25f, -0.1f, "Score");
+  print(0.35f, -0.1f, std::to_string(score));
   (void)width;
 }
 
@@ -98,7 +124,6 @@ void  OpenGLViewController::refresh()
   glLoadIdentity();
 }
 
-#include <iomanip>
 void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
   (void)width;

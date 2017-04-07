@@ -12,6 +12,9 @@
 # define OpenGLCONTROLLER_HPP__
 
 #include <GL/glew.h>
+#include <GL/glut.h>
+#include <linux/limits.h>
+#include <unistd.h>
 #include <GLFW/glfw3.h>
 #include <vector>
 #include "Vector2f.hpp"
