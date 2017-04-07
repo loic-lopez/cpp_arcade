@@ -72,13 +72,6 @@ void	OpenGLViewController::initScreen(std::string const &name)
   if (!(this->window = glfwCreateWindow(this->mode->width, this->mode->height, name.c_str(), NULL, NULL)))
       return (this->endScreen());
   glfwMakeContextCurrent(this->window); // Initialize GLEW
-  glewExperimental = GL_TRUE;
-  if (glewInit() != GLEW_OK)
-    {
-      std::cerr << "Failed to initialize GLEW\n" << std::endl;
-      return;
-    }
-
   glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
   glfwPollEvents();
 }
@@ -110,7 +103,7 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
   (void)width;
   glPushMatrix();
 
-  const Vector2f floatWindowSize((float) this->mode->width, this->mode->height);
+  const Vector2f floatWindowSize((float)this->mode->width, (float)this->mode->height);
   const Vector2f floatObjectSize((float)20,(float)20);
   const Vector2f relativeObjectSize(floatObjectSize.x / floatWindowSize.x, floatObjectSize.y / floatWindowSize.y);
   const Vector2f relativeObjectPosition((x / floatWindowSize.x) * 2, (y / floatWindowSize.y) * 2);
@@ -135,10 +128,10 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
 	       (relativeObjectPosition.y * floatObjectSize.y), 0.0f);
   glBegin(GL_QUADS);
 
-  glVertex2f(-relativeObjectSize.x, -relativeObjectSize.y);
-  glVertex2f(relativeObjectSize.x,  -relativeObjectSize.y);
-  glVertex2f(relativeObjectSize.x,  relativeObjectSize.y);
-  glVertex2f(-relativeObjectSize.x, relativeObjectSize.y);
+  glVertex2f(-relativeObjectSize.x - 0.18f, -relativeObjectSize.y);
+  glVertex2f(relativeObjectSize.x - 0.18f,  -relativeObjectSize.y);
+  glVertex2f(relativeObjectSize.x - 0.18f,  relativeObjectSize.y);
+  glVertex2f(-relativeObjectSize.x - 0.18f, relativeObjectSize.y);
   glEnd();
   glPopMatrix();
 }
