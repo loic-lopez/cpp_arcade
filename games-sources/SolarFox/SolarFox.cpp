@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Fri Apr  7 17:06:48 2017 Matthias Prost
+// Last update Fri Apr  7 20:16:44 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -99,13 +99,13 @@ void SolarFox::drawMap(ILibraryViewController *libraryInstance)
            i / this->Map->width, Color::YELLOW);
       else if (this->Map->tile[i] == arcade::TileType::EVIL_DUDE)
          libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
-            i / this->Map->width, Color::RED);
+            i / this->Map->width, Color::ENNEMY);
       else if (this->Map->tile[i] == arcade::TileType::MY_SHOOT)
          libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
-            i / this->Map->width, Color::GREEN);
+            i / this->Map->width, Color::LASER);
       else if (this->Map->tile[i] == arcade::TileType::EVIL_SHOOT)
          libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
-            i / this->Map->width, Color::MAGENTA);
+            i / this->Map->width, Color::ENNEMY_LASER);
       else
 	       libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
            i / this->Map->width, Color::BLACK);
@@ -335,7 +335,7 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
         Ennemy2_shoot(this->Map, &this->shoots, this->ennemy2_pos);
         ennemy2_start = ennemy2_end;
       }
-      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 20)
+      if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 18)
         refresh_shoot(this, this->Map, &this->shoots);
       if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 60)
       {

@@ -5,7 +5,7 @@
 // Login   <matthias.prost@epitech.eu>
 //
 // Started on  Thu Apr  6 18:13:45 2017 Matthias Prost
-// Last update Thu Apr  6 18:15:46 2017 Matthias Prost
+// Last update Fri Apr  7 19:00:42 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -41,7 +41,7 @@ void  refresh_shoot(SolarFox *solarfox, arcade::GetMap *map, std::vector<shoot> 
       map->tile[shoots->at(i).pos] = shoots->at(i).type;
     else
       map->tile[shoots->at(i).pos] = arcade::TileType::EMPTY;
-    if (shoots->at(i).count == 5 && shoots->at(i).is_ennemy == false)
+    if (shoots->at(i).count == 6 && shoots->at(i).is_ennemy == false)
     {
       shoots->erase(shoots->begin() + i);
       break;

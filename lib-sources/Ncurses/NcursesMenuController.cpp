@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. avr. 06 13:27:47 2017 Loïc Lopez
-** Last update Fri Apr  7 16:26:10 2017 Matthias Prost
+** Last update Fri Apr  7 20:19:16 2017 Matthias Prost
 */
 
 #include "NcursesViewController.hpp"
@@ -57,7 +57,7 @@ static	void	printKeys(int max_y, int max_x)
   NcursesEncap::n_mvprintw((max_y / 2), (max_x / 2) - 18, "Key 9 : display this menu.");
   NcursesEncap::n_mvprintw((max_y / 2) + 1, (max_x / 2) - 18, "Key Escape : quit the game or menu.");
   NcursesEncap::n_mvprintw((max_y / 2) + 2, (max_x / 2) - 18, "Move character with arrows.");
-  NcursesEncap::n_mvprintw((max_y / 2) + 3, (max_x / 2) - 18, "Enter to shoot (SolarFox)");
+  NcursesEncap::n_mvprintw((max_y / 2) + 3, (max_x / 2) - 18, "Space to shoot (SolarFox)");
 }
 
 void	NcursesViewController::drawMenu(size_t &currentGame,
@@ -86,10 +86,10 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
   keypad(menu_win, TRUE);
   set_menu_win(menu, menu_win);
   set_menu_sub(menu, derwin(menu_win, 6, 38, 3, 1));
-  set_menu_fore(menu, COLOR_PAIR(8));
+  set_menu_fore(menu, COLOR_PAIR(0));
   set_menu_mark(menu, " -> ");
   box(menu_win, 0, 0);
-  print_in_middle(menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(8));
+  print_in_middle(menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(0));
   post_menu(menu);
   while((key = wgetch(menu_win)) != _KEY_ESC)
     {
@@ -129,7 +129,7 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
       clear();
       printKeys(this->windowsize_y, windowsize_x);
       box(menu_win, 0, 0);
-      print_in_middle(menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(8));
+      print_in_middle(menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(0));
       NcursesEncap::n_wrefresh(menu_win);
     }
   if (key == _KEY_ESC)

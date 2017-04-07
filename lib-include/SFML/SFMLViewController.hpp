@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Fri Apr  7 18:22:52 2017 Matthias Prost
+// Last update Fri Apr  7 18:40:02 2017 Matthias Prost
 //
 
 #ifndef SFMLCONTROLLER_HPP__
@@ -44,6 +44,7 @@ private:
   sf::Texture	backgroundTexture;
   sf::Sprite	backgroundSprite;
   std::vector<sf::Texture> Textures;
+  arcade::CommandType   keySave;
 
  public:
   virtual ~SFMLViewController();

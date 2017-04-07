@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Fri Apr  7 16:03:44 2017 Matthias Prost
+// Last update Fri Apr  7 20:24:51 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -74,7 +74,7 @@ bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeComm
     *commandType = arcade::CommandType::GO_LEFT;
   else if (key == KEY_RIGHT)
     *commandType = arcade::CommandType::GO_RIGHT;
-  else if (key == 10) //10 = Enter
+  else if (key == ' ')
     *commandType = arcade::CommandType::SHOOT;
   else if (key == '8')
     {
@@ -116,7 +116,10 @@ void  NcursesViewController::initScreen(std::string const &name)
   NcursesEncap::n_init_pair(5, COLOR_MAGENTA, COLOR_MAGENTA);
   NcursesEncap::n_init_pair(6, COLOR_CYAN, COLOR_CYAN);
   NcursesEncap::n_init_pair(7, COLOR_WHITE, COLOR_WHITE);
-  NcursesEncap::n_init_pair(8, COLOR_CYAN, COLOR_BLACK);
+  NcursesEncap::n_init_pair(8, COLOR_CYAN, COLOR_CYAN);
+  NcursesEncap::n_init_pair(9, COLOR_RED, COLOR_RED);
+  NcursesEncap::n_init_pair(10, COLOR_GREEN, COLOR_GREEN);
+  NcursesEncap::n_init_pair(11, COLOR_MAGENTA, COLOR_MAGENTA);
   srand(time(NULL));
 }
 

@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Fri Apr  7 18:25:03 2017 Matthias Prost
+// Last update Fri Apr  7 20:22:18 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -63,6 +63,7 @@ SFMLViewController::SFMLViewController()
   Fill_textures(&this->Textures);
   this->SoundTrack.setLoop(true);
   this->SoundTrack.setVolume(70);
+  this->keySave = arcade::CommandType::GO_LEFT;
   this->SoundTrack.play();
 }
 
@@ -75,7 +76,11 @@ void   Fill_textures(std::vector<sf::Texture> *Textures)
   std::string	name[] =
    {
     "ship",
-    "wall"
+    "wall",
+    "ennemy",
+    "coin",
+    "laser",
+    "ennemy_laser"
    };
    while (++i < (sizeof(name) / sizeof(name[0])))
    {
@@ -113,14 +118,26 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
           else if (event.key.code == sf::Keyboard::Num5)
             action = ChangeCommandType::NEXT_GAME;
           else if (event.key.code == sf::Keyboard::Up)
+          {
             *commandType = arcade::CommandType::GO_UP;
+            keySave = arcade::CommandType::GO_UP;
+          }
           else if (event.key.code == sf::Keyboard::Down)
+          {
             *commandType = arcade::CommandType::GO_DOWN;
+            keySave = arcade::CommandType::GO_DOWN;
+          }
           else if (event.key.code == sf::Keyboard::Left)
+          {
             *commandType = arcade::CommandType::GO_LEFT;
+            keySave = arcade::CommandType::GO_LEFT;
+          }
           else if (event.key.code == sf::Keyboard::Right)
+          {
             *commandType = arcade::CommandType::GO_RIGHT;
-          else if (event.key.code == sf::Keyboard::Return)
+            keySave = arcade::CommandType::GO_RIGHT;
+          }
+          else if (event.key.code == sf::Keyboard::Space)
             *commandType = arcade::CommandType::SHOOT;
           else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8))
 	    {
@@ -173,7 +190,8 @@ void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
   sf::RectangleShape rectangle;
 
-  rectangle.setSize(sf::Vector2f(15, 15));
+  rectangle.setSize(sf::Vector2f(16, 16));
+  rectangle.setOrigin(8, 8);
   if (color == Color::BLUE)
   {
     rectangle.setFillColor(sf::Color(33, 150, 243));
@@ -182,6 +200,12 @@ void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
   else if (color == Color::SHIP)
   {
     rectangle.setTexture(&this->Textures.at(0));
+    if (this->keySave == arcade::CommandType::GO_LEFT)
+      rectangle.setRotation(270);
+    if (this->keySave == arcade::CommandType::GO_RIGHT)
+      rectangle.setRotation(90);
+    if (this->keySave == arcade::CommandType::GO_DOWN)
+      rectangle.setRotation(180);
   }
   else if (color == Color::CYAN)
   {
@@ -192,25 +216,27 @@ void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
     rectangle.setFillColor(sf::Color(0, 0, 0));
     rectangle.setTexture(NULL);
   }
-  else if (color == Color::MAGENTA)
+  else if (color == Color::ENNEMY_LASER)
   {
-    rectangle.setFillColor(sf::Color(233, 30, 99));
-    rectangle.setTexture(NULL);
+    rectangle.setTexture(&this->Textures.at(5));
+    rectangle.setRotation(90);
   }
-  else if (color == Color::RED)
+  else if (color == Color::ENNEMY)
   {
-    rectangle.setFillColor(sf::Color(244, 67, 54));
-    rectangle.setTexture(NULL);
+    rectangle.setTexture(&this->Textures.at(2));
+    rectangle.setRotation(90);
   }
-  else if (color == Color::GREEN)
+  else if (color == Color::LASER)
   {
-    rectangle.setFillColor(sf::Color(76, 175, 80));
-    rectangle.setTexture(NULL);
+    rectangle.setTexture(&this->Textures.at(4));
+    if (this->keySave == arcade::CommandType::GO_LEFT)
+      rectangle.setRotation(270);
+    if (this->keySave == arcade::CommandType::GO_RIGHT)
+      rectangle.setRotation(90);
   }
   else if (color == Color::YELLOW)
   {
-    rectangle.setFillColor(sf::Color(255, 193, 7));
-    rectangle.setTexture(NULL);
+    rectangle.setTexture(&this->Textures.at(3));
   }
   else if (color == Color::WHITE)
   {

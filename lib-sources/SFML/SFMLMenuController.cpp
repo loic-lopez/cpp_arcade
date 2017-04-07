@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. avr. 06 13:30:29 2017 Loïc Lopez
-** Last update Fri Apr  7 16:29:00 2017 Matthias Prost
+** Last update Fri Apr  7 20:19:09 2017 Matthias Prost
 */
 
 #include "SFMLViewController.hpp"
@@ -41,7 +41,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
     "Key 9 : display this menu.",
     "Key Escape : quit the game or menu.",
     "Move character with arrows.",
-		"Enter to shoot (SolarFox)"
+		"Space to shoot (SolarFox)"
    };
   sf::Text	mainText;
   sf::Text	arrow;
