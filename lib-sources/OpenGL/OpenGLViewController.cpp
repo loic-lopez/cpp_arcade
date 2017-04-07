@@ -98,6 +98,7 @@ void  OpenGLViewController::refresh()
   glLoadIdentity();
 }
 
+#include <iomanip>
 void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
   (void)width;
@@ -128,10 +129,10 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
 	       -(relativeObjectPosition.y * floatObjectSize.y), 0.0f);
   glBegin(GL_QUADS);
 
-  glVertex2f(-relativeObjectSize.x - 0.35f, -relativeObjectSize.y + 0.65f);
-  glVertex2f(relativeObjectSize.x - 0.35f,  -relativeObjectSize.y  + 0.65f);
-  glVertex2f(relativeObjectSize.x - 0.35f,  relativeObjectSize.y  + 0.65f);
-  glVertex2f(-relativeObjectSize.x - 0.35f, relativeObjectSize.y  + 0.65f);
+  glVertex2f(-relativeObjectSize.x - (floatObjectSize.x / (float)width), -relativeObjectSize.y + 0.65f);
+  glVertex2f(relativeObjectSize.x - (floatObjectSize.x / (float)width),  -relativeObjectSize.y  + 0.65f);
+  glVertex2f(relativeObjectSize.x - (floatObjectSize.x / (float)width),  relativeObjectSize.y  + 0.65f);
+  glVertex2f(-relativeObjectSize.x - (floatObjectSize.x / (float)width), relativeObjectSize.y  + 0.65f);
   glEnd();
   glPopMatrix();
 }
