@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Fri Apr  7 16:53:10 2017 Matthias Prost
+// Last update Fri Apr  7 21:17:47 2017 Matthias Prost
 //
 
 #include <iostream>
@@ -134,22 +134,55 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
   const Vector2f relativeObjectSize(floatObjectSize.x / floatWindowSize.x, floatObjectSize.y / floatWindowSize.y);
   const Vector2f relativeObjectPosition((x / floatWindowSize.x) * 2.0f, (y / floatWindowSize.y) * 2.0f);
 
-  if (color == Color::BLUE)
-    glColor3ub(33, 150, 243);
-  else if (color == Color::BLACK)
-    glColor3ub(0, 0, 0);
-  else if (color == Color::MAGENTA)
-    glColor3ub(33, 30, 99);
-  else if (color == Color::RED)
-    glColor3ub(244, 67, 54);
-  else if (color == Color::GREEN)
-    glColor3ub(76, 175, 80);
-  else if (color == Color::CYAN)
-    glColor3ub(0, 188, 212);
-  else if (color == Color::YELLOW)
-    glColor3ub(255, 193, 7);
-  else if (color == Color::WHITE)
-    glColor3ub(255, 255, 255);
+  switch (color)
+  {
+    case Color::BLUE:
+      glColor3ub(33, 150, 243);
+      break;
+    case Color::BLACK:
+      glColor3ub(0, 0, 0);
+      break;
+    case Color::MAGENTA:
+      glColor3ub(33, 30, 99);
+      break;
+    case Color::RED:
+      glColor3ub(244, 67, 54);
+      break;
+    case Color::GREEN:
+      glColor3ub(76, 175, 80);
+      break;
+    case Color::CYAN:
+      glColor3ub(0, 188, 212);
+      break;
+    case Color::YELLOW:
+      glColor3ub(255, 193, 7);
+      break;
+    case Color::WHITE:
+      glColor3ub(255, 255, 255);
+      break;
+    case Color::SHIP:
+      glColor3ub(33, 150, 243);
+      break;
+    case Color::ENNEMY:
+      glColor3ub(244, 67, 54);
+      break;
+    case Color::LASER:
+      glColor3ub(76, 175, 80);
+      break;
+    case Color::ENNEMY_LASER:
+      glColor3ub(33, 30, 99);
+      break;
+    case Color::SNAKE_BODY:
+      glColor3ub(244, 67, 54);
+      break;
+    case Color::SNAKE_HEAD:
+      glColor3ub(33, 30, 99);
+      break;
+    case Color::APPLE:
+      glColor3ub(76, 175, 80);
+      break;
+  }
+
   glTranslatef((relativeObjectPosition.x * floatObjectSize.x),
 	       -(relativeObjectPosition.y * floatObjectSize.y), 0.0f);
   glBegin(GL_QUADS);
