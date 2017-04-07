@@ -103,10 +103,10 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
   (void)width;
   glPushMatrix();
 
-  const Vector2f floatWindowSize((float)this->mode->width / 1.1f, (float)this->mode->height / 1.1f);
+  const Vector2f floatWindowSize((float)this->mode->width, (float)this->mode->height);
   const Vector2f floatObjectSize((float)20,(float)20);
   const Vector2f relativeObjectSize(floatObjectSize.x / floatWindowSize.x, floatObjectSize.y / floatWindowSize.y);
-  const Vector2f relativeObjectPosition((x / floatWindowSize.x) * 2, (y / floatWindowSize.y) * 2);
+  const Vector2f relativeObjectPosition((x / floatWindowSize.x) * 2.0f, (y / floatWindowSize.y) * 2.0f);
 
   if (color == Color::BLUE)
     glColor3ub(33, 150, 243);
@@ -128,10 +128,10 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
 	       -(relativeObjectPosition.y * floatObjectSize.y), 0.0f);
   glBegin(GL_QUADS);
 
-  glVertex2f(-relativeObjectSize.x - 0.35f, -relativeObjectSize.y + 0.5f);
-  glVertex2f(relativeObjectSize.x - 0.35f,  -relativeObjectSize.y + 0.5f);
-  glVertex2f(relativeObjectSize.x - 0.35f,  relativeObjectSize.y + 0.5f);
-  glVertex2f(-relativeObjectSize.x - 0.35f, relativeObjectSize.y + 0.5f);
+  glVertex2f(-relativeObjectSize.x - 0.35f, -relativeObjectSize.y + 0.55f);
+  glVertex2f(relativeObjectSize.x - 0.35f,  -relativeObjectSize.y  + 0.55f);
+  glVertex2f(relativeObjectSize.x - 0.35f,  relativeObjectSize.y  + 0.55f);
+  glVertex2f(-relativeObjectSize.x - 0.35f, relativeObjectSize.y  + 0.55f);
   glEnd();
   glPopMatrix();
 }
