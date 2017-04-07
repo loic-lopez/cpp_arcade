@@ -5,7 +5,7 @@
 // Login   <matthias.prost@epitech.eu@epitech.eu>
 //
 // Started on  Mon Apr  3 02:19:47 2017 Matthias Prost
-// Last update Wed Apr  5 18:58:25 2017 Matthias Prost
+// Last update Fri Apr  7 20:55:38 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"

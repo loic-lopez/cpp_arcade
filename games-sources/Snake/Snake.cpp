@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Fri Apr  7 00:26:12 2017 Matthias Prost
+// Last update Fri Apr  7 20:58:52 2017 Matthias Prost
 //
 
 #include "Snake.hpp"
@@ -117,13 +117,13 @@ void			Snake::drawMap(ILibraryViewController *libraryInstance)
 				    i / this->Map->width, Color::BLACK);
     }
   libraryInstance->drawSquare(this->Map->width, this->_snake.at(0).x,
-			      this->_snake.at(0).y, Color::BLUE);
+			      this->_snake.at(0).y, Color::SNAKE_HEAD);
   for (size_t j = 1; j < this->_snake.size(); j++)
     libraryInstance->drawSquare(this->Map->width, this->_snake.at(j).x,
-				this->_snake.at(j).y, Color::RED);
+				this->_snake.at(j).y, Color::SNAKE_BODY);
   if (this->applePosition > -1)
     libraryInstance->drawSquare(this->Map->width, this->applePosition % this->Map->width,
-				this->applePosition / this->Map->width, Color::GREEN);
+				this->applePosition / this->Map->width, Color::APPLE);
 }
 
 static	bool	headIsOnAWallOrSelf(arcade::GetMap *map, uint16_t head_x_pos,

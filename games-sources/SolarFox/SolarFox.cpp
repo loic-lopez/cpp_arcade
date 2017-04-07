@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Fri Apr  7 20:16:44 2017 Matthias Prost
+// Last update Fri Apr  7 20:56:38 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -291,7 +291,8 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
     ennemy1_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(ennemy1_end - ennemy1_start).count();
     ennemy2_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(ennemy2_end - ennemy2_start).count();
     if (this->Map->type == arcade::CommandType::RESTART)
-     this->Map->type = (arcade::CommandType)this->last_key;
+    restartSolarFox(&this->_ship, libraryInstance, this->Map, &this->shoots,
+                    &this->ennemy1_pos, &this->ennemy2_pos);
     this->drawMap(libraryInstance);
     if (Ship_collision(&this->shoots, this->Map, this->_ship.x, this->_ship.y))
     {

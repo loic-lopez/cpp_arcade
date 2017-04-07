@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Fri Apr  7 20:22:18 2017 Matthias Prost
+// Last update Fri Apr  7 21:00:50 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -80,7 +80,10 @@ void   Fill_textures(std::vector<sf::Texture> *Textures)
     "ennemy",
     "coin",
     "laser",
-    "ennemy_laser"
+    "ennemy_laser",
+    "snake_body",
+    "snake_head",
+    "apple"
    };
    while (++i < (sizeof(name) / sizeof(name[0])))
    {
@@ -226,6 +229,10 @@ void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
     rectangle.setTexture(&this->Textures.at(2));
     rectangle.setRotation(90);
   }
+  else if (color == Color::APPLE)
+  {
+    rectangle.setTexture(&this->Textures.at(8));
+  }
   else if (color == Color::LASER)
   {
     rectangle.setTexture(&this->Textures.at(4));
@@ -233,6 +240,20 @@ void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
       rectangle.setRotation(270);
     if (this->keySave == arcade::CommandType::GO_RIGHT)
       rectangle.setRotation(90);
+  }
+  else if (color == Color::SNAKE_BODY)
+  {
+    rectangle.setTexture(&this->Textures.at(6));
+  }
+  else if (color == Color::SNAKE_HEAD)
+  {
+    rectangle.setTexture(&this->Textures.at(7));
+    if (this->keySave == arcade::CommandType::GO_LEFT)
+      rectangle.setRotation(270);
+    if (this->keySave == arcade::CommandType::GO_RIGHT)
+      rectangle.setRotation(90);
+    if (this->keySave == arcade::CommandType::GO_DOWN)
+      rectangle.setRotation(180);
   }
   else if (color == Color::YELLOW)
   {
