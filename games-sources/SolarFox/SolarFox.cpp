@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Fri Apr  7 00:10:01 2017 Matthias Prost
+// Last update Fri Apr  7 17:06:48 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -110,7 +110,7 @@ void SolarFox::drawMap(ILibraryViewController *libraryInstance)
 	       libraryInstance->drawSquare(this->Map->width, i % this->Map->width,
            i / this->Map->width, Color::BLACK);
     }
-  libraryInstance->drawSquare(this->Map->width, this->_ship.x, this->_ship.y, Color::BLUE);
+  libraryInstance->drawSquare(this->Map->width, this->_ship.x, this->_ship.y, Color::SHIP);
 }
 
 void SolarFox::setMap()

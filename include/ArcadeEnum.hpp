@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  dim. mars 26 16:54:00 2017 Loïc Lopez
-** Last update Thu Apr  6 11:10:19 2017 Matthias Prost
+** Last update Fri Apr  7 17:06:50 2017 Matthias Prost
 */
 
 #ifndef ARCADE_COLOR_HPP__
@@ -29,6 +29,7 @@ enum class 	Color : int
   BLACK		=	0,
   CYAN		=	6,
   WHITE   = 7,
+  SHIP    = 8,
 };
 
 enum class	ChangeCommandType : int

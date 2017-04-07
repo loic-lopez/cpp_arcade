@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Fri Apr  7 16:45:49 2017 Matthias Prost
+// Last update Fri Apr  7 18:22:52 2017 Matthias Prost
 //
 
 #ifndef SFMLCONTROLLER_HPP__
@@ -23,7 +23,7 @@ class SFMLViewController : public ILibraryViewController
 {
 private:
   sf::RenderWindow window;
-  sf::RectangleShape rectangle;
+  // sf::RectangleShape rectangle;
   int   windowsize_x;
   int   windowsize_y;
   sf::SoundBuffer bufferLose;
@@ -43,7 +43,7 @@ private:
   sf::Music 	deathComes;
   sf::Texture	backgroundTexture;
   sf::Sprite	backgroundSprite;
-  sf::Texture shipTexture;
+  std::vector<sf::Texture> Textures;
 
  public:
   virtual ~SFMLViewController();
@@ -61,5 +61,7 @@ private:
   virtual void gameOver(int);
   virtual std::string	getLibraryName();
 };
+
+void   Fill_textures(std::vector<sf::Texture> *Textures);
 
 #endif /* SFMLCONTROLLER_HPP__ */
