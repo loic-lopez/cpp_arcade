@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Fri Apr  7 14:14:15 2017 Matthias Prost
+// Last update Fri Apr  7 16:03:44 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -29,13 +29,14 @@ extern "C" ILibraryViewController	*loadLibrary()
 
 NcursesViewController::NcursesViewController()
 {
+  std::system("paplay assets/Sound_Theme.ogg & > /dev/null 2>&1");
   this->playGameOver = false;
   this->functionCaller = "OTHER";
 }
 
 NcursesViewController::~NcursesViewController()
 {
-
+  std::system("killall paplay");
 }
 
 void	NcursesViewController::drawSquare(int width, int x, int y, Color const &color)
@@ -78,6 +79,7 @@ bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeComm
   else if (key == '8')
     {
       *commandType = arcade::CommandType::RESTART;
+      std::system("paplay assets/Mercy.ogg & > /dev/null 2>&1");
       this->playGameOver = false;
     }
   else if (key == '9')
@@ -93,8 +95,8 @@ void  NcursesViewController::initScreen(std::string const &name)
   std::string	changeTerminalName = "echo -n \"\033]0;" + name + " \007\"";
 
   if (this->functionCaller == "OTHER")
-      system("paplay assets/Death_comes.ogg & > /dev/null 2>&1");
-  system(changeTerminalName.c_str());
+      std::system("paplay assets/Death_comes.ogg & > /dev/null 2>&1");
+  std::system(changeTerminalName.c_str());
   NcursesEncap::n_clear();
   NcursesEncap::n_newterm();
   NcursesEncap::n_curs_set();
@@ -136,7 +138,7 @@ void  NcursesViewController::gameOver(int score)
 {
   if (!this->playGameOver)
     {
-      system("paplay assets/Die_die_die.ogg & > /dev/null 2>&1");
+      std::system("paplay assets/Die_Die_Die.ogg & > /dev/null 2>&1");
       this->playGameOver = true;
     }
   NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 10,
