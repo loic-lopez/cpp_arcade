@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Fri Apr  7 01:03:08 2017 Matthias Prost
+// Last update Fri Apr  7 14:16:26 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -27,6 +27,8 @@ SFMLViewController::SFMLViewController()
   this->rectangle.setSize(sf::Vector2f(15, 15));
   if (!this->bufferLose.loadFromFile("assets/Die_Die_Die.ogg"))
     std::cerr << "ERROR: cannot found Die_Die_Die.ogg in assets/ make sure it exist" << std::endl;
+  if (!this->bufferMercy.loadFromFile("assets/Mercy.ogg"))
+    std::cerr << "ERROR: cannot found Mercy.ogg in assets/ make sure it exist" << std::endl;
   if (!regular.loadFromFile("lib-sources/SFML/Fonts/Roboto-Regular.ttf"))
     std::cerr << "ERROR: cannot found Roboto-Regular.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
   if (!deathComes.openFromFile("assets/Death_comes.ogg"))
@@ -34,6 +36,7 @@ SFMLViewController::SFMLViewController()
   if (!backgroundTexture.loadFromFile("assets/BackgroundArcade.jpg"))
     std::cerr << "ERROR: cannot found Death_comes.ogg in assets/ make sure it exist" << std::endl;
   this->Lose.setBuffer(this->bufferLose);
+  this->Restart.setBuffer(this->bufferMercy);
   this->_game.setFont(this->regular);
   this->_game.setCharacterSize(24);
   this->_game.setFillColor(sf::Color::White);
@@ -97,6 +100,8 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
 	    {
 	      *commandType = arcade::CommandType::RESTART;
 	      this->playGameOver = false;
+        this->Restart.setVolume(50);
+        this->Restart.play();
 	    }
 	  else if (event.key.code == sf::Keyboard::Num9)
 	    {

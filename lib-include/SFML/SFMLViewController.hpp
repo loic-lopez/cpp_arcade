@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Fri Apr  7 00:26:32 2017 Matthias Prost
+// Last update Fri Apr  7 14:13:57 2017 Matthias Prost
 //
 
 #ifndef SFMLCONTROLLER_HPP__
@@ -26,7 +26,9 @@ private:
   int   windowsize_x;
   int   windowsize_y;
   sf::SoundBuffer bufferLose;
+  sf::SoundBuffer bufferMercy;
   sf::Sound	Lose;
+  sf::Sound Restart;
   sf::Font      regular;
   sf::Text      _game;
   sf::Text      _library;
