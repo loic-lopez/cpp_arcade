@@ -58,15 +58,15 @@ void	Snake::playProtocol()
   arcade::CommandType commandType = arcade::CommandType::PLAY;
 
   this->setMap();
-  while (read(0, &commandType, sizeof(arcade::CommandType)) != EOF)
+  while (std::cin.read(reinterpret_cast<char *>(&commandType), sizeof(arcade::CommandType)))
     {
       this->Map->type = commandType;
       if (commandType == arcade::CommandType::GET_MAP)
 	{
-	  write(1, &this->Map->type, sizeof(arcade::CommandType));
-	  write(1, &this->Map->width, sizeof(uint16_t));
-	  write(1, &this->Map->height, sizeof(uint16_t));
-	  write(1, &this->Map->tile, sizeof(arcade::TileType) * this->Map->height * this->Map->width);
+	  std::cout.write(reinterpret_cast<const char*>(&this->Map->type), sizeof(arcade::CommandType));
+	  std::cout.write(reinterpret_cast<const char*>(&this->Map->width), sizeof(uint16_t));
+	  std::cout.write(reinterpret_cast<const char*>(&this->Map->height), sizeof(arcade::CommandType));
+	  std::cout.write(reinterpret_cast<const char*>(&this->Map->tile), sizeof(arcade::TileType) * this->Map->height * this->Map->width);
 	}
       else if (commandType == arcade::CommandType::WHERE_AM_I)
 	{
@@ -80,10 +80,13 @@ void	Snake::playProtocol()
 	      this->whereAmI->position[j].x = this->_snake.at(j).x;
 	      this->whereAmI->position[j].y = this->_snake.at(j).y;
 	    }
-	  write(1, &this->whereAmI->type, sizeof(arcade::CommandType));
-	  write(1, &this->whereAmI->lenght, sizeof(uint16_t));
-	  write(1, &this->whereAmI->position, sizeof(arcade::Position) * this->whereAmI->lenght);
-	  delete whereAmI;
+	  std::cout.write(reinterpret_cast<const char*>(&this->whereAmI->type),
+			  sizeof(arcade::CommandType));
+	  std::cout.write(reinterpret_cast<const char*>(&this->whereAmI->lenght),
+			  sizeof(uint16_t));
+	  std::cout.write(reinterpret_cast<const char*>(&this->whereAmI->position),
+			  sizeof(arcade::Position) * this->whereAmI->lenght);
+	  delete this->whereAmI;
 	}
       else
 	{
