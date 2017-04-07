@@ -48,7 +48,6 @@ class NcursesViewController : public ILibraryViewController
   virtual void refresh();
   virtual void gameOver(int);
   virtual void clear();
-  virtual void restart();
   virtual std::string	getLibraryName();
 };
 

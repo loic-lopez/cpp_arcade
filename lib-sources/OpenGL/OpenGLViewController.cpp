@@ -101,7 +101,7 @@ void  OpenGLViewController::refresh()
   glfwSwapBuffers(this->window);
   glfwPollEvents();
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glMatrixMode(GL_PROJECTION);
+  glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 }
 
@@ -113,18 +113,24 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
   const Vector2f floatWindowSize((float) this->mode->width, this->mode->height);
   const Vector2f floatObjectSize((float)20,(float)20);
   const Vector2f relativeObjectSize(floatObjectSize.x / floatWindowSize.x, floatObjectSize.y / floatWindowSize.y);
-  const Vector2f relativeObjectPosition((x / floatWindowSize.x), (y / floatWindowSize.y));
+  const Vector2f relativeObjectPosition((x / floatWindowSize.x) * 2, (y / floatWindowSize.y) * 2);
 
-  if (color == Color::BLACK)
-    glColor3ub(0,0,0);
-  else if (color == Color::GREEN)
-    glColor3ub(0,100,0);
-  else if (color == Color::BLUE)
-    glColor3ub(0,0,205);
-  else if (color == Color::CYAN)
-    glColor3ub(255,0,0);
+  if (color == Color::BLUE)
+    glColor3ub(33, 150, 243);
+  else if (color == Color::BLACK)
+    glColor3ub(0, 0, 0);
+  else if (color == Color::MAGENTA)
+    glColor3ub(33, 30, 99);
   else if (color == Color::RED)
-    glColor3ub(0,206,209);
+    glColor3ub(244, 67, 54);
+  else if (color == Color::GREEN)
+    glColor3ub(76, 175, 80);
+  else if (color == Color::CYAN)
+    glColor3ub(0, 188, 212);
+  else if (color == Color::YELLOW)
+    glColor3ub(255, 193, 7);
+  else if (color == Color::WHITE)
+    glColor3ub(255, 255, 255);
   glTranslatef((relativeObjectPosition.x * floatObjectSize.x),
 	       (relativeObjectPosition.y * floatObjectSize.y), 0.0f);
   glBegin(GL_QUADS);
