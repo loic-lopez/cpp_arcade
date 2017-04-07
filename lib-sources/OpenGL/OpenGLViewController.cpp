@@ -20,12 +20,13 @@ char *program_path()
 {
   char *path = (char *)malloc(PATH_MAX);
   if (path != NULL) {
-      if (readlink("/proc/self/exe", path, PATH_MAX) == -1) {
+      if (readlink("/proc/self/exe", path, PATH_MAX) == -1)
+	{
 	  free(path);
 	  path = NULL;
 	}
     }
-  return path;
+  return (path);
 }
 
 OpenGLViewController::OpenGLViewController()
@@ -75,7 +76,18 @@ bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeComman
       *commandType = arcade::CommandType::GO_RIGHT;
   else if (glfwGetKey(this->window, GLFW_KEY_LEFT) == GLFW_PRESS)
       *commandType = arcade::CommandType::GO_LEFT;
-
+  else if (glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    *commandType = arcade::CommandType::SHOOT;
+  else if (glfwGetKey(this->window, GLFW_KEY_8) == GLFW_PRESS)
+    {
+      *commandType = arcade::CommandType::RESTART;
+      this->playGameOver = false;
+    }
+  else if (glfwGetKey(this->window, GLFW_KEY_9) == GLFW_PRESS)
+    {
+      this->playGameOver = false;
+      action = ChangeCommandType::DISPLAY_MENU;
+    }
   return (true);
 }
 
@@ -98,7 +110,7 @@ void print(float x, float y, std::string str)
 //loop to display character by character
   for (unsigned int i = 0; i < str.length(); i++)
     {
-      glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,str.at(i));
+      glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str.at(i));
     }
 }
 
@@ -203,12 +215,20 @@ std::string	OpenGLViewController::getLibraryName()
 
 void  OpenGLViewController::gameOver(int score)
 {
-  (void)score;
+  if (!this->playGameOver)
+    this->playGameOver = true;
+  print(-0.05f, 0.80f, "Game Over");
+  print(-0.05f, 0.75f, "Score");
+  print(0.05f, 0.75f, std::to_string(score));
 }
 
 void  OpenGLViewController::win(int score)
 {
-  (void)score;
+  if (!this->playGameOver)
+    this->playGameOver = true;
+  print(-0.05f, 0.80f, "Win");
+  print(-0.05f, 0.75f, "Score");
+  print(0.05f, 0.75f, std::to_string(score));
 }
 
 void  OpenGLViewController::clear()

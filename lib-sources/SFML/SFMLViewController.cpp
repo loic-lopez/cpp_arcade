@@ -151,8 +151,8 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
 	    {
 	      *commandType = arcade::CommandType::RESTART;
 	      this->playGameOver = false;
-        this->Restart.setVolume(50);
-        this->Restart.play();
+	      this->Restart.setVolume(50);
+	      this->Restart.play();
 	    }
 	  else if (event.key.code == sf::Keyboard::Num9)
 	    {
