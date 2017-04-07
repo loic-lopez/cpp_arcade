@@ -28,6 +28,7 @@ class OpenGLViewController : public ILibraryViewController
  private:
   GLFWwindow		*window;
   const GLFWvidmode	*mode;
+  bool 			playGameOver;
 
  public:
   OpenGLViewController();
