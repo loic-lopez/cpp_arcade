@@ -52,9 +52,9 @@ bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeComman
   else if (glfwGetKey(this->window, GLFW_KEY_5) == GLFW_PRESS)
       action = ChangeCommandType::NEXT_GAME;
   else if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS)
-      *commandType = arcade::CommandType::GO_DOWN;
-  else if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS)
       *commandType = arcade::CommandType::GO_UP;
+  else if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS)
+      *commandType = arcade::CommandType::GO_DOWN;
   else if (glfwGetKey(this->window, GLFW_KEY_RIGHT) == GLFW_PRESS)
       *commandType = arcade::CommandType::GO_RIGHT;
   else if (glfwGetKey(this->window, GLFW_KEY_LEFT) == GLFW_PRESS)
@@ -125,13 +125,13 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
   else if (color == Color::WHITE)
     glColor3ub(255, 255, 255);
   glTranslatef((relativeObjectPosition.x * floatObjectSize.x),
-	       (relativeObjectPosition.y * floatObjectSize.y), 0.0f);
+	       -(relativeObjectPosition.y * floatObjectSize.y), 0.0f);
   glBegin(GL_QUADS);
 
-  glVertex2f(-relativeObjectSize.x - 0.35f, -relativeObjectSize.y - 0.60f);
-  glVertex2f(relativeObjectSize.x - 0.35f,  -relativeObjectSize.y - 0.60f);
-  glVertex2f(relativeObjectSize.x - 0.35f,  relativeObjectSize.y - 0.60f);
-  glVertex2f(-relativeObjectSize.x - 0.35f, relativeObjectSize.y - 0.60f);
+  glVertex2f(-relativeObjectSize.x - 0.35f, -relativeObjectSize.y);
+  glVertex2f(relativeObjectSize.x - 0.35f,  -relativeObjectSize.y);
+  glVertex2f(relativeObjectSize.x - 0.35f,  relativeObjectSize.y);
+  glVertex2f(-relativeObjectSize.x - 0.35f, relativeObjectSize.y);
   glEnd();
   glPopMatrix();
 }
