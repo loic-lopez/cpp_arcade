@@ -129,7 +129,7 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
       printKeys(this->windowsize_y, windowsize_x);
       box(menu_win, 0, 0);
       print_in_middle(menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(8));
-      wrefresh(menu_win);
+      NcursesEncap::n_wrefresh(menu_win);
     }
   if (key == _KEY_ESC)
     exit = true;

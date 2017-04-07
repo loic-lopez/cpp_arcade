@@ -40,7 +40,7 @@
 #endif
 
 #include <ncurses.h>
-#include "eti.h"
+#include "eti.hpp"
 
 #ifdef __cplusplus
 extern "C" {

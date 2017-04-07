@@ -15,7 +15,7 @@
 #include <signal.h>
 #include "../interface/ILibraryViewController.hpp"
 #include "NcursesEncap.hpp"
-#include "menu.h"
+#include "menu.hpp"
 
 extern "C" ILibraryViewController	*loadLibrary();
 
