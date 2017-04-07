@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Fri Apr  7 21:17:47 2017 Matthias Prost
+// Last update Fri Apr  7 21:30:57 2017 Matthias Prost
 //
 
 #include <iostream>
@@ -201,6 +201,11 @@ std::string	OpenGLViewController::getLibraryName()
 }
 
 void  OpenGLViewController::gameOver(int score)
+{
+  (void)score;
+}
+
+void  OpenGLViewController::win(int score)
 {
   (void)score;
 }

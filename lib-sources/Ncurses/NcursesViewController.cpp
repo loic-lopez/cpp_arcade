@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Fri Apr  7 21:03:13 2017 Matthias Prost
+// Last update Fri Apr  7 21:30:06 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -149,6 +149,23 @@ void  NcursesViewController::gameOver(int score)
     }
   NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 10,
 			   this->windowsize_x/ 2 - 4, "GameOver");
+  NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 12,
+   			 this->windowsize_x/ 2 - 4, "Score: ");
+  NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 12,
+  		   this->windowsize_x / 2 + 4, std::to_string(score).c_str());
+  NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 16,
+  		   this->windowsize_x/ 2 - 11, "Press 8 to restart");
+}
+
+void  NcursesViewController::win(int score)
+{
+  if (!this->playGameOver)
+    {
+      std::system("paplay assets/Die_Die_Die.ogg & > /dev/null 2>&1");
+      this->playGameOver = true;
+    }
+  NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 10,
+			   this->windowsize_x/ 2 - 4, "You Win !");
   NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 12,
    			 this->windowsize_x/ 2 - 4, "Score: ");
   NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 12,

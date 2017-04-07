@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Fri Apr  7 21:00:50 2017 Matthias Prost
+// Last update Fri Apr  7 21:34:55 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -48,6 +48,11 @@ SFMLViewController::SFMLViewController()
   this->_score.setFont(this->regular);
   this->_score.setCharacterSize(24);
   this->_score.setFillColor(sf::Color::White);
+  this->_win.setString("You win !");
+  this->_win.setFillColor(sf::Color::Green);
+  this->_win.setCharacterSize(24);
+  this->_win.setFont(regular);
+  this->_win.setPosition((this->windowsize_x / 2) - (3 * 24) + 8, 24 + (this->windowsize_y / 9));
   this->_game_over.setFont(regular);
   this->_game_over.setString("Game Over");
   this->_game_over.setCharacterSize(24);
@@ -289,9 +294,21 @@ void  SFMLViewController::gameOver(int score)
       this->Lose.play();
       this->playGameOver = true;
     }
-    (void)score;
   _score.setPosition(((this->windowsize_x / 2) - ((std::to_string(score).length()) / 2) * 24) - 48, 24 + (this->windowsize_y / 7));
   this->window.draw(this->_game_over);
+  this->window.draw(this->_key);
+  this->window.draw(this->_score);
+}
+
+void  SFMLViewController::win(int score)
+{
+  if (!this->playGameOver)
+    {
+      this->Lose.play();
+      this->playGameOver = true;
+    }
+  _score.setPosition(((this->windowsize_x / 2) - ((std::to_string(score).length()) / 2) * 24) - 48, 24 + (this->windowsize_y / 7));
+  this->window.draw(this->_win);
   this->window.draw(this->_key);
   this->window.draw(this->_score);
 }

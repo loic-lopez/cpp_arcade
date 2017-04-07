@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Fri Apr  7 20:56:38 2017 Matthias Prost
+// Last update Fri Apr  7 21:36:05 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -377,7 +377,30 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
     continue;
   }
     if (verif(this->Map) == 0)
+      {
+        restartSolarFox(&this->_ship, libraryInstance, this->Map, &this->shoots,
+                        &this->ennemy1_pos, &this->ennemy2_pos);
+            while (libraryInstance->getKey(&this->Map->type, action, exit))
+        {
+          if (this->Map->type == arcade::CommandType::RESTART)
+      {
+        this->alreadyLaunch = true;
+        this->score = 0;
+        action = ChangeCommandType::RESTART;
+        this->last_key = SaveCommand::LEFT;
+        return (action);
+      }
+          else if (action == ChangeCommandType::NEXT_LIBRARY
+             || action == ChangeCommandType::PREV_LIBRARY
+             || action == ChangeCommandType::PREV_GAME
+             || action == ChangeCommandType::NEXT_GAME
+             || action == ChangeCommandType::DISPLAY_MENU)
       break;
+                libraryInstance->win(this->score);
+                libraryInstance->refresh();
+            }
+          if (exit) break;
+      }
     libraryInstance->displayScore(this->Map->width, this->getGameName(),
 				libraryInstance->getLibraryName(), this->score);
     libraryInstance->refresh();

@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Fri Apr  7 14:14:28 2017 Matthias Prost
+// Last update Fri Apr  7 21:28:19 2017 Matthias Prost
 //
 
 #ifndef OpenGLCONTROLLER_HPP__
@@ -43,6 +43,7 @@ class OpenGLViewController : public ILibraryViewController
   virtual void refresh();
   virtual void clear();
   virtual void gameOver(int);
+  virtual void win(int);
   virtual std::string	getLibraryName();
 };
 
