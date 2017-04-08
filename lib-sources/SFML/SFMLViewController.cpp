@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Fri Apr  7 21:34:55 2017 Matthias Prost
+// Last update Sat Apr  8 15:53:19 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -69,6 +69,7 @@ SFMLViewController::SFMLViewController()
   this->SoundTrack.setLoop(true);
   this->SoundTrack.setVolume(70);
   this->keySave = arcade::CommandType::GO_LEFT;
+  this->lastKey = arcade::CommandType::GO_LEFT;
   this->SoundTrack.play();
 }
 
@@ -192,6 +193,7 @@ void	SFMLViewController::displayScore(int width, std::string const &Game, std::s
 void  SFMLViewController::endScreen()
 {
   // this->SoundTrack.stop();
+  this->SoundTrack.stop();
   this->window.close();
 }
 
@@ -209,12 +211,24 @@ void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
   else if (color == Color::SHIP)
   {
     rectangle.setTexture(&this->Textures.at(0));
-    if (this->keySave == arcade::CommandType::GO_LEFT)
+    if (this->keySave == arcade::CommandType::GO_LEFT
+    && this->lastKey != arcade::CommandType::GO_RIGHT)
+    {
       rectangle.setRotation(270);
-    if (this->keySave == arcade::CommandType::GO_RIGHT)
+      this->lastKey = arcade::CommandType::GO_LEFT;
+    }
+    if (this->keySave == arcade::CommandType::GO_RIGHT
+    && this->lastKey != arcade::CommandType::GO_LEFT)
+    {
       rectangle.setRotation(90);
-    if (this->keySave == arcade::CommandType::GO_DOWN)
+      this->lastKey = arcade::CommandType::GO_RIGHT;
+    }
+    if (this->keySave == arcade::CommandType::GO_DOWN
+    && this->lastKey != arcade::CommandType::GO_UP)
+    {
       rectangle.setRotation(180);
+      this->lastKey = arcade::CommandType::GO_DOWN;
+    }
   }
   else if (color == Color::CYAN)
   {
