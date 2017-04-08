@@ -172,6 +172,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 		}
 	      else if (event.key.code == sf::Keyboard::Return)
 		{
+		  action = ChangeCommandType::PLAY;
 		  std::string 	currentText = Items[selectedItemIndex].getString();
 		  std::transform(currentText.begin(), currentText.end(),
 				 currentText.begin(), ::tolower);

@@ -111,6 +111,7 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
 	}
       else if (key == _KEY_ENTER)
 	{
+	  action = ChangeCommandType::PLAY;
 	  std::string item = item_name(current_item(menu));
 	  if (item == "Exit")
 	    {

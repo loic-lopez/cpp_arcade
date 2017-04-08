@@ -119,15 +119,20 @@ void	GameCore::GameLauncher()
 	}
       if (action == ChangeCommandType::STANDBY
 	  || action == ChangeCommandType::NEXT_GAME
-	  || action == ChangeCommandType::PREV_GAME)
+	  || action == ChangeCommandType::PREV_GAME
+	  || action == ChangeCommandType::PLAY)
 	{
 	  game = this->openLibrary(Games.at(currentGame).c_str());
 	  play_function = this->getcreateInstanceGameFunction(game);
 	  GameInstance = play_function(Libs.at(currentLib));
 	}
-      action = GameInstance->play(libraryInstance, currentGame, currentLib, exit);
-      changeAndCheckLibrary(currentLib, exit, Libs, libraryInstance, action, library);
-      changeAndCheckGame(currentGame, exit, action, game, Games, GameInstance);
+
+      if (action != ChangeCommandType::DISPLAY_MENU)
+	{
+	  action = GameInstance->play(libraryInstance, currentGame, currentLib, exit);
+	  changeAndCheckLibrary(currentLib, exit, Libs, libraryInstance, action, library);
+	  changeAndCheckGame(currentGame, exit, action, game, Games, GameInstance);
+	}
     }
 
   if (libraryInstance != NULL)
