@@ -10,7 +10,7 @@
 
 #include "OpenGLViewController.hpp"
 
-void 	printMenu(const char *texts[])
+static	void 	printMenu(const char *texts[])
 {
   float	startY = 0.85f;
   for (size_t i = 0; i < 12; ++i)
@@ -20,7 +20,7 @@ void 	printMenu(const char *texts[])
     }
 }
 
-void	printChoices(const char *choices[], int r[], int g[], int b[])
+static void	printChoices(const char *choices[], int r[], int g[], int b[])
 {
   float startY = 0.5f;
   for (int i = 0; i < 3; ++i)
