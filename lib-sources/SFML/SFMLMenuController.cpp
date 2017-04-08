@@ -13,7 +13,8 @@
 
 void	SFMLViewController::drawMenu(size_t &currentGame,
 					 std::vector<std::string> const &games,
-					 bool &exit)
+					 bool &exit, size_t &currentLibrary,
+					 ChangeCommandType &action)
 {
   sf::Font     	font;
   sf::Event 	event;
@@ -154,6 +155,20 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 		      selectedItemIndex++;
 		      Items[selectedItemIndex].setFillColor(sf::Color::Cyan);
 		    }
+		}
+	      else if (event.key.code == sf::Keyboard::Num2)
+		{
+		  this->endScreen();
+		  action = ChangeCommandType::PREV_LIBRARY;
+		  currentLibrary--;
+		  return;
+		}
+	      else if (event.key.code == sf::Keyboard::Num3)
+		{
+		  this->endScreen();
+		  action = ChangeCommandType::NEXT_LIBRARY;
+		  currentLibrary++;
+		  return;
 		}
 	      else if (event.key.code == sf::Keyboard::Return)
 		{

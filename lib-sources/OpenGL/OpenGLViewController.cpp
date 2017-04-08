@@ -41,11 +41,16 @@ OpenGLViewController::~OpenGLViewController()
 
 }
 
-void	OpenGLViewController::drawMenu(size_t &currentGame, std::vector<std::string> const &games, bool &exit)
+void	OpenGLViewController::drawMenu(size_t &currentGame,
+					   std::vector<std::string> const &games,
+					   bool &exit, size_t &currentLibrary,
+					   ChangeCommandType &action)
 {
   (void)currentGame;
   (void)games;
   (void)exit;
+  (void)currentLibrary;
+  (void)action;
 }
 
 bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)

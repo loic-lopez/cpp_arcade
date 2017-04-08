@@ -54,7 +54,7 @@ private:
 
   // Methods
   virtual void drawSquare(int width, int x, int y, Color const &color);
-  virtual void drawMenu(size_t &currentGame, std::vector<std::string> const &games, bool &exit);
+  virtual void drawMenu(size_t &currentGame, std::vector<std::string> const &games, bool &exit, size_t &currentLibrary, ChangeCommandType &action);
   virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit);
   virtual void initScreen(std::string const &name);
   virtual void displayScore(int width, std::string const &, std::string const &, int);

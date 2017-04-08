@@ -18,7 +18,6 @@ SolarFox_SRCS	=	SolarFox.cpp \
 			SolarFoxAlgorithm.cpp \
 			Shoots.cpp \
 			SolarFoxProtocol.cpp \
-			../commun/Cencapsulation.cpp
 
 ###########################################
 

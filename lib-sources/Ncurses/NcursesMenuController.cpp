@@ -62,7 +62,7 @@ static	void	printKeys(int max_y, int max_x)
 
 void	NcursesViewController::drawMenu(size_t &currentGame,
 					    std::vector<std::string> const &games,
-					    bool &exit)
+					    bool &exit, size_t &currentLibrary, ChangeCommandType &action)
 {
   int	key;
   int n_choices;
@@ -97,6 +97,18 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
 	menu_driver(menu, REQ_DOWN_ITEM);
       else if (key == KEY_UP)
 	menu_driver(menu, REQ_UP_ITEM);
+      else if (key == '2')
+	{
+	  action = ChangeCommandType::PREV_LIBRARY;
+	  currentLibrary--;
+	  break;
+	}
+      else if (key == '3')
+	{
+	  action = ChangeCommandType::PREV_LIBRARY;
+	  currentLibrary++;
+	  break;
+	}
       else if (key == _KEY_ENTER)
 	{
 	  std::string item = item_name(current_item(menu));
