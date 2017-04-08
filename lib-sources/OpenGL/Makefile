@@ -14,8 +14,8 @@ OpenGL	=	../../lib/lib_arcade_OpenGL.so
 ################# LIB SRCS ################
 
 OpenGL_SRCS		=	OpenGLViewController.cpp \
-				Vector2f.cpp
-
+				Vector2f.cpp \
+					OpenGLMenuController.cpp
 ###########################################
 
 
