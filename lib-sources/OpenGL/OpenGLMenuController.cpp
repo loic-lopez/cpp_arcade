@@ -10,10 +10,12 @@
 
 #include "OpenGLViewController.hpp"
 
-static	void 	printMenu(const char *texts[])
+std::string keys = "";
+
+static	void 	printMenu(const char *texts[], float  &startY)
 {
-  float	startY = 0.85f;
-  for (size_t i = 0; i < 12; ++i)
+  startY = 0.85f;
+  for (size_t i = 0; i < 14; ++i)
     {
       print(-0.85f, startY, texts[i]);
       startY -= 0.025f;
@@ -33,12 +35,25 @@ static void	printChoices(const char *choices[], int r[], int g[], int b[])
     }
 }
 
+#include <iostream>
+
+void	character_callback(GLFWwindow* window, unsigned int codepoint)
+{
+  static_cast<void>(window);
+  keys += static_cast<char>(codepoint);
+}
+
 void	OpenGLViewController::drawMenu(size_t &currentGame,
 					   std::vector<std::string> const &games,
 					   bool &exit, size_t &currentLibrary,
 					   ChangeCommandType &action, std::string &playerName)
 {
-  (void)playerName;
+  const	char 	*ItemStrings[] =
+   {
+    "Snake",
+    "SolarFox",
+    "Exit"
+   };
   const	char	*texts[] =
    {
     "Move the cursor menu to select a game.",
@@ -52,13 +67,9 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
     "Key 9 : display this menu.",
     "Key Escape : quit the game or menu.",
     "Move character with arrows.",
-    "Space to shoot (SolarFox)"
-   };
-  const	char 	*ItemStrings[] =
-   {
-    "Snake",
-    "SolarFox",
-    "Exit"
+    "Space to shoot (SolarFox)",
+    "\n",
+    "Player Name: "
    };
   int	index = 0;
   bool _exit = false;
@@ -67,8 +78,11 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
   int 	r[3];
   int 	g[3];
   int 	b[3];
+  float	startY = 0.85f;
+  bool	deleteChar = false;
 
   this->initScreen("OpenGL", "");
+  glfwSetClipboardString(this->window, "");
   r[0] = 0;
   b[0] = 255;
   g[0] = 255;
@@ -84,7 +98,15 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
       end = std::chrono::system_clock::now();
       elapsed_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
       printChoices(ItemStrings, r, g ,b);
-      printMenu(texts);
+      printMenu(texts, startY);
+      if (deleteChar)
+	{
+	  std::string eraseAllUnused;
+	  eraseAllUnused.assign(keys.size(), ' ');
+	  print(-0.85f, startY, eraseAllUnused);
+	  deleteChar = false;
+	}
+      print(-0.85f, startY, keys);
       if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->window))
 	_exit = true;
       else if (glfwGetKey(this->window, GLFW_KEY_3) == GLFW_PRESS)
@@ -101,7 +123,7 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
 	  currentLibrary--;
 	  return;
     	}
-      else if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS && elapsed_milliseconds > 500)
+      else if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS && elapsed_milliseconds > 100)
 	{
 	  if (index - 1 >= 0)
 	    {
@@ -115,7 +137,7 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
 	    }
 	  start = end;
 	}
-      else if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS && elapsed_milliseconds > 500)
+      else if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS && elapsed_milliseconds > 100)
 	{
 	  if (index + 1 < 3)
 	    {
@@ -131,6 +153,7 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
 	}
       else if (glfwGetKey(this->window, GLFW_KEY_ENTER) == GLFW_PRESS)
 	{
+	  playerName = keys;
 	  action = ChangeCommandType::PLAY;
 	  std::string 	currentText = ItemStrings[index];
 	  std::transform(currentText.begin(), currentText.end(),
@@ -157,10 +180,16 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
 	      return;
 	    }
 	}
+      else if ((glfwGetKey(this->window, GLFW_KEY_BACKSPACE) == GLFW_PRESS
+	       || glfwGetKey(this->window, GLFW_KEY_DELETE) == GLFW_PRESS) && elapsed_milliseconds > 100 && keys.size() > 0)
+	{
+	  keys.pop_back();
+	  deleteChar = true;
+	}
+      glfwSetCharCallback(this->window, character_callback);
       glfwPollEvents();
       glfwSwapBuffers(this->window);
     }
-
   exit = _exit;
   this->endScreen();
 }

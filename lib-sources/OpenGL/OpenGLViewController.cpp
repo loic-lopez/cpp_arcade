@@ -92,7 +92,7 @@ void	OpenGLViewController::initScreen(std::string const &name, std::string const
       return (this->endScreen());
   glfwMakeContextCurrent(this->window);
   glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
-  this->playerName = playername;
+  this->playerName = "Player Name: " + playername;
 }
 
 
@@ -227,5 +227,5 @@ void  OpenGLViewController::clear()
 
 void	OpenGLViewController::displayPlayerName()
 {
-
+  print(-0.05f, 0.70f, this->playerName);
 }
