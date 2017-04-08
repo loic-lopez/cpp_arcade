@@ -1,3 +1,4 @@
+
 //
 // OpenGL.cpp for cpp_arcade in /home/lopez_i/cpp_arcade/OpenGL.cpp
 //
@@ -5,7 +6,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:40 2017 Loïc Lopez
-// Last update Fri Apr  7 21:30:57 2017 Matthias Prost
+// Last update Sat Apr  8 13:07:22 2017 Matthias Prost
 //
 
 #include "OpenGLViewController.hpp"
@@ -146,10 +147,11 @@ void  OpenGLViewController::refresh()
 
 void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
+  (void)width;
   glPushMatrix();
 
-  const Vector2f floatWindowSize(static_cast<float>(this->mode->width), static_cast<float>(this->mode->height));
-  const Vector2f floatObjectSize(static_cast<float>(20),static_cast<float>(20));
+  const Vector2f floatWindowSize(static_cast<float>(this->mode->width / 2.0f), static_cast<float>(this->mode->height / 2.0f));
+  const Vector2f floatObjectSize(static_cast<float>(8),static_cast<float>(8));
   const Vector2f relativeObjectSize(floatObjectSize.x / floatWindowSize.x, floatObjectSize.y / floatWindowSize.y);
   const Vector2f relativeObjectPosition((x / floatWindowSize.x) * 2.0f, (y / floatWindowSize.y) * 2.0f);
 
@@ -205,32 +207,10 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
   glTranslatef((relativeObjectPosition.x * floatObjectSize.x),
 	       -(relativeObjectPosition.y * floatObjectSize.y), 0.0f);
   glBegin(GL_QUADS);
-
-  //std::cout << -relativeObjectSize.y + (floatObjectSize.y / (static_cast<float>(width))) + (static_cast<float>(width) / floatWindowSize.y) + relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.y)<< std::endl;
-  glVertex2f(-relativeObjectSize.x - (floatObjectSize.x / (static_cast<float>(width)))
-	     - (static_cast<float>(width) / floatWindowSize.x) - relativeObjectSize.x
-	     - (static_cast<float>(width) / floatWindowSize.x),
-	     -relativeObjectSize.y + (floatObjectSize.y / (static_cast<float>(width)))
-	     + (static_cast<float>(width) / floatWindowSize.y)
-	     + relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.y));
-  glVertex2f(relativeObjectSize.x  - (floatObjectSize.x / (static_cast<float>(width)))
-	     - (static_cast<float>(width) / floatWindowSize.x) - relativeObjectSize.x
-	     - (static_cast<float>(width) / floatWindowSize.x),
-	     -relativeObjectSize.y + (floatObjectSize.y / (static_cast<float>(width)))
-	     + (static_cast<float>(width) / floatWindowSize.y)  + relativeObjectSize.y
-	     + (static_cast<float>(width) / floatWindowSize.y));
-  glVertex2f(relativeObjectSize.x - (floatObjectSize.x / (static_cast<float>(width)))
-	     - (static_cast<float>(width) / floatWindowSize.x) - relativeObjectSize.x
-	     - (static_cast<float>(width) / floatWindowSize.x),
-	     relativeObjectSize.y + (floatObjectSize.y / (static_cast<float>(width)))
-	     + (static_cast<float>(width) / floatWindowSize.y) + relativeObjectSize.y
-	     + (static_cast<float>(width) / floatWindowSize.y));
-  glVertex2f(-relativeObjectSize.x - (floatObjectSize.x / (static_cast<float>(width)))
-	     - (static_cast<float>(width) / floatWindowSize.x) - relativeObjectSize.x
-	     - (static_cast<float>(width) / floatWindowSize.x),
-	     relativeObjectSize.y + (floatObjectSize.y / (static_cast<float>(width)))
-	     + (static_cast<float>(width) / floatWindowSize.y) + relativeObjectSize.y
-	     + (static_cast<float>(width) / floatWindowSize.y));
+  glVertex2f(-relativeObjectSize.x - ((float)width / floatWindowSize.x) * floatObjectSize.x, -relativeObjectSize.y + ((float)width / floatWindowSize.x) * floatObjectSize.y);
+  glVertex2f(relativeObjectSize.x - ((float)width / floatWindowSize.x)  * floatObjectSize.x, -relativeObjectSize.y + ((float)width / floatWindowSize.x) * floatObjectSize.y);
+  glVertex2f(relativeObjectSize.x - ((float)width / floatWindowSize.x) * floatObjectSize.x, relativeObjectSize.y + ((float)width / floatWindowSize.x) * floatObjectSize.y);
+  glVertex2f(-relativeObjectSize.x - ((float)width / floatWindowSize.x) * floatObjectSize.x, relativeObjectSize.y + ((float)width / floatWindowSize.x) * floatObjectSize.y);
   glEnd();
   glPopMatrix();
 }

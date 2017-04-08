@@ -5,7 +5,7 @@
 ## Login   <loic.lopez@epitech.eu>
 ##
 ## Started on  Mon Mar  6 09:53:13 2017 Loic Lopez
-## Last update Mon Apr  3 19:17:26 2017 Matthias Prost
+## Last update Sat Apr  8 12:32:43 2017 Matthias Prost
 ##
 
 OpenGL	=	../../lib/lib_arcade_OpenGL.so
@@ -37,7 +37,7 @@ CC              = g++
 RM              = rm -f
 
 CXXFLAGS 	= -Wall -Wextra -Werror -I../../lib-include/OpenGL -I./OpenGL_Include
-CXXFLAGS		+=  -fPIC -shared -L./OpenGL_Library -L/usr/local/lib -lGL -lGLU -lglut -lGLEW -lglfw3  -lrt -lm -ldl -lXrandr -lXinerama
+CXXFLAGS		+=  -fPIC -shared -L./OpenGL_Library -lGL -lGLU -lglut -lGLEW -lglfw3  -lrt -lm -ldl -lXrandr -lXinerama
 CXXFLAGS		+=  -lXxf86vm -lXext -lXcursor -lXrender -lXfixes -lX11 -lpthread -lxcb -lXau -lglut
 
 
