@@ -8,7 +8,6 @@
 // Last update Fri Apr  7 21:30:57 2017 Matthias Prost
 //
 
-#include <iostream>
 #include "OpenGLViewController.hpp"
 
 extern "C" ILibraryViewController	*loadLibrary()
@@ -16,9 +15,9 @@ extern "C" ILibraryViewController	*loadLibrary()
   return (new OpenGLViewController());
 }
 
-char *program_path()
+char	*program_path()
 {
-  char *path = (char *)malloc(PATH_MAX);
+  char *path = new char[PATH_MAX];
   if (path != NULL) {
       if (readlink("/proc/self/exe", path, PATH_MAX) == -1)
 	{
@@ -32,7 +31,7 @@ char *program_path()
 OpenGLViewController::OpenGLViewController()
 {
   int 		pac = 1;
-  char 		*pav[] = {(char *)program_path()};
+  char	*pav[] = {program_path()};
 
   glutInit(&pac, pav);
 }
@@ -98,52 +97,54 @@ void	OpenGLViewController::initScreen(std::string const &name)
   this->mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
   if (!(this->window = glfwCreateWindow(this->mode->width, this->mode->height, name.c_str(), NULL, NULL)))
       return (this->endScreen());
-  glfwMakeContextCurrent(this->window); // Initialize GLEW
+  glfwMakeContextCurrent(this->window);
   glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
-  glfwPollEvents();
 }
 
-void print(float x, float y, std::string str)
+void	print(float x, float y, std::string str)
 {
-//set the position of the text in the window using the x and y coordinates
   glRasterPos2f(x,y);
-//loop to display character by character
   for (unsigned int i = 0; i < str.length(); i++)
-    {
-      glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str.at(i));
-    }
+    glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str.at(i));
 }
 
 void	OpenGLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
 {
-  print(-0.05f, 0.85f, Game);
-  print(-0.05f, 0.80f, libraryName);
-  print(-0.05f, 0.75f, "Score");
-  print(0.05f, 0.75f, std::to_string(score));
+  //print(-0.05f, 0.85f, Game);
+  //print(-0.05f, 0.80f, libraryName);
+  //print(-0.05f, 0.75f, "Score");
+  //print(0.05f, 0.75f, std::to_string(score));
+  (void)score;
+  (void)width;
+  (void)Game;
+  (void)libraryName;
   (void)width;
 }
 
 void	OpenGLViewController::endScreen()
 {
+  glfwDestroyWindow(this->window);
   glfwTerminate();
 }
 
 void  OpenGLViewController::refresh()
 {
-  glfwSwapBuffers(this->window);
   glfwPollEvents();
+  glfwSwapBuffers(this->window);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
+  glViewport(0,0, this->mode->width, this->mode->height);
 }
+
+#include <iostream>
 
 void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
-  (void)width;
   glPushMatrix();
 
-  const Vector2f floatWindowSize((float)this->mode->width, (float)this->mode->height);
-  const Vector2f floatObjectSize((float)20,(float)20);
+  const Vector2f floatWindowSize(static_cast<float>(this->mode->width), static_cast<float>(this->mode->height));
+  const Vector2f floatObjectSize(static_cast<float>(20),static_cast<float>(20));
   const Vector2f relativeObjectSize(floatObjectSize.x / floatWindowSize.x, floatObjectSize.y / floatWindowSize.y);
   const Vector2f relativeObjectPosition((x / floatWindowSize.x) * 2.0f, (y / floatWindowSize.y) * 2.0f);
 
@@ -200,10 +201,31 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
 	       -(relativeObjectPosition.y * floatObjectSize.y), 0.0f);
   glBegin(GL_QUADS);
 
-  glVertex2f(-relativeObjectSize.x - (floatObjectSize.x / (float)width), -relativeObjectSize.y + 0.65f);
-  glVertex2f(relativeObjectSize.x - (floatObjectSize.x / (float)width),  -relativeObjectSize.y  + 0.65f);
-  glVertex2f(relativeObjectSize.x - (floatObjectSize.x / (float)width),  relativeObjectSize.y  + 0.65f);
-  glVertex2f(-relativeObjectSize.x - (floatObjectSize.x / (float)width), relativeObjectSize.y  + 0.65f);
+  //std::cout << -relativeObjectSize.y + (floatObjectSize.y / (static_cast<float>(width))) + (static_cast<float>(width) / floatWindowSize.y) + relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.y)<< std::endl;
+  glVertex2f(-relativeObjectSize.x - (floatObjectSize.x / (static_cast<float>(width)))
+	     - (static_cast<float>(width) / floatWindowSize.x) - relativeObjectSize.x
+	     - (static_cast<float>(width) / floatWindowSize.x),
+	     -relativeObjectSize.y + (floatObjectSize.y / (static_cast<float>(width)))
+	     + (static_cast<float>(width) / floatWindowSize.y)
+	     + relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.y));
+  glVertex2f(relativeObjectSize.x  - (floatObjectSize.x / (static_cast<float>(width)))
+	     - (static_cast<float>(width) / floatWindowSize.x) - relativeObjectSize.x
+	     - (static_cast<float>(width) / floatWindowSize.x),
+	     -relativeObjectSize.y + (floatObjectSize.y / (static_cast<float>(width)))
+	     + (static_cast<float>(width) / floatWindowSize.y)  + relativeObjectSize.y
+	     + (static_cast<float>(width) / floatWindowSize.y));
+  glVertex2f(relativeObjectSize.x - (floatObjectSize.x / (static_cast<float>(width)))
+	     - (static_cast<float>(width) / floatWindowSize.x) - relativeObjectSize.x
+	     - (static_cast<float>(width) / floatWindowSize.x),
+	     relativeObjectSize.y + (floatObjectSize.y / (static_cast<float>(width)))
+	     + (static_cast<float>(width) / floatWindowSize.y) + relativeObjectSize.y
+	     + (static_cast<float>(width) / floatWindowSize.y));
+  glVertex2f(-relativeObjectSize.x - (floatObjectSize.x / (static_cast<float>(width)))
+	     - (static_cast<float>(width) / floatWindowSize.x) - relativeObjectSize.x
+	     - (static_cast<float>(width) / floatWindowSize.x),
+	     relativeObjectSize.y + (floatObjectSize.y / (static_cast<float>(width)))
+	     + (static_cast<float>(width) / floatWindowSize.y) + relativeObjectSize.y
+	     + (static_cast<float>(width) / floatWindowSize.y));
   glEnd();
   glPopMatrix();
 }
