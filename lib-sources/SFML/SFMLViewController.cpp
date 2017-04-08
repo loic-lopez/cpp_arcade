@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Sat Apr  8 15:53:19 2017 Matthias Prost
+// Last update Sat Apr  8 18:45:00 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -192,8 +192,6 @@ void	SFMLViewController::displayScore(int width, std::string const &Game, std::s
 
 void  SFMLViewController::endScreen()
 {
-  // this->SoundTrack.stop();
-  this->SoundTrack.stop();
   this->window.close();
 }
 
