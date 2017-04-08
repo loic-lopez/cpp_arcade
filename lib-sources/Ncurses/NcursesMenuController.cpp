@@ -44,7 +44,7 @@ static	void	print_in_middle(WINDOW *win, int starty, int startx,
   refresh();
 }
 
-static	void	printKeys(int max_y, int max_x)
+static	void	printKeys(int max_y, int max_x, std::string const &player)
 {
   NcursesEncap::n_mvprintw((max_y / 2) - 9, (max_x / 2) - 18, "Move the cursor menu to select a game.");
   NcursesEncap::n_mvprintw((max_y / 2) - 8, (max_x / 2) - 18, "Press enter to choose a game.");
@@ -58,6 +58,8 @@ static	void	printKeys(int max_y, int max_x)
   NcursesEncap::n_mvprintw((max_y / 2) + 1, (max_x / 2) - 18, "Key Escape : quit the game or menu.");
   NcursesEncap::n_mvprintw((max_y / 2) + 2, (max_x / 2) - 18, "Move character with arrows.");
   NcursesEncap::n_mvprintw((max_y / 2) + 3, (max_x / 2) - 18, "Space to shoot (SolarFox)");
+  NcursesEncap::n_mvprintw((max_y / 2) + 4, (max_x / 2) - 18, "\n");
+  NcursesEncap::n_mvprintw((max_y / 2) + 5, (max_x / 2) - 18, player.c_str());
 }
 
 #include <iostream>
@@ -75,6 +77,7 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
     "Exit",
     NULL,
    };
+  std::string player = "Player Name: ";
 
   (void)playerName;
   this->functionCaller = __FUNCTION__;
@@ -85,7 +88,7 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
 
   menu = new_menu(my_items);
   menu_win = newwin(10, 40, (this->windowsize_y / 2) - 20, (this->windowsize_x / 2) - 20);
-  printKeys(this->windowsize_y, windowsize_x);
+  printKeys(this->windowsize_y, windowsize_x, "Player Name: ");
   keypad(menu_win, TRUE);
   set_menu_win(menu, menu_win);
   set_menu_sub(menu, derwin(menu_win, 6, 38, 3, 1));
@@ -144,10 +147,19 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
 	}
        else
 	 {
-	   playerName += key;
+	   if (key == 127 || key == 8 || key == KEY_BACKSPACE)
+	     {
+		playerName.pop_back();
+	       player = "Player Name: " + playerName;
+	     }
+	   else if (key < 127)
+	     {
+	       playerName += key;
+	       player = "Player Name: " + playerName;
+	     }
 	 }
       clear();
-      printKeys(this->windowsize_y, windowsize_x);
+      printKeys(this->windowsize_y, windowsize_x, player);
       box(menu_win, 0, 0);
       print_in_middle(menu_win, 1, 0, 40, (char *)"Arcade Game Menu", COLOR_PAIR(0));
       NcursesEncap::n_wrefresh(menu_win);
