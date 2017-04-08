@@ -11,6 +11,8 @@
 
 #include "OpenGLViewController.hpp"
 
+bool 			isLoaded = false;
+
 extern "C" ILibraryViewController	*loadLibrary()
 {
   return (new OpenGLViewController());
@@ -30,10 +32,14 @@ char	*program_path()
 
 OpenGLViewController::OpenGLViewController()
 {
-  int 		pac = 1;
-  char	*pav[] = {program_path()};
+  if (!isLoaded)
+    {
+      int 		pac = 1;
+      char	*pav[] = {program_path()};
 
-  glutInit(&pac, pav);
+      glutInit(&pac, pav);
+      isLoaded = true;
+    }
 }
 
 OpenGLViewController::~OpenGLViewController()

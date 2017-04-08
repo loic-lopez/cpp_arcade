@@ -81,6 +81,7 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
   float	startY = 0.85f;
   bool	deleteChar = false;
 
+  keys = playerName;
   this->initScreen("OpenGL", "");
   glfwSetClipboardString(this->window, "");
   r[0] = 0;

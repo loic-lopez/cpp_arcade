@@ -77,9 +77,8 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
     "Exit",
     NULL,
    };
-  std::string player = "Player Name: ";
+  std::string player = "Player Name: " + playerName;
 
-  (void)playerName;
   this->functionCaller = __FUNCTION__;
   this->initScreen("Arcade Game Menu", "");
   n_choices = ARRAY_SIZE(choices);
@@ -88,7 +87,7 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
 
   menu = new_menu(my_items);
   menu_win = newwin(10, 40, (this->windowsize_y / 2) - 20, (this->windowsize_x / 2) - 20);
-  printKeys(this->windowsize_y, windowsize_x, "Player Name: ");
+  printKeys(this->windowsize_y, windowsize_x, player);
   keypad(menu_win, TRUE);
   set_menu_win(menu, menu_win);
   set_menu_sub(menu, derwin(menu_win, 6, 38, 3, 1));

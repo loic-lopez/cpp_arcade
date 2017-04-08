@@ -123,7 +123,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
   Items[selectedItemIndex].setFillColor(sf::Color::Cyan);
   this->initScreen("Arcade Game Menu", "");
   player.setFont(font);
-  player.setString("Player Name: ");
+  player.setString("Player Name: " + playerName);
   player.setPosition((this->windowsize_x) / 12, (24 * menu.size() + 70) + (this->windowsize_y / 3));
   while (this->window.isOpen())
     {
@@ -137,7 +137,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 	    }
 	  if (event.type == sf::Event::TextEntered)
 	    {
-	      player.setString("");
+	      player.setString("Player Name: " + playerName);
 	      if (event.text.unicode == 8 && playerName.size() > 0)
 		{
 		  playerName.pop_back();
