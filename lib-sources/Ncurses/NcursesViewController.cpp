@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Fri Apr  7 21:30:06 2017 Matthias Prost
+// Last update Sat Apr  8 15:55:01 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -36,7 +36,7 @@ NcursesViewController::NcursesViewController()
 
 NcursesViewController::~NcursesViewController()
 {
-  std::system("killall paplay");
+
 }
 
 void	NcursesViewController::drawSquare(int width, int x, int y, Color const &color)
@@ -188,6 +188,7 @@ void	NcursesViewController::displayScore(int width, std::string const &Game, std
 
 void  NcursesViewController::endScreen()
 {
+  std::system("killall paplay");
   NcursesEncap::n_nocbreak();
   NcursesEncap::n_endwin();
 }
