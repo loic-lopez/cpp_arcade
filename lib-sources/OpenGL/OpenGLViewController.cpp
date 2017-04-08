@@ -18,7 +18,7 @@ extern "C" ILibraryViewController	*loadLibrary()
 char	*program_path()
 {
   char *path = new char[PATH_MAX];
-  if (path != NULL) {
+  if (path) {
       if (readlink("/proc/self/exe", path, PATH_MAX) == -1)
 	{
 	  free(path);
@@ -103,17 +103,22 @@ void	OpenGLViewController::initScreen(std::string const &name)
 
 void	print(float x, float y, std::string str)
 {
-  glRasterPos2f(x,y);
-  for (unsigned int i = 0; i < str.length(); i++)
-    glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str.at(i));
+  glMatrixMode( GL_MODELVIEW );
+  glPushMatrix();
+  glLoadIdentity();
+  glRasterPos2f(x, y);  // move in 10 pixels from the left and bottom edges
+  for ( size_t i = 0; i < str.size(); ++i ) {
+      glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, str[i]);
+    }
+  glPopMatrix();
 }
 
 void	OpenGLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
 {
-  //print(-0.05f, 0.85f, Game);
-  //print(-0.05f, 0.80f, libraryName);
-  //print(-0.05f, 0.75f, "Score");
-  //print(0.05f, 0.75f, std::to_string(score));
+  print(-0.05f, 0.85f, Game);
+  print(-0.05f, 0.80f, libraryName);
+  print(-0.05f, 0.75f, "Score");
+  print(0.05f, 0.75f, std::to_string(score));
   (void)score;
   (void)width;
   (void)Game;
