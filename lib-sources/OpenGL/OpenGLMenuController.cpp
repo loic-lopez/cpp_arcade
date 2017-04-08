@@ -10,12 +10,36 @@
 
 #include "OpenGLViewController.hpp"
 
+void 	printMenu(const char *texts[])
+{
+  float	startY = 0.85f;
+  for (size_t i = 0; i < 12; ++i)
+    {
+      print(-0.85f, startY, texts[i]);
+      startY -= 0.025f;
+    }
+}
+
+void	printChoices(const char *choices[], int r[], int g[], int b[])
+{
+  float startY = 0.5f;
+  for (int i = 0; i < 3; ++i)
+    {
+      glPushAttrib( GL_CURRENT_BIT );
+      glColor3ub(r[i], b[i], g[i]);
+      print(-0.00f, startY, choices[i]);
+      startY -= 0.03f;
+      glPopAttrib();
+    }
+}
+
+#include <iostream>
+
 void	OpenGLViewController::drawMenu(size_t &currentGame,
 					   std::vector<std::string> const &games,
 					   bool &exit, size_t &currentLibrary,
 					   ChangeCommandType &action)
 {
-
   const	char	*texts[] =
    {
     "Move the cursor menu to select a game.",
@@ -31,12 +55,113 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
     "Move character with arrows.",
     "Space to shoot (SolarFox)"
    };
-/*  if ((glfwReadImage("assets/BorneArcade.png", GLFW_NO_RESCALE_BIT)) != GL_TRUE)
-    std::cerr << "ERROR: cannot found BorneArcade in assets/ make sure it exist" << std::endl;*/
-  action = ChangeCommandType::PLAY;
-  (void)currentLibrary;
-  (void)texts;
-  (void)currentGame;
-  (void)games;
-  (void)exit;
+  const	char 	*ItemStrings[] =
+   {
+    "Snake",
+    "SolarFox",
+    "Exit"
+   };
+  int	index = 0;
+  bool _exit = false;
+  std::chrono::time_point<std::chrono::system_clock> start, end;
+  long long int elapsed_milliseconds;
+  int 	r[3];
+  int 	g[3];
+  int 	b[3];
+
+  this->initScreen("OpenGL");
+  r[0] = 0;
+  b[0] = 255;
+  g[0] = 255;
+  for (int i = 1; i < 3; ++i)
+    {
+      r[i] = 255;
+      b[i] = 255;
+      g[i] = 255;
+    }
+  start = std::chrono::system_clock::now();
+  while (!_exit)
+    {
+      end = std::chrono::system_clock::now();
+      elapsed_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+      printChoices(ItemStrings, r, g ,b);
+      printMenu(texts);
+      if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->window))
+	_exit = true;
+      else if (glfwGetKey(this->window, GLFW_KEY_3) == GLFW_PRESS)
+	{
+	  this->endScreen();
+	  action = ChangeCommandType::NEXT_LIBRARY;
+	  currentLibrary++;
+	  return;
+	}
+      else if (glfwGetKey(this->window, GLFW_KEY_2) == GLFW_PRESS)
+    	{
+	  this->endScreen();
+	  action = ChangeCommandType::PREV_LIBRARY;
+	  currentLibrary--;
+	  return;
+    	}
+      else if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS && elapsed_milliseconds > 500)
+	{
+	  if (index - 1 >= 0)
+	    {
+	      r[index] = 255;
+	      b[index] = 255;
+	      g[index] = 255;
+	      index--;
+	      r[index] = 0;
+	      b[index] = 255;
+	      g[index] = 255;
+	    }
+	  start = end;
+	}
+      else if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS && elapsed_milliseconds > 500)
+	{
+	  if (index + 1 < 3)
+	    {
+	      r[index] = 255;
+	      b[index] = 255;
+	      g[index] = 255;
+	      index++;
+	      r[index] = 0;
+	      b[index] = 255;
+	      g[index] = 255;
+	    }
+	  start = end;
+	}
+      else if (glfwGetKey(this->window, GLFW_KEY_ENTER) == GLFW_PRESS)
+	{
+	  action = ChangeCommandType::PLAY;
+	  std::string 	currentText = ItemStrings[index];
+	  std::transform(currentText.begin(), currentText.end(),
+			 currentText.begin(), ::tolower);
+	  if (currentText == "exit")
+	    {
+	      exit = true;
+	      this->endScreen();
+	      return;
+	    }
+	  for (index = 0; index < static_cast<int>(games.size()); ++index)
+	    {
+	      if (games.at(index).find(currentText) != std::string::npos)
+		{
+		  currentGame = static_cast<size_t >(index);
+		  this->endScreen();
+		  return;
+		}
+	    }
+	  if (index == static_cast<int>(games.size()))
+	    {
+	      exit = true;
+	      this->endScreen();
+	      return;
+	    }
+	}
+      glfwPollEvents();
+      glfwSwapBuffers(this->window);
+    }
+
+  exit = _exit;
+  this->endScreen();
 }

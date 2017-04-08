@@ -94,17 +94,6 @@ void	OpenGLViewController::initScreen(std::string const &name)
   glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
 }
 
-void	print(float x, float y, std::string str)
-{
-  glMatrixMode(GL_MODELVIEW);
-  glPushMatrix();
-  glLoadIdentity();
-  glRasterPos2f(x, y);  // move in 10 pixels from the left and bottom edges
-  for ( size_t i = 0; i < str.size(); ++i ) {
-      glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str[i]);
-    }
-  glPopMatrix();
-}
 
 void	OpenGLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
 {
@@ -131,11 +120,10 @@ void  OpenGLViewController::refresh()
   glViewport(0,0, this->mode->width, this->mode->height);
 }
 
-#include <iostream>
-
 void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
   (void)width;
+  glPushAttrib( GL_CURRENT_BIT );
   glPushMatrix();
 
   const Vector2f floatWindowSize(static_cast<float>(this->mode->width / 2.0f), static_cast<float>(this->mode->height / 2.0f));
@@ -195,11 +183,16 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
   glTranslatef((relativeObjectPosition.x * floatObjectSize.x),
 	       -(relativeObjectPosition.y * floatObjectSize.y), 0.0f);
   glBegin(GL_QUADS);
-  glVertex2f(-relativeObjectSize.x - ((float)width / floatWindowSize.x) * floatObjectSize.x, -relativeObjectSize.y + ((float)width / floatWindowSize.x) * floatObjectSize.y);
-  glVertex2f(relativeObjectSize.x - ((float)width / floatWindowSize.x)  * floatObjectSize.x, -relativeObjectSize.y + ((float)width / floatWindowSize.x) * floatObjectSize.y);
-  glVertex2f(relativeObjectSize.x - ((float)width / floatWindowSize.x) * floatObjectSize.x, relativeObjectSize.y + ((float)width / floatWindowSize.x) * floatObjectSize.y);
-  glVertex2f(-relativeObjectSize.x - ((float)width / floatWindowSize.x) * floatObjectSize.x, relativeObjectSize.y + ((float)width / floatWindowSize.x) * floatObjectSize.y);
+  glVertex2f(-relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.x,
+	     -relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.y);
+  glVertex2f(relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x)  * floatObjectSize.x,
+	     -relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.y);
+  glVertex2f(relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.x,
+	     relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.y);
+  glVertex2f(-relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.x,
+	     relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.y);
   glEnd();
+  glPopAttrib();
   glPopMatrix();
 }
 

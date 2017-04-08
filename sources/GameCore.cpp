@@ -134,15 +134,4 @@ void	GameCore::GameLauncher()
 	  changeAndCheckGame(currentGame, exit, action, game, Games, GameInstance);
 	}
     }
-
-  if (libraryInstance != NULL)
-    {
-      delete libraryInstance;
-      Cencapsulation::c_dlclose(library);
-    }
-  if (GameInstance != NULL)
-    {
-      delete GameInstance;
-      Cencapsulation::c_dlclose(game);
-    }
 }

@@ -17,6 +17,8 @@
 #include <unistd.h>
 #include "OpenGL_Include/GLFW/glfw3.h"
 #include <vector>
+#include <chrono>
+#include <algorithm>
 #include "Vector2f.hpp"
 
 #include "../interface/ILibraryViewController.hpp"
@@ -48,5 +50,6 @@ class OpenGLViewController : public ILibraryViewController
   virtual std::string	getLibraryName();
 };
 
+void	print(float x, float y, std::string str);
 
 #endif /* OpenGLCONTROLLER_HPP__ */
