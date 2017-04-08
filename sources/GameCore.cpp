@@ -87,7 +87,8 @@ void	GameCore::GameLauncher()
   void				*game = NULL;
   void				*library = NULL;
   IGameModel			*GameInstance = NULL;
-  ILibraryViewController	*libraryInstance = NULL;
+  ILibraryViewController		*libraryInstance = NULL;
+  std::string			playerName = "";
 
   this->fillVector(Games, "./games");
   this->fillVector(Libs, "./lib");
@@ -106,7 +107,7 @@ void	GameCore::GameLauncher()
       if (action == ChangeCommandType::STANDBY
 	  || action == ChangeCommandType::DISPLAY_MENU)
 	{
-	  libraryInstance->drawMenu(currentGame, Games, exit, currentLib, action);
+	  libraryInstance->drawMenu(currentGame, Games, exit, currentLib, action, playerName);
 	  if (action == ChangeCommandType::NEXT_LIBRARY
 	      || action == ChangeCommandType::PREV_LIBRARY)
 	    {
@@ -129,7 +130,7 @@ void	GameCore::GameLauncher()
 
       if (action != ChangeCommandType::DISPLAY_MENU)
 	{
-	  action = GameInstance->play(libraryInstance, currentGame, currentLib, exit);
+	  action = GameInstance->play(libraryInstance, currentGame, currentLib, exit, playerName);
 	  changeAndCheckLibrary(currentLib, exit, Libs, libraryInstance, action, library);
 	  changeAndCheckGame(currentGame, exit, action, game, Games, GameInstance);
 	}

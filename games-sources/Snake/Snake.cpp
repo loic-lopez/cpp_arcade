@@ -193,7 +193,7 @@ static void	restartSnake(std::vector<arcade::Position> *_snake,
 
 ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 				     size_t &currentGame, size_t &currentLibrary,
-				     bool &exit)
+				     bool &exit, std::string const &playerName)
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
   this->Map->type = arcade::CommandType::PLAY;
@@ -203,7 +203,7 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
   start = std::chrono::system_clock::now();
   if (!this->alreadyLaunch)
     {
-      libraryInstance->initScreen(this->getGameName());
+      libraryInstance->initScreen(this->getGameName(), playerName);
       this->setMap();
       this->alreadyLaunch = true;
     }
@@ -278,6 +278,7 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 	}
       libraryInstance->displayScore(this->Map->width, this->getGameName(),
 					libraryInstance->getLibraryName(), this->score);
+      libraryInstance->displayPlayerName();
       libraryInstance->refresh();
     }
   libraryInstance->endScreen();

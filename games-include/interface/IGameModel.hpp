@@ -26,7 +26,7 @@ class	IGameModel
  public:
   virtual void setMap() = 0;
   virtual void drawMap(ILibraryViewController *libraryInstance) = 0;
-  virtual ChangeCommandType	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &) = 0;
+  virtual ChangeCommandType	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &, std::string const &) = 0;
   virtual int  getScore() = 0;
   virtual void setScore(int) = 0;
   virtual std::string getGameName() = 0;

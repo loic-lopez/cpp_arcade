@@ -90,7 +90,7 @@ bool  NcursesViewController::getKey(arcade::CommandType *commandType, ChangeComm
   return (true);
 }
 
-void  NcursesViewController::initScreen(std::string const &name)
+void  NcursesViewController::initScreen(std::string const &name, std::string const &playername)
 {
   std::string	changeTerminalName = "echo -n \"\033]0;" + name + " \007\"";
 
@@ -124,6 +124,7 @@ void  NcursesViewController::initScreen(std::string const &name)
   NcursesEncap::n_init_pair(13, COLOR_BLUE, COLOR_BLUE);
   NcursesEncap::n_init_pair(14, COLOR_GREEN, COLOR_GREEN);
   srand(time(NULL));
+  this->playerName = playername;
 }
 
 void  NcursesViewController::refresh()
@@ -193,7 +194,12 @@ void  NcursesViewController::endScreen()
   NcursesEncap::n_endwin();
 }
 
-std::string	NcursesViewController::getLibraryName()
+std::string	NcursesViewController::getLibraryName() const
 {
   return ("Ncurses");
+}
+
+void	NcursesViewController::displayPlayerName()
+{
+
 }

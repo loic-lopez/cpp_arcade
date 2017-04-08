@@ -14,7 +14,7 @@
 void	SFMLViewController::drawMenu(size_t &currentGame,
 					 std::vector<std::string> const &games,
 					 bool &exit, size_t &currentLibrary,
-					 ChangeCommandType &action)
+					 ChangeCommandType &action, std::string &playerName)
 {
   sf::Font     	font;
   sf::Event 	event;
@@ -42,13 +42,15 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
     "Key 9 : display this menu.",
     "Key Escape : quit the game or menu.",
     "Move character with arrows.",
-		"Space to shoot (SolarFox)"
+    "Space to shoot (SolarFox)",
+    "\n"
    };
   sf::Text	mainText;
   sf::Text	arrow;
   size_t	index;
   sf::Texture texture;
   sf::Sprite sprite;
+  sf::Text	player;
 
 	sf::RectangleShape back_text;
 
@@ -119,7 +121,10 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 
   this->functionCaller = __FUNCTION__;
   Items[selectedItemIndex].setFillColor(sf::Color::Cyan);
-  this->initScreen("Arcade Game Menu");
+  this->initScreen("Arcade Game Menu", "");
+  player.setFont(font);
+  player.setString("Player Name: ");
+  player.setPosition((this->windowsize_x) / 12, (24 * menu.size() + 70) + (this->windowsize_y / 3));
   while (this->window.isOpen())
     {
       while (this->window.pollEvent(event))
@@ -129,6 +134,20 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 	      exit = true;
 	      this->endScreen();
 	      return;
+	    }
+	  if (event.type == sf::Event::TextEntered)
+	    {
+	      player.setString("");
+	      if (event.text.unicode == 8 && playerName.size() > 0)
+		{
+		  playerName.pop_back();
+		  player.setString("Player Name: " + playerName);
+		}
+	      else if (event.text.unicode < 128)
+		{
+		  playerName += static_cast<char>(event.text.unicode);
+		  player.setString("Player Name: " + playerName);
+		}
 	    }
 	  if (event.type == sf::Event::KeyPressed)
 	    {
@@ -210,7 +229,8 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 			(this->windowsize_y / 3) +
 			(((selectedItemIndex * sizeof(ItemStrings[selectedItemIndex]))) * 5));
       this->window.draw(this->backgroundSprite);
-			this->window.draw(back_text);
+      this->window.draw(back_text);
+      this->window.draw(player);
       this->window.draw(sprite);
       this->window.draw(arrow);
       for (size_t i = 0; i < menu.size(); ++i)

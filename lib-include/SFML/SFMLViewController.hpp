@@ -39,6 +39,7 @@ private:
   sf::Text      _game_over;
   sf::Text     _win;
   sf::Text      _key;
+  sf::Text      playerName;
   bool 		playGameOver;
   std::string	functionCaller;
   sf::Music 	deathComes;
@@ -54,16 +55,19 @@ private:
 
   // Methods
   virtual void drawSquare(int width, int x, int y, Color const &color);
-  virtual void drawMenu(size_t &currentGame, std::vector<std::string> const &games, bool &exit, size_t &currentLibrary, ChangeCommandType &action);
+  virtual void drawMenu(size_t &currentGame, std::vector<std::string> const &games,
+			bool &exit, size_t &currentLibrary,
+			ChangeCommandType &action, std::string &playerName);
   virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit);
-  virtual void initScreen(std::string const &name);
+  virtual void initScreen(std::string const &name, std::string const &);
   virtual void displayScore(int width, std::string const &, std::string const &, int);
   virtual void endScreen();
   virtual void refresh();
   virtual void clear();
   virtual void gameOver(int);
   virtual void win(int);
-  virtual std::string	getLibraryName();
+  virtual std::string	getLibraryName() const;
+  virtual void	displayPlayerName();
 };
 
 void   Fill_textures(std::vector<sf::Texture> *Textures);

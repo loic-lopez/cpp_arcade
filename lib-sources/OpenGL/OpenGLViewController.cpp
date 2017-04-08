@@ -83,7 +83,7 @@ bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeComman
   return (true);
 }
 
-void	OpenGLViewController::initScreen(std::string const &name)
+void	OpenGLViewController::initScreen(std::string const &name, std::string const &playername)
 {
   if (!glfwInit())
     return;
@@ -92,6 +92,7 @@ void	OpenGLViewController::initScreen(std::string const &name)
       return (this->endScreen());
   glfwMakeContextCurrent(this->window);
   glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
+  this->playerName = playername;
 }
 
 
@@ -196,7 +197,7 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
   glPopMatrix();
 }
 
-std::string	OpenGLViewController::getLibraryName()
+std::string	OpenGLViewController::getLibraryName() const
 {
   return ("OpenGL");
 }
@@ -222,4 +223,9 @@ void  OpenGLViewController::win(int score)
 void  OpenGLViewController::clear()
 {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void	OpenGLViewController::displayPlayerName()
+{
+
 }

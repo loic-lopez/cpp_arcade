@@ -60,9 +60,11 @@ static	void	printKeys(int max_y, int max_x)
   NcursesEncap::n_mvprintw((max_y / 2) + 3, (max_x / 2) - 18, "Space to shoot (SolarFox)");
 }
 
+#include <iostream>
 void	NcursesViewController::drawMenu(size_t &currentGame,
 					    std::vector<std::string> const &games,
-					    bool &exit, size_t &currentLibrary, ChangeCommandType &action)
+					    bool &exit, size_t &currentLibrary,
+					    ChangeCommandType &action, std::string &playerName)
 {
   int	key;
   int n_choices;
@@ -74,8 +76,9 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
     NULL,
    };
 
+  (void)playerName;
   this->functionCaller = __FUNCTION__;
-  this->initScreen("Arcade Game Menu");
+  this->initScreen("Arcade Game Menu", "");
   n_choices = ARRAY_SIZE(choices);
   for(int i = 0; i < n_choices; ++i)
     my_items[i] = new_item(choices[i], NULL);
@@ -93,7 +96,7 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
   post_menu(menu);
   while((key = wgetch(menu_win)) != _KEY_ESC)
     {
-      if (key == KEY_DOWN)
+       if (key == KEY_DOWN)
 	menu_driver(menu, REQ_DOWN_ITEM);
       else if (key == KEY_UP)
 	menu_driver(menu, REQ_UP_ITEM);

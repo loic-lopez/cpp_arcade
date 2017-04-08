@@ -56,7 +56,7 @@ class SolarFox : public IGameModel
   // Methods
   virtual void setMap();
   virtual void drawMap(ILibraryViewController *libraryInstance);
-  virtual ChangeCommandType	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &);
+  virtual ChangeCommandType	play(ILibraryViewController *library, size_t &currentGame, size_t &currentLibrary, bool &, std::string const &);
   virtual int  getScore();
   virtual void setScore(int);
   virtual std::string getGameName();

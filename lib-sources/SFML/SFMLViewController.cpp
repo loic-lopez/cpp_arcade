@@ -170,11 +170,15 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
 
 // A changer pour les jeux et enlever la boucle
 
-void	SFMLViewController::initScreen(std::string const &name)
+void	SFMLViewController::initScreen(std::string const &name, std::string const &playername)
 {
   this->window.create(sf::VideoMode::getDesktopMode(), name.c_str());
   if (this->functionCaller == "OTHER")
     this->deathComes.play();
+  this->playerName.setFont(this->regular);
+  this->playerName.setString("Player Name: " + playername);
+  this->playerName.setPosition((this->windowsize_x / 2) - 48
+			       - this->playerName.getString().getSize() , 24 + (this->windowsize_y / 11));
 }
 
 void	SFMLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
@@ -295,7 +299,7 @@ void  SFMLViewController::refresh()
   this->window.draw(this->backgroundSprite);
 }
 
-std::string	SFMLViewController::getLibraryName()
+std::string	SFMLViewController::getLibraryName() const
 {
   return ("SFML");
 }
@@ -329,4 +333,9 @@ void  SFMLViewController::win(int score)
 void SFMLViewController::clear()
 {
   this->window.clear(sf::Color::Black);
+}
+
+void	SFMLViewController::displayPlayerName()
+{
+  this->window.draw(static_cast<sf::Text>(this->playerName));
 }

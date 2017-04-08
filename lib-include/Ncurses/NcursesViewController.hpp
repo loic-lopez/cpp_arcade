@@ -33,6 +33,7 @@ class NcursesViewController : public ILibraryViewController
   ITEM	*my_items[4];
   bool	playGameOver;
   std::string	functionCaller;
+  std::string	playerName;
 
  public:
   virtual ~NcursesViewController();
@@ -40,16 +41,19 @@ class NcursesViewController : public ILibraryViewController
 
   // Methods
   virtual void drawSquare(int width, int x, int y, Color const &);
-  virtual void drawMenu(size_t &currentGame, std::vector<std::string> const &games, bool &exit, size_t &currentLibrary, ChangeCommandType &action);
+  virtual void drawMenu(size_t &currentGame, std::vector<std::string> const &games,
+			bool &exit, size_t &currentLibrary, ChangeCommandType &action, std::string &);
   virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit);
-  virtual void initScreen(std::string const &name);
+  virtual void initScreen(std::string const &name, std::string const &);
   virtual void displayScore(int width, std::string const &, std::string const &, int);
   virtual void endScreen();
   virtual void refresh();
   virtual void gameOver(int);
   virtual void win(int);
   virtual void clear();
-  virtual std::string	getLibraryName();
+  virtual std::string	getLibraryName() const;
+  virtual void	displayPlayerName();
+
 };
 
 #endif /* NCURSESVIEWCONTROLLER_HPP__ */

@@ -36,8 +36,9 @@ static void	printChoices(const char *choices[], int r[], int g[], int b[])
 void	OpenGLViewController::drawMenu(size_t &currentGame,
 					   std::vector<std::string> const &games,
 					   bool &exit, size_t &currentLibrary,
-					   ChangeCommandType &action)
+					   ChangeCommandType &action, std::string &playerName)
 {
+  (void)playerName;
   const	char	*texts[] =
    {
     "Move the cursor menu to select a game.",
@@ -67,7 +68,7 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
   int 	g[3];
   int 	b[3];
 
-  this->initScreen("OpenGL");
+  this->initScreen("OpenGL", "");
   r[0] = 0;
   b[0] = 255;
   g[0] = 255;

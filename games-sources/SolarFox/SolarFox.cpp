@@ -253,7 +253,7 @@ static void	restartSolarFox(arcade::Position *_ship,
 
 ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 			       size_t &currentGame, size_t & currentLibrary,
-			       bool &exit)
+			       bool &exit, std::string const &playername)
 {
   ChangeCommandType action = ChangeCommandType::STANDBY;
   this->Map->type = arcade::CommandType::PLAY;
@@ -269,7 +269,7 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
   ennemy2_start = std::chrono::system_clock::now();
   if (!this->alreadyLaunch)
     {
-      libraryInstance->initScreen(this->getGameName());
+      libraryInstance->initScreen(this->getGameName(), playername);
       this->setMap();
       this->alreadyLaunch = true;
     }
@@ -394,6 +394,7 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 	}
       libraryInstance->displayScore(this->Map->width, this->getGameName(),
 				  libraryInstance->getLibraryName(), this->score);
+      libraryInstance->displayPlayerName();
       libraryInstance->refresh();
     }
   libraryInstance->endScreen();

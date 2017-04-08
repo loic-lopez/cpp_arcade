@@ -20,6 +20,7 @@
 #include <chrono>
 #include <algorithm>
 #include "Vector2f.hpp"
+#include "OpenGL.hpp"
 
 #include "../interface/ILibraryViewController.hpp"
 
@@ -31,6 +32,7 @@ class OpenGLViewController : public ILibraryViewController
   GLFWwindow		*window;
   const GLFWvidmode	*mode;
   bool 			playGameOver;
+  std::string		playerName;
 
  public:
   OpenGLViewController();
@@ -38,16 +40,19 @@ class OpenGLViewController : public ILibraryViewController
 
   // Methods
   virtual void drawSquare(int width, int x, int y, Color const &);
-  virtual void drawMenu(size_t &currentGame, std::vector<std::string> const &games, bool &exit, size_t &currentLibrary, ChangeCommandType &action);
+  virtual void drawMenu(size_t &currentGame, std::vector<std::string> const &games,
+			bool &exit, size_t &currentLibrary,
+			ChangeCommandType &action, std::string &playerName);
   virtual bool getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit);
-  virtual void initScreen(std::string const &name);
+  virtual void initScreen(std::string const &name, std::string const &playerName);
   virtual void displayScore(int width, std::string const &, std::string const &, int);
   virtual void endScreen();
   virtual void refresh();
   virtual void clear();
   virtual void gameOver(int);
   virtual void win(int);
-  virtual std::string	getLibraryName();
+  virtual std::string	getLibraryName() const;
+  virtual void	displayPlayerName();
 };
 
 void	print(float x, float y, std::string str);
