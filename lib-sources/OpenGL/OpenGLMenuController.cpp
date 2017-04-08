@@ -33,8 +33,6 @@ void	printChoices(const char *choices[], int r[], int g[], int b[])
     }
 }
 
-#include <iostream>
-
 void	OpenGLViewController::drawMenu(size_t &currentGame,
 					   std::vector<std::string> const &games,
 					   bool &exit, size_t &currentLibrary,
