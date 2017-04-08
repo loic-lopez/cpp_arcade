@@ -16,6 +16,7 @@
 #include <string>
 #include <unistd.h>
 #include <chrono>
+#include <vector>
 #include "../../lib-include/interface/ILibraryViewController.hpp"
 #include "../../include/Protocol.hh"
 #include "../../include/ArcadeEnum.hpp"

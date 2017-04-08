@@ -15,7 +15,11 @@
 #include "../interface/IGameModel.hpp"
 #include "../../include/Cencapsulation.hpp"
 
-extern "C" IGameModel *createInstanceGame(std::string const &);
+extern "C"
+{
+	IGameModel *createInstanceGame(std::string const &);
+	void	Play(void);
+};
 
 struct  shoot
 {
@@ -32,8 +36,6 @@ class SolarFox : public IGameModel
  private:
    bool					alreadyLaunch;
   std::string	libraryName;
-  int   pos_x;
-  int   pos_y;
   int   score;
   arcade::GetMap			*Map;
   arcade::Position  	_ship;
@@ -43,6 +45,7 @@ class SolarFox : public IGameModel
   int                 direction2;
   SaveCommand         last_key;
   std::vector<shoot>  shoots;
+  arcade::WhereAmI	*whereAmI;
 
  public:
   SolarFox(std::string const &libname);
@@ -66,5 +69,6 @@ void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direc
 void  Ennemy1_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, int ennemy1_pos);
 void  Ennemy2_shoot(arcade::GetMap *map, std::vector<shoot> *shoots, int ennemy2_pos);
 void  refresh_shoot(SolarFox *solarfox, arcade::GetMap *map, std::vector<shoot> *shoots);
+typedef IGameModel *(*play_function_type)(std::string const &);
 
 #endif /* SolarFox_HPP__ */

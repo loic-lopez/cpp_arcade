@@ -98,24 +98,7 @@ void	Snake::playProtocol()
 
 extern "C" void Play(void)
 {
-  void	*game = NULL;
-  play_function_type	play = NULL;
-  IGameModel	*gameModel;
+  IGameModel	*gameModel = new Snake("");
 
-  if (!(game = Cencapsulation::c_dlopen("games/libarcade_snake.so", RTLD_LAZY)))
-    {
-      if (!(game = Cencapsulation::c_dlopen("libarcade_snake.so", RTLD_LAZY)))
-	{
-	  std::cerr << Cencapsulation::c_dlerror() << std::endl;
-	  exit(EXIT_FAILURE);
-	}
-    }
-  if (!(play = reinterpret_cast<play_function_type>(Cencapsulation::c_dlsym(game, "createInstanceGame"))))
-    {
-      std::cerr << Cencapsulation::c_dlerror() << std::endl;
-      exit(EXIT_FAILURE);
-    }
-  std::string line;
-  gameModel = play("");
   gameModel->playProtocol();
 }

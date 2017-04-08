@@ -28,8 +28,8 @@ void  refresh_shoot(SolarFox *solarfox, arcade::GetMap *map, std::vector<shoot> 
   int   x;
   int   y;
 
-  i = -1;
-  while (++i < shoots->size())
+  i = 0;
+  while (i < shoots->size())
   {
     x = shoots->at(i).pos % map->width;
     y = shoots->at(i).pos / map->width;
@@ -78,6 +78,7 @@ void  refresh_shoot(SolarFox *solarfox, arcade::GetMap *map, std::vector<shoot> 
       map->tile[shoots->at(i).pos] = arcade::TileType::MY_SHOOT;
     if (shoots->at(i).is_ennemy == true)
       map->tile[shoots->at(i).pos] = arcade::TileType::EVIL_SHOOT;
+     i++;
   }
 }
 
@@ -141,4 +142,9 @@ void  Ennemy(int &ennemy1_pos, int &ennemy2_pos, arcade::GetMap *map, int &direc
   i = x + map->width * y;
   ennemy2_pos = i;
   map->tile[ennemy2_pos] = arcade::TileType::EVIL_DUDE;
+}
+
+shoot::shoot()
+{
+  this->type = arcade::TileType::EMPTY;
 }

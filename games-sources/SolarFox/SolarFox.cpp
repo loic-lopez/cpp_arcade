@@ -67,11 +67,6 @@ SolarFox &SolarFox::operator=(SolarFox const &SolarFox)
   return (*this);
 }
 
-shoot::shoot()
-{
-  this->type = arcade::TileType::EMPTY;
-}
-
 SolarFox::~SolarFox()
 {
 
@@ -150,11 +145,6 @@ void SolarFox::setMap()
     }
 }
 
-void Play()
-{
-
-}
-
 static int  verif(arcade::GetMap *map)
 {
   int   i;
@@ -187,12 +177,13 @@ static	bool	Ship_collision(std::vector<shoot> *shoots, arcade::GetMap *map, uint
 	      return (true);
     }
     (void)shoots;
-  e = -1;
-  while (++e < shoots->size())
-  {
-    if (shoots->at(e).pos == j && shoots->at(e).is_ennemy == true)
-      return (true);
-  }
+  e = 0;
+  while (e < shoots->size())
+    {
+      if (shoots->at(e).pos == j && shoots->at(e).is_ennemy == true)
+	return (true);
+      e++;
+    }
   return (false);
 }
 
@@ -283,128 +274,128 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
       this->alreadyLaunch = true;
     }
   while (libraryInstance->getKey(&this->Map->type, action, exit))
-  {
-    end = std::chrono::system_clock::now();
-    ennemy1_end = std::chrono::system_clock::now();
-    ennemy2_end = std::chrono::system_clock::now();
-    elapsed_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-    ennemy1_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(ennemy1_end - ennemy1_start).count();
-    ennemy2_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(ennemy2_end - ennemy2_start).count();
-    if (this->Map->type == arcade::CommandType::RESTART)
-    restartSolarFox(&this->_ship, libraryInstance, this->Map, &this->shoots,
-                    &this->ennemy1_pos, &this->ennemy2_pos);
-    this->drawMap(libraryInstance);
-    if (Ship_collision(&this->shoots, this->Map, this->_ship.x, this->_ship.y))
     {
+      end = std::chrono::system_clock::now();
+      ennemy1_end = std::chrono::system_clock::now();
+      ennemy2_end = std::chrono::system_clock::now();
+      elapsed_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+      ennemy1_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(ennemy1_end - ennemy1_start).count();
+      ennemy2_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(ennemy2_end - ennemy2_start).count();
+      if (this->Map->type == arcade::CommandType::RESTART)
       restartSolarFox(&this->_ship, libraryInstance, this->Map, &this->shoots,
-                      &this->ennemy1_pos, &this->ennemy2_pos);
-          while (libraryInstance->getKey(&this->Map->type, action, exit))
-      {
-        if (this->Map->type == arcade::CommandType::RESTART)
-    {
-      this->alreadyLaunch = true;
-      this->score = 0;
-      action = ChangeCommandType::RESTART;
-      this->last_key = SaveCommand::LEFT;
-      return (action);
-    }
-        else if (action == ChangeCommandType::NEXT_LIBRARY
-           || action == ChangeCommandType::PREV_LIBRARY
-           || action == ChangeCommandType::PREV_GAME
-           || action == ChangeCommandType::NEXT_GAME
-           || action == ChangeCommandType::DISPLAY_MENU)
-    break;
-              libraryInstance->gameOver(this->score);
-              libraryInstance->refresh();
-          }
-        if (exit) break;
-    }
-    if (this->Map->type == arcade::CommandType::RESTART)
-      {
-        this->alreadyLaunch = true;
-        this->score = 0;
-        action = ChangeCommandType::RESTART;
-        return (action);
-      }
+		      &this->ennemy1_pos, &this->ennemy2_pos);
+      this->drawMap(libraryInstance);
+      if (Ship_collision(&this->shoots, this->Map, this->_ship.x, this->_ship.y))
+	{
+	  restartSolarFox(&this->_ship, libraryInstance, this->Map, &this->shoots,
+			&this->ennemy1_pos, &this->ennemy2_pos);
+	    while (libraryInstance->getKey(&this->Map->type, action, exit))
+	      {
+		if (this->Map->type == arcade::CommandType::RESTART)
+		  {
+		    this->alreadyLaunch = true;
+		    this->score = 0;
+		    action = ChangeCommandType::RESTART;
+		    this->last_key = SaveCommand::LEFT;
+		    return (action);
+		  }
+		else if (action == ChangeCommandType::NEXT_LIBRARY
+		   || action == ChangeCommandType::PREV_LIBRARY
+		   || action == ChangeCommandType::PREV_GAME
+		   || action == ChangeCommandType::NEXT_GAME
+		   || action == ChangeCommandType::DISPLAY_MENU)
+		  break;
+		libraryInstance->gameOver(this->score);
+		libraryInstance->refresh();
+	    }
+	  if (exit) break;
+	}
+      if (this->Map->type == arcade::CommandType::RESTART)
+	{
+	  this->alreadyLaunch = true;
+	  this->score = 0;
+	  action = ChangeCommandType::RESTART;
+	  return (action);
+	}
       if (this->Map->type != arcade::CommandType::PLAY && ennemy1_milliseconds > 1500)
-      {
-        Ennemy1_shoot(this->Map, &this->shoots, this->ennemy1_pos);
-        ennemy1_start = ennemy1_end;
-      }
+	{
+	  Ennemy1_shoot(this->Map, &this->shoots, this->ennemy1_pos);
+	  ennemy1_start = ennemy1_end;
+	}
       if (this->Map->type != arcade::CommandType::PLAY && ennemy2_milliseconds > 1200)
-      {
-        Ennemy2_shoot(this->Map, &this->shoots, this->ennemy2_pos);
-        ennemy2_start = ennemy2_end;
-      }
+	{
+	  Ennemy2_shoot(this->Map, &this->shoots, this->ennemy2_pos);
+	  ennemy2_start = ennemy2_end;
+	}
       if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 18)
-        refresh_shoot(this, this->Map, &this->shoots);
+	  refresh_shoot(this, this->Map, &this->shoots);
       if (this->Map->type != arcade::CommandType::PLAY && elapsed_milliseconds > 60)
-      {
-        SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key, &this->shoots);
-        Ennemy(this->ennemy1_pos, this->ennemy2_pos, this->Map, this->direction1, this->direction2);
-        start = end;
-      }
-    if (action == ChangeCommandType::NEXT_LIBRARY)
-      {
-        currentLibrary++;
-        this->alreadyLaunch = false;
-        break;
-      }
-    else if (action == ChangeCommandType::PREV_LIBRARY)
-      {
-        currentLibrary--;
-        this->alreadyLaunch = false;
-        break;
-      }
-    else if (action == ChangeCommandType::PREV_GAME)
-      {
-        currentGame--;
-        break;
-      }
-    else if (action == ChangeCommandType::NEXT_GAME)
-      {
-        currentGame++;
-        break;
-      }
+	  {
+	  SolarFoxAlgorithm(this->Map, &this->_ship, &this->last_key, &this->shoots);
+	  Ennemy(this->ennemy1_pos, this->ennemy2_pos, this->Map, this->direction1, this->direction2);
+	  start = end;
+	}
+      if (action == ChangeCommandType::NEXT_LIBRARY)
+	{
+	  currentLibrary++;
+	  this->alreadyLaunch = false;
+	  break;
+	}
+      else if (action == ChangeCommandType::PREV_LIBRARY)
+	{
+	  currentLibrary--;
+	  this->alreadyLaunch = false;
+	  break;
+	}
+      else if (action == ChangeCommandType::PREV_GAME)
+	{
+	  currentGame--;
+	  break;
+	}
+      else if (action == ChangeCommandType::NEXT_GAME)
+	{
+	  currentGame++;
+	  break;
+	}
       else if (action == ChangeCommandType::DISPLAY_MENU) break;
       else if (this->Map->type == arcade::CommandType::RESTART)
-  {
-    restartSolarFox(&this->_ship, libraryInstance, this->Map, &this->shoots,
-                    &this->ennemy1_pos, &this->ennemy2_pos);
-    this->alreadyLaunch = true;
-    this->score = 0;
-    this->last_key = SaveCommand::LEFT;
-    continue;
-  }
-    if (verif(this->Map) == 0)
-      {
-        restartSolarFox(&this->_ship, libraryInstance, this->Map, &this->shoots,
-                        &this->ennemy1_pos, &this->ennemy2_pos);
-            while (libraryInstance->getKey(&this->Map->type, action, exit))
-        {
-          if (this->Map->type == arcade::CommandType::RESTART)
-      {
-        this->alreadyLaunch = true;
-        this->score = 0;
-        action = ChangeCommandType::RESTART;
-        this->last_key = SaveCommand::LEFT;
-        return (action);
-      }
-          else if (action == ChangeCommandType::NEXT_LIBRARY
-             || action == ChangeCommandType::PREV_LIBRARY
-             || action == ChangeCommandType::PREV_GAME
-             || action == ChangeCommandType::NEXT_GAME
-             || action == ChangeCommandType::DISPLAY_MENU)
-      break;
-                libraryInstance->win(this->score);
-                libraryInstance->refresh();
-            }
-          if (exit) break;
-      }
-    libraryInstance->displayScore(this->Map->width, this->getGameName(),
-				libraryInstance->getLibraryName(), this->score);
-    libraryInstance->refresh();
-  }
+	{
+	  restartSolarFox(&this->_ship, libraryInstance, this->Map, &this->shoots,
+		      &this->ennemy1_pos, &this->ennemy2_pos);
+	  this->alreadyLaunch = true;
+	  this->score = 0;
+	  this->last_key = SaveCommand::LEFT;
+	  continue;
+	}
+      if (verif(this->Map) == 0)
+	{
+	  restartSolarFox(&this->_ship, libraryInstance, this->Map, &this->shoots,
+			  &this->ennemy1_pos, &this->ennemy2_pos);
+	      while (libraryInstance->getKey(&this->Map->type, action, exit))
+		{
+		  if (this->Map->type == arcade::CommandType::RESTART)
+		    {
+		    this->alreadyLaunch = true;
+		    this->score = 0;
+		    action = ChangeCommandType::RESTART;
+		    this->last_key = SaveCommand::LEFT;
+		    return (action);
+		  }
+		  else if (action == ChangeCommandType::NEXT_LIBRARY
+		     || action == ChangeCommandType::PREV_LIBRARY
+		     || action == ChangeCommandType::PREV_GAME
+		     || action == ChangeCommandType::NEXT_GAME
+		     || action == ChangeCommandType::DISPLAY_MENU)
+		    break;
+		  libraryInstance->win(this->score);
+		  libraryInstance->refresh();
+	      }
+	  if (exit) break;
+	}
+      libraryInstance->displayScore(this->Map->width, this->getGameName(),
+				  libraryInstance->getLibraryName(), this->score);
+      libraryInstance->refresh();
+    }
   libraryInstance->endScreen();
   return (action);
 }
@@ -412,9 +403,4 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 std::string	SolarFox::getGameName()
 {
   return ("SolarFox");
-}
-
-void  SolarFox::playProtocol()
-{
-
 }

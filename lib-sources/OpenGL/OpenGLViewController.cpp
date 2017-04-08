@@ -19,13 +19,12 @@ extern "C" ILibraryViewController	*loadLibrary()
 char	*program_path()
 {
   char *path = new char[PATH_MAX];
-  if (path) {
-      if (readlink("/proc/self/exe", path, PATH_MAX) == -1)
-	{
+  if (readlink("/proc/self/exe", path, PATH_MAX) == -1)
+    {
 	  free(path);
 	  path = NULL;
-	}
     }
+  path[sizeof(path)] = '\0';
   return (path);
 }
 

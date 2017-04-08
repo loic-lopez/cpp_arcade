@@ -15,8 +15,10 @@ SolarFox	=	../../games/libarcade_solarfox.so
 ################# LIB SRCS ################
 
 SolarFox_SRCS	=	SolarFox.cpp \
-								SolarFoxAlgorithm.cpp \
-								Shoots.cpp \
+			SolarFoxAlgorithm.cpp \
+			Shoots.cpp \
+			SolarFoxProtocol.cpp \
+			../commun/Cencapsulation.cpp
 
 ###########################################
 
@@ -38,7 +40,7 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -I../../games-include/SolarFox -fPIC -shared
+CXXFLAGS 	= -Wall -Wextra -Werror -I../../games-include/SolarFox -fPIC -shared -I../../include
 
 all: $(SolarFox)
 

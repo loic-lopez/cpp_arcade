@@ -75,7 +75,7 @@ SFMLViewController::SFMLViewController()
 void   Fill_textures(std::vector<sf::Texture> *Textures)
 {
   sf::Texture buffer;
-  size_t i = -1;
+  size_t i = 0;
   std::string path;
 
   std::string	name[] =
@@ -90,13 +90,14 @@ void   Fill_textures(std::vector<sf::Texture> *Textures)
     "snake_head",
     "apple"
    };
-   while (++i < (sizeof(name) / sizeof(name[0])))
-   {
-      path = "assets/" + name[i] + ".png";
-      if (!buffer.loadFromFile(path))
-        std::cerr << "ERROR: cannot found " << path << " in assets/ make sure it exist" << std::endl;
-      Textures->push_back(buffer);
-   }
+   while (i < (sizeof(name) / sizeof(name[0])))
+     {
+	path = "assets/" + name[i] + ".png";
+	if (!buffer.loadFromFile(path))
+	  std::cerr << "ERROR: cannot found " << path << " in assets/ make sure it exist" << std::endl;
+	Textures->push_back(buffer);
+	i++;
+     }
 }
 
 bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommandType &action, bool &exit)
