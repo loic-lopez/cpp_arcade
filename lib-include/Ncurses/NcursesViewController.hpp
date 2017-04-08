@@ -34,6 +34,7 @@ class NcursesViewController : public ILibraryViewController
   bool	playGameOver;
   std::string	functionCaller;
   std::string	playerName;
+  int 		width;
 
  public:
   virtual ~NcursesViewController();

@@ -142,6 +142,10 @@ void	NcursesViewController::drawMenu(size_t &currentGame,
 		break;
 	    }
 	}
+       else
+	 {
+	   playerName += key;
+	 }
       clear();
       printKeys(this->windowsize_y, windowsize_x);
       box(menu_win, 0, 0);

@@ -185,6 +185,7 @@ void	NcursesViewController::displayScore(int width, std::string const &Game, std
 			   this->windowsize_x / 2 + width / 1.5, "Score: ");
   NcursesEncap::n_mvprintw(this->windowsize_y / 20,
 			   this->windowsize_x / 2 + width / 1.5 + 9, std::to_string(score).c_str());
+  this->width = width;
 }
 
 void  NcursesViewController::endScreen()
@@ -201,5 +202,7 @@ std::string	NcursesViewController::getLibraryName() const
 
 void	NcursesViewController::displayPlayerName()
 {
-
+  std::string tmp = "Player Name: " + this->playerName;
+  NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 6,
+			   this->windowsize_x / 2 + width / 1.5, tmp.c_str());
 }
