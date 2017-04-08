@@ -104,12 +104,12 @@ void	OpenGLViewController::initScreen(std::string const &name)
 
 void	print(float x, float y, std::string str)
 {
-  glMatrixMode( GL_MODELVIEW );
+  glMatrixMode(GL_MODELVIEW);
   glPushMatrix();
   glLoadIdentity();
   glRasterPos2f(x, y);  // move in 10 pixels from the left and bottom edges
   for ( size_t i = 0; i < str.size(); ++i ) {
-      glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, str[i]);
+      glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str[i]);
     }
   glPopMatrix();
 }
@@ -120,10 +120,6 @@ void	OpenGLViewController::displayScore(int width, std::string const &Game, std:
   print(-0.05f, 0.80f, libraryName);
   print(-0.05f, 0.75f, "Score");
   print(0.05f, 0.75f, std::to_string(score));
-  (void)score;
-  (void)width;
-  (void)Game;
-  (void)libraryName;
   (void)width;
 }
 
