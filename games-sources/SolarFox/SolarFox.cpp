@@ -51,6 +51,7 @@ SolarFox::SolarFox(std::string const &libname)
   this->direction2 = 0;
   this->score = 0;
   this->last_key = SaveCommand::LEFT;
+  this->mapAlreadySet = false;
 }
 
 SolarFox::SolarFox(SolarFox const &SolarFox)
@@ -145,15 +146,15 @@ void SolarFox::setMap()
     }
 }
 
-static int  verif(arcade::GetMap *map)
+static bool  verifyIfPowerUpAreAlive(arcade::GetMap *map)
 {
   int   i;
 
   i = -1;
   while (++i != map->width * map->height)
     if (map->tile[i] == arcade::TileType::POWERUP)
-      return (1);
-  return (0);
+      return (true);
+  return (false);
 }
 
 static	bool	Ship_collision(std::vector<shoot> *shoots, arcade::GetMap *map, uint16_t pos_x,
@@ -176,7 +177,6 @@ static	bool	Ship_collision(std::vector<shoot> *shoots, arcade::GetMap *map, uint
        (map->tile[i] == arcade::TileType::BLOCK && pos_x == map->width - 2))
 	      return (true);
     }
-    (void)shoots;
   e = 0;
   while (e < shoots->size())
     {
@@ -269,8 +269,13 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
   ennemy2_start = std::chrono::system_clock::now();
   if (!this->alreadyLaunch)
     {
+      std::cout << (int)action << std::endl;
       libraryInstance->initScreen(this->getGameName(), playername);
-      this->setMap();
+      if (!this->mapAlreadySet)
+	{
+	  this->setMap();
+	  this->mapAlreadySet = true;
+	}
       this->alreadyLaunch = true;
     }
   while (libraryInstance->getKey(&this->Map->type, action, exit))
@@ -339,13 +344,17 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
       if (action == ChangeCommandType::NEXT_LIBRARY)
 	{
 	  currentLibrary++;
+	  std::cout << this->alreadyLaunch << std::endl;
 	  this->alreadyLaunch = false;
+	  std::cout << this->alreadyLaunch << std::endl;
 	  break;
 	}
       else if (action == ChangeCommandType::PREV_LIBRARY)
 	{
 	  currentLibrary--;
+	  std::cout << this->alreadyLaunch << std::endl;
 	  this->alreadyLaunch = false;
+	  std::cout << this->alreadyLaunch << std::endl;
 	  break;
 	}
       else if (action == ChangeCommandType::PREV_GAME)
@@ -368,7 +377,7 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 	  this->last_key = SaveCommand::LEFT;
 	  continue;
 	}
-      if (verif(this->Map) == 0)
+      if (!verifyIfPowerUpAreAlive(this->Map))
 	{
 	  restartSolarFox(&this->_ship, libraryInstance, this->Map, &this->shoots,
 			  &this->ennemy1_pos, &this->ennemy2_pos);

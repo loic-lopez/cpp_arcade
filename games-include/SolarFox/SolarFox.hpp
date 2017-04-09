@@ -34,10 +34,10 @@ struct  shoot
 class SolarFox : public IGameModel
 {
  private:
-   bool					alreadyLaunch;
-  std::string	libraryName;
+  bool			alreadyLaunch;
+  std::string		libraryName;
   int   score;
-  arcade::GetMap			*Map;
+  arcade::GetMap	*Map;
   arcade::Position  	_ship;
   int                 ennemy1_pos;
   int                 ennemy2_pos;
@@ -46,6 +46,7 @@ class SolarFox : public IGameModel
   SaveCommand         last_key;
   std::vector<shoot>  shoots;
   arcade::WhereAmI	*whereAmI;
+  bool 			mapAlreadySet;
 
  public:
   SolarFox(std::string const &libname);
