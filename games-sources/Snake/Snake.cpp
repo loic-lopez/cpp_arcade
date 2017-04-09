@@ -275,7 +275,6 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
 	  this->alreadyLaunch = true;
 	  this->score = 0;
 	  this->last_key = SaveCommand::LEFT;
-	  continue;
 	}
       libraryInstance->displayScore(this->Map->width, this->getGameName(),
 					libraryInstance->getLibraryName(), this->score);

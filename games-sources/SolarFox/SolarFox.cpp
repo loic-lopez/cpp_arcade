@@ -370,7 +370,6 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 	  this->alreadyLaunch = true;
 	  this->score = 0;
 	  this->last_key = SaveCommand::LEFT;
-	  continue;
 	}
       if (!verifyIfPowerUpAreAlive(this->Map))
 	{
