@@ -18,7 +18,7 @@ static	void 	printMenu(const char *texts[], float  &startY)
   for (size_t i = 0; i < 14; ++i)
     {
       print(-0.85f, startY, texts[i]);
-      startY -= 0.025f;
+      startY -= 0.05f;
     }
 }
 
@@ -30,12 +30,10 @@ static void	printChoices(const char *choices[], int r[], int g[], int b[])
       glPushAttrib( GL_CURRENT_BIT );
       glColor3ub(r[i], b[i], g[i]);
       print(-0.00f, startY, choices[i]);
-      startY -= 0.03f;
+      startY -= 0.05f;
       glPopAttrib();
     }
 }
-
-#include <iostream>
 
 void	character_callback(GLFWwindow* window, unsigned int codepoint)
 {
