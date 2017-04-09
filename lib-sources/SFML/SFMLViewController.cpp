@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Sun Apr  9 16:35:57 2017 Matthias Prost
+// Last update Sun Apr  9 17:49:56 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -222,23 +222,37 @@ void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
   else if (color == Color::SHIP)
   {
     rectangle.setTexture(&this->Textures.at(0));
+    if (lastKey == arcade::CommandType::GO_LEFT)
+      rectangle.setRotation(270);
+    else if (lastKey == arcade::CommandType::GO_RIGHT)
+      rectangle.setRotation(90);
+    else if (lastKey == arcade::CommandType::GO_DOWN)
+      rectangle.setRotation(180);
+    else if (lastKey == arcade::CommandType::GO_UP)
+      rectangle.setRotation(0);
     if (this->keySave == arcade::CommandType::GO_LEFT
     && this->lastKey != arcade::CommandType::GO_RIGHT)
     {
       rectangle.setRotation(270);
       this->lastKey = arcade::CommandType::GO_LEFT;
     }
-    if (this->keySave == arcade::CommandType::GO_RIGHT
+    else if (this->keySave == arcade::CommandType::GO_RIGHT
     && this->lastKey != arcade::CommandType::GO_LEFT)
     {
       rectangle.setRotation(90);
       this->lastKey = arcade::CommandType::GO_RIGHT;
     }
-    if (this->keySave == arcade::CommandType::GO_DOWN
+    else if (this->keySave == arcade::CommandType::GO_DOWN
     && this->lastKey != arcade::CommandType::GO_UP)
     {
       rectangle.setRotation(180);
       this->lastKey = arcade::CommandType::GO_DOWN;
+    }
+    else if (this->keySave == arcade::CommandType::GO_UP
+    && this->lastKey != arcade::CommandType::GO_DOWN)
+    {
+      rectangle.setRotation(0);
+      this->lastKey = arcade::CommandType::GO_UP;
     }
   }
   else if (color == Color::CYAN)
@@ -279,12 +293,38 @@ void	SFMLViewController::drawSquare(int width, int x, int y, Color const &color)
   else if (color == Color::SNAKE_HEAD)
   {
     rectangle.setTexture(&this->Textures.at(7));
-    if (this->keySave == arcade::CommandType::GO_LEFT)
+    if (lastKey == arcade::CommandType::GO_LEFT)
       rectangle.setRotation(270);
-    if (this->keySave == arcade::CommandType::GO_RIGHT)
+    else if (lastKey == arcade::CommandType::GO_RIGHT)
       rectangle.setRotation(90);
-    if (this->keySave == arcade::CommandType::GO_DOWN)
+    else if (lastKey == arcade::CommandType::GO_DOWN)
       rectangle.setRotation(180);
+    else if (lastKey == arcade::CommandType::GO_UP)
+      rectangle.setRotation(0);
+    if (this->keySave == arcade::CommandType::GO_LEFT
+    && this->lastKey != arcade::CommandType::GO_RIGHT)
+    {
+      rectangle.setRotation(270);
+      this->lastKey = arcade::CommandType::GO_LEFT;
+    }
+    else if (this->keySave == arcade::CommandType::GO_RIGHT
+    && this->lastKey != arcade::CommandType::GO_LEFT)
+    {
+      rectangle.setRotation(90);
+      this->lastKey = arcade::CommandType::GO_RIGHT;
+    }
+    else if (this->keySave == arcade::CommandType::GO_DOWN
+    && this->lastKey != arcade::CommandType::GO_UP)
+    {
+      rectangle.setRotation(180);
+      this->lastKey = arcade::CommandType::GO_DOWN;
+    }
+    else if (this->keySave == arcade::CommandType::GO_UP
+    && this->lastKey != arcade::CommandType::GO_DOWN)
+    {
+      rectangle.setRotation(0);
+      this->lastKey = arcade::CommandType::GO_UP;
+    }
   }
   else if (color == Color::YELLOW)
   {
