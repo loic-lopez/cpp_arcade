@@ -269,7 +269,6 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
   ennemy2_start = std::chrono::system_clock::now();
   if (!this->alreadyLaunch)
     {
-      std::cout << (int)action << std::endl;
       libraryInstance->initScreen(this->getGameName(), playername);
       if (!this->mapAlreadySet)
 	{
@@ -344,17 +343,13 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
       if (action == ChangeCommandType::NEXT_LIBRARY)
 	{
 	  currentLibrary++;
-	  std::cout << this->alreadyLaunch << std::endl;
 	  this->alreadyLaunch = false;
-	  std::cout << this->alreadyLaunch << std::endl;
 	  break;
 	}
       else if (action == ChangeCommandType::PREV_LIBRARY)
 	{
 	  currentLibrary--;
-	  std::cout << this->alreadyLaunch << std::endl;
 	  this->alreadyLaunch = false;
-	  std::cout << this->alreadyLaunch << std::endl;
 	  break;
 	}
       else if (action == ChangeCommandType::PREV_GAME)
