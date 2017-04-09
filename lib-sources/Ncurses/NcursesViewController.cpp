@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Sat Apr  8 15:55:01 2017 Matthias Prost
+// Last update Sun Apr  9 16:37:30 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -29,7 +29,6 @@ extern "C" ILibraryViewController	*loadLibrary()
 
 NcursesViewController::NcursesViewController()
 {
-  std::system("paplay assets/Sound_Theme.ogg & > /dev/null 2>&1");
   this->playGameOver = false;
   this->functionCaller = "OTHER";
 }
@@ -94,6 +93,7 @@ void  NcursesViewController::initScreen(std::string const &name, std::string con
 {
   std::string	changeTerminalName = "echo -n \"\033]0;" + name + " \007\"";
 
+  std::system("paplay assets/Sound_Theme.ogg & > /dev/null 2>&1");
   if (this->functionCaller == "OTHER")
       std::system("paplay assets/Death_comes.ogg & > /dev/null 2>&1");
   std::system(changeTerminalName.c_str());
