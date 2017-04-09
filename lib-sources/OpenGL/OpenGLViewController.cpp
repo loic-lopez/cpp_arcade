@@ -129,7 +129,6 @@ void  OpenGLViewController::refresh()
 
 void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
-  (void)width;
   glPushAttrib( GL_CURRENT_BIT );
   glPushMatrix();
 
