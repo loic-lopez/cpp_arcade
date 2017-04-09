@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Sun Apr  9 16:22:29 2017 Matthias Prost
+// Last update Sun Apr  9 16:35:57 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -185,21 +185,21 @@ void	SFMLViewController::initScreen(std::string const &name, std::string const &
   this->playerName.setFont(this->regular);
   this->playerName.setString("Player Name: " + playername);
   this->playerName.setCharacterSize(24);
-  this->playerName.setPosition((this->windowsize_x / 2) - 48
-			       - this->playerName.getString().getSize() , 24 + (this->windowsize_y / 11));
+  this->playerName.setPosition((this->windowsize_x / 2) - 62
+			       - this->playerName.getString().getSize() , 24 + (this->windowsize_y / 13));
 }
 
 void	SFMLViewController::displayScore(int width, std::string const &Game, std::string const &libraryName, int score)
 {
   (void) width;
   this->_game.setString(Game);
-  this->_game.setPosition((this->windowsize_x / 2) - 48, 24 + this->windowsize_y / 200);
+  this->_game.setPosition((this->windowsize_x / 2) - 48 * 2, 24 + 10);
 
   this->_library.setString(libraryName);
-  this->_library.setPosition((this->windowsize_x / 2) - 48, 24 + (this->windowsize_y / 30));
+  this->_library.setPosition((this->windowsize_x / 2) + 48 , 24 + 10);
 
   this->_score.setString("Score: " + std::to_string(score));
-  this->_score.setPosition((this->windowsize_x / 2) - 48, 24 + (this->windowsize_y / 13));
+  this->_score.setPosition((this->windowsize_x / 2) - 48, 24 + (this->windowsize_y / 25));
 }
 
 void  SFMLViewController::endScreen()
