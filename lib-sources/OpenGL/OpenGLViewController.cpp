@@ -96,6 +96,7 @@ void	OpenGLViewController::initScreen(std::string const &name, std::string const
   OpenGL::_glfwMakeContextCurrent(this->window);
   OpenGL::_glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
   this->playerName = "Player Name: " + playername;
+  glfwSwapInterval(1);
 }
 
 
@@ -105,7 +106,7 @@ void	OpenGLViewController::displayScore(int width, std::string const &Game, std:
   print(-0.05f, 0.80f, libraryName);
   print(-0.05f, 0.75f, "Score");
   print(0.05f, 0.75f, std::to_string(score));
-  (void)width;
+  static_cast<void>(width);
 }
 
 void	OpenGLViewController::endScreen()
@@ -116,8 +117,8 @@ void	OpenGLViewController::endScreen()
 
 void  OpenGLViewController::refresh()
 {
-  OpenGL::_glfwPollEvents();
   OpenGL::_glfwSwapBuffers(this->window);
+  OpenGL::_glfwPollEvents();
   this->clear();
   OpenGL::_glMatrixMode(GL_MODELVIEW);
   OpenGL::_glLoadIdentity();
@@ -195,8 +196,8 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
   OpenGL::_glVertex2f(-relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.x,
 	     relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.y);
   OpenGL::_glEnd();
-  OpenGL::_glPopAttrib();
   OpenGL::_glPopMatrix();
+  OpenGL::_glPopAttrib();
 }
 
 std::string	OpenGLViewController::getLibraryName() const
@@ -224,7 +225,7 @@ void  OpenGLViewController::win(int score)
 
 void  OpenGLViewController::clear()
 {
-  OpenGL::_glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  OpenGL::_glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void	OpenGLViewController::displayPlayerName()
