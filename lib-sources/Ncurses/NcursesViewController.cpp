@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:05:35 2017 Loïc Lopez
-// Last update Sun Apr  9 16:37:30 2017 Matthias Prost
+// Last update Sun Apr  9 22:25:50 2017 Matthias Prost
 //
 
 #include "NcursesViewController.hpp"
@@ -162,7 +162,7 @@ void  NcursesViewController::win(int score)
 {
   if (!this->playGameOver)
     {
-      std::system("paplay assets/Die_Die_Die.ogg & > /dev/null 2>&1");
+      std::system("paplay assets/Play_of_the_game.ogg & > /dev/null 2>&1");
       this->playGameOver = true;
     }
   NcursesEncap::n_mvprintw(this->windowsize_y / 20 + 10,

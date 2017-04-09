@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Sun Apr  9 16:46:24 2017 Matthias Prost
+// Last update Sun Apr  9 22:24:00 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"

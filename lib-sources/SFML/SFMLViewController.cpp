@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Sun Apr  9 17:49:56 2017 Matthias Prost
+// Last update Sun Apr  9 22:23:00 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -31,6 +31,8 @@ SFMLViewController::SFMLViewController()
     std::cerr << "ERROR: cannot found Sound_Theme.ogg in assets/ make sure it exist" << std::endl;
   if (!this->bufferSoundTrack.loadFromFile("assets/Sound_Theme.ogg"))
     std::cerr << "ERROR: cannot found Sound_Theme.ogg in assets/ make sure it exist" << std::endl;
+  if (!this->bufferWin.loadFromFile("assets/Play_of_the_game.ogg"))
+    std::cerr << "ERROR: cannot found Sound_Theme.ogg in assets/ make sure it exist" << std::endl;
   if (!regular.loadFromFile("lib-sources/SFML/Fonts/Roboto-Regular.ttf"))
     std::cerr << "ERROR: cannot found Roboto-Regular.ttf in lib-sources/SFML/Fonts/ make sure it exist" << std::endl;
   if (!deathComes.openFromFile("assets/Death_comes.ogg"))
@@ -40,6 +42,7 @@ SFMLViewController::SFMLViewController()
   this->Lose.setBuffer(this->bufferLose);
   this->Restart.setBuffer(this->bufferMercy);
   this->SoundTrack.setBuffer(this->bufferSoundTrack);
+  this->Win.setBuffer(this->bufferWin);
   this->_game.setFont(this->regular);
   this->_game.setCharacterSize(24);
   this->_game.setFillColor(sf::Color::White);
@@ -370,7 +373,7 @@ void  SFMLViewController::win(int score)
 {
   if (!this->playGameOver)
     {
-      this->Lose.play();
+      this->Win.play();
       this->playGameOver = true;
     }
   _score.setPosition(((this->windowsize_x / 2) - ((std::to_string(score).length()) / 2) * 24) - 48, 24 + (this->windowsize_y / 7));

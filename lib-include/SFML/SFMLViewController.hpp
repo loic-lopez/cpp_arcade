@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Sat Apr  8 13:46:33 2017 Matthias Prost
+// Last update Sun Apr  9 22:16:21 2017 Matthias Prost
 //
 
 #ifndef SFMLCONTROLLER_HPP__
@@ -29,7 +29,9 @@ private:
   sf::SoundBuffer bufferLose;
   sf::SoundBuffer bufferMercy;
   sf::SoundBuffer bufferSoundTrack;
+  sf::SoundBuffer bufferWin;
   sf::Sound	Lose;
+  sf::Sound Win;
   sf::Sound Restart;
   sf::Sound SoundTrack;
   sf::Font      regular;
