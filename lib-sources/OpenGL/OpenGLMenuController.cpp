@@ -77,7 +77,6 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
   int 	g[3];
   int 	b[3];
   float	startY = 0.85f;
-  bool	deleteChar = false;
 
   keys = playerName;
   this->initScreen("OpenGL", "");
@@ -98,13 +97,6 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
       elapsed_milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
       printChoices(ItemStrings, r, g ,b);
       printMenu(texts, startY);
-      if (deleteChar)
-	{
-	  std::string eraseAllUnused;
-	  eraseAllUnused.assign(keys.size(), ' ');
-	  print(-0.85f, startY, eraseAllUnused);
-	  deleteChar = false;
-	}
       print(-0.85f, startY, keys);
       if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->window))
 	_exit = true;
@@ -122,7 +114,7 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
 	  currentLibrary--;
 	  return;
     	}
-      else if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS && elapsed_milliseconds > 100)
+      else if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS && elapsed_milliseconds > 200)
 	{
 	  if (index - 1 >= 0)
 	    {
@@ -136,7 +128,7 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
 	    }
 	  start = end;
 	}
-      else if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS && elapsed_milliseconds > 100)
+      else if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS && elapsed_milliseconds > 200)
 	{
 	  if (index + 1 < 3)
 	    {
@@ -179,15 +171,15 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
 	      return;
 	    }
 	}
-      else if ((glfwGetKey(this->window, GLFW_KEY_BACKSPACE) == GLFW_PRESS
-	       || glfwGetKey(this->window, GLFW_KEY_DELETE) == GLFW_PRESS) && elapsed_milliseconds > 100 && keys.size() > 0)
+      if ((glfwGetKey(this->window, GLFW_KEY_BACKSPACE) == GLFW_PRESS
+	       || glfwGetKey(this->window, GLFW_KEY_DELETE) == GLFW_PRESS)
+	  && elapsed_milliseconds > 200 && keys.size() > 0)
 	{
 	  keys.pop_back();
-	  deleteChar = true;
+	  start = end;
 	}
       glfwSetCharCallback(this->window, character_callback);
-      glfwPollEvents();
-      glfwSwapBuffers(this->window);
+      this->refresh();
     }
   exit = _exit;
   this->endScreen();
