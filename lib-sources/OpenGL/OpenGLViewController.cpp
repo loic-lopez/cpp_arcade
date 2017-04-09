@@ -21,11 +21,8 @@ extern "C" ILibraryViewController	*loadLibrary()
 char	*program_path()
 {
   char *path = new char[PATH_MAX];
-  if (readlink("/proc/self/exe", path, PATH_MAX) == -1)
-    {
-	  free(path);
-	  path = NULL;
-    }
+  if (OpenGL::_readlink("/proc/self/exe", path, PATH_MAX) == -1)
+    path = NULL;
   path[sizeof(path)] = '\0';
   return (path);
 }
@@ -37,7 +34,7 @@ OpenGLViewController::OpenGLViewController()
       int 		pac = 1;
       char	*pav[] = {program_path()};
 
-      glutInit(&pac, pav);
+      OpenGL::_glutInit(&pac, pav);
       isLoaded = true;
     }
 }
@@ -51,37 +48,37 @@ bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeComman
 {
   (void)commandType;
   // Compute new orientation
-  if (glfwWindowShouldClose(this->window)
-      || glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+  if (OpenGL::_glfwWindowShouldClose(this->window)
+      || OpenGL::_glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
-      glfwSetWindowShouldClose(this->window, GL_TRUE);
+      OpenGL::_glfwSetWindowShouldClose(this->window, GL_TRUE);
       exit = true;
       return (false);
     }
-  else if (glfwGetKey(this->window, GLFW_KEY_3) == GLFW_PRESS)
+  else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_3) == GLFW_PRESS)
       action = ChangeCommandType::NEXT_LIBRARY;
-  else if (glfwGetKey(this->window, GLFW_KEY_2) == GLFW_PRESS)
+  else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_2) == GLFW_PRESS)
       action = ChangeCommandType::PREV_LIBRARY;
-  else if (glfwGetKey(this->window, GLFW_KEY_4) == GLFW_PRESS)
+  else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_4) == GLFW_PRESS)
       action = ChangeCommandType::PREV_GAME;
-  else if (glfwGetKey(this->window, GLFW_KEY_5) == GLFW_PRESS)
+  else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_5) == GLFW_PRESS)
       action = ChangeCommandType::NEXT_GAME;
-  else if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS)
+  else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS)
       *commandType = arcade::CommandType::GO_UP;
-  else if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS)
+  else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS)
       *commandType = arcade::CommandType::GO_DOWN;
-  else if (glfwGetKey(this->window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+  else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_RIGHT) == GLFW_PRESS)
       *commandType = arcade::CommandType::GO_RIGHT;
-  else if (glfwGetKey(this->window, GLFW_KEY_LEFT) == GLFW_PRESS)
+  else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_LEFT) == GLFW_PRESS)
       *commandType = arcade::CommandType::GO_LEFT;
-  else if (glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_PRESS)
+  else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_SPACE) == GLFW_PRESS)
     *commandType = arcade::CommandType::SHOOT;
-  else if (glfwGetKey(this->window, GLFW_KEY_8) == GLFW_PRESS)
+  else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_8) == GLFW_PRESS)
     {
       *commandType = arcade::CommandType::RESTART;
       this->playGameOver = false;
     }
-  else if (glfwGetKey(this->window, GLFW_KEY_9) == GLFW_PRESS)
+  else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_9) == GLFW_PRESS)
     {
       this->playGameOver = false;
       action = ChangeCommandType::DISPLAY_MENU;
@@ -91,13 +88,13 @@ bool	OpenGLViewController::getKey(arcade::CommandType *commandType, ChangeComman
 
 void	OpenGLViewController::initScreen(std::string const &name, std::string const &playername)
 {
-  if (!glfwInit())
+  if (!OpenGL::_glfwInit())
     return;
-  this->mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-  if (!(this->window = glfwCreateWindow(this->mode->width, this->mode->height, name.c_str(), NULL, NULL)))
+  this->mode = OpenGL::_glfwGetVideoMode(OpenGL::_glfwGetPrimaryMonitor());
+  if (!(this->window = OpenGL::_glfwCreateWindow(this->mode->width, this->mode->height, name.c_str(), NULL, NULL)))
       return (this->endScreen());
-  glfwMakeContextCurrent(this->window);
-  glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
+  OpenGL::_glfwMakeContextCurrent(this->window);
+  OpenGL::_glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
   this->playerName = "Player Name: " + playername;
 }
 
@@ -113,24 +110,24 @@ void	OpenGLViewController::displayScore(int width, std::string const &Game, std:
 
 void	OpenGLViewController::endScreen()
 {
-  glfwDestroyWindow(this->window);
-  glfwTerminate();
+  OpenGL::_glfwDestroyWindow(this->window);
+  OpenGL::_glfwTerminate();
 }
 
 void  OpenGLViewController::refresh()
 {
-  glfwPollEvents();
-  glfwSwapBuffers(this->window);
+  OpenGL::_glfwPollEvents();
+  OpenGL::_glfwSwapBuffers(this->window);
   this->clear();
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
-  glViewport(0,0, this->mode->width, this->mode->height);
+  OpenGL::_glMatrixMode(GL_MODELVIEW);
+  OpenGL::_glLoadIdentity();
+  OpenGL::_glViewport(0,0, this->mode->width, this->mode->height);
 }
 
 void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &color)
 {
-  glPushAttrib( GL_CURRENT_BIT );
-  glPushMatrix();
+  OpenGL::_glPushAttrib( GL_CURRENT_BIT );
+  OpenGL::_glPushMatrix();
 
   const Vector2f floatWindowSize(static_cast<float>(this->mode->width / 2.0f), static_cast<float>(this->mode->height / 2.0f));
   const Vector2f floatObjectSize(static_cast<float>(8),static_cast<float>(8));
@@ -140,66 +137,66 @@ void	OpenGLViewController::drawSquare(int width, int x, int y, Color const &colo
   switch (color)
   {
     case Color::BLUE:
-      glColor3ub(33, 150, 243);
+      OpenGL::_glColor3ub(33, 150, 243);
       break;
     case Color::BLACK:
-      glColor3ub(0, 0, 0);
+      OpenGL::_glColor3ub(0, 0, 0);
       break;
     case Color::MAGENTA:
-      glColor3ub(33, 30, 99);
+      OpenGL::_glColor3ub(33, 30, 99);
       break;
     case Color::RED:
-      glColor3ub(244, 67, 54);
+      OpenGL::_glColor3ub(244, 67, 54);
       break;
     case Color::GREEN:
-      glColor3ub(76, 175, 80);
+      OpenGL::_glColor3ub(76, 175, 80);
       break;
     case Color::CYAN:
-      glColor3ub(0, 188, 212);
+      OpenGL::_glColor3ub(0, 188, 212);
       break;
     case Color::YELLOW:
-      glColor3ub(255, 193, 7);
+      OpenGL::_glColor3ub(255, 193, 7);
       break;
     case Color::WHITE:
-      glColor3ub(255, 255, 255);
+      OpenGL::_glColor3ub(255, 255, 255);
       break;
     case Color::SHIP:
-      glColor3ub(33, 150, 243);
+      OpenGL::_glColor3ub(33, 150, 243);
       break;
     case Color::ENNEMY:
-      glColor3ub(244, 67, 54);
+      OpenGL::_glColor3ub(244, 67, 54);
       break;
     case Color::LASER:
-      glColor3ub(76, 175, 80);
+      OpenGL::_glColor3ub(76, 175, 80);
       break;
     case Color::ENNEMY_LASER:
-      glColor3ub(33, 30, 99);
+      OpenGL::_glColor3ub(33, 30, 99);
       break;
     case Color::SNAKE_BODY:
-      glColor3ub(244, 67, 54);
+      OpenGL::_glColor3ub(244, 67, 54);
       break;
     case Color::SNAKE_HEAD:
-      glColor3ub(33, 30, 99);
+      OpenGL::_glColor3ub(33, 30, 99);
       break;
     case Color::APPLE:
-      glColor3ub(76, 175, 80);
+      OpenGL::_glColor3ub(76, 175, 80);
       break;
   }
 
-  glTranslatef((relativeObjectPosition.x * floatObjectSize.x),
+  OpenGL::_glTranslatef((relativeObjectPosition.x * floatObjectSize.x),
 	       -(relativeObjectPosition.y * floatObjectSize.y), 0.0f);
-  glBegin(GL_QUADS);
-  glVertex2f(-relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.x,
+  OpenGL::_glBegin(GL_QUADS);
+  OpenGL::_glVertex2f(-relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.x,
 	     -relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.y);
-  glVertex2f(relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x)  * floatObjectSize.x,
+  OpenGL::_glVertex2f(relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x)  * floatObjectSize.x,
 	     -relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.y);
-  glVertex2f(relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.x,
+  OpenGL::_glVertex2f(relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.x,
 	     relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.y);
-  glVertex2f(-relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.x,
+  OpenGL::_glVertex2f(-relativeObjectSize.x - (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.x,
 	     relativeObjectSize.y + (static_cast<float>(width) / floatWindowSize.x) * floatObjectSize.y);
-  glEnd();
-  glPopAttrib();
-  glPopMatrix();
+  OpenGL::_glEnd();
+  OpenGL::_glPopAttrib();
+  OpenGL::_glPopMatrix();
 }
 
 std::string	OpenGLViewController::getLibraryName() const
@@ -227,7 +224,7 @@ void  OpenGLViewController::win(int score)
 
 void  OpenGLViewController::clear()
 {
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  OpenGL::_glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void	OpenGLViewController::displayPlayerName()

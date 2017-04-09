@@ -12,11 +12,11 @@
 
 void	print(float x, float y, std::string str)
 {
-  glMatrixMode(GL_MODELVIEW);
-  glPushMatrix();
-  glLoadIdentity();
-  glRasterPos2f(x, y);
+  OpenGL::_glMatrixMode(GL_MODELVIEW);
+  OpenGL::_glPushMatrix();
+  OpenGL::_glLoadIdentity();
+  OpenGL::_glRasterPos2f(x, y);
   for (size_t i = 0; i < str.size(); ++i)
-    glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str[i]);
-  glPopMatrix();
+    OpenGL::_glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str[i]);
+  OpenGL::_glPopMatrix();
 }

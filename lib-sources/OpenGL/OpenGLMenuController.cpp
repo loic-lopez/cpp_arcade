@@ -27,7 +27,7 @@ static void	printChoices(const char *choices[], int r[], int g[], int b[])
   float startY = 0.5f;
   for (int i = 0; i < 3; ++i)
     {
-      glPushAttrib( GL_CURRENT_BIT );
+      OpenGL::_glPushAttrib( GL_CURRENT_BIT );
       glColor3ub(r[i], b[i], g[i]);
       print(-0.00f, startY, choices[i]);
       startY -= 0.05f;
@@ -80,7 +80,7 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
 
   keys = playerName;
   this->initScreen("OpenGL", "");
-  glfwSetClipboardString(this->window, "");
+  OpenGL::_glfwSetClipboardString(this->window, "");
   r[0] = 0;
   b[0] = 255;
   g[0] = 255;
@@ -98,23 +98,23 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
       printChoices(ItemStrings, r, g ,b);
       printMenu(texts, startY);
       print(-0.85f, startY, keys);
-      if (glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->window))
+      if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(this->window))
 	_exit = true;
-      else if (glfwGetKey(this->window, GLFW_KEY_3) == GLFW_PRESS)
+      else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_3) == GLFW_PRESS)
 	{
 	  this->endScreen();
 	  action = ChangeCommandType::NEXT_LIBRARY;
 	  currentLibrary++;
 	  return;
 	}
-      else if (glfwGetKey(this->window, GLFW_KEY_2) == GLFW_PRESS)
+      else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_2) == GLFW_PRESS)
     	{
 	  this->endScreen();
 	  action = ChangeCommandType::PREV_LIBRARY;
 	  currentLibrary--;
 	  return;
     	}
-      else if (glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS && elapsed_milliseconds > 200)
+      else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_UP) == GLFW_PRESS && elapsed_milliseconds > 200)
 	{
 	  if (index - 1 >= 0)
 	    {
@@ -128,7 +128,7 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
 	    }
 	  start = end;
 	}
-      else if (glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS && elapsed_milliseconds > 200)
+      else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_DOWN) == GLFW_PRESS && elapsed_milliseconds > 200)
 	{
 	  if (index + 1 < 3)
 	    {
@@ -142,7 +142,7 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
 	    }
 	  start = end;
 	}
-      else if (glfwGetKey(this->window, GLFW_KEY_ENTER) == GLFW_PRESS)
+      else if (OpenGL::_glfwGetKey(this->window, GLFW_KEY_ENTER) == GLFW_PRESS)
 	{
 	  playerName = keys;
 	  action = ChangeCommandType::PLAY;
@@ -171,14 +171,14 @@ void	OpenGLViewController::drawMenu(size_t &currentGame,
 	      return;
 	    }
 	}
-      if ((glfwGetKey(this->window, GLFW_KEY_BACKSPACE) == GLFW_PRESS
+      if ((OpenGL::_glfwGetKey(this->window, GLFW_KEY_BACKSPACE) == GLFW_PRESS
 	       || glfwGetKey(this->window, GLFW_KEY_DELETE) == GLFW_PRESS)
 	  && elapsed_milliseconds > 200 && keys.size() > 0)
 	{
 	  keys.pop_back();
 	  start = end;
 	}
-      glfwSetCharCallback(this->window, character_callback);
+      OpenGL::_glfwSetCharCallback(this->window, character_callback);
       this->refresh();
     }
   exit = _exit;
