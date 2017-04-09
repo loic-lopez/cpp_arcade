@@ -28,6 +28,7 @@ class   Cencapsulation
   	static	struct dirent	*c_readdir(DIR *dirp);
   	static	int 		c_closedir(DIR *dirp);
   	static	char		*c_strstr(char* str, const char* target );
+  	static	void		c_exit (int __status);
 };
 
 #endif

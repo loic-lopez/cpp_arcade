@@ -52,3 +52,8 @@ char	*Cencapsulation::c_strstr(char* str, const char* target)
 {
   return (strstr(str, target));
 }
+
+void	Cencapsulation::c_exit(int __status)
+{
+  exit(__status);
+}
