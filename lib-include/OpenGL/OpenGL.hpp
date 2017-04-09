@@ -57,6 +57,7 @@ class	OpenGL
   static void _glutBitmapCharacter( void* font, int character );
   static void _glfwSetClipboardString(GLFWwindow* window, const char* string);
   static int _glfwInit(void);
+  static void _glfwSwapInterval(int interval);
 };
 
 #endif /* OPENGL_HPP */

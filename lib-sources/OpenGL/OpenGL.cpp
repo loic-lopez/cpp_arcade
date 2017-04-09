@@ -170,3 +170,8 @@ int OpenGL::_glfwInit()
 {
   return (glfwInit());
 }
+
+void	OpenGL::_glfwSwapInterval(int interval)
+{
+  glfwSwapInterval(interval);
+}

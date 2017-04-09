@@ -96,7 +96,7 @@ void	OpenGLViewController::initScreen(std::string const &name, std::string const
   OpenGL::_glfwMakeContextCurrent(this->window);
   OpenGL::_glfwSetInputMode(this->window, GLFW_STICKY_KEYS, GL_TRUE);
   this->playerName = "Player Name: " + playername;
-  glfwSwapInterval(1);
+  OpenGL::_glfwSwapInterval(1);
 }
 
 
