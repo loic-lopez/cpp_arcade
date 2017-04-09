@@ -5,7 +5,7 @@
 ** Login   <loic.lopez@epitech.eu>
 **
 ** Started on  jeu. avr. 06 13:30:29 2017 Loïc Lopez
-** Last update Fri Apr  7 20:19:09 2017 Matthias Prost
+** Last update Sun Apr  9 16:11:16 2017 Matthias Prost
 */
 
 #include "SFMLViewController.hpp"
@@ -54,7 +54,7 @@ void	SFMLViewController::drawMenu(size_t &currentGame,
 
 	sf::RectangleShape back_text;
 
-	back_text.setSize(sf::Vector2f(500,450));
+	back_text.setSize(sf::Vector2f(500,500));
 	back_text.setFillColor(sf::Color(0, 0, 0));
 	back_text.setPosition(this->windowsize_x / 2 - 850,
 			 320);

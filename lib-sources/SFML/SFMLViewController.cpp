@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 15:07:20 2017 Loïc Lopez
-// Last update Sat Apr  8 18:45:00 2017 Matthias Prost
+// Last update Sun Apr  9 16:22:29 2017 Matthias Prost
 //
 
 #include "SFMLViewController.hpp"
@@ -17,6 +17,7 @@ extern "C" ILibraryViewController	*loadLibrary()
 
 SFMLViewController::~SFMLViewController()
 {
+  this->SoundTrack.stop();
 }
 
 SFMLViewController::SFMLViewController()
@@ -70,7 +71,6 @@ SFMLViewController::SFMLViewController()
   this->SoundTrack.setVolume(70);
   this->keySave = arcade::CommandType::GO_LEFT;
   this->lastKey = arcade::CommandType::GO_LEFT;
-  this->SoundTrack.play();
 }
 
 void   Fill_textures(std::vector<sf::Texture> *Textures)
@@ -120,9 +120,15 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
 	      return (false);
 	    }
           if (event.key.code == sf::Keyboard::Num3)
+          {
+            this->SoundTrack.stop();
             action = ChangeCommandType::NEXT_LIBRARY;
+          }
           else if (event.key.code == sf::Keyboard::Num2)
+          {
+            this->SoundTrack.stop();
             action = ChangeCommandType::PREV_LIBRARY;
+          }
           else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
             action = ChangeCommandType::PREV_GAME;
           else if (event.key.code == sf::Keyboard::Num5)
@@ -172,11 +178,13 @@ bool  SFMLViewController::getKey(arcade::CommandType *commandType, ChangeCommand
 
 void	SFMLViewController::initScreen(std::string const &name, std::string const &playername)
 {
+  this->SoundTrack.play();
   this->window.create(sf::VideoMode::getDesktopMode(), name.c_str());
   if (this->functionCaller == "OTHER")
     this->deathComes.play();
   this->playerName.setFont(this->regular);
   this->playerName.setString("Player Name: " + playername);
+  this->playerName.setCharacterSize(24);
   this->playerName.setPosition((this->windowsize_x / 2) - 48
 			       - this->playerName.getString().getSize() , 24 + (this->windowsize_y / 11));
 }
@@ -196,6 +204,7 @@ void	SFMLViewController::displayScore(int width, std::string const &Game, std::s
 
 void  SFMLViewController::endScreen()
 {
+  this->SoundTrack.stop();
   this->window.close();
 }
 
