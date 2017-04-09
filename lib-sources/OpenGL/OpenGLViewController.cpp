@@ -121,7 +121,7 @@ void  OpenGLViewController::refresh()
 {
   glfwPollEvents();
   glfwSwapBuffers(this->window);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  this->clear();
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
   glViewport(0,0, this->mode->width, this->mode->height);
