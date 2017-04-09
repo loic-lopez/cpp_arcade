@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:52:43 2017 Loïc Lopez
-// Last update Sun Apr  9 16:27:08 2017 Matthias Prost
+// Last update Sun Apr  9 16:46:24 2017 Matthias Prost
 //
 
 #include "SolarFox.hpp"
@@ -289,6 +289,7 @@ ChangeCommandType	SolarFox::play(ILibraryViewController *libraryInstance,
 	{
 	  restartSolarFox(&this->_ship, libraryInstance, this->Map, &this->shoots,
 			&this->ennemy1_pos, &this->ennemy2_pos);
+      this->score = 0;
 	    while (libraryInstance->getKey(&this->Map->type, action, exit))
 	      {
 		if (this->Map->type == arcade::CommandType::RESTART)

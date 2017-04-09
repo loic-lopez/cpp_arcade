@@ -5,7 +5,7 @@
 // Login   <loic.lopez@epitech.eu>
 //
 // Started on  jeu. mars 16 14:55:07 2017 Loïc Lopez
-// Last update Fri Apr  7 20:58:52 2017 Matthias Prost
+// Last update Sun Apr  9 16:45:47 2017 Matthias Prost
 //
 
 #include "Snake.hpp"
@@ -218,6 +218,7 @@ ChangeCommandType	Snake::play(ILibraryViewController *libraryInstance,
       if (headIsOnAWallOrSelf(this->Map, this->_snake.at(0).x,
 			      this->_snake.at(0).y, this->_snake))
       	{
+          this->score = 0;
   	  restartSnake(&this->_snake, libraryInstance, this->Map, this->popApple);
         	  while (libraryInstance->getKey(&this->Map->type, action, exit))
   	    {
