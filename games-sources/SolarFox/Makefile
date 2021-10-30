@@ -39,7 +39,7 @@ CC              = g++
 
 RM              = rm -f
 
-CXXFLAGS 	= -Wall -Wextra -Werror -I../../games-include/SolarFox -fPIC -shared -I../../include
+CXXFLAGS 	= -Wall -Wextra  -I../../games-include/SolarFox -fPIC -shared -I../../include
 
 all: $(SolarFox)
 

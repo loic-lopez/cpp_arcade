@@ -10,11 +10,11 @@
 
 #ifndef OPENGL_HPP
 #define OPENGL_HPP
-#include "OpenGL_Include/GL/glew.h"
+#include <GL/glew.h>
 #include <GL/glut.h>
 #include <linux/limits.h>
 #include <unistd.h>
-#include "OpenGL_Include/GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 #include <vector>
 #include <chrono>
 #include <algorithm>
